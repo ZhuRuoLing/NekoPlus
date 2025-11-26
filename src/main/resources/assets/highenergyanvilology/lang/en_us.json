@@ -1,0 +1,13 @@
+{
+  "itemGroup.highenergyanvilology": "Example Mod Tab",
+  "block.highenergyanvilology.example_block": "Example Block",
+  "item.highenergyanvilology.example_item": "Example Item",
+
+  "highenergyanvilology.configuration.title": "AnvilCraft: HighEnergyAnvilology Configs",
+  "highenergyanvilology.configuration.section.highenergyanvilology.common.toml": "AnvilCraft: HighEnergyAnvilology Configs",
+  "highenergyanvilology.configuration.section.highenergyanvilology.common.toml.title": "AnvilCraft: HighEnergyAnvilology Configs",
+  "highenergyanvilology.configuration.items": "Item List",
+  "highenergyanvilology.configuration.logDirtBlock": "Log Dirt Block",
+  "highenergyanvilology.configuration.magicNumberIntroduction": "Magic Number Text",
+  "highenergyanvilology.configuration.magicNumber": "Magic Number"
+}
