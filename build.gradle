@@ -164,32 +164,39 @@ configurations {
 
 dependencies {
     api(libs.registrate)
-    implementation(libs.anvillib)
-    interfaceInjectionData(libs.anvillib)
+    implementation(libs.anvillib) { transitive = false }
+    //interfaceInjectionData(libs.anvillib)
     implementation(libs.anvilcraft) { transitive = false }
-    interfaceInjectionData(libs.anvilcraft) { transitive = false }
+    //interfaceInjectionData(libs.anvilcraft)
     implementation(libs.curios)
-    compileOnlyApi(libs.jeiCommonApi) { transitive = false }
-    compileOnlyApi(libs.jeiForgeApi) { transitive = false }
-    implementation(libs.jeiForgeImpl) { transitive = false }
+    compileOnlyApi(libs.jeiCommonApi) 
+    compileOnlyApi(libs.jeiForgeApi) 
+    implementation(libs.jeiForgeImpl) 
     implementation(libs.jade)
     implementation(libs.patchouli)
+
+    jarJar(implementation "curse.maven:eyelib-1388469:7242460-sources-7242465")
+
+    jarJar(implementation "curse.maven:ldlib-626676:6911394-sources-6911396")
+
+    compileOnly "org.appliedenergistics.yoga:yoga:1.0.0"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
 // A missing property will result in an error. Properties are expanded using ${} Groovy notation.
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
-            minecraft_version      : minecraft_version,
-            minecraft_version_range: minecraft_version_range,
-            neo_version            : neo_version,
-            loader_version_range   : loader_version_range,
-            mod_id                 : mod_id,
-            mod_name               : mod_name,
-            mod_license            : mod_license,
-            mod_version            : mod_version,
-            mod_authors            : mod_authors,
-            mod_description        : mod_description
+            minecraft_version       : minecraft_version,
+            minecraft_version_range : minecraft_version_range,
+            neo_version             : neo_version,
+            loader_version_range    : loader_version_range,
+            mod_id                  : mod_id,
+            mod_name                : mod_name,
+            mod_license             : mod_license,
+            mod_version             : mod_version,
+            mod_authors             : mod_authors,
+            mod_description         : mod_description,
+            anvilcraft_version_range: anvilcraft_version_range,
     ]
     inputs.properties replaceProperties
     expand replaceProperties
