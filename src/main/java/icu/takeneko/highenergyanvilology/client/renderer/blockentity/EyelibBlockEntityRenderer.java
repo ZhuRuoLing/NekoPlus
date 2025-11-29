@@ -72,7 +72,7 @@ public abstract class EyelibBlockEntityRenderer<T extends BlockEntity> implement
                 animationComponent,
                 scope,
                 effects,
-                ((ClientTickHandler.getTick() + partialTick) / 20) * configurator.getAnimationRateMultiplier(),
+                (ClientTickHandler.getTick() + partialTick) / 20,
                 () -> clientEntityComponent.getClientEntity()
                     .scripts()
                     .ifPresent(scripts -> scripts.pre_animation().eval(scope))

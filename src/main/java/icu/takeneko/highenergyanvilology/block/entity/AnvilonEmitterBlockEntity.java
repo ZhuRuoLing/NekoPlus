@@ -11,7 +11,7 @@ public class AnvilonEmitterBlockEntity extends BlockEntity {
         "working_rate",
         a -> {
         },
-        0f, 0.5f, 1f, 3f, 5f
+        0f, 0.8f, 1f, 2f, 3f, 5f
     );
 
     public AnvilonEmitterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
