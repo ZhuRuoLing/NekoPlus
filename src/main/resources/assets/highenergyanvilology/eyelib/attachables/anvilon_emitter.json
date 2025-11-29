@@ -1,23 +1,30 @@
 {
-	"format_version": "1.8.0",
-	"minecraft:attachable": {
-		"description": {
-			"identifier": "highenergyanvilology:anvilon_emitter",
-			"textures": {
-				"default": "highenergyanvilology:textures/block/anvilon_emitter"
-			},
-			"materials": {
-				"default": "translucent"
-			},
-			"geometry": {
-				"default": "highenergyanvilology.block.anvilon_emitter"
-			},
-			"animations": {
-				"working": "highenergyanvilology:anvilon_emitter/working"
-			},
-			"render_controllers": [
-				"highenergyanvilology:anvilon_emitter"
-			]
-		}
-	}
+  "format_version": "1.8.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "highenergyanvilology:anvilon_emitter",
+      "textures": {
+        "default": "highenergyanvilology:textures/block/anvilon_emitter"
+      },
+      "materials": {
+        "default": "translucent"
+      },
+      "geometry": {
+        "default": "highenergyanvilology.block.anvilon_emitter"
+      },
+      "animations": {
+        "working": "highenergyanvilology:anvilon_emitter/working"
+      },
+      "render_controllers": [
+        "highenergyanvilology:anvilon_emitter"
+      ],
+      "scripts": {
+        "animate": [
+          {
+            "working": "variable.animation"
+          }
+        ]
+      }
+    }
+  }
 }

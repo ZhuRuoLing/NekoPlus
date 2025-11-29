@@ -1,10 +1,9 @@
-package icu.takeneko.highenergyanvilology.client.renderer.blockentity;
+package icu.takeneko.highenergyanvilology.client.renderer.bewlr;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import icu.takeneko.highenergyanvilology.client.renderer.helper.AnimationDataConfigurator;
+import icu.takeneko.highenergyanvilology.block.SpecialRendererBlock;
 import io.github.tt432.eyelib.Eyelib;
-import io.github.tt432.eyelib.capability.EyelibAttachableData;
 import io.github.tt432.eyelib.capability.RenderData;
 import io.github.tt432.eyelib.capability.component.AnimationComponent;
 import io.github.tt432.eyelib.capability.component.ClientEntityComponent;
@@ -21,49 +20,59 @@ import io.github.tt432.eyelib.client.render.bone.BoneRenderInfos;
 import io.github.tt432.eyelib.client.render.controller.RenderControllerEntry;
 import io.github.tt432.eyelib.molang.MolangScope;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
-public abstract class EyelibBlockEntityRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
-    private final BlockEntityRendererProvider.Context context;
+public class EyelibBlockItemBEWLR extends BlockEntityWithoutLevelRenderer {
+    private final Map<Item, RenderData<ItemStack>> itemRenderDataMap = new HashMap<>();
 
-    EyelibBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
-        this.context = context;
+    public EyelibBlockItemBEWLR(BlockEntityRenderDispatcher blockEntityRenderDispatcher, EntityModelSet entityModelSet, List<Item> bewlrItem) {
+        super(blockEntityRenderDispatcher, entityModelSet);
+        for (Item item : bewlrItem) {
+            itemRenderDataMap.put(item, new RenderData<>());
+        }
     }
 
     @Override
-    public void render(
-        T blockEntity,
-        float partialTick,
+    public void renderByItem(
+        ItemStack stack,
+        ItemDisplayContext displayContext,
         PoseStack poseStack,
         MultiBufferSource bufferSource,
         int packedLight,
         int packedOverlay
     ) {
-        RenderData<T> data = getData(blockEntity);
-        configureRenderData(data, blockEntity);
+        float partialTick = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
+        poseStack.pushPose();
+        poseStack.translate(0.5, 0, 0.5);
+        RenderData<ItemStack> data = itemRenderDataMap.get(stack.getItem());
+        data.init(stack);
         MolangScope scope = data.getScope();
-        AnimationDataConfigurator configurator = blockEntity instanceof AnimationDataConfigurator c ? c : AnimationDataConfigurator.DEFAULT;
-        configureMolangScope(scope, configurator, partialTick);
+        scope.set("variable.partial_tick", partialTick);
         ClientEntityComponent clientEntityComponent = data.getClientEntityComponent();
         AnimationComponent animationComponent = data.getAnimationComponent();
-        List<ModelComponent> components = setupClientEntity(blockEntity, clientEntityComponent, data);
+        List<ModelComponent> components = setupClientEntity(stack, clientEntityComponent, data);
         AnimationEffects effects = new AnimationEffects();
 
         BoneRenderInfos tickedInfos;
@@ -72,7 +81,7 @@ public abstract class EyelibBlockEntityRenderer<T extends BlockEntity> implement
                 animationComponent,
                 scope,
                 effects,
-                ((ClientTickHandler.getTick() + partialTick) / 20) * configurator.getAnimationRateMultiplier(),
+                (ClientTickHandler.getTick() + partialTick) / 20,
                 () -> clientEntityComponent.getClientEntity()
                     .scripts()
                     .ifPresent(scripts -> scripts.pre_animation().eval(scope))
@@ -80,13 +89,13 @@ public abstract class EyelibBlockEntityRenderer<T extends BlockEntity> implement
         } else {
             tickedInfos = BoneRenderInfos.EMPTY;
         }
-        renderComponents(
+        boolean result = renderComponents(
             bufferSource,
             poseStack,
             packedLight,
             packedOverlay,
             partialTick,
-            blockEntity,
+            stack,
             data,
             components,
             tickedInfos,
@@ -94,35 +103,19 @@ public abstract class EyelibBlockEntityRenderer<T extends BlockEntity> implement
             c -> {
             }
         );
+        if (!result) {
+            super.renderByItem(stack, displayContext, poseStack, bufferSource, packedLight, packedOverlay);
+        }
+        poseStack.popPose();
     }
 
-    private RenderData<T> getData(T be) {
-        RenderData<?> value = be.getExistingDataOrNull(EyelibAttachableData.RENDER_DATA);
-        if (value != null) {
-            //noinspection unchecked
-            return (RenderData<T>) value;
+    public static @NotNull List<ModelComponent> setupClientEntity(ItemStack stack, ClientEntityComponent clientEntityComponent, RenderData<?> cap) {
+        Item item = stack.getItem();
+        if (!(item instanceof BlockItem blockItem) || !(blockItem.getBlock() instanceof SpecialRendererBlock)) {
+            return List.of();
         }
 
-        value = new RenderData<>();
-        be.setData(EyelibAttachableData.RENDER_DATA.get(), (RenderData<Object>) value);
-        //noinspection unchecked
-        return (RenderData<T>) value;
-    }
-
-    private void configureMolangScope(MolangScope scope, AnimationDataConfigurator configurator, float partialTick) {
-        scope.set("variable.partial_tick", partialTick);
-        scope.set("variable.animation_speed", configurator.getAnimationRateMultiplier());
-        configurator.configureMolangScope(scope);
-    }
-
-    private void configureRenderData(RenderData<T> data, T blockEntity) {
-        if (data.getOwner() != blockEntity) {
-            data.init(blockEntity);
-        }
-    }
-
-    public static @NotNull List<ModelComponent> setupClientEntity(BlockEntity entity, ClientEntityComponent clientEntityComponent, RenderData<?> cap) {
-        BrClientEntity clientEntity = Eyelib.getAttachableLoader().get(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(entity.getType()));
+        BrClientEntity clientEntity = Eyelib.getAttachableLoader().get(BuiltInRegistries.BLOCK.getKey(blockItem.getBlock()));
 
         BrClientEntity oldEntity = clientEntityComponent.getClientEntity();
 
@@ -170,7 +163,7 @@ public abstract class EyelibBlockEntityRenderer<T extends BlockEntity> implement
         int packedLight,
         int overlay,
         float partialTick,
-        @Nullable BlockEntity entity,
+        @Nullable ItemStack itemStack,
         RenderData<T> cap,
         List<ModelComponent> components,
         BoneRenderInfos tickedInfos,

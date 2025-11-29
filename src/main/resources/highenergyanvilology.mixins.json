@@ -4,9 +4,10 @@
   "package": "icu.takeneko.highenergyanvilology.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "RenderControllerEntryMixin"
+    "eyelib.RenderControllerEntryMixin"
   ],
   "client": [
+    "self.AnvilonEmitterAnimationMixin"
   ],
   "injectors": {
     "defaultRequire": 1

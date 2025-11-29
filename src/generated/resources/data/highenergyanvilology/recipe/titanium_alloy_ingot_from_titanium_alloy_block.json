@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "highenergyanvilology:titanium_alloy_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "highenergyanvilology:titanium_alloy_ingot"
+  }
+}

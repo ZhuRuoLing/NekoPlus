@@ -13,7 +13,7 @@ public class HEAnvilMaterials {
         "iron",
         AnvilMaterial.builder()
             .maxDamage(128)
-            .processRate(1f)
+            .processRate(1)
             .materialAnvilItemRef(() -> Items.ANVIL)
             .build()
     );
@@ -31,7 +31,7 @@ public class HEAnvilMaterials {
         "royal",
         AnvilMaterial.builder()
             .maxDamage(-1)
-            .processRate(2f)
+            .processRate(2)
             .materialAnvilItemRef(ModBlocks.ROYAL_ANVIL::asItem)
             .build()
     );
@@ -40,8 +40,17 @@ public class HEAnvilMaterials {
         "ember",
         AnvilMaterial.builder()
             .maxDamage(-1)
-            .processRate(5f)
+            .processRate(3)
             .materialAnvilItemRef(ModBlocks.EMBER_ANVIL::asItem)
+            .build()
+    );
+
+    public static final AnvilMaterial TRANSCENDENCE = register(
+        "transcendence",
+        AnvilMaterial.builder()
+            .maxDamage(-1)
+            .processRate(5)
+            .materialAnvilItemRef(ModBlocks.TRANSCENDENCE_ANVIL::asItem)
             .build()
     );
 

@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.mixin;
+package icu.takeneko.highenergyanvilology.mixin.eyelib;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
