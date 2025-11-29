@@ -5,6 +5,7 @@ import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.AnvilonEmitterBlock;
 import icu.takeneko.highenergyanvilology.util.ModelUtils;
 import icu.takeneko.highenergyanvilology.util.StateUtils;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 
@@ -40,6 +41,13 @@ public class HEBlocks {
                 .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
             );
         })
+        .build()
+        .register();
+
+    public static final BlockEntry<Block> TITANIUM_ALLOY_BLOCK = HEAnvilology.REGISTRATE
+        .block("titanium_alloy_block", Block::new)
+        .initialProperties(() -> Blocks.NETHERITE_BLOCK)
+        .item()
         .build()
         .register();
 
