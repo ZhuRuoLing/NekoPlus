@@ -22,6 +22,6 @@ public class AnvilonEmitterAnimationMixin implements AnimationDataConfigurator {
 
     @Override
     public float getAnimationRateMultiplier() {
-        return Math.max(rate.get(), 1);
+        return rate.get();
     }
 }

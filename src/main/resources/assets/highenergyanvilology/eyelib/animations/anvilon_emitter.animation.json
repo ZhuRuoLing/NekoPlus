@@ -4,6 +4,7 @@
 		"highenergyanvilology:anvilon_emitter/working": {
 			"loop": "true",
 			"animation_length": 0.5,
+			"anim_time_update": "query.anim_time + query.delta_time * variable.animation_speed",
 			"bones": {
 				"mage": {
 					"relative_to": {
