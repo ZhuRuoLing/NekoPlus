@@ -8,6 +8,7 @@ import icu.takeneko.highenergyanvilology.util.StateUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.Tags;
 
 public class HEBlocks {
 
@@ -46,6 +47,15 @@ public class HEBlocks {
 
     public static final BlockEntry<Block> TITANIUM_ALLOY_BLOCK = HEAnvilology.REGISTRATE
         .block("titanium_alloy_block", Block::new)
+        .initialProperties(() -> Blocks.NETHERITE_BLOCK)
+        .tag(Tags.Blocks.STORAGE_BLOCKS, HETags.Blocks.STORAGE_BLOCKS_TITANIUM_ALLOY)
+        .item()
+        .tag(Tags.Items.STORAGE_BLOCKS, HETags.Items.STORAGE_BLOCKS_TITANIUM_ALLOY)
+        .build()
+        .register();
+
+    public static final BlockEntry<Block> ROYAL_STEEL_CASING = HEAnvilology.REGISTRATE
+        .block("royal_steel_casing", Block::new)
         .initialProperties(() -> Blocks.NETHERITE_BLOCK)
         .item()
         .build()
