@@ -5,7 +5,9 @@ import icu.takeneko.highenergyanvilology.all.HEAnvilMaterials;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.all.HEBlocks;
 import icu.takeneko.highenergyanvilology.all.HECreativeTabs;
+import icu.takeneko.highenergyanvilology.all.HEDataComponents;
 import icu.takeneko.highenergyanvilology.all.HEItems;
+import icu.takeneko.highenergyanvilology.all.HEMenuTypes;
 import icu.takeneko.highenergyanvilology.config.HEConfig;
 import icu.takeneko.highenergyanvilology.data.HEDataGen;
 import net.minecraft.resources.ResourceLocation;
@@ -41,6 +43,8 @@ public class HEAnvilology {
         HEItems.setupRegistration();
         HEAnvilMaterials.DR.register(modEventBus);
         HECreativeTabs.DR.register(modEventBus);
+        HEDataComponents.DR.register(modEventBus);
+        HEMenuTypes.DR.register(modEventBus);
     }
 
     @SubscribeEvent
