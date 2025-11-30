@@ -12,10 +12,10 @@ public interface BlockUIHolder extends MenuProvider, IContainerUIHolder {
 
     @Override
     default void writeClientSideData(AbstractContainerMenu menu, RegistryFriendlyByteBuf buffer) {
+        buffer.writeBlockPos(getBlockPos());
         if (menu instanceof IUISyncManagerHolder syncManagerHolder) {
             syncManagerHolder.writeInitialData(buffer);
         }
-        buffer.writeBlockPos(getBlockPos());
     }
 
     BlockPos getBlockPos();

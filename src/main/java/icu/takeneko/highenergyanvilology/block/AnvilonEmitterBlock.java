@@ -5,6 +5,7 @@ import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.entity.AnvilonEmitterBlockEntity;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -29,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-public class AnvilonEmitterBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, SpecialRendererBlock{
+public class AnvilonEmitterBlock extends BaseEntityBlock implements SimpleWaterloggedBlock, SpecialRendererBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -53,9 +54,9 @@ public class AnvilonEmitterBlock extends BaseEntityBlock implements SimpleWaterl
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level instanceof ClientLevel){
+        if (level instanceof ServerLevel) {
             if (level.getBlockEntity(pos) instanceof AnvilonEmitterBlockEntity be) {
-                be.onActivated();
+                player.openMenu(be);
             }
         }
         return InteractionResult.SUCCESS;
