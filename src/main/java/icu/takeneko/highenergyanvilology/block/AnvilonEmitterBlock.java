@@ -1,11 +1,13 @@
 package icu.takeneko.highenergyanvilology.block;
 
+import com.lowdragmc.lowdraglib.gui.factory.BlockEntityUIFactory;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.entity.AnvilonEmitterBlockEntity;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -53,10 +55,21 @@ public class AnvilonEmitterBlock extends BaseEntityBlock implements SimpleWaterl
     }
 
     @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (level instanceof ServerLevel) {
+            if (level.getBlockEntity(pos) instanceof AnvilonEmitterBlockEntity be) {
+                Containers.dropContents(level, pos, be.getItemHandler().getStacks());
+            }
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level instanceof ServerLevel) {
             if (level.getBlockEntity(pos) instanceof AnvilonEmitterBlockEntity be) {
-                player.openMenu(be);
+                BlockEntityUIFactory.INSTANCE.openUI(be, (ServerPlayer) player);
+                return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }
         return InteractionResult.SUCCESS;

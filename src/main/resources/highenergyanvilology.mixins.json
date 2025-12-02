@@ -4,8 +4,7 @@
   "package": "icu.takeneko.highenergyanvilology.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "eyelib.RenderControllerEntryMixin",
-    "ldlib.FieldManagedStorageMixin"
+    "eyelib.RenderControllerEntryMixin"
   ],
   "client": [
     "self.AnvilonEmitterAnimationMixin"

@@ -1,10 +1,10 @@
 package icu.takeneko.highenergyanvilology.block.entity;
 
-import com.lowdragmc.lowdraglib2.syncdata.IBlockEntityManaged;
-import com.lowdragmc.lowdraglib2.syncdata.blockentity.IAsyncAutoSyncBlockEntity;
-import com.lowdragmc.lowdraglib2.syncdata.blockentity.IAutoPersistBlockEntity;
-import com.lowdragmc.lowdraglib2.syncdata.storage.FieldManagedStorage;
-import com.lowdragmc.lowdraglib2.syncdata.storage.IManagedStorage;
+import com.lowdragmc.lowdraglib.syncdata.IManaged;
+import com.lowdragmc.lowdraglib.syncdata.blockentity.IAsyncAutoSyncBlockEntity;
+import com.lowdragmc.lowdraglib.syncdata.blockentity.IAutoPersistBlockEntity;
+import com.lowdragmc.lowdraglib.syncdata.storage.FieldManagedStorage;
+import com.lowdragmc.lowdraglib.syncdata.storage.IManagedStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public abstract class HESynedBlockEntity
     extends BlockEntity
-    implements IAsyncAutoSyncBlockEntity, IAutoPersistBlockEntity, IBlockEntityManaged
+    implements IAsyncAutoSyncBlockEntity, IAutoPersistBlockEntity, IManaged
 {
     public HESynedBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
@@ -37,5 +37,10 @@ public abstract class HESynedBlockEntity
     @Override
     public IManagedStorage getRootStorage() {
         return syncStorage;
+    }
+
+    @Override
+    public void onChanged() {
+        setChanged();
     }
 }

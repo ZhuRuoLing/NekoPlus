@@ -1,7 +1,5 @@
 package icu.takeneko.highenergyanvilology.all;
 
-import com.lowdragmc.lowdraglib2.gui.ui.ModularUIContainerScreen;
-import icu.takeneko.highenergyanvilology.foundation.ui.client.HEModularUIContainerScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -24,7 +22,6 @@ public class HEEvents {
     public static class Client {
         @SubscribeEvent
         public static void on(RegisterMenuScreensEvent event) {
-            event.register(HEMenuTypes.ANVILON_EMITTER.get(), HEModularUIContainerScreen::new);
         }
     }
 }
