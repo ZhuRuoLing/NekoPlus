@@ -8,6 +8,7 @@ import dev.dubhe.anvilcraft.init.item.ModItems;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.AnvilonEmitterBlock;
 import icu.takeneko.highenergyanvilology.block.ParticleStabilizerBlock;
+import icu.takeneko.highenergyanvilology.util.DataGenUtils;
 import icu.takeneko.highenergyanvilology.util.ModelUtils;
 import icu.takeneko.highenergyanvilology.util.StateUtils;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -73,15 +74,7 @@ public class HEBlocks {
     public static final BlockEntry<ParticleStabilizerBlock> PARTICLE_STABILIZER = HEAnvilology.REGISTRATE
         .block("particle_stabilizer", ParticleStabilizerBlock::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
-        .blockstate((ctx, prov) -> {
-            prov.getVariantBuilder(ctx.get())
-                .partialState()
-                .addModels(
-                    ConfiguredModel.builder()
-                        .modelFile(new ModelFile.ExistingModelFile(prov.modLoc( "block/"+ ctx.getName()), prov.models().existingFileHelper))
-                        .build()
-                );
-        })
+        .blockstate(DataGenUtils::existingBlockModel)
         .item()
         .recipe((ctx, prov) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ctx.get())

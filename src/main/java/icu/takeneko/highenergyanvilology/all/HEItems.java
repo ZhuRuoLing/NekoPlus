@@ -5,8 +5,8 @@ import com.tterrag.registrate.util.entry.ItemEntry;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
-import dev.dubhe.anvilcraft.util.DataGenUtil;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
+import icu.takeneko.highenergyanvilology.util.DataGenUtils;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
@@ -39,21 +39,21 @@ public class HEItems {
         .register();
 
     public static final ItemEntry<Item> CRYOCOOLER = HEAnvilology.REGISTRATE
-            .item("cryocooler", Item::new)
-            .model(DataGenUtil::noExtraModelOrState)
-            .recipe((c, p) -> {
-                ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
-                    .pattern("CDC")
-                    .pattern("ABA")
-                    .pattern(" C ")
-                    .define('A', Tags.Items.STORAGE_BLOCKS_COPPER)
-                    .define('B', Blocks.BLUE_ICE)
-                    .define('C', ModItemTags.GEMS_SAPPHIRE)
-                    .define('D', ModItems.CIRCUIT_BOARD)
-                    .unlockedBy("has_gem_sapphire", RegistrateRecipeProvider.has(ModItemTags.GEMS_SAPPHIRE))
-                    .save(p);
-            })
-            .register();
+        .item("cryocooler", Item::new)
+        .model(DataGenUtils::emptyConsumer)
+        .recipe((c, p) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
+                .pattern("CDC")
+                .pattern("ABA")
+                .pattern(" C ")
+                .define('A', Tags.Items.STORAGE_BLOCKS_COPPER)
+                .define('B', Blocks.BLUE_ICE)
+                .define('C', ModItemTags.GEMS_SAPPHIRE)
+                .define('D', ModItems.CIRCUIT_BOARD)
+                .unlockedBy("has_gem_sapphire", RegistrateRecipeProvider.has(ModItemTags.GEMS_SAPPHIRE))
+                .save(p);
+        })
+        .register();
 
     public static void setupRegistration() {
     }
