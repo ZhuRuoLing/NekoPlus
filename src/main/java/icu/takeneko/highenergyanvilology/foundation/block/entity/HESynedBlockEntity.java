@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.block.entity;
+package icu.takeneko.highenergyanvilology.foundation.block.entity;
 
 import com.lowdragmc.lowdraglib.syncdata.IManaged;
 import com.lowdragmc.lowdraglib.syncdata.blockentity.IAsyncAutoSyncBlockEntity;
