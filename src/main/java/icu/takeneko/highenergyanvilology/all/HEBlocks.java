@@ -15,7 +15,6 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.Tags;
 
@@ -74,7 +73,14 @@ public class HEBlocks {
     public static final BlockEntry<ParticleStabilizerBlock> PARTICLE_STABILIZER = HEAnvilology.REGISTRATE
         .block("particle_stabilizer", ParticleStabilizerBlock::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
-        .blockstate(DataGenUtils::existingBlockModel)
+        .blockstate((ctx, cons) -> {
+            cons.simpleBlock(
+                ctx.get(),
+                cons.models()
+                    .getBuilder("block/particle_stabilizer")
+                    .texture("particle", "highenergyanvilology:block/particle_stabilizer")
+            );
+        })
         .item()
         .recipe((ctx, prov) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ctx.get())
@@ -86,6 +92,12 @@ public class HEBlocks {
                 .define('C', ROYAL_STEEL_CASING)
                 .define('D', HEItems.CRYOCOOLER)
                 .define('E', ModItems.CIRCUIT_BOARD);
+        })
+        .model((ctx, prov) -> {
+            ModelUtils.wrapDefaultBlockItemTransform(
+                prov.getBuilder(ctx.getName())
+                    .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+            );
         })
         .build()
         .register();

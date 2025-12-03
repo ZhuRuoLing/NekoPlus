@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class ParticleStabilizerBlock extends BaseEntityBlock {
+public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialRendererBlock {
     public ParticleStabilizerBlock(Properties properties) {
         super(properties);
     }
