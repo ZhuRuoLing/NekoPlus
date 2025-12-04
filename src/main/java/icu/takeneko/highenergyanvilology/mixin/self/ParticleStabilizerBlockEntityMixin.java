@@ -11,8 +11,11 @@ public class ParticleStabilizerBlockEntityMixin implements AnimationDataConfigur
     @Shadow
     private boolean isOverload;
 
+    @Shadow private ParticleStabilizerBlockEntity.State state;
+
     @Override
     public void configureMolangScope(MolangScope scope) {
         scope.set("variable.overload", this.isOverload ? 1 : 0);
+        scope.set("variable.frozen", this.state == ParticleStabilizerBlockEntity.State.WORKING ? 1 : 0);
     }
 }

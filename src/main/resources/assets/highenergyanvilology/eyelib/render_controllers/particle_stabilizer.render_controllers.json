@@ -4,7 +4,7 @@
     "highenergyanvilology:particle_stabilizer": {
       "geometry": "Geometry.default",
       "materials": [ { "*": "Material.default" }],
-      "textures": [ "variable.overload ? Texture.overload : Texture.default" ]
+      "textures": [ "variable.overload ? Texture.overload : (variable.frozen ? Texture.default : Texture.freezing)" ]
     }
   }
 }

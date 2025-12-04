@@ -48,6 +48,11 @@ public class AnvilonEmitterBlockEntity
     }
 
     @Override
+    public int getInputPower() {
+        return itemHandler.getStacks().get(0).isEmpty() ? 0 : 16;
+    }
+
+    @Override
     public void tick() {
         flushState(level, getBlockPos());
     }

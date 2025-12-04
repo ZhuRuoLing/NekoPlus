@@ -7,10 +7,12 @@ import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEnt
 import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
 import icu.takeneko.highenergyanvilology.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -64,6 +66,22 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialR
             return (BlockEntityTicker<T>) BlockEntityUtil.<AnvilonEmitterBlockEntity>createTicker();
         }
         return null;
+    }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+        if (level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity blockEntity) {
+            return blockEntity.isOverload() ? 0 : switch (blockEntity.getState()) {
+                case COOLING -> 8;
+                case WORKING -> 15;
+            };
+        }
+        return 0;
     }
 
     @Override
