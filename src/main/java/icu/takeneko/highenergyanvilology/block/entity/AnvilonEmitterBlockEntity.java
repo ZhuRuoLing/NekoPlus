@@ -3,12 +3,13 @@ package icu.takeneko.highenergyanvilology.block.entity;
 import com.lowdragmc.lowdraglib.gui.modular.IUIHolder;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
-import dev.dubhe.anvilcraft.api.power.IPowerConsumer;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
-import dev.dubhe.anvilcraft.util.WatchableCyclingValue;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.HEPowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HESynedBlockEntity;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
 import icu.takeneko.highenergyanvilology.ui.menu.AnvilonEmitterUI;
@@ -25,16 +26,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class AnvilonEmitterBlockEntity
     extends HESynedBlockEntity
-    implements IPowerConsumer, ItemHandlerOwner, IUIHolder.BlockEntityUI {
+    implements HEPowerConsumer, ItemHandlerOwner, IUIHolder.Block, Tickable {
 
     private static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(AnvilonEmitterBlockEntity.class);
-
-    private final WatchableCyclingValue<Float> rate = new WatchableCyclingValue<>(
-        "working_rate",
-        a -> {
-        },
-        0f, 0.8f, 1f, 2f, 3f, 5f
-    );
 
     @Persisted
     @Getter
@@ -44,12 +38,18 @@ public class AnvilonEmitterBlockEntity
     @Setter
     private PowerGrid grid;
 
+    @DescSynced
+    @Getter
+    @Setter
+    private boolean isOverload = false;
+
     public AnvilonEmitterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
     }
 
-    public void onActivated() {
-        rate.next();
+    @Override
+    public void tick() {
+        flushState(level, getBlockPos());
     }
 
     @Override
@@ -78,7 +78,6 @@ public class AnvilonEmitterBlockEntity
     }
 
     private WidgetGroup createUi() {
-
         return new AnvilonEmitterUI(this);
     }
 

@@ -5,6 +5,8 @@ import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.entity.AnvilonEmitterBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.block.HETranslucentEntityBlock;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
+import icu.takeneko.highenergyanvilology.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -16,6 +18,8 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -50,6 +54,14 @@ public class AnvilonEmitterBlock extends HETranslucentEntityBlock implements Sim
     public AnvilonEmitterBlock(Properties properties) {
         super(properties);
         registerDefaultState(getStateDefinition().any().setValue(WATERLOGGED, false));
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        if (level instanceof ServerLevel) {
+            return (BlockEntityTicker<T>) BlockEntityUtil.<AnvilonEmitterBlockEntity>createTicker();
+        }
+        return null;
     }
 
     @Override

@@ -1,10 +1,11 @@
 package icu.takeneko.highenergyanvilology.foundation.block.entity;
 
 import com.lowdragmc.lowdraglib.syncdata.IManaged;
+import com.lowdragmc.lowdraglib.syncdata.IManagedStorage;
 import com.lowdragmc.lowdraglib.syncdata.blockentity.IAsyncAutoSyncBlockEntity;
 import com.lowdragmc.lowdraglib.syncdata.blockentity.IAutoPersistBlockEntity;
-import com.lowdragmc.lowdraglib.syncdata.storage.FieldManagedStorage;
-import com.lowdragmc.lowdraglib.syncdata.storage.IManagedStorage;
+import com.lowdragmc.lowdraglib.syncdata.field.FieldManagedStorage;
+import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -24,10 +25,6 @@ public abstract class HESynedBlockEntity
     private final ReentrantLock lock = new ReentrantLock();
     private final FieldManagedStorage syncStorage = new FieldManagedStorage(this);
 
-    @Override
-    public Lock getAsyncLock() {
-        return lock;
-    }
 
     @Override
     public IManagedStorage getSyncStorage() {
@@ -35,12 +32,12 @@ public abstract class HESynedBlockEntity
     }
 
     @Override
-    public IManagedStorage getRootStorage() {
-        return syncStorage;
+    public void onChanged() {
+        setChanged();
     }
 
     @Override
-    public void onChanged() {
-        setChanged();
+    public IManagedStorage getRootStorage() {
+        return syncStorage;
     }
 }

@@ -8,7 +8,9 @@
     "eyelib.RenderControllerEntryMixin"
   ],
   "client": [
-    "self.AnvilonEmitterAnimationMixin"
+    "minecraft.GlDebugMixin",
+    "self.AnvilonEmitterAnimationMixin",
+    "self.ParticleStabilizerBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

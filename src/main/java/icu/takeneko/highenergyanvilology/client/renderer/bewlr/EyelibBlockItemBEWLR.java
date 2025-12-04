@@ -2,7 +2,7 @@ package icu.takeneko.highenergyanvilology.client.renderer.bewlr;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import icu.takeneko.highenergyanvilology.block.SpecialRendererBlock;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
 import io.github.tt432.eyelib.Eyelib;
 import io.github.tt432.eyelib.capability.RenderData;
 import io.github.tt432.eyelib.capability.component.AnimationComponent;

@@ -1,7 +1,7 @@
 package icu.takeneko.highenergyanvilology.client;
 
 import icu.takeneko.highenergyanvilology.HEAnvilology;
-import icu.takeneko.highenergyanvilology.block.SpecialRendererBlock;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;

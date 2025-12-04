@@ -70,6 +70,10 @@ repositories {
         name = "OctoStudios Maven"
         url = uri("https://maven.octo-studios.com/releases")
     }
+    maven {// Ldlib
+        name "firstdarkdev"
+        url "https://maven.firstdarkdev.xyz/snapshots"
+    }
 }
 
 base {
@@ -99,6 +103,7 @@ neoForge {
 
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            systemProperty 'mixin.debug.export', "true"
         }
 
         server {
@@ -177,7 +182,7 @@ dependencies {
 
     jarJar(implementation "curse.maven:eyelib-1388469:7242460-sources-7242465")
 
-    jarJar(implementation "curse.maven:ldlib-626676:7245182-sources-7245184")
+    jarJar(implementation "com.lowdragmc.ldlib:ldlib-neoforge-1.21.1:1.0.35.a")
 
     compileOnly "org.appliedenergistics.yoga:yoga:1.0.0"
 }
