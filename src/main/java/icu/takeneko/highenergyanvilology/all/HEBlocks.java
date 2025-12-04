@@ -8,7 +8,6 @@ import dev.dubhe.anvilcraft.init.item.ModItems;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.AnvilonEmitterBlock;
 import icu.takeneko.highenergyanvilology.block.ParticleStabilizerBlock;
-import icu.takeneko.highenergyanvilology.util.DataGenUtils;
 import icu.takeneko.highenergyanvilology.util.ModelUtils;
 import icu.takeneko.highenergyanvilology.util.StateUtils;
 import net.minecraft.data.recipes.RecipeCategory;

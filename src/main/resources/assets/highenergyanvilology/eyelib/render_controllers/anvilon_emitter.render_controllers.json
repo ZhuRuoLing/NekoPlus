@@ -4,7 +4,7 @@
     "highenergyanvilology:anvilon_emitter": {
       "geometry": "Geometry.default",
       "materials": [ { "*": "Material.default" }],
-      "textures": [ "Texture.default" ]
+      "textures": [ "variable.overload ? Texture.overload : Texture.default" ]
     }
   }
 }

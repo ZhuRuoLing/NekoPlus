@@ -4,7 +4,8 @@
     "description": {
       "identifier": "highenergyanvilology:anvilon_emitter",
       "textures": {
-        "default": "highenergyanvilology:textures/block/anvilon_emitter"
+        "default": "highenergyanvilology:textures/block/anvilon_emitter",
+        "overload": "highenergyanvilology:textures/block/anvilon_emitter_overload"
       },
       "materials": {
         "default": "translucent"

@@ -4,7 +4,8 @@
     "description": {
       "identifier": "highenergyanvilology:particle_stabilizer",
       "textures": {
-        "default": "highenergyanvilology:textures/block/particle_stabilizer"
+        "default": "highenergyanvilology:textures/block/particle_stabilizer",
+        "overload": "highenergyanvilology:textures/block/particle_stabilizer_overload"
       },
       "materials": {
         "default": "translucent"
