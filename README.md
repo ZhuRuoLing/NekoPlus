@@ -1,6 +1,6 @@
 ![The-Introduction-of-Anvilology_title.png](document/The-Introduction-of-Heigh-Energy-Anvilology_title.png)
 
-> Title built via `Blockbench` plugin [`Minecraft Title Generator`](https://ewanhowell.com/plugins/minecraft-title-generator/)
+> Title built via `Blockbench` plugin [`Minecraft Title Generator` by Ewan Howell](https://ewanhowell.com/plugins/minecraft-title-generator/)
 > 
 > Title Textures:
 > - `Cracked` by ShrimpSnail, Ewan Howell,& MrBrose
