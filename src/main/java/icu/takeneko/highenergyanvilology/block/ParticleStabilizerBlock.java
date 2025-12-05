@@ -7,12 +7,10 @@ import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEnt
 import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
 import icu.takeneko.highenergyanvilology.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -44,18 +42,21 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialR
             if (blockEntity.isOverload()) return;
             if (blockEntity.getState() != ParticleStabilizerBlockEntity.State.COOLING) return;
             RandomSource randomsource = level.getRandom();
-            double dx = 0.75 + Mth.randomBetween(randomsource, -1, 1) * (random.nextBoolean() ? 1 : -1);
-            double dy = 0.75 + Mth.randomBetween(randomsource, -1, 1) * (random.nextBoolean() ? 1 : -1);
-            double dz = 0.75 + Mth.randomBetween(randomsource, -1, 1) * (random.nextBoolean() ? 1 : -1);
-            level.addParticle(
-                ParticleTypes.SNOWFLAKE,
-                pos.getX() + dx,
-                pos.getY() + dy,
-                pos.getY() + dz,
-                Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F,
-                0.05F,
-                Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F
-            );
+            for (int i = 0; i < 2; i++) {
+                double dx = 0.5 + Mth.randomBetween(randomsource, -0.65f, 0.65f) * (random.nextBoolean() ? 1 : -1);
+                double dy = 0.55 + Mth.randomBetween(randomsource, -0.65f, 0.75f) * (random.nextBoolean() ? 1 : -1);
+                double dz = 0.5 + Mth.randomBetween(randomsource, -0.65f, 0.65f) * (random.nextBoolean() ? 1 : -1);
+                level.addParticle(
+                    ParticleTypes.SNOWFLAKE,
+                    pos.getX() + dx,
+                    pos.getY() + dy,
+                    pos.getZ() + dz,
+                    Mth.randomBetween(randomsource, -0.75f, 0.75f) * 0.08F,
+                    0.05F,
+                    Mth.randomBetween(randomsource, -0.75f, 0.75f) * 0.08F
+                );
+            }
+
 
         }
     }

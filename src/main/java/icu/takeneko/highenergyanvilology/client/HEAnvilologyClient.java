@@ -1,6 +1,7 @@
 package icu.takeneko.highenergyanvilology.client;
 
 import icu.takeneko.highenergyanvilology.HEAnvilology;
+import icu.takeneko.highenergyanvilology.all.HEHammerTooltipProviders;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
@@ -26,6 +27,7 @@ public class HEAnvilologyClient {
     public HEAnvilologyClient(ModContainer container) {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         //container.registerExtensionPoint(IClientItemExtensions.class, new HEClientExtension());
+        HEHammerTooltipProviders.setupRegistration();
     }
 
     @SubscribeEvent

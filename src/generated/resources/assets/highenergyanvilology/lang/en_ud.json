@@ -3,8 +3,14 @@
   "block.highenergyanvilology.particle_stabilizer": "ɹǝzıןıqɐʇS ǝןɔıʇɹɐԀ",
   "block.highenergyanvilology.royal_steel_casing": "buısɐƆ ןǝǝʇS ןɐʎoᴚ",
   "block.highenergyanvilology.titanium_alloy_block": "ʞɔoןᗺ ʎoןןⱯ ɯnıuɐʇı⟘",
+  "config.jade.plugin_highenergyanvilology.particle_stabilizer": "ɹǝzıןıqɐʇS ǝןɔıʇɹɐԀ",
   "item.highenergyanvilology.cryocooler": "ɹǝןooɔoʎɹƆ",
   "item.highenergyanvilology.titanium_alloy_ingot": "ʇobuI ʎoןןⱯ ɯnıuɐʇı⟘",
   "item.highenergyanvilology.titanium_alloy_nugget": "ʇǝbbnN ʎoןןⱯ ɯnıuɐʇı⟘",
-  "itemGroup.highenergyanvilology.tab": "ʎboןoןıʌuⱯ ʎbɹǝuƎ ɥbıH :ʇɟɐɹƆןıʌuⱯ"
+  "itemGroup.highenergyanvilology.tab": "ʎboןoןıʌuⱯ ʎbɹǝuƎ ɥbıH :ʇɟɐɹƆןıʌuⱯ",
+  "tooltip.highenergyanvilology.particle_stabilizer": "˙ɥbnouǝ pןoɔ s`ʇɐɥ⟘",
+  "tooltip.highenergyanvilology.particle_stabilizer.cooldown": "ɔǝs %s :uʍopןooƆ",
+  "tooltip.highenergyanvilology.particle_stabilizer.cooling": "buıןooƆ",
+  "tooltip.highenergyanvilology.particle_stabilizer.ready": "ʎpɐǝᴚ",
+  "tooltip.highenergyanvilology.particle_stabilizer.state": " :ǝʇɐʇS"
 }

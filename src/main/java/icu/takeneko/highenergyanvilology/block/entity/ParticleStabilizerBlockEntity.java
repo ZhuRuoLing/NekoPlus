@@ -10,6 +10,8 @@ import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionE
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HEPowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HESynedBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.Tickable;
+import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
+import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -20,6 +22,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -31,11 +34,15 @@ import org.jetbrains.annotations.UnknownNullability;
 
 public class ParticleStabilizerBlockEntity
     extends HESynedBlockEntity
-    implements HEPowerConsumer, Tickable, BlockCollisionEventReceiver {
+    implements HEPowerConsumer, Tickable, BlockCollisionEventReceiver, ItemHandlerOwner {
 
     public static final int MACHINE_COOLDOWN = 30 * 20;
 
     private static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(ParticleStabilizerBlockEntity.class);
+
+    @Persisted
+    @Getter
+    private final HEItemHandler itemHandler = new HEItemHandler(2, this);
 
     @Getter
     @Setter
@@ -47,7 +54,7 @@ public class ParticleStabilizerBlockEntity
     private State state = State.COOLING;
 
     @Persisted
-    @DescSynced
+    @Getter
     private int countdown = MACHINE_COOLDOWN;
 
     @DescSynced
@@ -139,6 +146,16 @@ public class ParticleStabilizerBlockEntity
 
     private void processStabilize(Block anvil) {
 
+    }
+
+    @Override
+    public void onContentChanged() {
+        setChanged();
+    }
+
+    @Override
+    public boolean isItemValid(int slot, ItemStack stack) {
+        return true;
     }
 
     public enum State {

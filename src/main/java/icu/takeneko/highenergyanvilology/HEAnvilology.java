@@ -6,6 +6,7 @@ import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.all.HEBlocks;
 import icu.takeneko.highenergyanvilology.all.HECreativeTabs;
 import icu.takeneko.highenergyanvilology.all.HEDataComponents;
+import icu.takeneko.highenergyanvilology.all.HEItemTooltips;
 import icu.takeneko.highenergyanvilology.all.HEItems;
 import icu.takeneko.highenergyanvilology.all.HEMenuTypes;
 import icu.takeneko.highenergyanvilology.config.HEConfig;
@@ -49,7 +50,7 @@ public class HEAnvilology {
 
     @SubscribeEvent
     private void commonSetup(FMLCommonSetupEvent event) {
-
+        HEItemTooltips.setupTooltips();
     }
 
     public static ResourceLocation location(String path) {

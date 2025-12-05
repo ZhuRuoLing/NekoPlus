@@ -3,8 +3,14 @@
   "block.highenergyanvilology.particle_stabilizer": "Particle Stabilizer",
   "block.highenergyanvilology.royal_steel_casing": "Royal Steel Casing",
   "block.highenergyanvilology.titanium_alloy_block": "Titanium Alloy Block",
+  "config.jade.plugin_highenergyanvilology.particle_stabilizer": "Particle Stabilizer",
   "item.highenergyanvilology.cryocooler": "Cryocooler",
   "item.highenergyanvilology.titanium_alloy_ingot": "Titanium Alloy Ingot",
   "item.highenergyanvilology.titanium_alloy_nugget": "Titanium Alloy Nugget",
-  "itemGroup.highenergyanvilology.tab": "AnvilCraft: High Energy Anvilology"
+  "itemGroup.highenergyanvilology.tab": "AnvilCraft: High Energy Anvilology",
+  "tooltip.highenergyanvilology.particle_stabilizer": "That`s cold enough.",
+  "tooltip.highenergyanvilology.particle_stabilizer.cooldown": "Cooldown: %s sec",
+  "tooltip.highenergyanvilology.particle_stabilizer.cooling": "Cooling",
+  "tooltip.highenergyanvilology.particle_stabilizer.ready": "Ready",
+  "tooltip.highenergyanvilology.particle_stabilizer.state": "State: "
 }
