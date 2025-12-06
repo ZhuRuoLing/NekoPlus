@@ -7,8 +7,9 @@ import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.HEPowerConsumer;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.HEOverclockablePowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HESynedBlockEntity;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.Overclockable;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
@@ -31,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ParticleStabilizerBlockEntity
     extends HESynedBlockEntity
-    implements HEPowerConsumer, HEBlockEntityUIHolder, Tickable, BlockCollisionEventReceiver, ItemHandlerOwner {
+    implements HEOverclockablePowerConsumer, HEBlockEntityUIHolder, Tickable, BlockCollisionEventReceiver, ItemHandlerOwner, Overclockable {
 
     public static final int MACHINE_COOLDOWN = 30 * 20;
 
@@ -59,8 +60,16 @@ public class ParticleStabilizerBlockEntity
     @Setter
     private boolean isOverload = false;
 
+    @Setter
+    private int efficiency = 1;
+
     public ParticleStabilizerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
+    }
+
+    @Override
+    public void gridTick() {
+
     }
 
     @Override
@@ -68,7 +77,7 @@ public class ParticleStabilizerBlockEntity
         flushState(level, getBlockPos());
         if (this.isOverload) return;
         if (countdown > 0) {
-            this.countdown--;
+            this.countdown = Math.max(countdown - efficiency, 0);
             updateState(State.COOLING);
         } else {
             updateState(State.WORKING);
@@ -89,11 +98,6 @@ public class ParticleStabilizerBlockEntity
     @Override
     public @Nullable Level getCurrentLevel() {
         return level;
-    }
-
-    @Override
-    public int getInputPower() {
-        return state == State.COOLING ? 32 : 16;
     }
 
     @Override
@@ -159,6 +163,31 @@ public class ParticleStabilizerBlockEntity
     @Override
     public ModularUI createUI(Player entityPlayer) {
         return new ModularUI(new ParticleStabilizerUI(this), this, entityPlayer);
+    }
+
+    @Override
+    public int getBaseOverclockCost() {
+        return 32;
+    }
+
+    @Override
+    public int maxOverclockRatio() {
+        return 100;
+    }
+
+    @Override
+    public boolean isOverclockable() {
+        return this.state == State.COOLING;
+    }
+
+    @Override
+    public int getBaseInputPower() {
+        return 16;
+    }
+
+    @Override
+    public int getOverclockedInputPower() {
+        return 32 * efficiency;
     }
 
     public enum State {
