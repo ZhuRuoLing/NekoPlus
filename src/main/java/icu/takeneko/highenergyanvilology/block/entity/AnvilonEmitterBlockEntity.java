@@ -12,7 +12,7 @@ import icu.takeneko.highenergyanvilology.foundation.block.entity.HESynedBlockEnt
 import icu.takeneko.highenergyanvilology.foundation.block.entity.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
-import icu.takeneko.highenergyanvilology.ui.menu.AnvilonEmitterUI;
+import icu.takeneko.highenergyanvilology.ui.AnvilonEmitterUI;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;

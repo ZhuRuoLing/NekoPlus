@@ -1,10 +1,10 @@
 package icu.takeneko.highenergyanvilology.block.entity;
 
+import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
-import dev.dubhe.anvilcraft.api.power.IPowerConsumer;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HEPowerConsumer;
@@ -12,29 +12,26 @@ import icu.takeneko.highenergyanvilology.foundation.block.entity.HESynedBlockEnt
 import icu.takeneko.highenergyanvilology.foundation.block.entity.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.foundation.ui.HEBlockEntityUIHolder;
+import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.ByteTag;
-import net.minecraft.nbt.IntTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnknownNullability;
+
 
 public class ParticleStabilizerBlockEntity
     extends HESynedBlockEntity
-    implements HEPowerConsumer, Tickable, BlockCollisionEventReceiver, ItemHandlerOwner {
+    implements HEPowerConsumer, HEBlockEntityUIHolder, Tickable, BlockCollisionEventReceiver, ItemHandlerOwner {
 
     public static final int MACHINE_COOLDOWN = 30 * 20;
 
@@ -144,8 +141,9 @@ public class ParticleStabilizerBlockEntity
         return true;
     }
 
-    private void processStabilize(Block anvil) {
-
+    //ldlib issue
+    private void processStabilize(net.minecraft.world.level.block.Block anvil) {
+        itemHandler.setStackInSlot(1, anvil.asItem().getDefaultInstance());
     }
 
     @Override
@@ -158,7 +156,12 @@ public class ParticleStabilizerBlockEntity
         return true;
     }
 
+    @Override
+    public ModularUI createUI(Player entityPlayer) {
+        return new ModularUI(new ParticleStabilizerUI(this), this, entityPlayer);
+    }
+
     public enum State {
-        COOLING, WORKING;
+        COOLING, WORKING
     }
 }
