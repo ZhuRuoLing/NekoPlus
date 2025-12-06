@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.material;
+package icu.takeneko.highenergyanvilology.foundation.material;
 
 import com.mojang.serialization.Codec;
 import icu.takeneko.highenergyanvilology.all.HEBuiltinRegistries;
@@ -15,6 +15,7 @@ import java.util.function.Supplier;
 public record AnvilMaterial(
     float processRate,
     int maxDamage,
+    int color,
 //     Supplier<Item> materialBlockItemRef,
 //     Supplier<Item> materialIngotItemRef,
     Supplier<Item> materialAnvilItemRef

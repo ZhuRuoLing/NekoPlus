@@ -5,6 +5,8 @@
   "block.highenergyanvilology.titanium_alloy_block": "Titanium Alloy Block",
   "config.jade.plugin_highenergyanvilology.particle_stabilizer": "Particle Stabilizer",
   "item.highenergyanvilology.cryocooler": "Cryocooler",
+  "item.highenergyanvilology.magnetic_confinement_vessel": "Magnetic Confinement Vessel",
+  "item.highenergyanvilology.strong_magnet": "Strong Magnet",
   "item.highenergyanvilology.titanium_alloy_ingot": "Titanium Alloy Ingot",
   "item.highenergyanvilology.titanium_alloy_nugget": "Titanium Alloy Nugget",
   "itemGroup.highenergyanvilology.tab": "AnvilCraft: High Energy Anvilology",

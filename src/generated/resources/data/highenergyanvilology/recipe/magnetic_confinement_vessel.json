@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "highenergyanvilology:strong_magnet"
+    },
+    "B": {
+      "item": "highenergyanvilology:titanium_alloy_ingot"
+    },
+    "C": {
+      "item": "anvilcraft:supercapacitor"
+    },
+    "D": {
+      "item": "anvilcraft:magnetoelectric_core"
+    }
+  },
+  "pattern": [
+    " D ",
+    "BAB",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "highenergyanvilology:magnetic_confinement_vessel"
+  }
+}

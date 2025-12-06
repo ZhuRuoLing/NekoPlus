@@ -4,6 +4,7 @@ import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.api.distmarker.Dist;
@@ -12,6 +13,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
 @EventBusSubscriber
@@ -51,6 +53,18 @@ public class HEEvents {
     public static class Client {
         @SubscribeEvent
         public static void on(RegisterMenuScreensEvent event) {
+        }
+
+        @SubscribeEvent
+        public static void on(RegisterColorHandlersEvent.Item event) {
+            event.register((stack, tintIndex) -> {
+                    if (tintIndex == 0) {
+                       return FastColor.ARGB32.opaque(stack.getOrDefault(HEDataComponents.CONTAINED_ANVILON_TYPE.get(), HEAnvilMaterials.EMPTY).color());
+                    }
+                    return -1;
+                },
+                HEItems.MAGNETIC_CONFINEMENT_VESSEL
+            );
         }
     }
 }

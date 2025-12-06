@@ -1,0 +1,12 @@
+{
+  "type": "anvilcraft:charger_charging",
+  "ingredient": {
+    "item": "anvilcraft:earth_core_shard"
+  },
+  "power": -64,
+  "result": {
+    "count": 1,
+    "id": "highenergyanvilology:strong_magnet"
+  },
+  "time": 40
+}

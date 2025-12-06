@@ -6,7 +6,7 @@
 > - `Cracked` by ShrimpSnail, Ewan Howell,& MrBrose
 > - `Flanes` by RyanCR
 
-# Heigh Energy Anvilology
+# High Energy Anvilology
 
 
 Installation information

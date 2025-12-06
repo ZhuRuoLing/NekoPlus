@@ -1,6 +1,6 @@
 package icu.takeneko.highenergyanvilology.all;
 
-import icu.takeneko.highenergyanvilology.material.AnvilMaterial;
+import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
 import net.minecraft.core.Registry;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

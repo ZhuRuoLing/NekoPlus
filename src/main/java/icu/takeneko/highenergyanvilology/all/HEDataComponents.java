@@ -1,8 +1,8 @@
 package icu.takeneko.highenergyanvilology.all;
 
 import icu.takeneko.highenergyanvilology.HEAnvilology;
-import icu.takeneko.highenergyanvilology.material.AnvilMaterial;
-import icu.takeneko.highenergyanvilology.material.AnvilonType;
+import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
+import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;

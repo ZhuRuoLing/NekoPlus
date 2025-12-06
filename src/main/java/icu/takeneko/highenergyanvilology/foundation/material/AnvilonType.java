@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.material;
+package icu.takeneko.highenergyanvilology.foundation.material;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
