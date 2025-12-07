@@ -16,7 +16,6 @@ import icu.takeneko.highenergyanvilology.foundation.block.entity.Overclockable;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
-import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
 import icu.takeneko.highenergyanvilology.foundation.ui.HEBlockEntityUIHolder;
 import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
@@ -165,7 +164,7 @@ public class ParticleStabilizerBlockEntity
             itemStack = itemStack.copy();
             itemStack.set(HEDataComponents.CONTAINED_ANVILON_TYPE, AnvilonType.findType(anvil));
             itemStack.set(HEDataComponents.CONTAINED_ANVILION_STATUS.get(), AnvilonType.Contained.UNSTABLE);
-            ItemStack retain = itemHandler.slice(1, 2)
+            ItemStack retain = itemHandler.slice(1, 2, true)
                 .insertItem(0, itemStack, false);
             if (retain.isEmpty()) return;
             Vec3 center = getBlockPos().getCenter();

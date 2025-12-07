@@ -3,6 +3,7 @@ package icu.takeneko.highenergyanvilology.all;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
@@ -41,6 +42,7 @@ public class HEEvents {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void on(AnvilEvent.CollisionBlock event) {
         Level level = event.getLevel();
+        if (level instanceof ClientLevel) return;
         BlockPos pos = event.getPos();
         BlockEntity blockEntity = level.getBlockEntity(pos);
 

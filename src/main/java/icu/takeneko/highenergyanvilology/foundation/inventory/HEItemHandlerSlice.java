@@ -13,20 +13,24 @@ public class HEItemHandlerSlice extends ItemStackHandler {
     @Setter
     private boolean enableInput = false;
 
+    private final int startIndex;
+    private final int endIndex;
     private final HEItemHandler delegate;
 
-    public HEItemHandlerSlice(NonNullList<ItemStack> stacks, HEItemHandler delegate) {
+    public HEItemHandlerSlice(NonNullList<ItemStack> stacks, HEItemHandler delegate, int startIndex, int endIndex) {
         super(stacks);
+        this.startIndex = startIndex;
+        this.endIndex = endIndex;
         this.delegate = delegate;
     }
 
     public static HEItemHandlerSlice of(HEItemHandler itemHandler, int start, int end) {
-        return new HEItemHandlerSlice(new HENonNullList<>(itemHandler.getStacks().subList(start, end), ItemStack.EMPTY), itemHandler);
+        return new HEItemHandlerSlice(new HENonNullList<>(itemHandler.getStacks().subList(start, end), ItemStack.EMPTY), itemHandler, start, end);
     }
 
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
-        return delegate.isItemValid(slot, stack);
+        return delegate.isItemValid(startIndex + slot, stack);
     }
 
     @Override

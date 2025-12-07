@@ -10,8 +10,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-import java.util.Map;
-
 public class HEItemHandler extends ItemStackHandler implements IContentChangeAware {
     private final ItemHandlerOwner owner;
     private final Table<Integer, Integer, HEItemHandlerSlice> cache = HashBasedTable.create();
