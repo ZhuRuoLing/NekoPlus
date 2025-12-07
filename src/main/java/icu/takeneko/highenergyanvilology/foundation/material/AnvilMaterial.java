@@ -8,6 +8,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 import java.util.function.Supplier;
 
@@ -18,7 +19,8 @@ public record AnvilMaterial(
     int color,
 //     Supplier<Item> materialBlockItemRef,
 //     Supplier<Item> materialIngotItemRef,
-    Supplier<Item> materialAnvilItemRef
+    Supplier<Item> anvilItem,
+    Supplier<Block> anvilBlock
 ) {
     public static final Codec<AnvilMaterial> CODEC = HEBuiltinRegistries.MATERIAL.byNameCodec();
     public static final StreamCodec<? super RegistryFriendlyByteBuf, AnvilMaterial> STREAM_CODEC = ByteBufCodecs.registry(HERegistries.MATERIAL);

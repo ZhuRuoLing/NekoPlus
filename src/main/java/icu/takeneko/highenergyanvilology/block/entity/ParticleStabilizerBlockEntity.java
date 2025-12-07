@@ -6,6 +6,9 @@ import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
+import icu.takeneko.highenergyanvilology.all.HEAnvilMaterials;
+import icu.takeneko.highenergyanvilology.all.HEDataComponents;
+import icu.takeneko.highenergyanvilology.all.HEItems;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HEOverclockablePowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HESynedBlockEntity;
@@ -13,6 +16,8 @@ import icu.takeneko.highenergyanvilology.foundation.block.entity.Overclockable;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
+import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
 import icu.takeneko.highenergyanvilology.foundation.ui.HEBlockEntityUIHolder;
 import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
 import lombok.Getter;
@@ -20,12 +25,14 @@ import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,9 +112,14 @@ public class ParticleStabilizerBlockEntity
         return getBlockPos();
     }
 
+    public boolean hasValidEmptyContainer() {
+        ItemStack itemStack = itemHandler.getStacks().get(0);
+        return isValidEmptyContainerItem(itemStack);
+    }
+
     @Override
     public boolean acceptCollision(FallingBlockEntity entity, double speed, AnvilEvent.CollisionBlock event) {
-        if (speed >= 32 && !this.isOverload && this.state == State.WORKING) {
+        if (speed >= 32 && !this.isOverload && this.state == State.WORKING && hasValidEmptyContainer()) {
             event.getLevel().playSound(
                 null,
                 this.getBlockPos(),
@@ -147,7 +159,18 @@ public class ParticleStabilizerBlockEntity
 
     //ldlib issue
     private void processStabilize(net.minecraft.world.level.block.Block anvil) {
-        itemHandler.setStackInSlot(1, anvil.asItem().getDefaultInstance());
+        if (hasValidEmptyContainer()) {
+            ItemStack itemStack = itemHandler.slice(0, 1).extractItem(0, 1, false);
+            if (itemStack.isEmpty()) return;
+            itemStack = itemStack.copy();
+            itemStack.set(HEDataComponents.CONTAINED_ANVILON_TYPE, AnvilonType.findType(anvil));
+            itemStack.set(HEDataComponents.CONTAINED_ANVILION_STATUS.get(), AnvilonType.Contained.UNSTABLE);
+            ItemStack retain = itemHandler.slice(1, 2)
+                .insertItem(0, itemStack, false);
+            if (retain.isEmpty()) return;
+            Vec3 center = getBlockPos().getCenter();
+            Containers.dropItemStack(level, center.x, center.y + 1, center.z, retain);
+        }
     }
 
     @Override
@@ -157,6 +180,10 @@ public class ParticleStabilizerBlockEntity
 
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
+        if (slot == 0) {
+            return stack.is(HEItems.MAGNETIC_CONFINEMENT_VESSEL)
+                && stack.getOrDefault(HEDataComponents.CONTAINED_ANVILON_TYPE.get(), HEAnvilMaterials.EMPTY) == HEAnvilMaterials.EMPTY;
+        }
         return true;
     }
 
@@ -188,6 +215,11 @@ public class ParticleStabilizerBlockEntity
     @Override
     public int getOverclockedInputPower() {
         return 32 * efficiency;
+    }
+
+    public static boolean isValidEmptyContainerItem(ItemStack stack) {
+        return stack.is(HEItems.MAGNETIC_CONFINEMENT_VESSEL)
+            && stack.getOrDefault(HEDataComponents.CONTAINED_ANVILON_TYPE.get(), HEAnvilMaterials.EMPTY) == HEAnvilMaterials.EMPTY;
     }
 
     public enum State {

@@ -39,6 +39,10 @@ public class HEItemHandler extends ItemStackHandler implements IContentChangeAwa
         return stacks;
     }
 
+    @Override
+    public boolean isItemValid(int slot, ItemStack stack) {
+        return owner.isItemValid(slot, stack);
+    }
 
     public HEItemHandlerSlice slice(int start, int end) {
         return slice(start, end, true);

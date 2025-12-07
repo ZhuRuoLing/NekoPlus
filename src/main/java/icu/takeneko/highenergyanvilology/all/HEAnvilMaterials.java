@@ -4,6 +4,7 @@ import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class HEAnvilMaterials {
@@ -15,7 +16,8 @@ public class HEAnvilMaterials {
             .maxDamage(0)
             .processRate(0)
             .color(-1)
-            .materialAnvilItemRef(() -> Items.AIR)
+            .anvilItem(() -> Items.AIR)
+            .anvilBlock(() -> Blocks.AIR)
             .build()
     );
 
@@ -25,7 +27,8 @@ public class HEAnvilMaterials {
             .maxDamage(128)
             .processRate(1)
             .color(0x41403F)
-            .materialAnvilItemRef(() -> Items.ANVIL)
+            .anvilItem(() -> Items.ANVIL)
+            .anvilBlock(() -> Blocks.ANVIL)
             .build()
     );
 
@@ -35,7 +38,8 @@ public class HEAnvilMaterials {
             .maxDamage(-1)
             .processRate(0.8f)
             .color(0x576095)
-            .materialAnvilItemRef(ModBlocks.SPECTRAL_ANVIL::asItem)
+            .anvilItem(ModBlocks.SPECTRAL_ANVIL::asItem)
+            .anvilBlock(ModBlocks.SPECTRAL_ANVIL::get)
             .build()
     );
 
@@ -45,7 +49,8 @@ public class HEAnvilMaterials {
             .maxDamage(-1)
             .processRate(2)
             .color(0x869676)
-            .materialAnvilItemRef(ModBlocks.ROYAL_ANVIL::asItem)
+            .anvilItem(ModBlocks.ROYAL_ANVIL::asItem)
+            .anvilBlock(ModBlocks.ROYAL_ANVIL::get)
             .build()
     );
 
@@ -55,7 +60,8 @@ public class HEAnvilMaterials {
             .maxDamage(-1)
             .processRate(3)
             .color(0xECC001)
-            .materialAnvilItemRef(ModBlocks.EMBER_ANVIL::asItem)
+            .anvilItem(ModBlocks.EMBER_ANVIL::asItem)
+            .anvilBlock(ModBlocks.EMBER_ANVIL::get)
             .build()
     );
 
@@ -65,7 +71,8 @@ public class HEAnvilMaterials {
             .maxDamage(-1)
             .processRate(5)
             .color(0xE384F9)
-            .materialAnvilItemRef(ModBlocks.TRANSCENDENCE_ANVIL::asItem)
+            .anvilItem(ModBlocks.TRANSCENDENCE_ANVIL::asItem)
+            .anvilBlock(ModBlocks.TRANSCENDENCE_ANVIL::get)
             .build()
     );
 

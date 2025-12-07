@@ -6,13 +6,11 @@ import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.all.HEBlocks;
 import icu.takeneko.highenergyanvilology.all.HECreativeTabs;
 import icu.takeneko.highenergyanvilology.all.HEDataComponents;
-import icu.takeneko.highenergyanvilology.all.HEItemTooltips;
 import icu.takeneko.highenergyanvilology.all.HEItems;
 import icu.takeneko.highenergyanvilology.all.HEMenuTypes;
 import icu.takeneko.highenergyanvilology.config.HEConfig;
 import icu.takeneko.highenergyanvilology.data.HEDataGen;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.bus.api.SubscribeEvent;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -21,7 +19,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 
 
 @Mod(HEAnvilology.MODID)
@@ -31,7 +28,6 @@ public class HEAnvilology {
     public static final Registrate REGISTRATE = Registrate.create(MODID);
 
     public HEAnvilology(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::commonSetup);
         modContainer.registerConfig(ModConfig.Type.COMMON, HEConfig.SPEC);
 
         setupRegistration(modEventBus);
@@ -46,11 +42,6 @@ public class HEAnvilology {
         HECreativeTabs.DR.register(modEventBus);
         HEDataComponents.DR.register(modEventBus);
         HEMenuTypes.DR.register(modEventBus);
-    }
-
-    @SubscribeEvent
-    private void commonSetup(FMLCommonSetupEvent event) {
-        HEItemTooltips.setupTooltips();
     }
 
     public static ResourceLocation location(String path) {

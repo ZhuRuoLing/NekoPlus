@@ -2,6 +2,7 @@ package icu.takeneko.highenergyanvilology.all;
 
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
+import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
@@ -11,6 +12,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
@@ -49,6 +51,12 @@ public class HEEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void on(FMLCommonSetupEvent event) {
+        event.enqueueWork(HEItemTooltips::setupTooltips);
+        event.enqueueWork(AnvilonType::handleRegistration);
+    }
+
     @EventBusSubscriber(Dist.CLIENT)
     public static class Client {
         @SubscribeEvent
@@ -59,7 +67,7 @@ public class HEEvents {
         public static void on(RegisterColorHandlersEvent.Item event) {
             event.register((stack, tintIndex) -> {
                     if (tintIndex == 0) {
-                       return FastColor.ARGB32.opaque(stack.getOrDefault(HEDataComponents.CONTAINED_ANVILON_TYPE.get(), HEAnvilMaterials.EMPTY).color());
+                        return FastColor.ARGB32.opaque(stack.getOrDefault(HEDataComponents.CONTAINED_ANVILON_TYPE.get(), HEAnvilMaterials.EMPTY).color());
                     }
                     return -1;
                 },

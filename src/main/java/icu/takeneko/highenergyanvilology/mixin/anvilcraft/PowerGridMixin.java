@@ -55,8 +55,8 @@ public class PowerGridMixin {
     )
     void calculate(
         CallbackInfoReturnable<Boolean> cir,
-        @Local(index = 1) int oldConsume,
-        @Local(index = 2) int oldGenerate
+        @Local(index = 1) int oldGenerate,
+        @Local(index = 2) int oldConsume
     ) {
         List<HEOverclockablePowerConsumer> list = new ArrayList<>();
         for (IPowerConsumer it : consumers) {
