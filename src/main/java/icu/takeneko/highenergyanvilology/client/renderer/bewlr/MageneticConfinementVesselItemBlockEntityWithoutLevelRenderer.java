@@ -11,6 +11,7 @@ import icu.takeneko.highenergyanvilology.util.ClientTimer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -39,7 +40,7 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
     public static final ModelResourceLocation CONTENT_MODEL_LOCATION = HEAnvilology.modelLocation("item/magnetic_confinement_vessel_content");
     public static final ModelResourceLocation MAGNETIC_MODEL_LOCATION = HEAnvilology.modelLocation("item/magnetic_confinement_vessel_mag");
 
-    public static final float SELF_ROTATION_SPEED = 0.0785398f;
+    public static final float SELF_ROTATION_SPEED = 0.03926990f;
 
     public MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer(
         BlockEntityRenderDispatcher blockEntityRenderDispatcher,
@@ -77,26 +78,73 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
         );
         poseStack.pushPose();
         poseStack.translate(0.5, 0.5, 0.5);
-        poseStack.mulPose(rotation(time, true));
-        //Lighting.setupForEntityInInventory();
+        poseStack.mulPose(rotation(time, 0.75f, false));
         renderModel(
             stack,
             contentModel,
             poseStack,
             buffer,
-            packedLight,
+            LightTexture.FULL_BRIGHT,
             packedOverlay
+        );
+        poseStack.popPose();
+        poseStack.pushPose();
+        for (int i = 0; i < 4; i++) {
+            renderMagnet(
+                i,
+                stack,
+                magnetModel,
+                poseStack,
+                buffer,
+                time,
+                packedLight,
+                packedOverlay
+            );
+        }
+        poseStack.popPose();
+    }
+
+    private void renderMagnet(
+        int index,
+        ItemStack itemStack,
+        BakedModel model,
+        PoseStack poseStack,
+        MultiBufferSource bufferSource,
+        float time,
+        int packedLight,
+        int packedOverlay
+    ) {
+        float decreasedTime = time * 0.05f;
+        int color = (index & 1) == 0 ? 0xffff0000 : 0xff0000ff;
+        poseStack.pushPose();
+        poseStack.translate(0.5, 0.5, 0.5);
+        poseStack.mulPose(Axis.YP.rotationDegrees(time * SELF_ROTATION_SPEED * 128 + (index * 90)));
+        poseStack.translate(0.5, 0, 0);
+        poseStack.translate(
+            0,
+            Math.sin(decreasedTime * 2 + (index & 1) * Math.PI * 0.5) * 0.25,
+            0
+        );
+        poseStack.mulPose(rotation(time, 2, true));
+        renderModel(
+            itemStack,
+            model,
+            poseStack,
+            bufferSource,
+            packedLight,
+            packedOverlay,
+            color
         );
         poseStack.popPose();
     }
 
-    private Quaternionf rotation(float time, boolean positive) {
+    private Quaternionf rotation(float time, float rotationRate, boolean positive) {
         if (!positive) {
             time *= -1;
         }
-        Quaternionf xRot = Axis.XP.rotation(time * SELF_ROTATION_SPEED);
-        Quaternionf yRot = Axis.YP.rotation(time * SELF_ROTATION_SPEED);
-        Quaternionf zRot = Axis.ZP.rotation(time * SELF_ROTATION_SPEED);
+        Quaternionf xRot = Axis.XP.rotation(time * SELF_ROTATION_SPEED * rotationRate);
+        Quaternionf yRot = Axis.YP.rotation(time * SELF_ROTATION_SPEED * rotationRate);
+        Quaternionf zRot = Axis.ZP.rotation(time * SELF_ROTATION_SPEED * rotationRate);
         return xRot.mul(yRot).mul(zRot);
     }
 
@@ -176,9 +224,13 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
         PoseStack.Pose posestack$pose = poseStack.last();
 
         for (BakedQuad bakedquad : quads) {
-            int color = tint;
-            if (!itemStack.isEmpty() && bakedquad.isTinted() && tint == -1) {
-                color = Minecraft.getInstance().getItemColors().getColor(itemStack, bakedquad.getTintIndex());
+            int color = -1;
+            if (!itemStack.isEmpty() && bakedquad.isTinted()) {
+                if (tint != -1) {
+                    color = tint;
+                } else {
+                    color = Minecraft.getInstance().getItemColors().getColor(itemStack, bakedquad.getTintIndex());
+                }
             }
 
             float f = (float) FastColor.ARGB32.alpha(color) / 255.0F;
