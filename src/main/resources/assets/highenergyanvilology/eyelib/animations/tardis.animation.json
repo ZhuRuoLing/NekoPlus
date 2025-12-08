@@ -1,0 +1,95 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.tardis.default": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.0833
+		},
+		"animation.tardis.door_half_open": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.0833,
+			"bones": {
+				"door_right": {
+					"rotation": [0, 30, 0]
+				}
+			}
+		},
+		"animation.tardis.rotating": {
+			"loop": true,
+			"bones": {
+				"bone": {
+					"rotation": [0, "-math.mod(q.anim_time * 360 * prop.rotating.speed, 360)", 0]
+				},
+				"door": {
+					"rotation": [0, 0, 0]
+				}
+			}
+		},
+		"animation.tardis.floating": {
+			"loop": true,
+			"bones": {
+				"door": {
+					"rotation": [0, 0, 0]
+				},
+				"bone2": {
+					"position": [
+						0,
+						"math.sin(q.anim_time * 360 * prop.floating.speed) * prop.floating.delta_height + prop.floating.delta_height + prop.floating.min_height",
+						0
+					]
+				}
+			}
+		},
+		"animation.tardis.door_open": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.0833,
+			"bones": {
+				"door_right": {
+					"rotation": [0, 80, 0]
+				}
+			}
+		},
+		"animation.tardis.door_double_open": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.0417,
+			"bones": {
+				"door_left": {
+					"rotation": [0, -80, 0]
+				},
+				"door_right": {
+					"rotation": [0, 80, 0]
+				}
+			}
+		},
+		"animation.tardis.waving": {
+			"loop": true,
+			"bones": {
+				"bone": {
+					"relative_to": {
+						"rotation": "entity"
+					},
+					"rotation": [0, 0, 0.01]
+				},
+				"bone2": {
+					"rotation": [
+						"-math.sin((q.anim_time + 0.25) * 360 * prop.waving.speed) * prop.waving.delta_deg",
+						0,
+						"math.sin(q.anim_time * 360 * prop.waving.speed) * prop.waving.delta_deg"
+					]
+				}
+			}
+		},
+		"animation.tardis.flashing": {
+			"loop": true,
+			"bones": {
+				"light": {
+					"relative_to": {
+						"rotation": "entity"
+					},
+					"rotation": [-30, "-math.mod(q.anim_time * 360, 360)", 45],
+					"scale": "math.sin(q.anim_time * 180 * prop.flashing.speed) * prop.flashing.size + prop.flashing.size"
+				}
+			}
+		}
+	}
+}
