@@ -57,7 +57,7 @@ public class HEItems {
 
     public static final ItemEntry<MageneticConfinementVesselItem> MAGNETIC_CONFINEMENT_VESSEL = HEAnvilology.REGISTRATE
         .item("magnetic_confinement_vessel", MageneticConfinementVesselItem::new)
-        .model(DataGenUtils::emptyConsumer)
+        .model(DataGenUtils::customRenderer)
         .recipe((ctx, prov) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ctx.get())
                 .pattern(" D ")
