@@ -1,9 +1,11 @@
 package icu.takeneko.highenergyanvilology.all;
 
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
+import icu.takeneko.highenergyanvilology.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
@@ -16,6 +18,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
@@ -63,6 +66,13 @@ public class HEEvents {
     public static class Client {
         @SubscribeEvent
         public static void on(RegisterMenuScreensEvent event) {
+        }
+
+        @SubscribeEvent
+        public static void on(ModelEvent.RegisterAdditional event) {
+            event.register(MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer.CONTAINER_MODEL_LOCATION);
+            event.register(MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer.CONTENT_MODEL_LOCATION);
+            event.register(MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer.MAGNETIC_MODEL_LOCATION);
         }
 
         @SubscribeEvent

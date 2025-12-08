@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.client;
+package icu.takeneko.highenergyanvilology.client.extension;
 
 import icu.takeneko.highenergyanvilology.client.renderer.bewlr.EyelibBlockItemBEWLR;
 import net.minecraft.client.Minecraft;

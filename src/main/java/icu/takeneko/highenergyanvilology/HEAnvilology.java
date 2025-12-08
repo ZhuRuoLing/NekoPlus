@@ -10,6 +10,7 @@ import icu.takeneko.highenergyanvilology.all.HEItems;
 import icu.takeneko.highenergyanvilology.all.HEMenuTypes;
 import icu.takeneko.highenergyanvilology.config.HEConfig;
 import icu.takeneko.highenergyanvilology.data.HEDataGen;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
@@ -46,5 +47,9 @@ public class HEAnvilology {
 
     public static ResourceLocation location(String path) {
         return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    }
+
+    public static ModelResourceLocation modelLocation(String path) {
+        return ModelResourceLocation.standalone(ResourceLocation.fromNamespaceAndPath(MODID, path));
     }
 }

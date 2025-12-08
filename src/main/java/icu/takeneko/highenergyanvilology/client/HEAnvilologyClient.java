@@ -2,7 +2,12 @@ package icu.takeneko.highenergyanvilology.client;
 
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.all.HEHammerTooltipProviders;
+import icu.takeneko.highenergyanvilology.all.HEItems;
+import icu.takeneko.highenergyanvilology.client.extension.HEClientExtension;
+import icu.takeneko.highenergyanvilology.client.extension.HEClientRendererExtension;
+import icu.takeneko.highenergyanvilology.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -43,6 +48,14 @@ public class HEAnvilologyClient {
             }
         });
         event.registerItem(new HEClientExtension(bewlrItem), bewlrItem.reversed().toArray(new Item[0]));
+        event.registerItem(new HEClientRendererExtension(
+                new MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer(
+                    Minecraft.getInstance().getBlockEntityRenderDispatcher(),
+                    Minecraft.getInstance().getEntityModels()
+                )
+            ),
+            HEItems.MAGNETIC_CONFINEMENT_VESSEL
+        );
     }
 
 }
