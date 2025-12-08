@@ -4,7 +4,7 @@
     "description": {
       "identifier": "highenergyanvilology:tardis",
       "textures": {
-        "default": "highenergyanvilology:textures/block/tardis",
+        "default": "highenergyanvilology:textures/block/tardis"
       },
       "materials": {
         "default": "translucent"
