@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.IdentityHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class AnvilonType {
@@ -32,7 +33,7 @@ public class AnvilonType {
 
         @Override
         public String getSerializedName() {
-            return name();
+            return name().toLowerCase(Locale.ROOT);
         }
 
         public static final Codec<Contained> CODEC = StringRepresentable.fromEnum(Contained::values);

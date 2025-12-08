@@ -6,6 +6,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
+import icu.takeneko.highenergyanvilology.all.HEAnvilMaterials;
+import icu.takeneko.highenergyanvilology.all.HEDataComponents;
 import icu.takeneko.highenergyanvilology.all.HEItems;
 import icu.takeneko.highenergyanvilology.util.ClientTimer;
 import net.minecraft.client.Minecraft;
@@ -68,6 +70,7 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
         BakedModel containerModel = modelManager.getModel(CONTAINER_MODEL_LOCATION);
         BakedModel contentModel = modelManager.getModel(CONTENT_MODEL_LOCATION);
         BakedModel magnetModel = modelManager.getModel(MAGNETIC_MODEL_LOCATION);
+        boolean hasContent = stack.getOrDefault(HEDataComponents.CONTAINED_ANVILON_TYPE, HEAnvilMaterials.EMPTY) != HEAnvilMaterials.EMPTY;
         renderModel(
             stack,
             containerModel,
@@ -76,19 +79,22 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
             packedLight,
             packedOverlay
         );
+        if (hasContent) {
+            poseStack.pushPose();
+            poseStack.translate(0.5, 0.5, 0.5);
+            poseStack.mulPose(rotation(time, 0.75f, false));
+            renderModel(
+                stack,
+                contentModel,
+                poseStack,
+                buffer,
+                LightTexture.FULL_BRIGHT,
+                packedOverlay
+            );
+            poseStack.popPose();
+        }
         poseStack.pushPose();
         poseStack.translate(0.5, 0.5, 0.5);
-        poseStack.mulPose(rotation(time, 0.75f, false));
-        renderModel(
-            stack,
-            contentModel,
-            poseStack,
-            buffer,
-            LightTexture.FULL_BRIGHT,
-            packedOverlay
-        );
-        poseStack.popPose();
-        poseStack.pushPose();
         for (int i = 0; i < 4; i++) {
             renderMagnet(
                 i,
@@ -115,9 +121,8 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
         int packedOverlay
     ) {
         float decreasedTime = time * 0.05f;
-        int color = (index & 1) == 0 ? 0xffff0000 : 0xff0000ff;
+        int color = (index & 1) == 0 ? 0xFFFF5050 : 0xFF5050FF;
         poseStack.pushPose();
-        poseStack.translate(0.5, 0.5, 0.5);
         poseStack.mulPose(Axis.YP.rotationDegrees(time * SELF_ROTATION_SPEED * 128 + (index * 90)));
         poseStack.translate(0.5, 0, 0);
         poseStack.translate(
