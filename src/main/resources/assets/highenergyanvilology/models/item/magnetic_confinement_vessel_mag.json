@@ -1,0 +1,38 @@
+{
+	"format_version": "1.21.6",
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"0": "highenergyanvilology:item/magnetic_confinement_vessel_content",
+		"particle": "highenergyanvilology:item/magnetic_confinement_vessel_content"
+	},
+	"elements": [
+		{
+			"from": [7.5, 7.5, 7.5],
+			"to": [8.5, 8.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [8, 0, 10, 2], "texture": "#0"},
+				"east": {"uv": [8, 0, 10, 2], "texture": "#0"},
+				"south": {"uv": [8, 0, 10, 2], "texture": "#0"},
+				"west": {"uv": [8, 0, 10, 2], "texture": "#0"},
+				"up": {"uv": [10, 2, 8, 0], "texture": "#0"},
+				"down": {"uv": [10, 0, 8, 2], "texture": "#0"}
+			}
+		},
+		{
+			"name": "cube_outline",
+			"from": [8.75, 8.75, 8.75],
+			"to": [7.25, 7.25, 7.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [8, 0, 10, 2], "rotation": 180, "texture": "#0"},
+				"east": {"uv": [8, 0, 10, 2], "rotation": 180, "texture": "#0"},
+				"south": {"uv": [8, 0, 10, 2], "rotation": 180, "texture": "#0"},
+				"west": {"uv": [8, 0, 10, 2], "rotation": 180, "texture": "#0"},
+				"up": {"uv": [10, 0, 8, 2], "rotation": 180, "texture": "#0"},
+				"down": {"uv": [10, 2, 8, 0], "rotation": 180, "texture": "#0"}
+			}
+		}
+	]
+}
