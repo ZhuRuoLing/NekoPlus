@@ -1,11 +1,11 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.tardis.default": {
+		"highenergyanvilology:animation.tardis.default": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.0833
 		},
-		"animation.tardis.door_half_open": {
+		"highenergyanvilology:animation.tardis.door_half_open": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.0833,
 			"bones": {
@@ -14,7 +14,7 @@
 				}
 			}
 		},
-		"animation.tardis.rotating": {
+		"highenergyanvilology:animation.tardis.rotating": {
 			"loop": true,
 			"bones": {
 				"bone": {
@@ -25,7 +25,7 @@
 				}
 			}
 		},
-		"animation.tardis.floating": {
+		"highenergyanvilology:animation.tardis.floating": {
 			"loop": true,
 			"bones": {
 				"door": {
@@ -40,7 +40,7 @@
 				}
 			}
 		},
-		"animation.tardis.door_open": {
+		"highenergyanvilology:animation.tardis.door_open": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.0833,
 			"bones": {
@@ -49,7 +49,7 @@
 				}
 			}
 		},
-		"animation.tardis.door_double_open": {
+		"highenergyanvilology:animation.tardis.door_double_open": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.0417,
 			"bones": {
@@ -61,7 +61,7 @@
 				}
 			}
 		},
-		"animation.tardis.waving": {
+		"highenergyanvilology:animation.tardis.waving": {
 			"loop": true,
 			"bones": {
 				"bone": {
@@ -79,7 +79,7 @@
 				}
 			}
 		},
-		"animation.tardis.flashing": {
+		"highenergyanvilology:animation.tardis.flashing": {
 			"loop": true,
 			"bones": {
 				"light": {
