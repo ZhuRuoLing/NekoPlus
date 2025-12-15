@@ -79,20 +79,19 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
             packedLight,
             packedOverlay
         );
-        if (hasContent) {
-            poseStack.pushPose();
-            poseStack.translate(0.5, 0.5, 0.5);
-            poseStack.mulPose(rotation(time, 0.75f, false));
-            renderModel(
-                stack,
-                contentModel,
-                poseStack,
-                buffer,
-                LightTexture.FULL_BRIGHT,
-                packedOverlay
-            );
-            poseStack.popPose();
-        }
+        if (!hasContent) return;
+        poseStack.pushPose();
+        poseStack.translate(0.5, 0.5, 0.5);
+        poseStack.mulPose(rotation(time, 0.75f, false));
+        renderModel(
+            stack,
+            contentModel,
+            poseStack,
+            buffer,
+            LightTexture.FULL_BRIGHT,
+            packedOverlay
+        );
+        poseStack.popPose();
         poseStack.pushPose();
         poseStack.translate(0.5, 0.5, 0.5);
         for (int i = 0; i < 4; i++) {

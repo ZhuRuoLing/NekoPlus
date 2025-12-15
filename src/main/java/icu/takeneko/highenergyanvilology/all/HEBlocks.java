@@ -8,12 +8,14 @@ import dev.dubhe.anvilcraft.init.item.ModItems;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.AnvilonEmitterBlock;
 import icu.takeneko.highenergyanvilology.block.ParticleStabilizerBlock;
+import icu.takeneko.highenergyanvilology.block.StellarEngineBlock;
 import icu.takeneko.highenergyanvilology.util.ModelUtils;
 import icu.takeneko.highenergyanvilology.util.StateUtils;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.Tags;
 
@@ -92,6 +94,28 @@ public class HEBlocks {
                 .define('D', HEItems.CRYOCOOLER)
                 .define('E', ModItems.CIRCUIT_BOARD);
         })
+        .model((ctx, prov) -> {
+            ModelUtils.wrapDefaultBlockItemTransform(
+                prov.getBuilder(ctx.getName())
+                    .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+            );
+        })
+        .build()
+        .register();
+
+    public static final BlockEntry<StellarEngineBlock> STELLAR_ENGINE = HEAnvilology.REGISTRATE
+        .block("stellar_engine", StellarEngineBlock::new)
+        .initialProperties(() -> Blocks.NETHERITE_BLOCK)
+        .properties(p -> p.sound(SoundType.METAL))
+        .blockstate((ctx, cons) -> {
+            cons.simpleBlock(
+                ctx.get(),
+                cons.models()
+                    .getBuilder("block/stellar_engine")
+                    .texture("particle", "highenergyanvilology:block/stellar_engine")
+            );
+        })
+        .item()
         .model((ctx, prov) -> {
             ModelUtils.wrapDefaultBlockItemTransform(
                 prov.getBuilder(ctx.getName())
