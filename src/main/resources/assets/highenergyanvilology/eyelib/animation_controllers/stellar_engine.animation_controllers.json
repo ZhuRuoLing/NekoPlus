@@ -1,0 +1,27 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.stellar_engine.new": {
+			"states": {
+				"default": {
+					"animations": ["closed"],
+					"transitions": [
+						{"open": "action.open"}
+					]
+				},
+				"open": {
+					"animations": ["open", "ring", "sun"],
+					"on_entry": ["action.open = false;", "state.opening = true;"],
+					"on_exit": ["state.opening = false;"],
+					"transitions": [
+						{"opened": "query.any_animation_finished"}
+					]
+				},
+				"opened": {
+					"animations": ["ring", "sun"],
+					"on_entry": ["state.opened = true;"]
+				}
+			}
+		}
+	}
+}
