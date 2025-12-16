@@ -5,9 +5,11 @@ import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.entity.AnvilonEmitterBlockEntity;
 import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEntity;
 import icu.takeneko.highenergyanvilology.block.entity.StellarEngineBlockEntity;
+import icu.takeneko.highenergyanvilology.block.entity.TardisBlockEntity;
 import icu.takeneko.highenergyanvilology.client.renderer.blockentity.AnvilonEmitterBlockEntityRenderer;
 import icu.takeneko.highenergyanvilology.client.renderer.blockentity.ParticleStabilizerBlockEntityRenderer;
 import icu.takeneko.highenergyanvilology.client.renderer.blockentity.StellarEngineBlockEntityRenderer;
+import icu.takeneko.highenergyanvilology.client.renderer.blockentity.TardisBlockEntityRenderer;
 
 public class HEBlockEntities {
     public static final BlockEntityEntry<AnvilonEmitterBlockEntity> ANVILION_EMITTER = HEAnvilology.REGISTRATE
@@ -28,6 +30,11 @@ public class HEBlockEntities {
         .renderer(() -> StellarEngineBlockEntityRenderer::new)
         .register();
 
+    public static final BlockEntityEntry<TardisBlockEntity> TARDIS =  HEAnvilology.REGISTRATE
+        .blockEntity("tardis", TardisBlockEntity::new)
+        .validBlock(HEBlocks.TARDIS)
+        .renderer(() -> TardisBlockEntityRenderer::new)
+        .register();
 
     public static void setupRegistration() {
     }

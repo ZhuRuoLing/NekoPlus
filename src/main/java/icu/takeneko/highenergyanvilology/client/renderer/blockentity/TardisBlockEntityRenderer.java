@@ -2,28 +2,23 @@ package icu.takeneko.highenergyanvilology.client.renderer.blockentity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import icu.takeneko.highenergyanvilology.block.StellarEngineBlock;
-import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEntity;
-import icu.takeneko.highenergyanvilology.block.entity.StellarEngineBlockEntity;
+import icu.takeneko.highenergyanvilology.block.TardisBlock;
+import icu.takeneko.highenergyanvilology.block.entity.TardisBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.AABB;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
-public class StellarEngineBlockEntityRenderer extends EyelibBlockEntityRenderer<StellarEngineBlockEntity> {
-
-    public StellarEngineBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
+public class TardisBlockEntityRenderer extends EyelibBlockEntityRenderer<TardisBlockEntity> {
+    public TardisBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         super(context);
     }
 
     @Override
-    public void render(StellarEngineBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(TardisBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         poseStack.pushPose();
         poseStack.translate(0.5, 0, 0.5);
-        Direction value = blockEntity.getBlockState().getValue(StellarEngineBlock.FACING);
+        Direction value = blockEntity.getBlockState().getValue(TardisBlock.FACING);
         poseStack.mulPose(
             Axis.YP.rotationDegrees(
                 switch (value) {
@@ -39,8 +34,8 @@ public class StellarEngineBlockEntityRenderer extends EyelibBlockEntityRenderer<
     }
 
     @Override
-    public AABB getRenderBoundingBox(StellarEngineBlockEntity blockEntity) {
-        AABB aabb = super.getRenderBoundingBox(blockEntity).inflate(3.5, 0, 3.5);
+    public AABB getRenderBoundingBox(TardisBlockEntity blockEntity) {
+        AABB aabb = super.getRenderBoundingBox(blockEntity).inflate(1.5, 0, 1.5);
         return aabb.setMaxY(aabb.maxY + 8);
     }
 }

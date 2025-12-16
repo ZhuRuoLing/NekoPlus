@@ -26,10 +26,14 @@ public class HEBlockTags {
         ironPickaxeMineableBlock(HEBlocks.PARTICLE_STABILIZER, provider);
         ironPickaxeMineableBlock(HEBlocks.TITANIUM_ALLOY_BLOCK, provider);
         ironPickaxeMineableBlock(HEBlocks.ROYAL_STEEL_CASING, provider);
+        ironPickaxeMineableBlock(HEBlocks.STELLAR_ENGINE, provider);
+        ironPickaxeMineableBlock(HEBlocks.TARDIS, provider);
 
         wrenchableBlock(HEBlocks.ANVILON_EMITTER_BLOCK, provider);
         wrenchableBlock(HEBlocks.PARTICLE_STABILIZER, provider);
         wrenchableBlock(HEBlocks.ROYAL_STEEL_CASING, provider);
+        wrenchableBlock(HEBlocks.STELLAR_ENGINE, provider);
+        wrenchableBlock(HEBlocks.TARDIS, provider);
     }
 
     public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrateTagsProvider<Block> provider) {
