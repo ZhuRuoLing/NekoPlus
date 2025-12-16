@@ -1,4 +1,4 @@
-![The-Introduction-of-Anvilology_title.png](document/The-Introduction-of-Heigh-Energy-Anvilology_title.png)
+![The-Introduction-of-Anvilology_title.png](document/The-Introduction-of-High-Energy-Anvilology_title.png)
 
 > Title built via `Blockbench` plugin [`Minecraft Title Generator` by Ewan Howell](https://ewanhowell.com/plugins/minecraft-title-generator/)
 > 

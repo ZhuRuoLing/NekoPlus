@@ -3,13 +3,15 @@ package icu.takeneko.highenergyanvilology.block;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.entity.StellarEngineBlockEntity;
+import icu.takeneko.highenergyanvilology.foundation.block.HETranslucentEntityBlock;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class StellarEngineBlock extends BaseEntityBlock {
+public class StellarEngineBlock extends HETranslucentEntityBlock implements SpecialRendererBlock {
     public StellarEngineBlock(Properties properties) {
         super(properties);
     }

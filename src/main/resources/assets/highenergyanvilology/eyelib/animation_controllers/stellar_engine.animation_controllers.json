@@ -1,17 +1,17 @@
 {
 	"format_version": "1.19.0",
 	"animation_controllers": {
-		"controller.animation.stellar_engine.new": {
+		"highenergyanvilology:controller.animation.stellar_engine.main": {
 			"states": {
 				"default": {
 					"animations": ["closed"],
 					"transitions": [
-						{"open": "action.open"}
+						{"open": "variable.open"}
 					]
 				},
 				"open": {
 					"animations": ["open", "ring", "sun"],
-					"on_entry": ["action.open = false;", "state.opening = true;"],
+					"on_entry": ["variable.open = false;", "state.opening = true;"],
 					"on_exit": ["state.opening = false;"],
 					"transitions": [
 						{"opened": "query.any_animation_finished"}

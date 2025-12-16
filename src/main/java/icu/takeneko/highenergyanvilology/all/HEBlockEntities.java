@@ -7,6 +7,7 @@ import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEnt
 import icu.takeneko.highenergyanvilology.block.entity.StellarEngineBlockEntity;
 import icu.takeneko.highenergyanvilology.client.renderer.blockentity.AnvilonEmitterBlockEntityRenderer;
 import icu.takeneko.highenergyanvilology.client.renderer.blockentity.ParticleStabilizerBlockEntityRenderer;
+import icu.takeneko.highenergyanvilology.client.renderer.blockentity.StellarEngineBlockEntityRenderer;
 
 public class HEBlockEntities {
     public static final BlockEntityEntry<AnvilonEmitterBlockEntity> ANVILION_EMITTER = HEAnvilology.REGISTRATE
@@ -23,7 +24,8 @@ public class HEBlockEntities {
 
     public static final BlockEntityEntry<StellarEngineBlockEntity> STELLAR_ENGINE = HEAnvilology.REGISTRATE
         .blockEntity("stellar_engine", StellarEngineBlockEntity::new)
-        .validBlock(HEBlocks.PARTICLE_STABILIZER)
+        .validBlock(HEBlocks.STELLAR_ENGINE)
+        .renderer(() -> StellarEngineBlockEntityRenderer::new)
         .register();
 
 

@@ -10,7 +10,8 @@
   "client": [
     "minecraft.GlDebugMixin",
     "self.AnvilonEmitterAnimationMixin",
-    "self.ParticleStabilizerBlockEntityMixin"
+    "self.ParticleStabilizerBlockEntityMixin",
+    "self.StellarEngineBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

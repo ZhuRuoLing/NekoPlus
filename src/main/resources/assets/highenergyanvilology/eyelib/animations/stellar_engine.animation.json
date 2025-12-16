@@ -1,37 +1,37 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"animation.stellar_engine.ring": {
+		"highenergyanvilology:animation.stellar_engine.ring": {
 			"loop": true,
 			"animation_length": 8,
 			"bones": {
 				"ring_0": {
-					"rotation": ["-math.mod(q.anim_time * 135 * -prop.rotating.speed, 360)", 0, "math.mod(q.anim_time * 90 * -prop.rotating.speed, 360)"]
+					"rotation": ["-math.mod(q.anim_time * 135 * -variable.rotating_speed, 360)", 0, "math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)"]
 				},
 				"ring_1": {
-					"rotation": [0, 0, "math.mod(q.anim_time * 90 * -prop.rotating.speed, 360)"]
+					"rotation": [0, 0, "math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)"]
 				}
 			}
 		},
-		"animation.stellar_engine.sun": {
+		"highenergyanvilology:animation.stellar_engine.sun": {
 			"loop": true,
 			"animation_length": 4,
 			"bones": {
 				"sun_0": {
-					"rotation": [0, "-math.mod(q.anim_time * 90 * -prop.rotating.speed, 360)", 0]
+					"rotation": [0, "-math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)", 0]
 				},
 				"sun_1": {
-					"rotation": ["-math.mod(q.anim_time * 90 * -prop.rotating.speed, 360)", 0, 0]
+					"rotation": ["-math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)", 0, 0]
 				},
 				"sun_2": {
-					"rotation": [0, 0, "math.mod(q.anim_time * 90 * -prop.rotating.speed, 360)"]
+					"rotation": [0, 0, "math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)"]
 				},
 				"light": {
-					"rotation": [0, "-math.mod(q.anim_time * 90 * prop.rotating.speed, 360)", 0]
+					"rotation": [0, "-math.mod(q.anim_time * 90 * variable.rotating_speed, 360)", 0]
 				}
 			}
 		},
-		"animation.stellar_engine.open": {
+		"highenergyanvilology:animation.stellar_engine.open": {
 			"animation_length": 8,
 			"bones": {
 				"sun": {
@@ -199,7 +199,7 @@
 				}
 			}
 		},
-		"animation.stellar_engine.closed": {
+		"highenergyanvilology:animation.stellar_engine.closed": {
 			"loop": "hold_on_last_frame",
 			"animation_length": 0.0833,
 			"bones": {

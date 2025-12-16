@@ -106,7 +106,7 @@ public class HEBlocks {
     public static final BlockEntry<StellarEngineBlock> STELLAR_ENGINE = HEAnvilology.REGISTRATE
         .block("stellar_engine", StellarEngineBlock::new)
         .initialProperties(() -> Blocks.NETHERITE_BLOCK)
-        .properties(p -> p.sound(SoundType.METAL))
+        .properties(p -> p.sound(SoundType.METAL).noOcclusion())
         .blockstate((ctx, cons) -> {
             cons.simpleBlock(
                 ctx.get(),
