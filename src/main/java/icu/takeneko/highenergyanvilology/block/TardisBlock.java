@@ -76,7 +76,7 @@ public class TardisBlock extends HESimpleMultiPartBlock<Part3> implements Specia
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         if (!hasEnoughSpace(context.getClickedPos(), context.getLevel())) return null;
-        return super.getPlacementState(context).setValue(FACING, context.getHorizontalDirection());
+        return super.getPlacementState(context).setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
