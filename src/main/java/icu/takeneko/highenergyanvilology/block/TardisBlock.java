@@ -1,15 +1,17 @@
 package icu.takeneko.highenergyanvilology.block;
 
-import dev.dubhe.anvilcraft.block.multipart.SimpleMultiPartBlock;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.all.HEBlockStateProperties;
 import icu.takeneko.highenergyanvilology.block.entity.TardisBlockEntity;
 import icu.takeneko.highenergyanvilology.block.property.Part3;
 import icu.takeneko.highenergyanvilology.foundation.block.HESimpleMultiPartBlock;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -23,6 +25,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
 public class TardisBlock extends HESimpleMultiPartBlock<Part3> implements SpecialRendererBlock, EntityBlock {
@@ -87,5 +90,23 @@ public class TardisBlock extends HESimpleMultiPartBlock<Part3> implements Specia
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return state.getValue(PART) == Part3.BOTTOM ? new TardisBlockEntity(HEBlockEntities.TARDIS.get(), pos, state) : null;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+        if (level instanceof ClientLevel) {
+            Part3 part = state.getValue(PART);
+            pos = switch (part){
+                case TOP -> pos.below(2);
+                case MIDDLE -> pos.below(1);
+                case BOTTOM -> pos;
+            };
+            if (level.getBlockEntity(pos) instanceof TardisBlockEntity tardis) {
+                tardis.onClick();
+                return InteractionResult.sidedSuccess(level.isClientSide);
+            }
+        }
+
+        return super.useWithoutItem(state, level, pos, player, hitResult);
     }
 }

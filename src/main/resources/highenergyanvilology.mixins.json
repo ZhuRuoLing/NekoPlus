@@ -12,7 +12,8 @@
     "minecraft.GlDebugMixin",
     "self.AnvilonEmitterAnimationMixin",
     "self.ParticleStabilizerBlockEntityMixin",
-    "self.StellarEngineBlockEntityMixin"
+    "self.StellarEngineBlockEntityMixin",
+    "self.TardisBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

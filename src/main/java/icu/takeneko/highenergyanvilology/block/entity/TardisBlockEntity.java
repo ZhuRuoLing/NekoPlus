@@ -9,4 +9,10 @@ public class TardisBlockEntity extends BlockEntity {
     public TardisBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
     }
+
+    private boolean animation = false;
+
+    public void onClick() {
+        animation = !animation;
+    }
 }
