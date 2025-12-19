@@ -9,13 +9,23 @@ import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.item.MageneticConfinementVesselItem;
+import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.util.DataGenUtils;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.worldgen.DimensionTypes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.common.Tags;
+
+import java.util.List;
 
 public class HEItems {
     static {
@@ -33,7 +43,6 @@ public class HEItems {
                 .save(p, p.safeId(c.get()) + "_charging")
         )
         .register();
-
 
 
     public static final ItemEntry<Item> TITANIUM_ALLOY_INGOT = HEAnvilology.REGISTRATE
@@ -72,6 +81,25 @@ public class HEItems {
                 .unlockedBy("has_" + ModItems.SUPER_CAPACITOR.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.SUPER_CAPACITOR))
                 .unlockedBy("has_" + ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK.getRegisteredName(), RegistrateRecipeProvider.has(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK))
                 .save(prov);
+        })
+        .register();
+
+    public static final ItemEntry<Item> DRY_ICE = HEAnvilology.REGISTRATE
+        .item("dry_ice", Item::new)
+        .tag(HETags.Items.ICES, HETags.Items.DRY_ICES)
+        .register();
+
+    public static final ItemEntry<Item> SULFUR = HEAnvilology.REGISTRATE
+        .item("sulfur", Item::new)
+        .tag(Tags.Items.DUSTS, HETags.Items.SULFUR)
+        .recipe((ctx, prov) -> {
+            AirCondensingRecipe.builder()
+                .dimension(prov.resolve(BuiltinDimensionTypes.NETHER))
+                .results(List.of(new ItemStack(ctx.get(), 8), new ItemStack(DRY_ICE.asItem(), 1)))
+                .probability(ConstantValue.exactly(0.3f))
+                .ticks(10)
+                .build()
+                .save(HEAnvilology.location("air_condensing/nether"), prov);
         })
         .register();
 

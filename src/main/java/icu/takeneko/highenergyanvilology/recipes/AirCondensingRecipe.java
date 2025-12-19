@@ -1,22 +1,34 @@
 package icu.takeneko.highenergyanvilology.recipes;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import icu.takeneko.highenergyanvilology.all.HERecipeTypes;
 import icu.takeneko.highenergyanvilology.foundation.recipes.SingleRecipeInput;
+import lombok.Builder;
 import lombok.Getter;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
+import net.neoforged.neoforge.common.data.internal.NeoForgeRecipeProvider;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -24,13 +36,16 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
+@Builder
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<DimensionType>> {
     public static final MapCodec<AirCondensingRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(ins ->
         ins.group(
             DimensionType.CODEC.fieldOf("dimension").forGetter(AirCondensingRecipe::getDimension),
-            ItemStack.STRICT_CODEC.listOf().fieldOf("results").forGetter(AirCondensingRecipe::getResults)
+            ItemStack.STRICT_CODEC.listOf().fieldOf("results").forGetter(AirCondensingRecipe::getResults),
+            NumberProviders.CODEC.fieldOf("probability").forGetter(AirCondensingRecipe::getProbability),
+            Codec.INT.fieldOf("ticks").forGetter(AirCondensingRecipe::getTicks)
         ).apply(ins, AirCondensingRecipe::new)
     );
 
@@ -39,19 +54,29 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
         AirCondensingRecipe::getDimension,
         ByteBufCodecs.collection(ArrayList::new, ItemStack.STREAM_CODEC),
         AirCondensingRecipe::getResults,
+        ByteBufCodecs.fromCodec(NumberProviders.CODEC),
+        AirCondensingRecipe::getProbability,
+        ByteBufCodecs.INT,
+        AirCondensingRecipe::getTicks,
         AirCondensingRecipe::new
     );
 
 
     private final Holder<DimensionType> dimension;
     private final List<ItemStack> results;
+    private final NumberProvider probability;
+    private final int ticks;
 
     public AirCondensingRecipe(
         Holder<DimensionType> dimension,
-        List<ItemStack> results
+        List<ItemStack> results,
+        NumberProvider probability,
+        int ticks
     ) {
         this.dimension = dimension;
         this.results = results;
+        this.probability = probability;
+        this.ticks = ticks;
     }
 
     @Override
@@ -103,5 +128,14 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
     @Override
     public RecipeType<?> getType() {
         return HERecipeTypes.AIR_CONDENSING;
+    }
+
+    public void save(ResourceLocation id, RegistrateRecipeProvider output) {
+        Advancement.Builder builder = output.advancement()
+            .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+            .rewards(AdvancementRewards.Builder.recipe(id))
+            .requirements(AdvancementRequirements.Strategy.OR);
+
+        output.accept(id, this, builder.build(id.withPrefix("recipes/air_condensing/")));
     }
 }

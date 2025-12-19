@@ -6,23 +6,9 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
-public class RecipeSerializerImpl<T extends Recipe<?>> implements RecipeSerializer<T> {
+public record RecipeSerializerImpl<T extends Recipe<?>>(
+    MapCodec<T> codec,
+    StreamCodec<RegistryFriendlyByteBuf, T> streamCodec
+) implements RecipeSerializer<T> {
 
-    private final MapCodec<T> codec;
-    private final StreamCodec<RegistryFriendlyByteBuf, T> streamCodec;
-
-    public RecipeSerializerImpl(MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) {
-        this.codec = codec;
-        this.streamCodec = streamCodec;
-    }
-
-    @Override
-    public MapCodec<T> codec() {
-        return codec;
-    }
-
-    @Override
-    public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
-        return streamCodec;
-    }
 }
