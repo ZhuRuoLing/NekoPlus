@@ -8,6 +8,7 @@ import icu.takeneko.highenergyanvilology.all.HECreativeTabs;
 import icu.takeneko.highenergyanvilology.all.HEDataComponents;
 import icu.takeneko.highenergyanvilology.all.HEItems;
 import icu.takeneko.highenergyanvilology.all.HEMenuTypes;
+import icu.takeneko.highenergyanvilology.all.HERecipeTypes;
 import icu.takeneko.highenergyanvilology.config.HEConfig;
 import icu.takeneko.highenergyanvilology.data.HEDataGen;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -43,6 +44,8 @@ public class HEAnvilology {
         HECreativeTabs.DR.register(modEventBus);
         HEDataComponents.DR.register(modEventBus);
         HEMenuTypes.DR.register(modEventBus);
+        HERecipeTypes.DR.register(modEventBus);
+        HERecipeTypes.RECIPE_SERIALIZER_DR.register(modEventBus);
     }
 
     public static ResourceLocation location(String path) {
