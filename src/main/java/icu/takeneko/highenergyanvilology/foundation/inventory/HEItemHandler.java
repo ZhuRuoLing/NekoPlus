@@ -6,7 +6,9 @@ import com.google.common.collect.Table;
 import com.lowdragmc.lowdraglib.syncdata.IContentChangeAware;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 

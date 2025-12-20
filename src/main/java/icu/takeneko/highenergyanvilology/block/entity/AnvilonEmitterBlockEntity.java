@@ -9,7 +9,7 @@ import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HEPowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HESynedBlockEntity;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.Tickable;
+import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
 import icu.takeneko.highenergyanvilology.ui.AnvilonEmitterUI;

@@ -13,6 +13,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -99,6 +100,16 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialR
             };
         }
         return 0;
+    }
+
+    @Override
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (level instanceof ServerLevel) {
+            if (level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity be) {
+                Containers.dropContents(level, pos, be.getItemHandler().getStacks());
+            }
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Override

@@ -1,9 +1,13 @@
 package icu.takeneko.highenergyanvilology.all;
 
+import com.lowdragmc.lowdraglib.gui.modular.ModularUIGuiContainer;
+import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import icu.takeneko.highenergyanvilology.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
+import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.BlockPos;
@@ -18,6 +22,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -66,6 +71,16 @@ public class HEEvents {
     public static class Client {
         @SubscribeEvent
         public static void on(RegisterMenuScreensEvent event) {
+        }
+
+        @SubscribeEvent
+        public static void on(ClientTickEvent.Pre event) {
+            Minecraft mc = Minecraft.getInstance();
+            if (!(mc.screen instanceof ModularUIGuiContainer screen)) return;
+            WidgetGroup mainGroup = screen.modularUI.mainGroup;
+            if (mainGroup instanceof Tickable tickable) {
+                tickable.tick();
+            }
         }
 
         @SubscribeEvent

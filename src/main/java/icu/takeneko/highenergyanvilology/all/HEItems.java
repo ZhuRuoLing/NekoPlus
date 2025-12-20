@@ -11,18 +11,14 @@ import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.item.MageneticConfinementVesselItem;
 import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.util.DataGenUtils;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.worldgen.DimensionTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;

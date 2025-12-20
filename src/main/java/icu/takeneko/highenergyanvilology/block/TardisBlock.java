@@ -96,7 +96,7 @@ public class TardisBlock extends HESimpleMultiPartBlock<Part3> implements Specia
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level instanceof ClientLevel) {
             Part3 part = state.getValue(PART);
-            pos = switch (part){
+            pos = switch (part) {
                 case TOP -> pos.below(2);
                 case MIDDLE -> pos.below(1);
                 case BOTTOM -> pos;
@@ -107,6 +107,6 @@ public class TardisBlock extends HESimpleMultiPartBlock<Part3> implements Specia
             }
         }
 
-        return super.useWithoutItem(state, level, pos, player, hitResult);
+        return InteractionResult.SUCCESS;
     }
 }
