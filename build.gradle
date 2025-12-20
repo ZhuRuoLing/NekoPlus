@@ -178,7 +178,6 @@ dependencies {
     compileOnlyApi(libs.jeiForgeApi) 
     implementation(libs.jeiForgeImpl) 
     implementation(libs.jade)
-    implementation(libs.patchouli)
 
     jarJar(implementation "curse.maven:eyelib-1388469:7242460-sources-7242465")
 
