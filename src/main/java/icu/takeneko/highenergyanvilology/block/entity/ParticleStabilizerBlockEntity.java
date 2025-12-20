@@ -19,7 +19,6 @@ import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
 import icu.takeneko.highenergyanvilology.foundation.ui.HEBlockEntityUIHolder;
 import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -69,7 +68,13 @@ public class ParticleStabilizerBlockEntity
     @Getter
     @Setter
     @DescSynced
+    @Persisted
     private int progress;
+
+    @Getter
+    @Setter
+    @DescSynced
+    private int maxProgress;
 
     @Getter
     @Setter

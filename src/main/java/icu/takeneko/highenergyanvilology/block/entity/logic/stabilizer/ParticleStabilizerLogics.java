@@ -107,7 +107,7 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
     GAS_COLLECTOR {
         @Override
         public boolean isValidTriggerItem(ItemStack stack) {
-            return false;
+            return stack.is(HEItems.AIR_FILTER);
         }
 
         @Override
@@ -128,6 +128,7 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
                     );
                 if (recipe.isPresent()) {
                     host.setCurrentRecipe(recipe.get().value());
+                    host.setMaxProgress(recipe.get().value().getTicks());
                     currentRecipe = recipe.get().value();
                 } else {
                     host.setProgress(0);

@@ -40,7 +40,7 @@ public interface ParticleStabilizerLogic {
             for (ParticleStabilizerLogic logic : logics) {
                 if (logic.tryTrigger(host)) {
                     logic.tick(host);
-                }else {
+                } else {
                     logic.deactivate(host);
                 }
             }

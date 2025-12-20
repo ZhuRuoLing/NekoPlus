@@ -41,7 +41,7 @@ public class HEEvents {
             HEBlockEntities.PARTICLE_STABILIZER.get(),
             (a, v) -> {
                 if (v == null) return a.getItemHandler();
-                if (v == Direction.DOWN) return a.getItemHandler().slice(1, 2, true);
+                if (v == Direction.DOWN) return a.getItemHandler().slice(1, 5, true);
                 return a.getItemHandler().slice(0, 1);
             }
         );

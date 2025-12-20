@@ -29,7 +29,7 @@ public class ParticleStabilizerUI extends WidgetGroup implements Tickable {
         this.blockEntity = blockEntity;
         PlayerInventoryWidget inventory = new PlayerInventoryWidget();
         inventory.setSelfPosition(0, 58);
-        ImageWidget arrow = new ImageWidget(69, 29, 18, 18, () -> progressTexture);
+        ImageWidget arrow = new ImageWidget(68, 28, 20, 20, () -> progressTexture);
         FilteredSlotWidget inputSlot = new FilteredSlotWidget(blockEntity.getItemHandler(), 0, 41, 29);
         SlotWidget outputSlot1 = new SlotWidget(blockEntity.getItemHandler(), 1, 95, 20);
         SlotWidget outputSlot2 = new SlotWidget(blockEntity.getItemHandler(), 2, 113, 20);
@@ -50,9 +50,9 @@ public class ParticleStabilizerUI extends WidgetGroup implements Tickable {
 
     @Override
     public void tick() {
-        AirCondensingRecipe currentRecipe = blockEntity.getCurrentRecipe();
-        if (currentRecipe != null) {
-            float progress = (float) blockEntity.getProgress() / currentRecipe.getTicks();
+        int maxProgress = blockEntity.getMaxProgress();
+        if (maxProgress > 0) {
+            float progress = (float) blockEntity.getProgress() / maxProgress;
             progressTexture.setProgress(progress);
             return;
         }

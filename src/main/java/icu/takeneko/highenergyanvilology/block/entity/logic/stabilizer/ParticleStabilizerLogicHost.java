@@ -26,6 +26,8 @@ public interface ParticleStabilizerLogicHost {
 
     void setProgress(int progress);
 
+    void setMaxProgress(int value);
+
     int getProgress();
 
     AirCondensingRecipe getCurrentRecipe();

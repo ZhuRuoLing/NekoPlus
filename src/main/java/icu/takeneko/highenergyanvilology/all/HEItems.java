@@ -99,6 +99,29 @@ public class HEItems {
         })
         .register();
 
+    public static final ItemEntry<Item> NANOFILTRATION_MEMBRANE = HEAnvilology.REGISTRATE
+        .item("nanofiltration_membrane", Item::new)
+        .recipe((c,p) -> {
+
+        })
+        .register();
+
+    public static final ItemEntry<Item> AIR_FILTER = HEAnvilology.REGISTRATE
+        .item("air_filter", Item::new)
+        .model(DataGenUtils::emptyConsumer)
+        .recipe((c,p) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
+                .pattern(" A ")
+                .pattern("ABA")
+                .pattern(" A ")
+                .define('A', HEItems.TITANIUM_ALLOY_NUGGET)
+                .define('B', NANOFILTRATION_MEMBRANE)
+                .unlockedBy("has_" + p.safeName(NANOFILTRATION_MEMBRANE), RegistrateRecipeProvider.has(NANOFILTRATION_MEMBRANE))
+                .unlockedBy("has_" + p.safeName(TITANIUM_ALLOY_NUGGET), RegistrateRecipeProvider.has(TITANIUM_ALLOY_NUGGET))
+                .save(p);
+        })
+        .register();
+
     public static final ItemEntry<Item> CRYOCOOLER = HEAnvilology.REGISTRATE
         .item("cryocooler", Item::new)
         .model(DataGenUtils::emptyConsumer)

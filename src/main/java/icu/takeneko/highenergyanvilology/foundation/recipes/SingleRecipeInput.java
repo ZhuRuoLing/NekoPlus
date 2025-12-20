@@ -2,11 +2,13 @@ package icu.takeneko.highenergyanvilology.foundation.recipes;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
+import org.jetbrains.annotations.Nullable;
 
 public class SingleRecipeInput<T> implements RecipeInput {
+    @Nullable
     private final T input;
 
-    private SingleRecipeInput(T item) {
+    private SingleRecipeInput(@Nullable T item) {
         this.input = item;
     }
 
@@ -21,10 +23,16 @@ public class SingleRecipeInput<T> implements RecipeInput {
     }
 
     public T unwrap() {
+        if (input == null) throw new IllegalArgumentException("Invalid recipe input: null");
         return input;
     }
 
     public static <T> SingleRecipeInput<T> of(T entry) {
         return new SingleRecipeInput<>(entry);
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return input == null;
     }
 }

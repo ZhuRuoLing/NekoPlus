@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "highenergyanvilology:titanium_alloy_nugget"
+    },
+    "B": {
+      "item": "highenergyanvilology:nanofiltration_membrane"
+    }
+  },
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "highenergyanvilology:air_filter"
+  }
+}
