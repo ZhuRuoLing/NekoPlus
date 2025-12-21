@@ -4,12 +4,14 @@
   "package": "icu.takeneko.highenergyanvilology.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "anvilcraft.ChargerBlockEntityMixin",
     "anvilcraft.PowerGridMixin",
     "anvilcraft.SimplePowerGridMixin",
     "eyelib.RenderControllerEntryMixin"
   ],
   "client": [
     "minecraft.GlDebugMixin",
+    "minecraft.TextureManagerMixin",
     "self.AnvilonEmitterAnimationMixin",
     "self.ParticleStabilizerBlockEntityMixin",
     "self.StellarEngineBlockEntityMixin",
