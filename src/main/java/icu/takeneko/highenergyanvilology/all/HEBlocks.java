@@ -2,6 +2,7 @@ package icu.takeneko.highenergyanvilology.all;
 
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.entry.BlockEntry;
+import dev.dubhe.anvilcraft.init.block.ModBlockTags;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
@@ -49,6 +50,7 @@ public class HEBlocks {
             .isSuffocating(StateUtils::never)
             .isViewBlocking(StateUtils::never)
         )
+        .tag(ModBlockTags.LASER_CAN_PASS_THROUGH)
         .defaultBlockstate()
         .blockstate((ctx, cons) -> {
             cons.simpleBlock(
@@ -169,15 +171,16 @@ public class HEBlocks {
             ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ctx.get())
                 .pattern(" A ")
                 .pattern("CBC")
-                .pattern("EDE")
+                .pattern("DED")
                 .define('A', ModItems.TIN_NUGGET)
                 .define('B', HEItems.CARBON_DIOXIDE_LASER_TUBE)
                 .define('C', HEItems.TITANIUM_ALLOY_INGOT)
-                .define('D', ModBlocks.TRANSCENDIUM_BLOCK)
+                .define('D', ModItems.TRANSCENDIUM_INGOT)
+                .define('E', ModItems.CIRCUIT_BOARD)
                 .unlockedBy("has_" + ModItems.TIN_NUGGET.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.TIN_NUGGET))
                 .unlockedBy("has_" + HEItems.CARBON_DIOXIDE_LASER_TUBE.getRegisteredName(), RegistrateRecipeProvider.has(HEItems.CARBON_DIOXIDE_LASER_TUBE))
                 .unlockedBy("has_" + HEItems.TITANIUM_ALLOY_INGOT.getRegisteredName(), RegistrateRecipeProvider.has(HEItems.TITANIUM_ALLOY_INGOT))
-                .unlockedBy("has_" + ModBlocks.TRANSCENDIUM_BLOCK.getRegisteredName(), RegistrateRecipeProvider.has(ModBlocks.TRANSCENDIUM_BLOCK))
+                .unlockedBy("has_" + ModItems.CIRCUIT_BOARD.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.CIRCUIT_BOARD))
                 .save(prov);
         })
         .build()

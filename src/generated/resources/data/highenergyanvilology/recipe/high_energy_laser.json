@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": {
+      "item": "anvilcraft:tin_nugget"
+    },
+    "B": {
+      "item": "highenergyanvilology:carbon_dioxide_laser_tube"
+    },
+    "C": {
+      "item": "highenergyanvilology:titanium_alloy_ingot"
+    },
+    "D": {
+      "item": "anvilcraft:transcendium_ingot"
+    },
+    "E": {
+      "item": "anvilcraft:circuit_board"
+    }
+  },
+  "pattern": [
+    " A ",
+    "CBC",
+    "DED"
+  ],
+  "result": {
+    "count": 1,
+    "id": "highenergyanvilology:high_energy_laser"
+  }
+}

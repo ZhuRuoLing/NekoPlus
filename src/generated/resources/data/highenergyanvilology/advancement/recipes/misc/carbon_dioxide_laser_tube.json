@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anvilcraft:silver_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:silver_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_glass_bottle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:glass_bottle"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_highenergyanvilology:dry_ice": {
+      "conditions": {
+        "items": [
+          {
+            "items": "highenergyanvilology:dry_ice"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "highenergyanvilology:carbon_dioxide_laser_tube"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_highenergyanvilology:dry_ice",
+      "has_glass_bottle",
+      "has_anvilcraft:silver_nugget"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "highenergyanvilology:carbon_dioxide_laser_tube"
+    ]
+  }
+}
