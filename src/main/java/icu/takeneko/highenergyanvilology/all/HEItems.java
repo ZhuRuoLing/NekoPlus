@@ -60,6 +60,41 @@ public class HEItems {
         )
         .register();
 
+    public static final ItemEntry<Item> DRY_ICE = HEAnvilology.REGISTRATE
+        .item("dry_ice", Item::new)
+        .tag(HETags.Items.ICES, HETags.Items.DRY_ICES)
+        .register();
+
+    public static final ItemEntry<Item> SULFUR = HEAnvilology.REGISTRATE
+        .item("sulfur", Item::new)
+        .tag(Tags.Items.DUSTS, HETags.Items.SULFUR)
+        .recipe((ctx, prov) -> {
+            AirCondensingRecipe.builder()
+                .dimension(prov.resolve(BuiltinDimensionTypes.NETHER))
+                .results(List.of(new ItemStack(ctx.get(), 8), new ItemStack(DRY_ICE.asItem(), 1)))
+                .probability(ConstantValue.exactly(0.3f))
+                .ticks(10)
+                .build()
+                .save(HEAnvilology.location("air_condensing/nether"), prov);
+        })
+        .register();
+
+    public static final ItemEntry<Item> CARBON_DIOXIDE_LASER_TUBE = HEAnvilology.REGISTRATE
+        .item("carbon_dioxide_laser_tube", Item::new)
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ctx.get())
+                .pattern(" A ")
+                .pattern("CBC")
+                .define('A', DRY_ICE)
+                .define('B', Items.GLASS_BOTTLE)
+                .define('C', ModItems.SILVER_NUGGET)
+                .unlockedBy("has_" + DRY_ICE.getRegisteredName(), RegistrateRecipeProvider.has(DRY_ICE))
+                .unlockedBy("has_" + prov.safeName(Items.GLASS_BOTTLE), RegistrateRecipeProvider.has(Items.GLASS_BOTTLE))
+                .unlockedBy("has_" + ModItems.SILVER_NUGGET.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.SILVER_NUGGET))
+                .save(prov);
+        })
+        .register();
+
     public static final ItemEntry<MageneticConfinementVesselItem> MAGNETIC_CONFINEMENT_VESSEL = HEAnvilology.REGISTRATE
         .item("magnetic_confinement_vessel", MageneticConfinementVesselItem::new)
         .model(DataGenUtils::customRenderer)
@@ -80,28 +115,10 @@ public class HEItems {
         })
         .register();
 
-    public static final ItemEntry<Item> DRY_ICE = HEAnvilology.REGISTRATE
-        .item("dry_ice", Item::new)
-        .tag(HETags.Items.ICES, HETags.Items.DRY_ICES)
-        .register();
-
-    public static final ItemEntry<Item> SULFUR = HEAnvilology.REGISTRATE
-        .item("sulfur", Item::new)
-        .tag(Tags.Items.DUSTS, HETags.Items.SULFUR)
-        .recipe((ctx, prov) -> {
-            AirCondensingRecipe.builder()
-                .dimension(prov.resolve(BuiltinDimensionTypes.NETHER))
-                .results(List.of(new ItemStack(ctx.get(), 8), new ItemStack(DRY_ICE.asItem(), 1)))
-                .probability(ConstantValue.exactly(0.3f))
-                .ticks(10)
-                .build()
-                .save(HEAnvilology.location("air_condensing/nether"), prov);
-        })
-        .register();
 
     public static final ItemEntry<Item> NANOFILTRATION_MEMBRANE = HEAnvilology.REGISTRATE
         .item("nanofiltration_membrane", Item::new)
-        .recipe((c,p) -> {
+        .recipe((c, p) -> {
 
         })
         .register();
@@ -109,7 +126,7 @@ public class HEItems {
     public static final ItemEntry<Item> AIR_FILTER = HEAnvilology.REGISTRATE
         .item("air_filter", Item::new)
         .model(DataGenUtils::emptyConsumer)
-        .recipe((c,p) -> {
+        .recipe((c, p) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
                 .pattern(" A ")
                 .pattern("ABA")

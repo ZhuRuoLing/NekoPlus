@@ -7,23 +7,31 @@ import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.AnvilonEmitterBlock;
+import icu.takeneko.highenergyanvilology.block.HighEnergyLaserBlock;
 import icu.takeneko.highenergyanvilology.block.ParticleStabilizerBlock;
 import icu.takeneko.highenergyanvilology.block.StellarEngineBlock;
 import icu.takeneko.highenergyanvilology.block.TardisBlock;
 import icu.takeneko.highenergyanvilology.block.property.Part3;
+import icu.takeneko.highenergyanvilology.foundation.block.entity.HEOverclockablePowerConsumer;
+import icu.takeneko.highenergyanvilology.util.DataGenUtils;
 import icu.takeneko.highenergyanvilology.util.ModelUtils;
 import icu.takeneko.highenergyanvilology.util.StateUtils;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.Tags;
 
@@ -107,6 +115,70 @@ public class HEBlocks {
                 prov.getBuilder(ctx.getName())
                     .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
             );
+        })
+        .build()
+        .register();
+
+    public static final BlockEntry<HighEnergyLaserBlock> HIGH_ENERGY_LASER = HEAnvilology.REGISTRATE
+        .block("high_energy_laser", HighEnergyLaserBlock::new)
+        .blockstate((ctx, prov) -> {
+            // "3": "highenergyanvilology:block/high_energy_laser",
+            ResourceLocation textureOff = HEAnvilology.location("block/high_energy_laser_off");
+            ResourceLocation textureOverload = HEAnvilology.location("block/high_energy_laser_overload");
+            ResourceLocation texture = HEAnvilology.location("block/high_energy_laser");
+            BlockModelBuilder modelOff = prov.models().withExistingParent(ctx.getName() + "_off", HEAnvilology.location("block/high_energy_laser_base"))
+                .texture("3", textureOff);
+            BlockModelBuilder modelOverload = prov.models().withExistingParent(ctx.getName() + "_overload", HEAnvilology.location("block/high_energy_laser_base"))
+                .texture("3", textureOverload);
+            BlockModelBuilder model = prov.models().withExistingParent(ctx.getName(), HEAnvilology.location("block/high_energy_laser_base"))
+                .texture("3", texture);
+
+            prov.getVariantBuilder(ctx.get())
+                .forAllStates(blockState -> {
+                    boolean overload = blockState.getValue(HighEnergyLaserBlock.OVERLOAD);
+                    boolean powered = blockState.getValue(HighEnergyLaserBlock.POWERED);
+                    Direction facing = blockState.getValue(HighEnergyLaserBlock.FACING);
+                    BlockModelBuilder m;
+                    if (powered) {
+                        m = modelOff;
+                    } else {
+                        if (overload) {
+                            m = modelOverload;
+                        } else {
+                            m = model;
+                        }
+                    }
+                    int yRot = facing.getAxis() != Direction.Axis.Y ? ((int) facing.toYRot() + 180) % 360 : 0;
+                    int xRot = 0;
+                    if (facing.getAxis() == Direction.Axis.Y) {
+                        if (facing == Direction.DOWN) {
+                            xRot = 180;
+                        }
+                    } else {
+                        xRot = 90;
+                    }
+                    return ConfiguredModel.builder()
+                        .modelFile(m)
+                        .rotationY(yRot)
+                        .rotationX(xRot)
+                        .build();
+                });
+        })
+        .item()
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ctx.get())
+                .pattern(" A ")
+                .pattern("CBC")
+                .pattern("EDE")
+                .define('A', ModItems.TIN_NUGGET)
+                .define('B', HEItems.CARBON_DIOXIDE_LASER_TUBE)
+                .define('C', HEItems.TITANIUM_ALLOY_INGOT)
+                .define('D', ModBlocks.TRANSCENDIUM_BLOCK)
+                .unlockedBy("has_" + ModItems.TIN_NUGGET.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.TIN_NUGGET))
+                .unlockedBy("has_" + HEItems.CARBON_DIOXIDE_LASER_TUBE.getRegisteredName(), RegistrateRecipeProvider.has(HEItems.CARBON_DIOXIDE_LASER_TUBE))
+                .unlockedBy("has_" + HEItems.TITANIUM_ALLOY_INGOT.getRegisteredName(), RegistrateRecipeProvider.has(HEItems.TITANIUM_ALLOY_INGOT))
+                .unlockedBy("has_" + ModBlocks.TRANSCENDIUM_BLOCK.getRegisteredName(), RegistrateRecipeProvider.has(ModBlocks.TRANSCENDIUM_BLOCK))
+                .save(prov);
         })
         .build()
         .register();

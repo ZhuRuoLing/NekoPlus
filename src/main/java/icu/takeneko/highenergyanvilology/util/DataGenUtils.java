@@ -5,23 +5,26 @@ import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
 import com.tterrag.registrate.providers.RegistrateItemModelProvider;
 import com.tterrag.registrate.providers.RegistrateProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 public class DataGenUtils {
-    private DataGenUtils() {}
+    private DataGenUtils() {
+    }
 
-    public static void existingBlockModel(
-        DataGenContext<Block, ?> ctx,
+    public static <T extends Block> void existingBlockModel(
+        DataGenContext<Block, T> ctx,
         RegistrateBlockstateProvider prov
     ) {
         prov.getVariantBuilder(ctx.get())
             .partialState()
             .addModels(
                 ConfiguredModel.builder()
-                    .modelFile(new ModelFile.ExistingModelFile(prov.modLoc( "block/"+ ctx.getName()), prov.models().existingFileHelper))
+                    .modelFile(new ModelFile.ExistingModelFile(prov.modLoc("block/" + ctx.getName()), prov.models().existingFileHelper))
                     .build()
             );
     }
@@ -45,5 +48,6 @@ public class DataGenUtils {
     public static <T extends RegistrateProvider> void emptyConsumer(
         DataGenContext<?, ?> ctx,
         T prov
-    ) {}
+    ) {
+    }
 }
