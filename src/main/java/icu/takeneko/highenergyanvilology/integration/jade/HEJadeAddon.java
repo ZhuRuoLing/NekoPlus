@@ -1,7 +1,7 @@
 package icu.takeneko.highenergyanvilology.integration.jade;
 
 import icu.takeneko.highenergyanvilology.block.ParticleStabilizerBlock;
-import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.ParticleStabilizerBlockEntity;
 import snownee.jade.api.IWailaClientRegistration;
 import snownee.jade.api.IWailaCommonRegistration;
 import snownee.jade.api.IWailaPlugin;

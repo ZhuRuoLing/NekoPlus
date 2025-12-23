@@ -3,10 +3,15 @@ package icu.takeneko.highenergyanvilology.block;
 import com.mojang.serialization.MapCodec;
 import dev.dubhe.anvilcraft.api.hammer.IHammerChangeable;
 import dev.dubhe.anvilcraft.api.power.IPowerComponent;
+import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
+import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.block.HETranslucentEntityBlock;
+import icu.takeneko.highenergyanvilology.util.BlockEntityUtil;
 import icu.takeneko.highenergyanvilology.util.VoxelShapeUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -14,6 +19,9 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,9 +39,9 @@ public class HighEnergyLaserBlock extends HETranslucentEntityBlock implements IH
     public static final BooleanProperty OVERLOAD = IPowerComponent.OVERLOAD;
 
     public static final VoxelShape UP_SHAPE = VoxelShapeUtils.combine(
-        Block.box(2,0,2, 14,2,14),
-        Block.box(5,2,5, 11,14,11),
-        Block.box(3,2,3, 13,10,13)
+        Block.box(2, 0, 2, 14, 2, 14),
+        Block.box(5, 2, 5, 11, 14, 11),
+        Block.box(3, 2, 3, 13, 10, 13)
     );
 
     public static final VoxelShape[] SHAPES = new VoxelShape[6];
@@ -53,10 +61,10 @@ public class HighEnergyLaserBlock extends HETranslucentEntityBlock implements IH
         super(properties);
         registerDefaultState(
             getStateDefinition()
-            .any()
-            .setValue(FACING, Direction.NORTH)
-            .setValue(POWERED, false)
-            .setValue(OVERLOAD, false)
+                .any()
+                .setValue(FACING, Direction.NORTH)
+                .setValue(POWERED, false)
+                .setValue(OVERLOAD, false)
         );
     }
 
@@ -103,5 +111,18 @@ public class HighEnergyLaserBlock extends HETranslucentEntityBlock implements IH
     @Override
     public @Nullable Property<?> getChangeableProperty(BlockState blockState) {
         return FACING;
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+        if (level instanceof ServerLevel) {
+            return (BlockEntityTicker<T>) BlockEntityUtil.<AnvilonEmitterBlockEntity>createTicker();
+        }
+        return null;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new HighEnergyLaserBlockEntity(HEBlockEntities.HIGH_ENERGY_LASER.get(), pos, state);
     }
 }

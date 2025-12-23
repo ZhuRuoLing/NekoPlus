@@ -5,23 +5,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
-public interface HEPowerConsumer extends IPowerConsumer {
-    void setOverload(boolean value);
+public interface HEPowerConsumer extends HEPowerComponent, IPowerConsumer {
 
-    boolean isOverload();
-
-    @Override
-    default void flushState(@NotNull Level level, @NotNull BlockPos pos) {
-        if (this.getGrid() == null) {
-            if (!isOverload()) {
-                setOverload(true);
-            }
-            return;
-        }
-        if (this.getGrid().isWorking() && isOverload()) {
-            setOverload(false);
-        } else if (!this.getGrid().isWorking() && !isOverload()) {
-            setOverload(true);
-        }
-    }
 }

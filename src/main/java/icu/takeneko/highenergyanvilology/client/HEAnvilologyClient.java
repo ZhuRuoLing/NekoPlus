@@ -1,11 +1,16 @@
 package icu.takeneko.highenergyanvilology.client;
 
+import dev.dubhe.anvilcraft.api.rendering.CacheableBlockEntityRenderers;
+import dev.dubhe.anvilcraft.init.block.ModBlockEntities;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
+import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
+import icu.takeneko.highenergyanvilology.all.HEBlocks;
 import icu.takeneko.highenergyanvilology.all.HEHammerTooltipProviders;
 import icu.takeneko.highenergyanvilology.all.HEItems;
 import icu.takeneko.highenergyanvilology.client.extension.HEClientExtension;
 import icu.takeneko.highenergyanvilology.client.extension.HEClientRendererExtension;
 import icu.takeneko.highenergyanvilology.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
+import icu.takeneko.highenergyanvilology.client.renderer.laser.HELaserRenderer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -37,6 +42,10 @@ public class HEAnvilologyClient {
 
     @SubscribeEvent
     public static void on(FMLClientSetupEvent event) {
+        HELaserRenderer heLaserRenderer = new HELaserRenderer();
+        CacheableBlockEntityRenderers.register(ModBlockEntities.RUBY_LASER.get(), heLaserRenderer);
+        CacheableBlockEntityRenderers.register(ModBlockEntities.RUBY_PRISM.get(), heLaserRenderer);
+        CacheableBlockEntityRenderers.register(HEBlockEntities.HIGH_ENERGY_LASER.get(), heLaserRenderer);
     }
 
     @SubscribeEvent

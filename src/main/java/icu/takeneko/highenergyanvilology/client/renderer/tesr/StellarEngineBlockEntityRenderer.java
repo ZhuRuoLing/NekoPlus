@@ -1,10 +1,9 @@
-package icu.takeneko.highenergyanvilology.client.renderer.blockentity;
+package icu.takeneko.highenergyanvilology.client.renderer.tesr;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import icu.takeneko.highenergyanvilology.block.StellarEngineBlock;
-import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEntity;
-import icu.takeneko.highenergyanvilology.block.entity.StellarEngineBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.StellarEngineBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;

@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.block.entity;
+package icu.takeneko.highenergyanvilology.block.tile;
 
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
 import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
@@ -6,8 +6,8 @@ import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
-import icu.takeneko.highenergyanvilology.block.entity.logic.stabilizer.ParticleStabilizerLogic;
-import icu.takeneko.highenergyanvilology.block.entity.logic.stabilizer.ParticleStabilizerLogicHost;
+import icu.takeneko.highenergyanvilology.block.tile.logic.stabilizer.ParticleStabilizerLogic;
+import icu.takeneko.highenergyanvilology.block.tile.logic.stabilizer.ParticleStabilizerLogicHost;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.BlockCollisionEventReceiver;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HEOverclockablePowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HESynedBlockEntity;
@@ -93,7 +93,7 @@ public class ParticleStabilizerBlockEntity
 
     @Override
     public void tick() {
-        flushState(level, getBlockPos());
+        flushState();
         if (this.isOverload) return;
         if (countdown > 0) {
             this.countdown = Math.max(countdown - efficiency, 0);

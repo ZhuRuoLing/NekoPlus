@@ -1,7 +1,7 @@
-package icu.takeneko.highenergyanvilology.client.renderer.blockentity;
+package icu.takeneko.highenergyanvilology.client.renderer.tesr;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import icu.takeneko.highenergyanvilology.block.entity.AnvilonEmitterBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 

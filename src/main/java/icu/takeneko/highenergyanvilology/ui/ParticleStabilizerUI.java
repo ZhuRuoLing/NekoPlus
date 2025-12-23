@@ -9,10 +9,9 @@ import com.lowdragmc.lowdraglib.gui.widget.SlotWidget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import com.lowdragmc.lowdraglib.gui.widget.custom.PlayerInventoryWidget;
 import com.lowdragmc.lowdraglib.gui.widget.layout.Align;
-import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.ui.widgets.FilteredSlotWidget;
-import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
 import net.minecraft.network.chat.Component;
 
 public class ParticleStabilizerUI extends WidgetGroup implements Tickable {

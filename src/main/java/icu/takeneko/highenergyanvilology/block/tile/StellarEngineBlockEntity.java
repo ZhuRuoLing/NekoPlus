@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.block.entity;
+package icu.takeneko.highenergyanvilology.block.tile;
 
 import dev.dubhe.anvilcraft.api.power.IPowerProducer;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;

@@ -6,7 +6,7 @@ import com.lowdragmc.lowdraglib.gui.widget.SlotWidget;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import com.lowdragmc.lowdraglib.gui.widget.custom.PlayerInventoryWidget;
 import com.lowdragmc.lowdraglib.gui.widget.layout.Align;
-import icu.takeneko.highenergyanvilology.block.entity.AnvilonEmitterBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
 import net.minecraft.network.chat.Component;
 
 public class AnvilonEmitterUI extends WidgetGroup {

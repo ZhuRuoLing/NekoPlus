@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.client.renderer.blockentity;
+package icu.takeneko.highenergyanvilology.client.renderer.tesr;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

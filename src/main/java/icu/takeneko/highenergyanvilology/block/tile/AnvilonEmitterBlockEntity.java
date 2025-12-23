@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.block.entity;
+package icu.takeneko.highenergyanvilology.block.tile;
 
 import com.lowdragmc.lowdraglib.gui.modular.IUIHolder;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
@@ -54,7 +54,7 @@ public class AnvilonEmitterBlockEntity
 
     @Override
     public void tick() {
-        flushState(level, getBlockPos());
+        flushState();
     }
 
     @Override

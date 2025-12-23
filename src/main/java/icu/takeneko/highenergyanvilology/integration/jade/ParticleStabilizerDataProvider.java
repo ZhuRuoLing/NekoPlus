@@ -1,7 +1,7 @@
 package icu.takeneko.highenergyanvilology.integration.jade;
 
 import icu.takeneko.highenergyanvilology.HEAnvilology;
-import icu.takeneko.highenergyanvilology.block.entity.ParticleStabilizerBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.ParticleStabilizerBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

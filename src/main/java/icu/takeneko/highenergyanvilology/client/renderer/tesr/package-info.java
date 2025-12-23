@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package icu.takeneko.highenergyanvilology.client.renderer.blockentity;
+package icu.takeneko.highenergyanvilology.client.renderer.tesr;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

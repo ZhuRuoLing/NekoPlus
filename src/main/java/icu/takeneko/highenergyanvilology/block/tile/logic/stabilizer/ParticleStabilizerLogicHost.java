@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.block.entity.logic.stabilizer;
+package icu.takeneko.highenergyanvilology.block.tile.logic.stabilizer;
 
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerSlice;
 import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;

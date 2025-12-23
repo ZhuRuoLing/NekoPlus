@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.block.entity.logic.stabilizer;
+package icu.takeneko.highenergyanvilology.block.tile.logic.stabilizer;
 
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import net.minecraft.world.entity.item.FallingBlockEntity;

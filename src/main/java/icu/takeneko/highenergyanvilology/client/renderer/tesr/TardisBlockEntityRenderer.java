@@ -1,9 +1,9 @@
-package icu.takeneko.highenergyanvilology.client.renderer.blockentity;
+package icu.takeneko.highenergyanvilology.client.renderer.tesr;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import icu.takeneko.highenergyanvilology.block.TardisBlock;
-import icu.takeneko.highenergyanvilology.block.entity.TardisBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.TardisBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;

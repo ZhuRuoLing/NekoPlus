@@ -2,7 +2,7 @@ package icu.takeneko.highenergyanvilology.block;
 
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.all.HEBlockStateProperties;
-import icu.takeneko.highenergyanvilology.block.entity.TardisBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.TardisBlockEntity;
 import icu.takeneko.highenergyanvilology.block.property.Part3;
 import icu.takeneko.highenergyanvilology.foundation.block.HESimpleMultiPartBlock;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;

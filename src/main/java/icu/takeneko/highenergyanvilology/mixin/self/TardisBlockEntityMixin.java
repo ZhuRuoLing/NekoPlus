@@ -1,6 +1,6 @@
 package icu.takeneko.highenergyanvilology.mixin.self;
 
-import icu.takeneko.highenergyanvilology.block.entity.TardisBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.TardisBlockEntity;
 import icu.takeneko.highenergyanvilology.client.renderer.helper.AnimationDataConfigurator;
 import io.github.tt432.eyelib.molang.MolangScope;
 import org.spongepowered.asm.mixin.Mixin;
