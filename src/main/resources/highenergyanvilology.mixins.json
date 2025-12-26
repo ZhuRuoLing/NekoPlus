@@ -6,6 +6,7 @@
   "mixins": [
     "anvilcraft.BaseLaserBlockEntityMixin",
     "anvilcraft.ChargerBlockEntityMixin",
+    "anvilcraft.LaserEmitPacketMixin",
     "anvilcraft.PowerGridMixin",
     "anvilcraft.SimplePowerGridMixin",
     "eyelib.RenderControllerEntryMixin"

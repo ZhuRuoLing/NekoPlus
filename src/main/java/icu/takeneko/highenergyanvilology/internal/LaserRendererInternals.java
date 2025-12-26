@@ -15,5 +15,13 @@ public class LaserRendererInternals {
         boolean hasPureHELaserSource();
 
         void updateFromSource(BaseLaserBlockEntity blockEntity, boolean value, Set<BaseLaserBlockEntity> context);
+
+        void setPureHELaserSourceDirect(boolean value);
+    }
+
+    public interface PacketAccess {
+        boolean isPureHELaserSource();
+
+        void setPureHELaserSource(boolean value);
     }
 }

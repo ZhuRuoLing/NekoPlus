@@ -5,6 +5,7 @@ import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import icu.takeneko.highenergyanvilology.block.HighEnergyLaserBlock;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.block.entity.HEPowerConsumer;
+import icu.takeneko.highenergyanvilology.internal.LaserRendererInternals;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -36,6 +37,7 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
         if (level.hasNeighborSignal(getBlockPos()) == !getPoweredState()) {
             setPoweredState(!level.hasNeighborSignal(getBlockPos()), 2);
         }
+        ((LaserRendererInternals.Access) this).setPureHELaserSourceDirect(true);
         if (isSwitchedOn()) {
             emitLaser(getFacing());
         } else {
