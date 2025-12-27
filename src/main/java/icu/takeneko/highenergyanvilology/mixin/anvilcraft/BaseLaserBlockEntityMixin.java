@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import dev.dubhe.anvilcraft.network.LaserEmitPacket;
 import icu.takeneko.highenergyanvilology.block.tile.HighEnergyLaserBlockEntity;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.HEInspectionSupported;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEInspectionSupported;
 import icu.takeneko.highenergyanvilology.internal.LaserRendererInternals;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;

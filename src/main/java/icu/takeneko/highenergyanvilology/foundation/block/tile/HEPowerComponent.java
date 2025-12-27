@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.foundation.block.entity;
+package icu.takeneko.highenergyanvilology.foundation.block.tile;
 
 import dev.dubhe.anvilcraft.api.power.IPowerComponent;
 import net.minecraft.core.BlockPos;

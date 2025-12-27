@@ -4,7 +4,7 @@ import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import icu.takeneko.highenergyanvilology.block.HighEnergyLaserBlock;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.HEPowerConsumer;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEPowerConsumer;
 import icu.takeneko.highenergyanvilology.internal.LaserRendererInternals;
 import lombok.Getter;
 import lombok.Setter;

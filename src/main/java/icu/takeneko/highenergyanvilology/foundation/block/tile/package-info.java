@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package icu.takeneko.highenergyanvilology.foundation.block.entity;
+package icu.takeneko.highenergyanvilology.foundation.block.tile;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

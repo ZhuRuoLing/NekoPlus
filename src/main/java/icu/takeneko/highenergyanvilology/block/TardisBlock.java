@@ -5,7 +5,7 @@ import icu.takeneko.highenergyanvilology.all.HEBlockStateProperties;
 import icu.takeneko.highenergyanvilology.block.tile.TardisBlockEntity;
 import icu.takeneko.highenergyanvilology.block.property.Part3;
 import icu.takeneko.highenergyanvilology.foundation.block.HESimpleMultiPartBlock;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.SpecialRendererBlock;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

@@ -2,7 +2,7 @@ package icu.takeneko.highenergyanvilology.mixin.anvilcraft;
 
 import dev.dubhe.anvilcraft.block.ChargerBlock;
 import dev.dubhe.anvilcraft.block.entity.ChargerBlockEntity;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.HEOverclockablePowerConsumer;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEOverclockablePowerConsumer;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

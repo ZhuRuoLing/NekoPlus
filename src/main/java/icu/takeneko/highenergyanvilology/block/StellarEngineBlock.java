@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.block.HETranslucentEntityBlock;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.SpecialRendererBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;

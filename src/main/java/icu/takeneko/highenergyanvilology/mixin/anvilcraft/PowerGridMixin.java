@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.dubhe.anvilcraft.api.power.IPowerConsumer;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.HEOverclockablePowerConsumer;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEOverclockablePowerConsumer;
 import icu.takeneko.highenergyanvilology.util.OverclockUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

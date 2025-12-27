@@ -1,6 +1,6 @@
 package icu.takeneko.highenergyanvilology.util;
 
-import icu.takeneko.highenergyanvilology.foundation.block.entity.HEOverclockablePowerConsumer;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEOverclockablePowerConsumer;
 import it.unimi.dsi.fastutil.objects.Reference2IntLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 

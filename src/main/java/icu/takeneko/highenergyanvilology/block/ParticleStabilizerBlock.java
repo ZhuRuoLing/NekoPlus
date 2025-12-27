@@ -5,7 +5,7 @@ import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.ParticleStabilizerBlockEntity;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.SpecialRendererBlock;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.highenergyanvilology.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

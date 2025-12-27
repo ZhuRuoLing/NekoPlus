@@ -1,7 +1,7 @@
 package icu.takeneko.highenergyanvilology.all;
 
 import com.mojang.brigadier.CommandDispatcher;
-import icu.takeneko.highenergyanvilology.foundation.block.entity.HEInspectionSupported;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEInspectionSupported;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.coordinates.BlockPosArgument;
