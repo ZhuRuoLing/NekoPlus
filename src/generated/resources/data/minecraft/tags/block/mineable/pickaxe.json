@@ -1,10 +1,12 @@
 {
   "values": [
+    "highenergyanvilology:titanium_alloy_anvil",
     "highenergyanvilology:anvilon_emitter",
     "highenergyanvilology:particle_stabilizer",
     "highenergyanvilology:titanium_alloy_block",
     "highenergyanvilology:royal_steel_casing",
     "highenergyanvilology:stellar_engine",
-    "highenergyanvilology:tardis"
+    "highenergyanvilology:tardis",
+    "highenergyanvilology:high_energy_laser"
   ]
 }

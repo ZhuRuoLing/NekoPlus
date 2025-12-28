@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "highenergyanvilology:block/titanium_alloy_anvil",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "highenergyanvilology:block/titanium_alloy_anvil",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "highenergyanvilology:block/titanium_alloy_anvil"
+    },
+    "facing=west": {
+      "model": "highenergyanvilology:block/titanium_alloy_anvil",
+      "y": 90
+    }
+  }
+}

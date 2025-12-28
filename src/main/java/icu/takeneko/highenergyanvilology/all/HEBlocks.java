@@ -12,6 +12,7 @@ import icu.takeneko.highenergyanvilology.block.HighEnergyLaserBlock;
 import icu.takeneko.highenergyanvilology.block.ParticleStabilizerBlock;
 import icu.takeneko.highenergyanvilology.block.StellarEngineBlock;
 import icu.takeneko.highenergyanvilology.block.TardisBlock;
+import icu.takeneko.highenergyanvilology.block.TitaniumAlloyAnvilBlock;
 import icu.takeneko.highenergyanvilology.block.property.Part3;
 import icu.takeneko.highenergyanvilology.util.ModelUtils;
 import icu.takeneko.highenergyanvilology.util.StateUtils;
@@ -20,6 +21,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -259,6 +263,39 @@ public class HEBlocks {
         .tag(Tags.Blocks.STORAGE_BLOCKS, HETags.Blocks.STORAGE_BLOCKS_TITANIUM_ALLOY)
         .item()
         .tag(Tags.Items.STORAGE_BLOCKS, HETags.Items.STORAGE_BLOCKS_TITANIUM_ALLOY)
+        .build()
+        .register();
+
+    public static final BlockEntry<TitaniumAlloyAnvilBlock> TITANIUM_ALLOY_ANVIL = HEAnvilology.REGISTRATE
+        .block("titanium_alloy_anvil", TitaniumAlloyAnvilBlock::new)
+        .initialProperties(() -> Blocks.ANVIL)
+        .tag(ModBlockTags.ANVIL_TIER_0, ModBlockTags.ANVIL_TIER_1, BlockTags.ANVIL, ModBlockTags.CANT_BROKEN_ANVIL, BlockTags.MINEABLE_WITH_PICKAXE)
+        .properties(p -> p.isValidSpawn(Blocks::never).strength(5.0f, 1200f))
+        .blockstate((ctx, prov) -> {
+            ModelFile modelFile = prov.models().getExistingFile(HEAnvilology.location("block/titanium_alloy_anvil"));
+            prov.getVariantBuilder(ctx.get())
+                .forAllStates(blockState -> {
+                    Direction value = blockState.getValue(AnvilBlock.FACING);
+                    int yRot = ((int) value.toYRot()) % 360;
+                    return ConfiguredModel.builder()
+                        .rotationY(yRot)
+                        .modelFile(modelFile)
+                        .build();
+                });
+        })
+        .item()
+        .tag(ItemTags.ANVIL)
+        .recipe((src, ctx) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, src.get())
+                .pattern("AAA")
+                .pattern(" B ")
+                .pattern("BBB")
+                .define('A', TITANIUM_ALLOY_BLOCK)
+                .define('B', HEItems.TITANIUM_ALLOY_INGOT)
+                .unlockedBy("has_" + ctx.safeName(TITANIUM_ALLOY_BLOCK), RegistrateRecipeProvider.has(TITANIUM_ALLOY_BLOCK))
+                .unlockedBy("has_" + ctx.safeName(HEItems.TITANIUM_ALLOY_INGOT), RegistrateRecipeProvider.has(HEItems.TITANIUM_ALLOY_INGOT))
+                .save(ctx);
+        })
         .build()
         .register();
 
