@@ -20,6 +20,7 @@ public class HETranslations {
         provider.add("item.highenergyanvilology.magnetic_confinement_vessel.full", "Magnetic Confinement Vessel with %s");
         provider.add("anvilon.highenergyanvilology.status.unstable", "Unstable %s");
         provider.add("anvilon.highenergyanvilology.status.entangled", "Entangled %s");
+        provider.add("anvilon.highenergyanvilology.status.stable", "Stable %s");
         for (Map.Entry<ResourceKey<AnvilMaterial>, AnvilMaterial> anvilMaterial : HEBuiltinRegistries.MATERIAL.entrySet()) {
             ResourceKey<AnvilMaterial> key = anvilMaterial.getKey();
             provider.add(

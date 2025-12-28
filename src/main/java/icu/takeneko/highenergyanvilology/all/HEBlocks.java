@@ -23,6 +23,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -64,6 +65,7 @@ public class HEBlocks {
         .defaultLang()
         .defaultLoot()
         .item()
+        .properties(p -> p.rarity(Rarity.UNCOMMON))
         .model((ctx, prov) -> {
             ModelUtils.wrapDefaultBlockItemTransform(
                 prov.getBuilder(ctx.getName())
@@ -102,6 +104,7 @@ public class HEBlocks {
             );
         })
         .item()
+        .properties(p -> p.rarity(Rarity.UNCOMMON))
         .recipe((ctx, prov) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ctx.get())
                 .pattern("ADA")
@@ -168,6 +171,7 @@ public class HEBlocks {
                 });
         })
         .item()
+        .properties(p -> p.rarity(Rarity.RARE))
         .recipe((ctx, prov) -> {
             ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ctx.get())
                 .pattern(" A ")
@@ -203,6 +207,7 @@ public class HEBlocks {
             );
         })
         .item()
+        .properties(p -> p.rarity(Rarity.EPIC))
         .model((ctx, prov) -> {
             ModelUtils.wrapDefaultBlockItemTransform(
                 prov.getBuilder(ctx.getName())
@@ -248,6 +253,7 @@ public class HEBlocks {
             );
         })
         .item()
+        .properties(p -> p.rarity(Rarity.EPIC))
         .model((ctx, prov) -> {
             ModelUtils.wrapDefaultBlockItemTransform(
                 prov.getBuilder(ctx.getName())

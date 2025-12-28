@@ -43,6 +43,17 @@ public class HEAnvilMaterials {
             .build()
     );
 
+    public static final AnvilMaterial TITANIUM_ALLOY = register(
+        "titanium_alloy",
+        AnvilMaterial.builder()
+            .maxDamage(-1)
+            .processRate(1)
+            .color(0xC2D1DC)
+            .anvilItem(HEBlocks.TITANIUM_ALLOY_ANVIL::asItem)
+            .anvilBlock(HEBlocks.TITANIUM_ALLOY_ANVIL::get)
+            .build()
+    );
+
     public static final AnvilMaterial ROYAL = register(
         "royal",
         AnvilMaterial.builder()

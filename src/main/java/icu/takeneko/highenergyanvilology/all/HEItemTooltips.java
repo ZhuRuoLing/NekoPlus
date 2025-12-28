@@ -40,5 +40,11 @@ public class HEItemTooltips {
 
     public static void setupTooltips() {
         tooltip(HEBlocks.PARTICLE_STABILIZER, "That`s cold enough.");
+        tooltip(HEBlocks.HIGH_ENERGY_LASER, "One beats sixty-four");
+        tooltip(HEBlocks.ROYAL_STEEL_CASING, "§7All you need is §5I§dm§4a§cg§ei§an§ba§3t§7i§1o§5n§7");
+
+        tooltip(HEItems.STABILIZE_POWDER, "S₈((Al₆Si₆Ca₈Na₈)₁₂(Al₃Si₃Na₄Cl)₂(FeS₂)(CaCO₃))₂(Si(FeS₂)₅(CrAl₂O₃)Hg₃)₃Lv₅");
+        tooltip(HEItems.CHARGED_LEVITATION_POWDER, "Lv");
+        tooltip(HEItems.DRY_ICE, "CO₂");
     }
 }

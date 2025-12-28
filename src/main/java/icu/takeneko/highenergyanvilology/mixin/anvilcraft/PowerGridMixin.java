@@ -72,7 +72,9 @@ public class PowerGridMixin {
             this.consume += overclockable.getInputPower();
         }
 
-        this.changed = this.consume != oldConsume || this.generate != oldGenerate;
+        if (this.consume != oldConsume || this.generate != oldGenerate) {
+            this.changed = true;
+        }
     }
 
 

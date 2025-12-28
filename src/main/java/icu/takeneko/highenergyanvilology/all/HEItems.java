@@ -16,6 +16,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -79,6 +80,32 @@ public class HEItems {
         })
         .register();
 
+    public static final ItemEntry<Item> CHARGED_LEVITATION_POWDER = HEAnvilology.REGISTRATE
+        .item("charged_levitation_powder", Item::new)
+        .recipe((c, p) -> {
+            ChargerChargingRecipe.builder()
+                .requires(ModItems.LEVITATION_POWDER)
+                .result(c.get())
+                .power(-8)
+                .time(20)
+                .save(p, p.safeId(c.get()) + "_charging");
+        })
+        .register();
+
+    public static final ItemEntry<Item> STABILIZE_POWDER = HEAnvilology.REGISTRATE
+        .item("stabilize_powder", Item::new)
+        .tag(Tags.Items.DUSTS)
+        .recipe((c, p) -> {
+            SuperHeatingRecipe.builder()
+                .requires(HETags.Items.SULFUR, 8)
+                .requires(Items.LAPIS_LAZULI, 2)
+                .requires(Items.REDSTONE, 3)
+                .requires(HEItems.CHARGED_LEVITATION_POWDER, 5)
+                .result(c.get(), 18)
+                .save(p, p.safeId(c.get()) + "_superheating");
+        })
+        .register();
+
     public static final ItemEntry<Item> CARBON_DIOXIDE_LASER_TUBE = HEAnvilology.REGISTRATE
         .item("carbon_dioxide_laser_tube", Item::new)
         .recipe((ctx, prov) -> {
@@ -94,27 +121,6 @@ public class HEItems {
                 .save(prov);
         })
         .register();
-
-    public static final ItemEntry<MageneticConfinementVesselItem> MAGNETIC_CONFINEMENT_VESSEL = HEAnvilology.REGISTRATE
-        .item("magnetic_confinement_vessel", MageneticConfinementVesselItem::new)
-        .model(DataGenUtils::customRenderer)
-        .recipe((ctx, prov) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ctx.get())
-                .pattern(" D ")
-                .pattern("BAB")
-                .pattern(" C ")
-                .define('A', STRONG_MAGNET)
-                .define('B', TITANIUM_ALLOY_INGOT)
-                .define('C', ModItems.SUPER_CAPACITOR)
-                .define('D', ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK)
-                .unlockedBy("has_" + STRONG_MAGNET.getRegisteredName(), RegistrateRecipeProvider.has(STRONG_MAGNET))
-                .unlockedBy("has_" + TITANIUM_ALLOY_INGOT.getRegisteredName(), RegistrateRecipeProvider.has(TITANIUM_ALLOY_INGOT))
-                .unlockedBy("has_" + ModItems.SUPER_CAPACITOR.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.SUPER_CAPACITOR))
-                .unlockedBy("has_" + ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK.getRegisteredName(), RegistrateRecipeProvider.has(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK))
-                .save(prov);
-        })
-        .register();
-
 
     public static final ItemEntry<Item> NANOFILTRATION_MEMBRANE = HEAnvilology.REGISTRATE
         .item("nanofiltration_membrane", Item::new)
@@ -153,6 +159,27 @@ public class HEItems {
                 .define('D', ModItems.CIRCUIT_BOARD)
                 .unlockedBy("has_gem_sapphire", RegistrateRecipeProvider.has(ModItemTags.GEMS_SAPPHIRE))
                 .save(p);
+        })
+        .register();
+
+    public static final ItemEntry<MageneticConfinementVesselItem> MAGNETIC_CONFINEMENT_VESSEL = HEAnvilology.REGISTRATE
+        .item("magnetic_confinement_vessel", MageneticConfinementVesselItem::new)
+        .properties(p -> p.rarity(Rarity.RARE))
+        .model(DataGenUtils::customRenderer)
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ctx.get())
+                .pattern(" D ")
+                .pattern("BAB")
+                .pattern(" C ")
+                .define('A', STRONG_MAGNET)
+                .define('B', TITANIUM_ALLOY_INGOT)
+                .define('C', ModItems.SUPER_CAPACITOR)
+                .define('D', ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK)
+                .unlockedBy("has_" + STRONG_MAGNET.getRegisteredName(), RegistrateRecipeProvider.has(STRONG_MAGNET))
+                .unlockedBy("has_" + TITANIUM_ALLOY_INGOT.getRegisteredName(), RegistrateRecipeProvider.has(TITANIUM_ALLOY_INGOT))
+                .unlockedBy("has_" + ModItems.SUPER_CAPACITOR.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.SUPER_CAPACITOR))
+                .unlockedBy("has_" + ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK.getRegisteredName(), RegistrateRecipeProvider.has(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK))
+                .save(prov);
         })
         .register();
 

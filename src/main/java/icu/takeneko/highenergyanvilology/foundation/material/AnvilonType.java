@@ -29,7 +29,7 @@ public class AnvilonType {
     }
 
     public enum Contained implements StringRepresentable {
-        UNSTABLE, ENTANGLED;
+        UNSTABLE, ENTANGLED, STABLE;
 
         @Override
         public String getSerializedName() {

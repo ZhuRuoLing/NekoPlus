@@ -9,6 +9,7 @@ import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.all.HEAnvilMaterials;
 import icu.takeneko.highenergyanvilology.all.HEDataComponents;
 import icu.takeneko.highenergyanvilology.all.HEItems;
+import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
 import icu.takeneko.highenergyanvilology.util.ClientTimer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -71,6 +72,9 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
         BakedModel contentModel = modelManager.getModel(CONTENT_MODEL_LOCATION);
         BakedModel magnetModel = modelManager.getModel(MAGNETIC_MODEL_LOCATION);
         boolean hasContent = stack.getOrDefault(HEDataComponents.CONTAINED_ANVILON_TYPE, HEAnvilMaterials.EMPTY) != HEAnvilMaterials.EMPTY;
+        AnvilonType.Contained type = stack.getOrDefault(HEDataComponents.CONTAINED_ANVILION_STATUS, AnvilonType.Contained.UNSTABLE);
+        boolean isEntangled = type == AnvilonType.Contained.ENTANGLED;
+        boolean isStable = type == AnvilonType.Contained.STABLE;
         renderModel(
             stack,
             containerModel,
@@ -82,7 +86,11 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
         if (!hasContent) return;
         poseStack.pushPose();
         poseStack.translate(0.5, 0.5, 0.5);
-        poseStack.mulPose(rotation(time, 0.75f, false));
+        if (isEntangled) {
+            poseStack.mulPose(rotation(time, 0.75f, false));
+        } else {
+            poseStack.mulPose(rotation(time, -0.75f, false));
+        }
         renderModel(
             stack,
             contentModel,
@@ -92,6 +100,8 @@ public class MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer exten
             packedOverlay
         );
         poseStack.popPose();
+
+        if (isStable || isEntangled) return;
         poseStack.pushPose();
         poseStack.translate(0.5, 0.5, 0.5);
         for (int i = 0; i < 4; i++) {
