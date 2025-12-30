@@ -34,6 +34,7 @@ public class HECreativeTabs {
         if (!event.getTabKey().location().equals(TAB.getId())) return;
         for (Map.Entry<ResourceKey<AnvilMaterial>, AnvilMaterial> entry : HEBuiltinRegistries.MATERIAL.entrySet()) {
             AnvilMaterial material = entry.getValue();
+            if (material == HEAnvilMaterials.EMPTY) continue;
             ItemStack stack = HEItems.MAGNETIC_CONFINEMENT_VESSEL.asStack();
             stack.set(HEDataComponents.CONTAINED_ANVILON_TYPE.get(), material);
             stack.set(HEDataComponents.CONTAINED_ANVILION_STATUS, AnvilonType.Contained.UNSTABLE);

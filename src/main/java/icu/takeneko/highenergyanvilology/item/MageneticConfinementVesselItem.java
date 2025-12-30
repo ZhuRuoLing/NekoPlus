@@ -39,4 +39,11 @@ public class MageneticConfinementVesselItem extends Item {
 
         return Component.translatable("item.highenergyanvilology.magnetic_confinement_vessel.full", content);
     }
+
+    @Override
+    public int getMaxStackSize(ItemStack stack) {
+        return stack.get(HEDataComponents.CONTAINED_ANVILON_TYPE) != null && stack.get(HEDataComponents.CONTAINED_ANVILION_STATUS) == AnvilonType.Contained.UNSTABLE
+            ? 1
+            : 64;
+    }
 }

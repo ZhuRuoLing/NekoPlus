@@ -23,6 +23,8 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
@@ -259,6 +261,16 @@ public class HEBlocks {
                 prov.getBuilder(ctx.getName())
                     .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
             );
+        })
+        .build()
+        .register();
+
+    public static final BlockEntry<Block> NETHERITE_SCRAP_BLOCK = HEAnvilology.REGISTRATE
+        .block("netherite_scrap_block", Block::new)
+        .defaultBlockstate()
+        .item()
+        .recipe((ctx, prov) -> {
+            prov.storage(() -> Items.NETHERITE_SCRAP, RecipeCategory.MISC, ctx);
         })
         .build()
         .register();

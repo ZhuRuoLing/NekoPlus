@@ -3,17 +3,26 @@ package icu.takeneko.highenergyanvilology.all;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUIGuiContainer;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
+import dev.dubhe.anvilcraft.event.FallingBlockCollisionEventListener;
 import icu.takeneko.highenergyanvilology.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.BlockCollisionEventReceiver;
+import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
+import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.ArrayListDeque;
 import net.minecraft.util.FastColor;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,6 +34,12 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @EventBusSubscriber
 public class HEEvents {
@@ -57,6 +72,62 @@ public class HEEvents {
             if (receiver.acceptCollision(event.getEntity(), event.getSpeed(), event)) {
                 event.setCanceled(true);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void on(AnvilEvent.OnLand event) {
+        BlockPos eventPos = event.getPos();
+        Level level = event.getLevel();
+        if (!level.getBlockState(eventPos.below()).is(Blocks.CAULDRON)) return;
+        AABB box = new AABB(eventPos.below());
+        List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, box);
+        Deque<Pair<ItemStack, ItemEntity>> powders = new ArrayListDeque<>();
+        Map<ItemStack, ItemEntity> containersMap = new HashMap<>();
+        for (ItemEntity entity : entities) {
+            ItemStack entityItem = entity.getItem();
+            if (entityItem.is(HEItems.STABILIZE_POWDER)) {
+                powders.push(Pair.of(entityItem.copy(), entity));
+                continue;
+            }
+
+            if (entityItem.is(HEItems.MAGNETIC_CONFINEMENT_VESSEL)) {
+                AnvilMaterial material = entityItem.getOrDefault(HEDataComponents.CONTAINED_ANVILON_TYPE, HEAnvilMaterials.EMPTY);
+                AnvilonType.Contained status = entityItem.getOrDefault(HEDataComponents.CONTAINED_ANVILION_STATUS, AnvilonType.Contained.UNSTABLE);
+                if (status != AnvilonType.Contained.UNSTABLE) continue;
+                if (material == HEAnvilMaterials.EMPTY) continue;
+                containersMap.put(entityItem, entity);
+            }
+        }
+        Vec3 position = null;
+        for (Map.Entry<ItemStack, ItemEntity> entry : containersMap.entrySet()) {
+            ItemStack stack = entry.getKey();
+            ItemEntity entity = entry.getValue();
+            Pair<ItemStack, ItemEntity> pair = powders.peek();
+            while (pair != null && pair.left().isEmpty()) {
+                powders.pop();
+                if (pair.left().isEmpty()) {
+                    pair.right().discard();
+                }
+                pair = powders.peek();
+            }
+            if (pair == null) break;
+            pair.left().shrink(1);
+            pair.right().setItem(pair.left());
+            if (pair.left().isEmpty()) {
+                pair.right().discard();
+            }
+
+            entity.discard();
+            stack = stack.copy();
+            stack.set(HEDataComponents.CONTAINED_ANVILION_STATUS, AnvilonType.Contained.STABLE);
+            ItemEntity newEntity = new ItemEntity(level, entity.getX(), entity.getY(), entity.getZ(), stack);
+            position = entity.position();
+            level.addFreshEntity(newEntity);
+        }
+
+        if (position != null) {
+            level.explode(null, null, new FallingBlockCollisionEventListener.ItemImmuneExplosionDamage(), position.x, position.y, position.z, 1, false, Level.ExplosionInteraction.NONE);
         }
     }
 
