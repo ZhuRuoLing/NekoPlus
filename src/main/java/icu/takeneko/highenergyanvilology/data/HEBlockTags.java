@@ -36,6 +36,9 @@ public class HEBlockTags {
         wrenchableBlock(HEBlocks.STELLAR_ENGINE, provider);
         wrenchableBlock(HEBlocks.TARDIS, provider);
         wrenchableBlock(HEBlocks.HIGH_ENERGY_LASER, provider);
+
+        provider.addTag(ModBlockTags.OVERSEER_BASE)
+            .add(HEBlocks.ROYAL_STEEL_CASING.getKey());
     }
 
     public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrateTagsProvider<Block> provider) {
