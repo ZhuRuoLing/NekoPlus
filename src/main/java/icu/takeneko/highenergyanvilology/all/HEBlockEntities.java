@@ -1,9 +1,12 @@
 package icu.takeneko.highenergyanvilology.all;
 
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
+import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockRenderer;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
+import icu.takeneko.highenergyanvilology.block.HEHatchBlock;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.HEHatchBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.StellarEngineBlockEntity;
@@ -12,6 +15,9 @@ import icu.takeneko.highenergyanvilology.client.renderer.tesr.AnvilonEmitterBloc
 import icu.takeneko.highenergyanvilology.client.renderer.tesr.ParticleStabilizerBlockEntityRenderer;
 import icu.takeneko.highenergyanvilology.client.renderer.tesr.StellarEngineBlockEntityRenderer;
 import icu.takeneko.highenergyanvilology.client.renderer.tesr.TardisBlockEntityRenderer;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HEHatchTypes;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchType;
+import net.neoforged.neoforge.items.IItemHandler;
 
 public class HEBlockEntities {
     public static final BlockEntityEntry<AnvilonEmitterBlockEntity> ANVILION_EMITTER = HEAnvilology.REGISTRATE
@@ -32,7 +38,7 @@ public class HEBlockEntities {
         .renderer(() -> StellarEngineBlockEntityRenderer::new)
         .register();
 
-    public static final BlockEntityEntry<TardisBlockEntity> TARDIS =  HEAnvilology.REGISTRATE
+    public static final BlockEntityEntry<TardisBlockEntity> TARDIS = HEAnvilology.REGISTRATE
         .blockEntity("tardis", TardisBlockEntity::new)
         .validBlock(HEBlocks.TARDIS)
         .renderer(() -> TardisBlockEntityRenderer::new)
@@ -43,6 +49,25 @@ public class HEBlockEntities {
         .validBlock(HEBlocks.HIGH_ENERGY_LASER)
         .renderer(() -> LaserBlockRenderer::new)
         .register();
+
+    public static BlockEntityEntry<HEHatchBlockEntity<IItemHandler>> ITEM_INPUT_HATCH = hatch(HEHatchTypes.ITEM, true, HEBlocks.ITEM_INPUT_HATCH);
+
+    public static BlockEntityEntry<HEHatchBlockEntity<IItemHandler>> ITEM_OUTPUT_HATCH = hatch(HEHatchTypes.ITEM, false, HEBlocks.ITEM_OUTPUT_HATCH);
+
+    public static <C> BlockEntityEntry<HEHatchBlockEntity<C>> hatch(
+        HatchType<C> type,
+        boolean isInput,
+        BlockEntry<HEHatchBlock> blockEntry
+    ) {
+        String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
+        return HEAnvilology.REGISTRATE
+            .<HEHatchBlockEntity<C>>blockEntity(
+                id,
+                (ty, pos, state) -> new HEHatchBlockEntity<>(ty, pos, state, type, isInput)
+            )
+            .validBlock(blockEntry)
+            .register();
+    }
 
     public static void setupRegistration() {
     }

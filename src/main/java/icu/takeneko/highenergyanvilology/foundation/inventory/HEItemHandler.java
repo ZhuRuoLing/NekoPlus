@@ -31,7 +31,9 @@ public class HEItemHandler extends ItemStackHandler implements IContentChangeAwa
 
     @Override
     protected void onContentsChanged(int slot) {
-        onContentsChanged.run();
+        if (onContentsChanged != null) {
+            onContentsChanged.run();
+        }
         owner.onContentChanged();
     }
 

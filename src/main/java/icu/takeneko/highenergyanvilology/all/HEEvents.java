@@ -7,6 +7,7 @@ import dev.dubhe.anvilcraft.event.FallingBlockCollisionEventListener;
 import icu.takeneko.highenergyanvilology.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.BlockCollisionEventReceiver;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
 import it.unimi.dsi.fastutil.Pair;
@@ -58,6 +59,18 @@ public class HEEvents {
                 if (v == Direction.DOWN) return a.getItemHandler().slice(1, 5, true);
                 return a.getItemHandler().slice(0, 1);
             }
+        );
+
+        event.registerBlockEntity(
+            Capabilities.ItemHandler.BLOCK,
+            HEBlockEntities.ITEM_INPUT_HATCH.get(),
+            HatchLogic::getCapability
+        );
+
+        event.registerBlockEntity(
+            Capabilities.ItemHandler.BLOCK,
+            HEBlockEntities.ITEM_OUTPUT_HATCH.get(),
+            HatchLogic::getCapability
         );
     }
 

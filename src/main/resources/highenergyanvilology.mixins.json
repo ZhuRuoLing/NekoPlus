@@ -8,6 +8,7 @@
     "anvilcraft.ChargerBlockEntityMixin",
     "anvilcraft.LaserEmitPacketMixin",
     "anvilcraft.PowerGridMixin",
+    "anvilcraft.ServerBlockEntityEventListenerMixin",
     "anvilcraft.SimplePowerGridMixin",
     "eyelib.RenderControllerEntryMixin"
   ],

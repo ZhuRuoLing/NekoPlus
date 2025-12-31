@@ -30,5 +30,7 @@ public interface HEPowerComponent extends IPowerComponent {
             setOverload(true);
         }
     }
+
+    boolean isRemoved();
 }
 

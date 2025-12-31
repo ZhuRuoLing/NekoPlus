@@ -3,9 +3,11 @@ package icu.takeneko.highenergyanvilology.mixin.anvilcraft;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.dubhe.anvilcraft.api.power.IPowerComponent;
 import dev.dubhe.anvilcraft.api.power.IPowerConsumer;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HEOverclockablePowerConsumer;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEPowerComponent;
 import icu.takeneko.highenergyanvilology.util.OverclockUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,6 +34,17 @@ public class PowerGridMixin {
     @Shadow
     @Final
     Set<IPowerConsumer> consumers;
+
+    @Inject(
+        method = "checkRemove",
+        at = @At("RETURN"),
+        cancellable = true
+    )
+    void myCheckRemove(IPowerComponent component, CallbackInfoReturnable<Boolean> cir) {
+        if (component instanceof HEPowerComponent hepc && hepc.isRemoved()) {
+            cir.setReturnValue(true);
+        }
+    }
 
     @WrapOperation(
         method = "flush",

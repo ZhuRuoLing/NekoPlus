@@ -319,9 +319,9 @@ public class HEBlocks {
         .build()
         .register();
 
-    public static BlockEntry<HEHatchBlock> ITEM_INPUT_HATCH = hatch(HatchType.ITEM, true);
+    public static BlockEntry<HEHatchBlock> ITEM_INPUT_HATCH = hatch(HEHatchTypes.ITEM, true);
 
-    public static BlockEntry<HEHatchBlock> ITEM_OUTPUT_HATCH = hatch(HatchType.ITEM, false);
+    public static BlockEntry<HEHatchBlock> ITEM_OUTPUT_HATCH = hatch(HEHatchTypes.ITEM, false);
 
     public static BlockEntry<HEHatchBlock> hatch(HatchType type, boolean isInput) {
         String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
@@ -349,6 +349,7 @@ public class HEBlocks {
                             .builder()
                             .rotationX(xRot)
                             .rotationY(yRot)
+                            .uvLock(true)
                             .modelFile(modelFile)
                             .build();
                     });
