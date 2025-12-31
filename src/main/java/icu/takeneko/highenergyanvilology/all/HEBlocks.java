@@ -8,12 +8,15 @@ import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.AnvilonEmitterBlock;
+import icu.takeneko.highenergyanvilology.block.HEHatchBlock;
 import icu.takeneko.highenergyanvilology.block.HighEnergyLaserBlock;
 import icu.takeneko.highenergyanvilology.block.ParticleStabilizerBlock;
 import icu.takeneko.highenergyanvilology.block.StellarEngineBlock;
 import icu.takeneko.highenergyanvilology.block.TardisBlock;
 import icu.takeneko.highenergyanvilology.block.TitaniumAlloyAnvilBlock;
 import icu.takeneko.highenergyanvilology.block.property.Part3;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HEHatchTypes;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchType;
 import icu.takeneko.highenergyanvilology.util.ModelUtils;
 import icu.takeneko.highenergyanvilology.util.StateUtils;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
@@ -23,7 +26,6 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.AnvilBlock;
@@ -316,6 +318,45 @@ public class HEBlocks {
         })
         .build()
         .register();
+
+    public static BlockEntry<HEHatchBlock> ITEM_INPUT_HATCH = hatch(HatchType.ITEM, true);
+
+    public static BlockEntry<HEHatchBlock> ITEM_OUTPUT_HATCH = hatch(HatchType.ITEM, false);
+
+    public static BlockEntry<HEHatchBlock> hatch(HatchType type, boolean isInput) {
+        String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
+        return HEAnvilology.REGISTRATE
+            .block(id, p -> new HEHatchBlock(p, type, isInput))
+            .blockstate((ctx, prov) -> {
+                ModelFile modelFile = prov.models()
+                    .withExistingParent(ctx.getName(), HEAnvilology.location("block/hatch_base"))
+                    .texture("all", HEAnvilology.location("block/royal_steel_casing"))
+                    .texture("overlay", HEAnvilology.location("block/" + "hatch_" + type.getSerializedName() + (isInput ? "_input" : "_output")));
+
+                prov.getVariantBuilder(ctx.get())
+                    .forAllStates(blockState -> {
+                        Direction facing = blockState.getValue(HEHatchBlock.FACING);
+                        int yRot = facing.getAxis() != Direction.Axis.Y ? ((int) facing.toYRot() + 180) % 360 : 0;
+                        int xRot = 0;
+                        if (facing.getAxis() == Direction.Axis.Y) {
+                            if (facing == Direction.DOWN) {
+                                xRot = 180;
+                            }
+                        } else {
+                            xRot = 90;
+                        }
+                        return ConfiguredModel
+                            .builder()
+                            .rotationX(xRot)
+                            .rotationY(yRot)
+                            .modelFile(modelFile)
+                            .build();
+                    });
+            })
+            .item()
+            .build()
+            .register();
+    }
 
     public static void setupRegistration() {
     }
