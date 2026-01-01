@@ -1,0 +1,36 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "highenergyanvilology:block/fusion_reactor_controller",
+      "uvlock": true,
+      "x": 180
+    },
+    "facing=east": {
+      "model": "highenergyanvilology:block/fusion_reactor_controller",
+      "uvlock": true,
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "highenergyanvilology:block/fusion_reactor_controller",
+      "uvlock": true,
+      "x": 90
+    },
+    "facing=south": {
+      "model": "highenergyanvilology:block/fusion_reactor_controller",
+      "uvlock": true,
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "highenergyanvilology:block/fusion_reactor_controller",
+      "uvlock": true
+    },
+    "facing=west": {
+      "model": "highenergyanvilology:block/fusion_reactor_controller",
+      "uvlock": true,
+      "x": 90,
+      "y": 270
+    }
+  }
+}

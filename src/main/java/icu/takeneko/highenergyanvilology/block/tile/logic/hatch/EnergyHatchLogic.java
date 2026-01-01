@@ -10,7 +10,7 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 
 public class EnergyHatchLogic implements HatchLogic<IEnergyStorage> {
 
-    public static final int CAPACITY = 700 * 2400 * 80;
+    public static final int CAPACITY = 700 * 2400 * 800;
 
     private final HEEnergyStorage energyStorage = new HEEnergyStorage(CAPACITY);
 

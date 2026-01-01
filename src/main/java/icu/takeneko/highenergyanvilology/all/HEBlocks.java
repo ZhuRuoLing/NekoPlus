@@ -8,6 +8,7 @@ import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.AnvilonEmitterBlock;
+import icu.takeneko.highenergyanvilology.block.FusionReactorControllerBlock;
 import icu.takeneko.highenergyanvilology.block.HEHatchBlock;
 import icu.takeneko.highenergyanvilology.block.HighEnergyLaserBlock;
 import icu.takeneko.highenergyanvilology.block.ParticleStabilizerBlock;
@@ -317,6 +318,43 @@ public class HEBlocks {
                 .unlockedBy("has_" + ctx.safeName(TITANIUM_ALLOY_BLOCK), RegistrateRecipeProvider.has(TITANIUM_ALLOY_BLOCK))
                 .unlockedBy("has_" + ctx.safeName(HEItems.TITANIUM_ALLOY_INGOT), RegistrateRecipeProvider.has(HEItems.TITANIUM_ALLOY_INGOT))
                 .save(ctx);
+        })
+        .build()
+        .register();
+
+    public static final BlockEntry<FusionReactorControllerBlock> FUSION_REACTOR_CONTROLLER = HEAnvilology.REGISTRATE
+        .block("fusion_reactor_controller", FusionReactorControllerBlock::new)
+        .lang("Fusion Reactor Integrated Controller MK1")
+        .blockstate((ctx, prov) -> {
+            ModelFile modelFile = prov.models()
+                .withExistingParent(ctx.getName(), HEAnvilology.location("block/hatch_base"))
+                .texture("all", HEAnvilology.location("block/royal_steel_casing"))
+                .texture("overlay", HEAnvilology.location("block/laser_confinement_fusion"));
+
+            prov.getVariantBuilder(ctx.get())
+                .forAllStates(blockState -> {
+                    Direction facing = blockState.getValue(HEHatchBlock.FACING);
+                    int yRot = facing.getAxis() != Direction.Axis.Y ? ((int) facing.toYRot() + 180) % 360 : 0;
+                    int xRot = 0;
+                    if (facing.getAxis() == Direction.Axis.Y) {
+                        if (facing == Direction.DOWN) {
+                            xRot = 180;
+                        }
+                    } else {
+                        xRot = 90;
+                    }
+                    return ConfiguredModel
+                        .builder()
+                        .rotationX(xRot)
+                        .rotationY(yRot)
+                        .uvLock(true)
+                        .modelFile(modelFile)
+                        .build();
+                });
+        })
+        .item()
+        .properties(p -> p.rarity(Rarity.EPIC))
+        .recipe((ctx, prov) -> {
         })
         .build()
         .register();
