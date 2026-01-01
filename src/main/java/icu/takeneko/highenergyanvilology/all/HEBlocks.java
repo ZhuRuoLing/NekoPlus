@@ -23,11 +23,13 @@ import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -319,11 +321,11 @@ public class HEBlocks {
         .build()
         .register();
 
-    public static BlockEntry<HEHatchBlock> ITEM_INPUT_HATCH = hatch(HEHatchTypes.ITEM, true);
+    public static BlockEntry<HEHatchBlock> ITEM_INPUT_HATCH = hatch(HEHatchTypes.ITEM, true, ModBlocks.CHUTE);
 
-    public static BlockEntry<HEHatchBlock> ITEM_OUTPUT_HATCH = hatch(HEHatchTypes.ITEM, false);
+    public static BlockEntry<HEHatchBlock> ITEM_OUTPUT_HATCH = hatch(HEHatchTypes.ITEM, false, ModBlocks.CHUTE);
 
-    public static BlockEntry<HEHatchBlock> hatch(HatchType type, boolean isInput) {
+    public static BlockEntry<HEHatchBlock> hatch(HatchType type, boolean isInput, ItemLike recipeItem) {
         String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
         return HEAnvilology.REGISTRATE
             .block(id, p -> new HEHatchBlock(p, type, isInput))
@@ -355,6 +357,14 @@ public class HEBlocks {
                     });
             })
             .item()
+            .recipe((ctx, prov) -> {
+                ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, ctx.get())
+                    .requires(recipeItem)
+                    .requires(ROYAL_STEEL_CASING)
+                    .unlockedBy("has_" + prov.safeName(recipeItem), RegistrateRecipeProvider.has(recipeItem))
+                    .unlockedBy("has_" + prov.safeName(ROYAL_STEEL_CASING), RegistrateRecipeProvider.has(ROYAL_STEEL_CASING))
+                    .save(prov);
+            })
             .build()
             .register();
     }
