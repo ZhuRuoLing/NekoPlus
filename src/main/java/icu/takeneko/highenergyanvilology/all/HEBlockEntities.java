@@ -17,6 +17,8 @@ import icu.takeneko.highenergyanvilology.client.renderer.tesr.StellarEngineBlock
 import icu.takeneko.highenergyanvilology.client.renderer.tesr.TardisBlockEntityRenderer;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HEHatchTypes;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 
 public class HEBlockEntities {
@@ -53,6 +55,8 @@ public class HEBlockEntities {
     public static BlockEntityEntry<HEHatchBlockEntity<IItemHandler>> ITEM_INPUT_HATCH = hatch(HEHatchTypes.ITEM, true, HEBlocks.ITEM_INPUT_HATCH);
 
     public static BlockEntityEntry<HEHatchBlockEntity<IItemHandler>> ITEM_OUTPUT_HATCH = hatch(HEHatchTypes.ITEM, false, HEBlocks.ITEM_OUTPUT_HATCH);
+
+    public static BlockEntityEntry<HEHatchBlockEntity<IEnergyStorage>> ENERGY_OUTPUT_HATCH = hatch(HEHatchTypes.ENERGY, false, HEBlocks.ENERGY_OUTPUT_HATCH);
 
     public static <C> BlockEntityEntry<HEHatchBlockEntity<C>> hatch(
         HatchType<C> type,

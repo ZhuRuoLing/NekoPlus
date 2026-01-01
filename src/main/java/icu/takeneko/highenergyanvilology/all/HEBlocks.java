@@ -321,11 +321,13 @@ public class HEBlocks {
         .build()
         .register();
 
-    public static BlockEntry<HEHatchBlock> ITEM_INPUT_HATCH = hatch(HEHatchTypes.ITEM, true, ModBlocks.CHUTE);
+    public static final BlockEntry<HEHatchBlock> ITEM_INPUT_HATCH = hatch(HEHatchTypes.ITEM, true, ModBlocks.CHUTE);
 
-    public static BlockEntry<HEHatchBlock> ITEM_OUTPUT_HATCH = hatch(HEHatchTypes.ITEM, false, ModBlocks.CHUTE);
+    public static final BlockEntry<HEHatchBlock> ITEM_OUTPUT_HATCH = hatch(HEHatchTypes.ITEM, false, ModBlocks.CHUTE);
 
-    public static BlockEntry<HEHatchBlock> hatch(HatchType type, boolean isInput, ItemLike recipeItem) {
+    public static final BlockEntry<HEHatchBlock> ENERGY_OUTPUT_HATCH = hatch(HEHatchTypes.ENERGY, false, ModItems.SUPER_CAPACITOR_EMPTY);
+
+    public static BlockEntry<HEHatchBlock> hatch(HatchType<?> type, boolean isInput, ItemLike recipeItem) {
         String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
         return HEAnvilology.REGISTRATE
             .block(id, p -> new HEHatchBlock(p, type, isInput))

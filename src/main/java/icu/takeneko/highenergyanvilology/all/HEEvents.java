@@ -72,6 +72,12 @@ public class HEEvents {
             HEBlockEntities.ITEM_OUTPUT_HATCH.get(),
             HatchLogic::getCapability
         );
+
+        event.registerBlockEntity(
+            Capabilities.EnergyStorage.BLOCK,
+            HEBlockEntities.ENERGY_OUTPUT_HATCH.get(),
+            HatchLogic::getCapability
+        );
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)

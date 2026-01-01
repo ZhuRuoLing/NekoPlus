@@ -1,8 +1,9 @@
 package icu.takeneko.highenergyanvilology.foundation.block.tile.hatch;
 
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
+import icu.takeneko.highenergyanvilology.block.tile.logic.hatch.EnergyHatchLogic;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.HatchLogic;
-import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.ItemHatchLogic;
+import icu.takeneko.highenergyanvilology.block.tile.logic.hatch.ItemHatchLogic;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
@@ -60,18 +61,18 @@ public final class HEHatchTypes {
     public static final HatchType<IEnergyStorage> ENERGY = new HatchType<>() {
         @Override
         public HatchLogic<IEnergyStorage> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
-            throw new NotImplementedException();
+            return new EnergyHatchLogic();
         }
 
         @Override
         @Nullable
         public IEnergyStorage getCapability(HatchLogic<IEnergyStorage> logic) {
-            return null;
+            return logic.getCapabilityInstance();
         }
 
         @Override
         public BlockEntityType<?> getHostType(boolean isInput) {
-            return null;
+            return isInput ? null : HEBlockEntities.ENERGY_OUTPUT_HATCH.get();
         }
 
         @Override

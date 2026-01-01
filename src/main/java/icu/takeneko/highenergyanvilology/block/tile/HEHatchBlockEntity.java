@@ -2,6 +2,7 @@ package icu.takeneko.highenergyanvilology.block.tile;
 
 import com.lowdragmc.lowdraglib.gui.modular.IUIHolder;
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
+import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HESynedBlockEntity;
@@ -19,7 +20,9 @@ public class HEHatchBlockEntity<C> extends HESynedBlockEntity implements HatchLo
 
     @Getter
     private final HatchType<C> hatchType;
+
     @Getter
+    @Persisted
     private final HatchLogic<C> logic;
 
     public HEHatchBlockEntity(

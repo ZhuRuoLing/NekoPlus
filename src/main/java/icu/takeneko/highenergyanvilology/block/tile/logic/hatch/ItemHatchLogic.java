@@ -1,9 +1,10 @@
-package icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic;
+package icu.takeneko.highenergyanvilology.block.tile.logic.hatch;
 
 import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
 import com.lowdragmc.lowdraglib.side.item.ItemTransferHelper;
 import icu.takeneko.highenergyanvilology.block.HEHatchBlock;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchLogicHost;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
 import net.minecraft.core.BlockPos;
