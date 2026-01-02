@@ -61,9 +61,17 @@ public class HEItems {
         )
         .register();
 
+    public static final ItemEntry<Item> SILICON = HEAnvilology.REGISTRATE
+        .item("silicon", Item::new)
+        .tag(HETags.Items.SILICON)
+        .recipe((c, p) -> {
+            p.storage(c, RecipeCategory.MISC, HEBlocks.SILICON_BLOCK);
+        })
+        .register();
+
     public static final ItemEntry<Item> DRY_ICE = HEAnvilology.REGISTRATE
         .item("dry_ice", Item::new)
-        .tag(HETags.Items.ICES, HETags.Items.DRY_ICES)
+        .tag(HETags.Items.DRY_ICES)
         .register();
 
     public static final ItemEntry<Item> SULFUR = HEAnvilology.REGISTRATE

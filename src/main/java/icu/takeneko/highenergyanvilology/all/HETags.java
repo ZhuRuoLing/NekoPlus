@@ -11,6 +11,7 @@ public class HETags {
     public static class Blocks {
         //region common
         public static final TagKey<Block> STORAGE_BLOCKS_TITANIUM_ALLOY = storageBlocks("titanium_alloy");
+        public static final TagKey<Block> STORAGE_BLOCKS_SILICON = storageBlocks("silicon");
         //endregion
 
         //region util
@@ -29,10 +30,11 @@ public class HETags {
 
     public static class Items {
         //region common
+        public static final TagKey<Item> SILICON = c("silicon");
+        public static final TagKey<Item> STORAGE_BLOCKS_SILICON = storageBlocks("silicon");
         public static final TagKey<Item> STORAGE_BLOCKS_TITANIUM_ALLOY = storageBlocks("titanium_alloy");
         public static final TagKey<Item> SULFUR = c("dusts/sulfur");
-        public static final TagKey<Item> ICES = c("ices");
-        public static final TagKey<Item> DRY_ICES = c("ices/dry");
+        public static final TagKey<Item> DRY_ICES = c("dry_ices");
         //endregion
 
         //region util

@@ -280,6 +280,15 @@ public class HEBlocks {
         .build()
         .register();
 
+    public static final BlockEntry<Block> SILICON_BLOCK = HEAnvilology.REGISTRATE
+        .block("silicon_block", Block::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .tag(Tags.Blocks.STORAGE_BLOCKS, HETags.Blocks.STORAGE_BLOCKS_SILICON)
+        .item()
+        .tag(Tags.Items.STORAGE_BLOCKS, HETags.Items.STORAGE_BLOCKS_SILICON)
+        .build()
+        .register();
+
     public static final BlockEntry<Block> TITANIUM_ALLOY_BLOCK = HEAnvilology.REGISTRATE
         .block("titanium_alloy_block", Block::new)
         .initialProperties(() -> Blocks.NETHERITE_BLOCK)

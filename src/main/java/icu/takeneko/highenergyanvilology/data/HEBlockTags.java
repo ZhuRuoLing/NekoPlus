@@ -25,6 +25,7 @@ public class HEBlockTags {
         ironPickaxeMineableBlock(HEBlocks.ANVILON_EMITTER_BLOCK, provider);
         ironPickaxeMineableBlock(HEBlocks.PARTICLE_STABILIZER, provider);
         ironPickaxeMineableBlock(HEBlocks.TITANIUM_ALLOY_BLOCK, provider);
+        ironPickaxeMineableBlock(HEBlocks.SILICON_BLOCK, provider);
         ironPickaxeMineableBlock(HEBlocks.ROYAL_STEEL_CASING, provider);
         ironPickaxeMineableBlock(HEBlocks.STELLAR_ENGINE, provider);
         ironPickaxeMineableBlock(HEBlocks.TARDIS, provider);
