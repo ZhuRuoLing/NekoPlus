@@ -342,7 +342,7 @@ public class HEBlocks {
 
             prov.getVariantBuilder(ctx.get())
                 .forAllStates(blockState -> {
-                    Direction facing = blockState.getValue(HEHatchBlock.FACING);
+                    Direction facing = blockState.getValue(FusionReactorControllerBlock.FACING);
                     int yRot = facing.getAxis() != Direction.Axis.Y ? ((int) facing.toYRot() + 180) % 360 : 0;
                     int xRot = 0;
                     if (facing.getAxis() == Direction.Axis.Y) {
