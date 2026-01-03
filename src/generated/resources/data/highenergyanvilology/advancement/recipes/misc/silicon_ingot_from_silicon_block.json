@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "highenergyanvilology:silicon_from_silicon_block"
+        "recipe": "highenergyanvilology:silicon_ingot_from_silicon_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "highenergyanvilology:silicon_from_silicon_block"
+      "highenergyanvilology:silicon_ingot_from_silicon_block"
     ]
   }
 }

@@ -1,7 +1,7 @@
 package icu.takeneko.highenergyanvilology.block.tile.logic.stabilizer;
 
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerSlice;
-import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
+import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;

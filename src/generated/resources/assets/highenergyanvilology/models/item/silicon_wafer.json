@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "highenergyanvilology:item/silicon"
+    "layer0": "highenergyanvilology:item/silicon_wafer"
   }
 }

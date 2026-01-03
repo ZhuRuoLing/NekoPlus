@@ -4,12 +4,14 @@
   "package": "icu.takeneko.highenergyanvilology.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "anvilcraft.AnvilEventListenerMixin",
     "anvilcraft.BaseLaserBlockEntityMixin",
     "anvilcraft.ChargerBlockEntityMixin",
     "anvilcraft.LaserEmitPacketMixin",
     "anvilcraft.PowerGridMixin",
     "anvilcraft.ServerBlockEntityEventListenerMixin",
     "anvilcraft.SimplePowerGridMixin",
+    "anvilcraft.StampingPlatformMixin",
     "eyelib.RenderControllerEntryMixin"
   ],
   "client": [

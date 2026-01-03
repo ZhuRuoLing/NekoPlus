@@ -188,11 +188,11 @@ public class HEBlocks {
                 .define('B', HEItems.CARBON_DIOXIDE_LASER_TUBE)
                 .define('C', HEItems.TITANIUM_ALLOY_INGOT)
                 .define('D', ModItems.TRANSCENDIUM_INGOT)
-                .define('E', ModItems.CIRCUIT_BOARD)
+                .define('E', HEItems.INTEGRATED_CHIP_CIRCUIT_BOARD)
                 .unlockedBy("has_" + ModItems.TIN_NUGGET.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.TIN_NUGGET))
                 .unlockedBy("has_" + HEItems.CARBON_DIOXIDE_LASER_TUBE.getRegisteredName(), RegistrateRecipeProvider.has(HEItems.CARBON_DIOXIDE_LASER_TUBE))
                 .unlockedBy("has_" + HEItems.TITANIUM_ALLOY_INGOT.getRegisteredName(), RegistrateRecipeProvider.has(HEItems.TITANIUM_ALLOY_INGOT))
-                .unlockedBy("has_" + ModItems.CIRCUIT_BOARD.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.CIRCUIT_BOARD))
+                .unlockedBy("has_" + HEItems.INTEGRATED_CHIP_CIRCUIT_BOARD.getRegisteredName(), RegistrateRecipeProvider.has(HEItems.INTEGRATED_CHIP_CIRCUIT_BOARD))
                 .save(prov);
         })
         .build()

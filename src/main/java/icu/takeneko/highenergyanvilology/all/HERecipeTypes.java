@@ -3,7 +3,8 @@ package icu.takeneko.highenergyanvilology.all;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.foundation.recipes.RecipeSerializerImpl;
-import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
+import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
+import icu.takeneko.highenergyanvilology.recipe.LaserEtchingRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -22,6 +23,13 @@ public class HERecipeTypes {
         "air_condensing",
         AirCondensingRecipe.MAP_CODEC,
         AirCondensingRecipe.STREAM_CODEC
+    );
+
+    public static final RecipeType<LaserEtchingRecipe> LASER_ETCHING = registerType("laser_etching");
+    public static final RecipeSerializer<LaserEtchingRecipe> LASER_ETCHING_SERIALIZER = registerSerializer(
+        "laser_etching",
+        LaserEtchingRecipe.MAP_CODEC,
+        LaserEtchingRecipe.STREAM_CODEC
     );
 
     private static <T extends Recipe<?>> RecipeType<T> registerType(String name) {

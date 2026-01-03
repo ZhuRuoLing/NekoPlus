@@ -1,0 +1,10 @@
+{
+  "type": "highenergyanvilology:laser_etching",
+  "input": {
+    "item": "highenergyanvilology:silicon_wafer"
+  },
+  "output": {
+    "count": 4,
+    "id": "highenergyanvilology:silicon_chip"
+  }
+}

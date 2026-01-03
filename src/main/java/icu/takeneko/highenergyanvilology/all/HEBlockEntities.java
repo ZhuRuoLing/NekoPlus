@@ -3,12 +3,14 @@ package icu.takeneko.highenergyanvilology.all;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockRenderer;
+import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.block.HEHatchBlock;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.HEHatchBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.ParticleStabilizerBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.TardisBlockEntity;
 import icu.takeneko.highenergyanvilology.client.renderer.tesr.AnvilonEmitterBlockEntityRenderer;
@@ -50,6 +52,11 @@ public class HEBlockEntities {
         .blockEntity("high_energy_laser", HighEnergyLaserBlockEntity::new)
         .validBlock(HEBlocks.HIGH_ENERGY_LASER)
         .renderer(() -> LaserBlockRenderer::new)
+        .register();
+
+    public static final BlockEntityEntry<StampingPlatformBlockEntity> STAMPING_PLATFORM = HEAnvilology.REGISTRATE
+        .blockEntity("stamping_platform", StampingPlatformBlockEntity::new)
+        .validBlock(ModBlocks.STAMPING_PLATFORM)
         .register();
 
     public static BlockEntityEntry<HEHatchBlockEntity<IItemHandler>> ITEM_INPUT_HATCH = hatch(HEHatchTypes.ITEM, true, HEBlocks.ITEM_INPUT_HATCH);

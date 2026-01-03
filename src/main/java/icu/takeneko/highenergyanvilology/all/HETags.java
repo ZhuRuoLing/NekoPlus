@@ -35,6 +35,7 @@ public class HETags {
         public static final TagKey<Item> STORAGE_BLOCKS_TITANIUM_ALLOY = storageBlocks("titanium_alloy");
         public static final TagKey<Item> SULFUR = c("dusts/sulfur");
         public static final TagKey<Item> DRY_ICES = c("dry_ices");
+        public static final TagKey<Item> SILVER_PLATE = c("plates/silver");
         //endregion
 
         //region util

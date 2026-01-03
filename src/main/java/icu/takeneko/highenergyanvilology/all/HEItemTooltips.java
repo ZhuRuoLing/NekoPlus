@@ -46,5 +46,6 @@ public class HEItemTooltips {
         tooltip(HEItems.STABILIZE_POWDER, "S₈((Al₆Si₆Ca₈Na₈)₁₂(Al₃Si₃Na₄Cl)₂(FeS₂)(CaCO₃))₂(Si(FeS₂)₅(CrAl₂O₃)Hg₃)₃Lv₅");
         tooltip(HEItems.CHARGED_LEVITATION_POWDER, "Lv");
         tooltip(HEItems.DRY_ICE, "CO₂");
+        tooltip(HEItems.SILICON_WAFER, "It is wafer, but in Minecraft!");
     }
 }

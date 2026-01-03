@@ -2,6 +2,7 @@ package icu.takeneko.highenergyanvilology.all;
 
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemEntry;
+import dev.anvilcraft.lib.recipe.component.ChanceItemStack;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
@@ -9,14 +10,19 @@ import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.item.MageneticConfinementVesselItem;
-import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
+import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
+import icu.takeneko.highenergyanvilology.recipe.LaserEtchingRecipe;
 import icu.takeneko.highenergyanvilology.util.DataGenUtils;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.BlastingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -61,11 +67,56 @@ public class HEItems {
         )
         .register();
 
-    public static final ItemEntry<Item> SILICON = HEAnvilology.REGISTRATE
-        .item("silicon", Item::new)
+    public static final ItemEntry<Item> SILICON_INGOT = HEAnvilology.REGISTRATE
+        .item("silicon_ingot", Item::new)
         .tag(HETags.Items.SILICON)
         .recipe((c, p) -> {
             p.storage(c, RecipeCategory.MISC, HEBlocks.SILICON_BLOCK);
+
+            SuperHeatingRecipe.builder()
+                .requires(Items.QUARTZ, 4)
+                .result(c.get().getDefaultInstance().copyWithCount(1))
+                .save(p, HEAnvilology.location("super_heating/silicon_ingot_from_quartz"));
+
+            SuperHeatingRecipe.builder()
+                .requires(Items.GLASS, 48)
+                .requires(HEItems.STABILIZE_POWDER, 1)
+                .result(c.get().getDefaultInstance().copyWithCount(1))
+                .save(p, HEAnvilology.location("super_heating/silicon_ingot_from_glass"));
+        })
+        .register();
+
+    public static final ItemEntry<Item> SILICON_WAFER = HEAnvilology.REGISTRATE
+        .item("silicon_wafer", Item::new)
+        .register();
+
+    public static final ItemEntry<Item> SILICON_CHIP = HEAnvilology.REGISTRATE
+        .item("silicon_chip", Item::new)
+        .recipe((ctx, prov) ->
+            LaserEtchingRecipe.builder()
+                .input(Ingredient.of(SILICON_WAFER))
+                .output(ChanceItemStack.of(ctx.get().getDefaultInstance(), 4))
+                .build()
+                .save(ctx.getId(), prov)
+        )
+        .register();
+
+    public static final ItemEntry<Item> INTEGRATED_CHIP_CIRCUIT_BOARD = HEAnvilology.REGISTRATE
+        .item("integrated_chip_circuit_board", Item::new)
+        .recipe((c, p) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
+                .pattern("ABB")
+                .pattern("ACB")
+                .pattern("DDD")
+                .define('A', HETags.Items.SILVER_PLATE)
+                .define('B', ModItems.CIRCUIT_BOARD)
+                .define('C', SILICON_CHIP)
+                .define('D', ModItems.HARDEND_RESIN)
+                .unlockedBy("has_silver_plate", RegistrateRecipeProvider.has(HETags.Items.SILVER_PLATE))
+                .unlockedBy("has_" + p.safeName(ModItems.CIRCUIT_BOARD), RegistrateRecipeProvider.has(ModItems.CIRCUIT_BOARD))
+                .unlockedBy("has_" + SILICON_CHIP.getRegisteredName(), RegistrateRecipeProvider.has(SILICON_CHIP))
+                .unlockedBy("has_" + ModItems.HARDEND_RESIN.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.HARDEND_RESIN))
+                .save(p);
         })
         .register();
 

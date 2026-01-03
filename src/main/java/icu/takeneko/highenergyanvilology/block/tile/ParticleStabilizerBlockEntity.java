@@ -17,7 +17,7 @@ import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerSlice;
 import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
 import icu.takeneko.highenergyanvilology.foundation.ui.HEBlockEntityUIHolder;
-import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
+import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,41 +1,41 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_anvilcraft:tin_nugget": {
+    "has_anvilcraft:hardend_resin": {
       "conditions": {
         "items": [
           {
-            "items": "anvilcraft:tin_nugget"
+            "items": "anvilcraft:hardend_resin"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_highenergyanvilology:carbon_dioxide_laser_tube": {
+    "has_circuit_board": {
       "conditions": {
         "items": [
           {
-            "items": "highenergyanvilology:carbon_dioxide_laser_tube"
+            "items": "anvilcraft:circuit_board"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_highenergyanvilology:integrated_chip_circuit_board": {
+    "has_highenergyanvilology:silicon_chip": {
       "conditions": {
         "items": [
           {
-            "items": "highenergyanvilology:integrated_chip_circuit_board"
+            "items": "highenergyanvilology:silicon_chip"
           }
         ]
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_highenergyanvilology:titanium_alloy_ingot": {
+    "has_silver_plate": {
       "conditions": {
         "items": [
           {
-            "items": "highenergyanvilology:titanium_alloy_ingot"
+            "items": "#c:plates/silver"
           }
         ]
       },
@@ -43,7 +43,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "highenergyanvilology:high_energy_laser"
+        "recipe": "highenergyanvilology:integrated_chip_circuit_board"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -51,15 +51,15 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_anvilcraft:tin_nugget",
-      "has_highenergyanvilology:carbon_dioxide_laser_tube",
-      "has_highenergyanvilology:titanium_alloy_ingot",
-      "has_highenergyanvilology:integrated_chip_circuit_board"
+      "has_silver_plate",
+      "has_circuit_board",
+      "has_highenergyanvilology:silicon_chip",
+      "has_anvilcraft:hardend_resin"
     ]
   ],
   "rewards": {
     "recipes": [
-      "highenergyanvilology:high_energy_laser"
+      "highenergyanvilology:integrated_chip_circuit_board"
     ]
   }
 }

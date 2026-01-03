@@ -29,10 +29,13 @@
   "item.highenergyanvilology.charged_levitation_powder": "Charged Levitation Powder",
   "item.highenergyanvilology.cryocooler": "Cryocooler",
   "item.highenergyanvilology.dry_ice": "Dry Ice",
+  "item.highenergyanvilology.integrated_chip_circuit_board": "Integrated Chip Circuit Board",
   "item.highenergyanvilology.magnetic_confinement_vessel": "Magnetic Confinement Vessel",
   "item.highenergyanvilology.magnetic_confinement_vessel.full": "Magnetic Confinement Vessel with %s",
   "item.highenergyanvilology.nanofiltration_membrane": "Nanofiltration Membrane",
-  "item.highenergyanvilology.silicon": "Silicon",
+  "item.highenergyanvilology.silicon_chip": "Silicon Chip",
+  "item.highenergyanvilology.silicon_ingot": "Silicon Ingot",
+  "item.highenergyanvilology.silicon_wafer": "Silicon Wafer",
   "item.highenergyanvilology.stabilize_powder": "Stabilize Powder",
   "item.highenergyanvilology.strong_magnet": "Strong Magnet",
   "item.highenergyanvilology.sulfur": "Sulfur",
@@ -48,5 +51,6 @@
   "tooltip.highenergyanvilology.particle_stabilizer.ready": "Ready",
   "tooltip.highenergyanvilology.particle_stabilizer.state": "State: ",
   "tooltip.highenergyanvilology.royal_steel_casing": "§7All you need is §5I§dm§4a§cg§ei§an§ba§3t§7i§1o§5n§7",
+  "tooltip.highenergyanvilology.silicon_wafer": "It is wafer, but in Minecraft!",
   "tooltip.highenergyanvilology.stabilize_powder": "S₈((Al₆Si₆Ca₈Na₈)₁₂(Al₃Si₃Na₄Cl)₂(FeS₂)(CaCO₃))₂(Si(FeS₂)₅(CrAl₂O₃)Hg₃)₃Lv₅"
 }

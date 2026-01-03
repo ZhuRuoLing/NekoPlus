@@ -7,7 +7,7 @@ import icu.takeneko.highenergyanvilology.all.HEItems;
 import icu.takeneko.highenergyanvilology.all.HERecipeTypes;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
 import icu.takeneko.highenergyanvilology.foundation.recipes.SingleRecipeInput;
-import icu.takeneko.highenergyanvilology.recipes.AirCondensingRecipe;
+import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.util.ContainerUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;

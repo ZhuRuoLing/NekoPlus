@@ -1,5 +1,6 @@
 package icu.takeneko.highenergyanvilology.foundation.multiblock.builder;
 
+import icu.takeneko.highenergyanvilology.foundation.multiblock.MultiBlockDefinitionLayer;
 import icu.takeneko.highenergyanvilology.foundation.multiblock.prediction.BlockStatePrediction;
 import lombok.Getter;
 
@@ -35,7 +36,7 @@ public class MultiBlockLayerBuilder {
         return this;
     }
 
-    public BlockStatePrediction[][] inflate() {
+    public MultiBlockDefinitionLayer inflate() {
         int maxWidth = lines.stream().mapToInt(String::length).max().orElseThrow();
         BlockStatePrediction[][] predictionss = new BlockStatePrediction[lines.size()][];
         int ln = 0;
@@ -55,7 +56,7 @@ public class MultiBlockLayerBuilder {
             }
             predictionss[lineIdx] = predictions;
         }
-        return predictionss;
+        return new MultiBlockDefinitionLayer(predictionss, ln, maxWidth);
     }
 
     public MultiBlockDefinitionBuilder endLayer() {

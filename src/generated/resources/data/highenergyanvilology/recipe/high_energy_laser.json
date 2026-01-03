@@ -15,7 +15,7 @@
       "item": "anvilcraft:transcendium_ingot"
     },
     "E": {
-      "item": "anvilcraft:circuit_board"
+      "item": "highenergyanvilology:integrated_chip_circuit_board"
     }
   },
   "pattern": [

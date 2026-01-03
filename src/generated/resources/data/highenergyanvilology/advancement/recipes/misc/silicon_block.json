@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_silicon": {
+    "has_silicon_ingot": {
       "conditions": {
         "items": [
           {
-            "items": "highenergyanvilology:silicon"
+            "items": "highenergyanvilology:silicon_ingot"
           }
         ]
       },
@@ -21,7 +21,7 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_silicon"
+      "has_silicon_ingot"
     ]
   ],
   "rewards": {

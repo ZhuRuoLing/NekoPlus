@@ -1,4 +1,4 @@
-package icu.takeneko.highenergyanvilology.recipes;
+package icu.takeneko.highenergyanvilology.recipe;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -15,7 +15,6 @@ import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -28,7 +27,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
-import net.neoforged.neoforge.common.data.internal.NeoForgeRecipeProvider;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;

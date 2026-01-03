@@ -2,26 +2,35 @@ package icu.takeneko.highenergyanvilology.all;
 
 import com.lowdragmc.lowdraglib.gui.modular.ModularUIGuiContainer;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+import dev.anvilcraft.lib.AnvilLib;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
+import dev.dubhe.anvilcraft.block.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.event.FallingBlockCollisionEventListener;
+import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.highenergyanvilology.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.BlockCollisionEventReceiver;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
+import icu.takeneko.highenergyanvilology.internal.StampingPlatformsInternal;
+import icu.takeneko.highenergyanvilology.recipe.LaserEtchingRecipe;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ArrayListDeque;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -36,11 +45,11 @@ import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @EventBusSubscriber
 public class HEEvents {
@@ -148,6 +157,82 @@ public class HEEvents {
         if (position != null) {
             level.explode(null, null, new FallingBlockCollisionEventListener.ItemImmuneExplosionDamage(), position.x, position.y, position.z, 1, false, Level.ExplosionInteraction.NONE);
         }
+    }
+
+    @SubscribeEvent
+    public static void onLandOnStampingPlatform(AnvilEvent.OnLand event) {
+        BlockPos eventPos = event.getPos();
+        Level level = event.getLevel();
+        BlockState blockState = level.getBlockState(eventPos.below());
+        if (!blockState.is(ModBlocks.STAMPING_PLATFORM)) return;
+        if (!blockState.getValue(StampingPlatformsInternal.LASER_TARGETED)) return;
+        Direction facing = blockState.getValue(StampingPlatformBlock.FACING);
+        Vec3 motion = new Vec3(facing.getStepX(), -0.4, facing.getStepZ()).scale(0.2);
+        Vec3 position = eventPos.below().getBottomCenter().add(facing.getStepX() * 0.5 + 0.15 * facing.getStepX(), 0.65, facing.getStepZ() * 0.5 + 0.15 * facing.getStepX());
+        AABB box = new AABB(eventPos.below());
+        List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, box);
+        int anvilEfficency = AnvilLib.CONFIG.inWorldRecipeMaxEfficiency;
+        for (ItemEntity entity : entities) {
+            if (anvilEfficency <= 0) return;
+            ItemStack itemStack = entity.getItem();
+            boolean shouldStopCrafting = false;
+            int count = itemStack.getCount();
+            int actualCount;
+            if (count > anvilEfficency) {
+                actualCount = anvilEfficency;
+                ItemEntity unprocessed = new ItemEntity(
+                    entity.level(),
+                    entity.getX(),
+                    entity.getY(),
+                    entity.getZ(),
+                    entity.getItem().copyWithCount(count - anvilEfficency)
+                );
+                level.addFreshEntity(unprocessed);
+                shouldStopCrafting = true;
+            } else {
+                anvilEfficency -= count;
+                actualCount = count;
+            }
+            SingleRecipeInput input = new SingleRecipeInput(itemStack.copyWithCount(actualCount));
+            ServerLevel serverLevel = (ServerLevel) level;
+            Optional<RecipeHolder<LaserEtchingRecipe>> recipeHolderOptional = serverLevel.getRecipeManager().getRecipeFor(HERecipeTypes.LASER_ETCHING, input, serverLevel);
+            if (recipeHolderOptional.isPresent() && actualCount != 0) {
+                entity.discard();
+                LaserEtchingRecipe recipe = recipeHolderOptional.get().value();
+                ItemStack result = recipe.output().getResult(serverLevel);
+                result = result.copyWithCount(result.getCount() * actualCount);
+                int maxStackSize = result.getMaxStackSize();
+                while (result.getCount() > maxStackSize) {
+                    result.setCount(result.getCount() - maxStackSize);
+                    ItemEntity resultEntity = new ItemEntity(
+                        entity.level(),
+                        0,
+                        0,
+                        0,
+                        result.copyWithCount(maxStackSize)
+                    );
+                    resultEntity.setDeltaMovement(motion);
+                    resultEntity.setPos(position);
+                    serverLevel.addFreshEntity(resultEntity);
+                }
+                if (!result.isEmpty()) {
+                    ItemEntity resultEntity = new ItemEntity(
+                        entity.level(),
+                        0,
+                        0,
+                        0,
+                        result
+                    );
+                    resultEntity.setDeltaMovement(motion);
+                    resultEntity.setPos(position);
+                    serverLevel.addFreshEntity(resultEntity);
+                }
+            }
+            if (shouldStopCrafting) {
+                break;
+            }
+        }
+
     }
 
     @SubscribeEvent
