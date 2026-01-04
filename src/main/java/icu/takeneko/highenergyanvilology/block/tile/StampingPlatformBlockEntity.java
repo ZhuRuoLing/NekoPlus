@@ -1,7 +1,8 @@
 package icu.takeneko.highenergyanvilology.block.tile;
 
+import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
-import icu.takeneko.highenergyanvilology.internal.StampingPlatformsInternal;
+import icu.takeneko.highenergyanvilology.internal.StampingPlatformsInternals;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,11 +23,11 @@ public class StampingPlatformBlockEntity extends BlockEntity implements Tickable
     @Override
     public void tick() {
         if (laserEmitterPosition == null || !isLaserTarget) {
-            level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(StampingPlatformsInternal.LASER_TARGETED, false));
+            level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(StampingPlatformsInternals.LASER_TARGETED, false));
             return;
         }
-        if (level.getBlockEntity(laserEmitterPosition) instanceof HighEnergyLaserBlockEntity heLaserBE) {
-            if (!heLaserBE.getPos().equals(laserEmitterPosition)) {
+        if (level.getBlockEntity(laserEmitterPosition) instanceof BaseLaserBlockEntity heLaserBE) {
+            if (!heLaserBE.getBlockPos().equals(laserEmitterPosition) || heLaserBE.getLaserLevel() < 64) {
                 isLaserTarget = false;
                 laserEmitterPosition = null;
             }
@@ -34,8 +35,8 @@ public class StampingPlatformBlockEntity extends BlockEntity implements Tickable
             isLaserTarget = false;
             laserEmitterPosition = null;
         }
-        if (getBlockState().getValue(StampingPlatformsInternal.LASER_TARGETED) != isLaserTarget) {
-            level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(StampingPlatformsInternal.LASER_TARGETED, isLaserTarget));
+        if (getBlockState().getValue(StampingPlatformsInternals.LASER_TARGETED) != isLaserTarget) {
+            level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(StampingPlatformsInternals.LASER_TARGETED, isLaserTarget));
         }
     }
 }

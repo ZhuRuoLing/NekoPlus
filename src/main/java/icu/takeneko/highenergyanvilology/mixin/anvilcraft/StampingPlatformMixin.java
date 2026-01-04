@@ -7,7 +7,7 @@ import dev.dubhe.anvilcraft.block.StampingPlatformBlock;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.StampingPlatformBlockEntity;
-import icu.takeneko.highenergyanvilology.internal.StampingPlatformsInternal;
+import icu.takeneko.highenergyanvilology.internal.StampingPlatformsInternals;
 import icu.takeneko.highenergyanvilology.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -38,7 +38,7 @@ public class StampingPlatformMixin extends Block implements EntityBlock, IMoveab
     void modifyDefaultState(StampingPlatformBlock instance, BlockState state, Operation<Void> original) {
         original.call(
             instance,
-            state.setValue(StampingPlatformsInternal.LASER_TARGETED, false)
+            state.setValue(StampingPlatformsInternals.LASER_TARGETED, false)
         );
     }
 
@@ -47,7 +47,7 @@ public class StampingPlatformMixin extends Block implements EntityBlock, IMoveab
         at = @At("RETURN")
     )
     void addLaserTargetedState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
-        builder.add(StampingPlatformsInternal.LASER_TARGETED);
+        builder.add(StampingPlatformsInternals.LASER_TARGETED);
     }
 
     @Override

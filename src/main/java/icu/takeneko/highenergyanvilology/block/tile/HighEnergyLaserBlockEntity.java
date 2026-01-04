@@ -30,19 +30,6 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
         tick(level);
     }
 
-
-    public void emitLaser(Direction direction) {
-        BlockPos oldValue = this.irradiateBlockPos;
-        super.emitLaser(direction);
-        if (oldValue != null
-            && !oldValue.equals(irradiateBlockPos)
-            && level.getBlockEntity(oldValue) instanceof StampingPlatformBlockEntity blockEntity
-        ) {
-            blockEntity.setLaserEmitterPosition(null);
-            blockEntity.setLaserTarget(false);
-        }
-    }
-
     @Override
     public void tick(Level level) {
         this.resetState();
@@ -50,23 +37,17 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
         if (level.hasNeighborSignal(getBlockPos()) == !getPoweredState()) {
             setPoweredState(!level.hasNeighborSignal(getBlockPos()), 2);
         }
-        ((LaserRendererInternals.Access) this).setPureHELaserSourceDirect(true);
+        ((LaserRendererInternals.Extension) this).setPureHELaserSourceDirect(true);
         if (isSwitchedOn()) {
             emitLaser(getFacing());
         } else {
             if (irradiateBlockPos != null && level.getBlockEntity(irradiateBlockPos) instanceof BaseLaserBlockEntity irradiateBlockEntity) {
                 irradiateBlockEntity.onCancelingIrradiation(this);
             }
-            if (irradiateBlockPos != null && level.getBlockEntity(irradiateBlockPos) instanceof StampingPlatformBlockEntity irradiateBlockEntity) {
-                irradiateBlockEntity.setLaserEmitterPosition(null);
-                irradiateBlockEntity.setLaserTarget(false);
-            }
+            ((LaserRendererInternals.Extension) this).onTurnOff();
             updateIrradiateBlockPos(null);
         }
-        if (irradiateBlockPos != null && level.getBlockEntity(irradiateBlockPos) instanceof StampingPlatformBlockEntity blockEntity) {
-            blockEntity.setLaserEmitterPosition(getBlockPos());
-            blockEntity.setLaserTarget(true);
-        }
+
         super.tick(level);
     }
 

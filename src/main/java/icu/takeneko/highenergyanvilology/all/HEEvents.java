@@ -13,7 +13,7 @@ import icu.takeneko.highenergyanvilology.foundation.block.tile.BlockCollisionEve
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilMaterial;
 import icu.takeneko.highenergyanvilology.foundation.material.AnvilonType;
-import icu.takeneko.highenergyanvilology.internal.StampingPlatformsInternal;
+import icu.takeneko.highenergyanvilology.internal.StampingPlatformsInternals;
 import icu.takeneko.highenergyanvilology.recipe.LaserEtchingRecipe;
 import it.unimi.dsi.fastutil.Pair;
 import net.minecraft.client.Minecraft;
@@ -165,7 +165,7 @@ public class HEEvents {
         Level level = event.getLevel();
         BlockState blockState = level.getBlockState(eventPos.below());
         if (!blockState.is(ModBlocks.STAMPING_PLATFORM)) return;
-        if (!blockState.getValue(StampingPlatformsInternal.LASER_TARGETED)) return;
+        if (!blockState.getValue(StampingPlatformsInternals.LASER_TARGETED)) return;
         Direction facing = blockState.getValue(StampingPlatformBlock.FACING);
         Vec3 motion = new Vec3(facing.getStepX(), -0.4, facing.getStepZ()).scale(0.2);
         Vec3 position = eventPos.below().getBottomCenter().add(facing.getStepX() * 0.5 + 0.15 * facing.getStepX(), 0.65, facing.getStepZ() * 0.5 + 0.15 * facing.getStepX());

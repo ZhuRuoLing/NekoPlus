@@ -42,7 +42,7 @@ public class LaserEmitPacketMixin implements LaserRendererInternals.PacketAccess
         @Local BaseLaserBlockEntity be
     ) {
         LaserRendererInternals.PacketAccess access = (LaserRendererInternals.PacketAccess) (data);
-        ((LaserRendererInternals.Access) be).setPureHELaserSourceDirect(access.isPureHELaserSource());
+        ((LaserRendererInternals.Extension) be).setPureHELaserSourceDirect(access.isPureHELaserSource());
     }
 
     @Override

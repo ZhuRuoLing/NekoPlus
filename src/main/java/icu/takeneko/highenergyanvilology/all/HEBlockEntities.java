@@ -19,7 +19,6 @@ import icu.takeneko.highenergyanvilology.client.renderer.tesr.StellarEngineBlock
 import icu.takeneko.highenergyanvilology.client.renderer.tesr.TardisBlockEntityRenderer;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HEHatchTypes;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchType;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 

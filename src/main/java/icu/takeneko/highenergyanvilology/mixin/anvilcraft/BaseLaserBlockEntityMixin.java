@@ -1,15 +1,19 @@
 package icu.takeneko.highenergyanvilology.mixin.anvilcraft;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import dev.dubhe.anvilcraft.network.LaserEmitPacket;
 import icu.takeneko.highenergyanvilology.block.tile.HighEnergyLaserBlockEntity;
+import icu.takeneko.highenergyanvilology.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HEInspectionSupported;
 import icu.takeneko.highenergyanvilology.internal.LaserRendererInternals;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,7 +32,7 @@ import java.util.Set;
 @Mixin(BaseLaserBlockEntity.class)
 public abstract class BaseLaserBlockEntityMixin
     extends BlockEntity
-    implements LaserRendererInternals.Access, HEInspectionSupported {
+    implements LaserRendererInternals.Extension, HEInspectionSupported {
 
     @Shadow
     @UnknownNullability
@@ -37,7 +41,12 @@ public abstract class BaseLaserBlockEntityMixin
     @Shadow
     public abstract void markChanged();
 
-    @Shadow protected boolean changed;
+    @Shadow
+    protected abstract int getBaseLaserLevel();
+
+    @Shadow
+    protected int laserLevel;
+
     @Unique
     private final HashMap<BaseLaserBlockEntity, Boolean> he$dataMap = new HashMap<>();
 
@@ -48,17 +57,42 @@ public abstract class BaseLaserBlockEntityMixin
         super(type, pos, blockState);
     }
 
-    @Inject(
-        method = "<init>",
-        at = @At("RETURN")
-    )
-    void reInitBlockSet(BlockEntityType<?> type, BlockPos pos, BlockState blockState, CallbackInfo ci) {
-    }
-
     @Override
     public boolean hasPureHELaserSource() {
         return he$isPureHELaser;
     }
+
+    @WrapMethod(
+        method = "emitLaser"
+    )
+    void wrapEmitLaser(Direction direction, Operation<Void> original) {
+        BlockPos oldValue = this.irradiateBlockPos;
+        original.call(direction);
+        if (oldValue != null
+            && !oldValue.equals(irradiateBlockPos)
+            && level.getBlockEntity(oldValue) instanceof StampingPlatformBlockEntity blockEntity
+        ) {
+            blockEntity.setLaserEmitterPosition(null);
+            blockEntity.setLaserTarget(false);
+        }
+    }
+
+    @Inject(
+        method = "tick",
+        at = @At("RETURN")
+    )
+    void updateTargetBlock(Level level, CallbackInfo ci) {
+        if (irradiateBlockPos != null && level.getBlockEntity(irradiateBlockPos) instanceof StampingPlatformBlockEntity blockEntity) {
+            if (this.laserLevel >= 64) {
+                blockEntity.setLaserEmitterPosition(getBlockPos());
+                blockEntity.setLaserTarget(true);
+            } else {
+                blockEntity.setLaserEmitterPosition(null);
+                blockEntity.setLaserTarget(false);
+            }
+        }
+    }
+
 
     @Override
     public void updateFromSource(BaseLaserBlockEntity blockEntity, boolean value, Set<BaseLaserBlockEntity> context) {
@@ -95,9 +129,9 @@ public abstract class BaseLaserBlockEntityMixin
         he$isPureHELaser = value;
 
         if (irradiateBlockPos != null) {
-            if (level.getBlockEntity(irradiateBlockPos) instanceof LaserRendererInternals.Access access) {
+            if (level.getBlockEntity(irradiateBlockPos) instanceof LaserRendererInternals.Extension extension) {
                 context.add((BaseLaserBlockEntity) (Object) this);
-                access.updateFromSource((BaseLaserBlockEntity) (Object) this, he$isPureHELaser, context);
+                extension.updateFromSource((BaseLaserBlockEntity) (Object) this, he$isPureHELaser, context);
             }
         }
     }
@@ -108,8 +142,8 @@ public abstract class BaseLaserBlockEntityMixin
     )
     void updateFromPureSource(BaseLaserBlockEntity instance, BaseLaserBlockEntity baseLaserBlockEntity, Operation<Void> original) {
         original.call(instance, baseLaserBlockEntity);
-        if (instance instanceof LaserRendererInternals.Access access && (Object) this instanceof HighEnergyLaserBlockEntity heLaser) {
-            access.updateFromSource(heLaser, he$isPureHELaser, new HashSet<>());
+        if (instance instanceof LaserRendererInternals.Extension extension && (Object) this instanceof HighEnergyLaserBlockEntity heLaser) {
+            extension.updateFromSource(heLaser, he$isPureHELaser, new HashSet<>());
         }
     }
 
@@ -149,8 +183,8 @@ public abstract class BaseLaserBlockEntityMixin
     )
     void handleNewSource(BaseLaserBlockEntity baseLaserBlockEntity, CallbackInfo ci) {
         boolean value = false;
-        if (baseLaserBlockEntity instanceof LaserRendererInternals.Access access) {
-            value = access.hasPureHELaserSource();
+        if (baseLaserBlockEntity instanceof LaserRendererInternals.Extension extension) {
+            value = extension.hasPureHELaserSource();
         }
         he$dataMap.put(baseLaserBlockEntity, value);
         Set<BaseLaserBlockEntity> set = new HashSet<>();
@@ -165,6 +199,14 @@ public abstract class BaseLaserBlockEntityMixin
     void handleSourceRemoval(BaseLaserBlockEntity baseLaserBlockEntity, CallbackInfo ci) {
         he$dataMap.remove(baseLaserBlockEntity);
         flushPureHESourceState(new HashSet<>());
+    }
+
+    @Override
+    public void onTurnOff() {
+        if (irradiateBlockPos != null && level.getBlockEntity(irradiateBlockPos) instanceof StampingPlatformBlockEntity irradiateBlockEntity) {
+            irradiateBlockEntity.setLaserEmitterPosition(null);
+            irradiateBlockEntity.setLaserTarget(false);
+        }
     }
 
     @Override
