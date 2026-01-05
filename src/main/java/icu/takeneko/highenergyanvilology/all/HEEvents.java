@@ -168,7 +168,7 @@ public class HEEvents {
         if (!blockState.getValue(StampingPlatformsInternals.LASER_TARGETED)) return;
         Direction facing = blockState.getValue(StampingPlatformBlock.FACING);
         Vec3 motion = new Vec3(facing.getStepX(), -0.4, facing.getStepZ()).scale(0.2);
-        Vec3 position = eventPos.below().getBottomCenter().add(facing.getStepX() * 0.5 + 0.15 * facing.getStepX(), 0.65, facing.getStepZ() * 0.5 + 0.15 * facing.getStepX());
+        Vec3 position = eventPos.below().getBottomCenter().add(facing.getStepX() * 0.5 + 0.25 * facing.getStepX(), 0.55, facing.getStepZ() * 0.5 + 0.25 * facing.getStepX());
         AABB box = new AABB(eventPos.below());
         List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, box);
         int anvilEfficency = AnvilLib.CONFIG.inWorldRecipeMaxEfficiency;
