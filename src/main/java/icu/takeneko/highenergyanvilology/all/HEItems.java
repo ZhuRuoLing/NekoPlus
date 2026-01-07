@@ -9,6 +9,7 @@ import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
+import icu.takeneko.highenergyanvilology.item.AnvilonEmissionTubeItem;
 import icu.takeneko.highenergyanvilology.item.MageneticConfinementVesselItem;
 import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.recipe.LaserEtchingRecipe;
@@ -239,6 +240,13 @@ public class HEItems {
                 .unlockedBy("has_" + ModItems.SUPER_CAPACITOR.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.SUPER_CAPACITOR))
                 .unlockedBy("has_" + ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK.getRegisteredName(), RegistrateRecipeProvider.has(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK))
                 .save(prov);
+        })
+        .register();
+
+    public static final ItemEntry<AnvilonEmissionTubeItem> ANVILON_EMISSION_TUBE = HEAnvilology.REGISTRATE
+        .item("anvilon_emission_tube", AnvilonEmissionTubeItem::new)
+        .recipe((ctx, prov) -> {
+
         })
         .register();
 

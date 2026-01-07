@@ -1,31 +1,23 @@
 package icu.takeneko.highenergyanvilology.ui;
 
-import com.lowdragmc.lowdraglib.gui.texture.ResourceBorderTexture;
-import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
 import com.lowdragmc.lowdraglib.gui.widget.SlotWidget;
-import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
-import com.lowdragmc.lowdraglib.gui.widget.custom.PlayerInventoryWidget;
-import com.lowdragmc.lowdraglib.gui.widget.layout.Align;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
+import icu.takeneko.highenergyanvilology.foundation.ui.widgets.HEPlayerInventoryWidget;
+import icu.takeneko.highenergyanvilology.foundation.ui.widgets.HEUI;
 import net.minecraft.network.chat.Component;
 
-public class AnvilonEmitterUI extends WidgetGroup {
-    private final AnvilonEmitterBlockEntity blockEntity;
+public class AnvilonEmitterUI extends HEUI<AnvilonEmitterBlockEntity> {
 
     public AnvilonEmitterUI(AnvilonEmitterBlockEntity blockEntity) {
-        super(0, 0, 172, 126);
-        this.blockEntity = blockEntity;
-        PlayerInventoryWidget inventory = new PlayerInventoryWidget();
-        inventory.setSelfPosition(0, 40);
+        super(0, 0, 172, 136, blockEntity, Component.translatable("block.highenergyanvilology.anvilon_emitter"));
+        HEPlayerInventoryWidget inventory = new HEPlayerInventoryWidget();
+        inventory.setSlotBackground(HEGuiResources.ITEM_SLOT_WEAK);
+        inventory.setBackground(HEGuiResources.INVENTORY_SLOT_BORDER5);
+        inventory.setSelfPosition(0, 50);
         SlotWidget slotWidget = new SlotWidget(blockEntity.getItemHandler(), 0, 77, 20);
-        LabelWidget textWidget = new LabelWidget(0, 0, Component.translatable("block.highenergyanvilology.anvilon_emitter"));
-        textWidget.setSize(172, 10);
-        textWidget.setAlign(Align.TOP_CENTER);
-        WidgetGroup aligner = new WidgetGroup(0, 7, 172, 10);
-        aligner.addWidgets(textWidget);
-        addWidgets(slotWidget, aligner, inventory);
-        setBackground(ResourceBorderTexture.BORDERED_BACKGROUND);
+        slotWidget.setBackground(HEGuiResources.ITEM_SLOT);
+        label(6,45, Component.translatable("container.inventory"));
+        addWidgets(slotWidget, inventory);
+        setBackground(HEGuiResources.UI_BACKGROUND);
     }
-
-
 }

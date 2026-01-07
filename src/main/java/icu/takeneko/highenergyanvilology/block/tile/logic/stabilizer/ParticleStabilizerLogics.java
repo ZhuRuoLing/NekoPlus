@@ -138,7 +138,7 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
             }
             if (currentRecipe != null) {
                 int currentProgress = host.getProgress();
-                if (currentProgress++ > currentRecipe.getTicks()) {
+                if (currentProgress + 1 > currentRecipe.getTicks()) {
                     currentProgress = 0;
                     LootContext context = new LootContext.Builder(
                         new LootParams.Builder((ServerLevel) host.getLevel())
@@ -150,6 +150,8 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
                             ContainerUtil.insertItem(host.getOutputItemHandler(), result.copy());
                         }
                     }
+                } else {
+                    currentProgress++;
                 }
                 host.setProgress(currentProgress);
             }
