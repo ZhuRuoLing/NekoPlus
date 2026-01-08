@@ -6,7 +6,8 @@ import icu.takeneko.highenergyanvilology.block.HEHatchBlock;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchLogicHost;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
-import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -17,8 +18,9 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
 
-public class ItemHatchLogic implements HatchLogic<IItemHandler>, ItemHandlerOwner {
+public class ItemHatchLogic implements HatchLogic<IItemHandler>, HEItemHandlerOwner {
 
+    @Getter
     private final HEItemHandler itemHandler = new HEItemHandler(9, this);
     private final HatchLogicHost host;
     private final boolean isInput;

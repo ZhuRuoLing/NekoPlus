@@ -6,26 +6,24 @@ import com.google.common.collect.Table;
 import com.lowdragmc.lowdraglib.syncdata.IContentChangeAware;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
 public class HEItemHandler extends ItemStackHandler implements IContentChangeAware {
-    private final ItemHandlerOwner owner;
+    private final HEItemHandlerOwner owner;
     private final Table<Integer, Integer, HEItemHandlerSlice> cache = HashBasedTable.create();
 
     @Getter
     @Setter
     private Runnable onContentsChanged;
 
-    public HEItemHandler(int size, ItemHandlerOwner owner) {
+    public HEItemHandler(int size, HEItemHandlerOwner owner) {
         super(size);
         this.owner = owner;
     }
 
-    public HEItemHandler(ItemHandlerOwner owner) {
+    public HEItemHandler(HEItemHandlerOwner owner) {
         this.owner = owner;
     }
 

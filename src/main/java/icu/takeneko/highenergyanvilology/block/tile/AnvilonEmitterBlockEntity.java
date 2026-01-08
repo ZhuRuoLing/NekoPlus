@@ -11,7 +11,7 @@ import icu.takeneko.highenergyanvilology.foundation.block.tile.HEPowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HESynedBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
-import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
 import icu.takeneko.highenergyanvilology.ui.AnvilonEmitterUI;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class AnvilonEmitterBlockEntity
     extends HESynedBlockEntity
-    implements HEPowerConsumer, ItemHandlerOwner, IUIHolder.Block, Tickable {
+    implements HEPowerConsumer, HEItemHandlerOwner, IUIHolder.Block, Tickable {
 
     private static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(AnvilonEmitterBlockEntity.class);
 

@@ -15,7 +15,7 @@ import icu.takeneko.highenergyanvilology.foundation.block.tile.Overclockable;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerSlice;
-import icu.takeneko.highenergyanvilology.foundation.inventory.ItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
 import icu.takeneko.highenergyanvilology.foundation.ui.HEBlockEntityUIHolder;
 import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ParticleStabilizerBlockEntity
     extends HESynedBlockEntity
-    implements HEOverclockablePowerConsumer, HEBlockEntityUIHolder, Tickable, BlockCollisionEventReceiver, ItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
+    implements HEOverclockablePowerConsumer, HEBlockEntityUIHolder, Tickable, BlockCollisionEventReceiver, HEItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
 
     public static final int MACHINE_COOLDOWN = 30 * 20;
 
