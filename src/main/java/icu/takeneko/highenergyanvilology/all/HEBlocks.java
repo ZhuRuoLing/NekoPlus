@@ -35,6 +35,7 @@ import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -301,6 +302,7 @@ public class HEBlocks {
     public static final BlockEntry<TitaniumAlloyAnvilBlock> TITANIUM_ALLOY_ANVIL = HEAnvilology.REGISTRATE
         .block("titanium_alloy_anvil", TitaniumAlloyAnvilBlock::new)
         .initialProperties(() -> Blocks.ANVIL)
+        .properties(p -> p.pushReaction(PushReaction.NORMAL))
         .tag(ModBlockTags.ANVIL_TIER_0, ModBlockTags.ANVIL_TIER_1, BlockTags.ANVIL, ModBlockTags.CANT_BROKEN_ANVIL, BlockTags.MINEABLE_WITH_PICKAXE)
         .properties(p -> p.isValidSpawn(Blocks::never).strength(5.0f, 1200f))
         .blockstate((ctx, prov) -> {

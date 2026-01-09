@@ -246,7 +246,15 @@ public class HEItems {
     public static final ItemEntry<AnvilonEmissionTubeItem> ANVILON_EMISSION_TUBE = HEAnvilology.REGISTRATE
         .item("anvilon_emission_tube", AnvilonEmissionTubeItem::new)
         .recipe((ctx, prov) -> {
-
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ctx.get())
+                .pattern("ABA")
+                .pattern("C D")
+                .pattern("A A")
+                .define('A', TITANIUM_ALLOY_INGOT)
+                .define('B', INTEGRATED_CHIP_CIRCUIT_BOARD)
+                .define('C', Items.ANVIL)
+                .define('D', CARBON_DIOXIDE_LASER_TUBE)
+                .save(prov, HEAnvilology.location("anvilon_emission_tube_plain"));
         })
         .register();
 
