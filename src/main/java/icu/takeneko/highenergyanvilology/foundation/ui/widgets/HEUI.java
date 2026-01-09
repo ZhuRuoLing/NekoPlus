@@ -62,8 +62,6 @@ public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGrou
 
     protected HEPlayerInventoryWidget playerInventory(int x, int y) {
         HEPlayerInventoryWidget inventory = new HEPlayerInventoryWidget();
-        inventory.setSlotBackground(HEGuiResources.ITEM_SLOT_WEAK);
-        inventory.setBackground(HEGuiResources.INVENTORY_SLOT_BORDER5);
         inventory.setSelfPosition(x, y);
         addWidgets(inventory);
         return inventory;
