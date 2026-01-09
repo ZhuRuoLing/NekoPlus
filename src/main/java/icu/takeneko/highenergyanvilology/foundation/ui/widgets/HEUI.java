@@ -11,12 +11,14 @@ import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "unused"})
 public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGroup {
     @Getter
     protected final T blockEntity;
     @Getter
     private final Component title;
+
+    public static final int SLOT_SIZE = 18;
 
     public HEUI(
         int x,
@@ -48,6 +50,56 @@ public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGrou
         return slot;
     }
 
+    protected SlotWidget[][] slot(int[][] slotIdx, int x, int y, int width, int height) {
+        return slot(slotIdx, x, y, width, height, true, true);
+    }
+
+    protected SlotWidget[][] outputOnlySlot(int[][] slotIdx, int x, int y, int width, int height) {
+        return slot(slotIdx, x, y, width, height, true, false);
+    }
+
+    protected SlotWidget[][] slot(int[][] slotIdx, int x, int y, int width, int height, boolean canTake, boolean canPut) {
+        var widthPx = width * SLOT_SIZE;
+        var heightPx = height * SLOT_SIZE;
+        var slots = new HESlotWidget[height][width];
+
+        for (var col = 0; col < width; col++) {
+            for (var row = 0; row < height; row++) {
+
+                var offsetX = SLOT_SIZE * col;
+                var offsetY = SLOT_SIZE * row;
+
+                var slot = new HESlotWidget(blockEntity.getItemHandler(), slotIdx[row][col], x + offsetX, y + offsetY);
+                slot.setBackground(HEGuiResources.ITEM_SLOT_WEAK);
+
+                var border = BorderPart.fromZeroIndexedPosInGrid(row, col, width, height);
+                if (border != BorderPart.NONE) {
+                    var texture = switch (border) {
+                        case TOP, LEFT, RIGHT, BOTTOM
+                            -> HEGuiResources.INVENTORY_SLOT_BORDER_TOP;
+                        case TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+                            -> HEGuiResources.INVENTORY_SLOT_BORDER_TOPLEFT;
+                        case COLUMN, ROW
+                            ->  HEGuiResources.INVENTORY_SLOT_BORDER_COLUMN;
+                        case COLUMN_TOP, COLUMN_BOTTOM, ROW_LEFT, ROW_RIGHT
+                            ->  HEGuiResources.INVENTORY_SLOT_BORDER_COLUMN_TOP;
+                        default
+                            -> HEGuiResources.INVENTORY_SLOT_BORDER;
+                    };
+                    slot.setBorderTexture(
+                        texture.copy().rotate(border.getRotationDegrees() / 2) // WTF??
+                    );
+                }
+
+                slot.setCanPutItems(canPut).setCanTakeItems(canTake);
+                addWidgets(slot);
+            }
+        }
+
+//        image(x, y, widthPx, heightPx, HEGuiResources.INVENTORY_SLOT_BORDER);
+        return slots;
+    }
+
     protected SlotWidget slot(int slotIdx, int x, int y) {
         return slot(slotIdx, x, y, true, true);
     }
@@ -75,5 +127,105 @@ public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGrou
         ImageWidget imageWidget = new ImageWidget(x, y, width, height, texture);
         addWidgets(imageWidget);
         return imageWidget;
+    }
+
+    public enum BorderPart {
+        NONE            ,
+        ALL             ,
+
+        TOP             ,
+        BOTTOM          ,
+        LEFT            ,
+        RIGHT           ,
+
+        TOP_LEFT        ,
+        TOP_RIGHT       ,
+        BOTTOM_LEFT     ,
+        BOTTOM_RIGHT    ,
+
+        COLUMN          ,
+        ROW             ,
+
+        COLUMN_TOP      ,
+        COLUMN_BOTTOM   ,
+        ROW_LEFT        ,
+        ROW_RIGHT       ,
+
+        ;
+
+        public float getRotationDegrees() {
+            switch (this) {
+                case BOTTOM_LEFT, LEFT, ROW_LEFT, ROW -> {
+                    return -90;
+                }
+                case TOP_RIGHT, RIGHT, ROW_RIGHT -> {
+                    return 90;
+                }
+                case BOTTOM_RIGHT, BOTTOM, COLUMN_BOTTOM -> {
+                    return 180;
+                }
+                default -> {
+                    return 0;
+                }
+            }
+        }
+
+        public static BorderPart fromZeroIndexedPosInGrid(int row, int col, int width, int height) {
+            assert col >= 0 && row >= 0 && col < width && row < height;
+
+            if (width == 1 && height == 1) {
+                return ALL;
+            }
+
+            if (height == 1) {
+                if (col == 0) {
+                    return ROW_LEFT;
+                }
+                if (col == width - 1) {
+                    return ROW_RIGHT;
+                }
+                return ROW;
+            }
+
+            if (width == 1) {
+                if (row == 0) {
+                    return COLUMN_TOP;
+                }
+                if (row == height - 1) {
+                    return COLUMN_BOTTOM;
+                }
+                return COLUMN;
+            }
+
+
+            if (col == 0) {
+                if (row == 0) {
+                    return TOP_LEFT;
+                }
+                if (row == height - 1) {
+                    return BOTTOM_LEFT;
+                }
+                return LEFT;
+            }
+
+            if (col == width - 1) {
+                if (row == 0) {
+                    return TOP_RIGHT;
+                }
+                if (row == height - 1) {
+                    return BOTTOM_RIGHT;
+                }
+                return RIGHT;
+            }
+
+            if (row == 0) {
+                return TOP;
+            }
+            if (row == height - 1) {
+                return BOTTOM;
+            }
+
+            return NONE;
+        }
     }
 }

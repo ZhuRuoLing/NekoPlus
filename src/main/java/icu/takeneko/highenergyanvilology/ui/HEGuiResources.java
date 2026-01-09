@@ -8,6 +8,11 @@ import icu.takeneko.highenergyanvilology.HEAnvilology;
 public class HEGuiResources {
     public static final ResourceBorderTexture UI_BACKGROUND = new ResourceBorderTexture(HEAnvilology.location("textures/gui/background.png").toString(), 16, 16, 4, 4);
     public final static ResourceBorderTexture ITEM_SLOT = new ResourceBorderTexture(HEAnvilology.location("textures/gui/slot.png").toString(), 18, 18, 1, 1);
+    public final static ResourceBorderTexture INVENTORY_SLOT_BORDER = new ResourceBorderTexture(HEAnvilology.location("textures/gui/slot_inventory_border.png").toString(), 18, 18, 1, 1);
+    public final static ResourceBorderTexture INVENTORY_SLOT_BORDER_TOP = new ResourceBorderTexture(HEAnvilology.location("textures/gui/slot_inventory_border_top.png").toString(), 18, 18, 1, 1);
+    public final static ResourceBorderTexture INVENTORY_SLOT_BORDER_TOPLEFT = new ResourceBorderTexture(HEAnvilology.location("textures/gui/slot_inventory_border_topleft.png").toString(), 18, 18, 1, 1);
+    public final static ResourceBorderTexture INVENTORY_SLOT_BORDER_COLUMN = new ResourceBorderTexture(HEAnvilology.location("textures/gui/slot_inventory_border_column.png").toString(), 18, 18, 1, 1);
+    public final static ResourceBorderTexture INVENTORY_SLOT_BORDER_COLUMN_TOP = new ResourceBorderTexture(HEAnvilology.location("textures/gui/slot_inventory_border_column_top.png").toString(), 18, 18, 1, 1);
     public final static ResourceBorderTexture INVENTORY_SLOT_BORDER5 = new ResourceBorderTexture(HEAnvilology.location("textures/gui/slot_inventory_border5.png").toString(), 28, 28, 6, 6);
     public final static ResourceBorderTexture ITEM_SLOT_WEAK = new ResourceBorderTexture(HEAnvilology.location("textures/gui/slot_weak.png").toString(), 18, 18, 1, 1);
 
