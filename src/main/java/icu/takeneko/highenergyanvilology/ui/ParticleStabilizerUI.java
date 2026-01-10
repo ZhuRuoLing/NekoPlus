@@ -7,19 +7,14 @@ import icu.takeneko.highenergyanvilology.foundation.ui.widgets.HEUI;
 import net.minecraft.network.chat.Component;
 
 public class ParticleStabilizerUI extends HEUI<ParticleStabilizerBlockEntity> implements Tickable {
+    public static final int[][] OUTPUT_SLOT_INDEXES = {{1, 2}, {3, 4}};
     private final ProgressTexture progressTexture = HEGuiResources.getProgressTexture();
 
     public ParticleStabilizerUI(ParticleStabilizerBlockEntity blockEntity) {
         super(0, 0, 172, 156, blockEntity, Component.translatable("block.highenergyanvilology.particle_stabilizer"));
-
         image(68, 28, 20, 20, progressTexture.setFillDirection(ProgressTexture.FillDirection.LEFT_TO_RIGHT));
-
         filteredInputSlot(0, 41, 29);
-
-        int[][] outputSlotIdxes = {{1, 2}, {3, 4}};
-        outputOnlySlot(outputSlotIdxes, 95, 19, 2, 2);
-
-        label(6, 62, Component.translatable("container.inventory"));
+        outputOnlySlot(OUTPUT_SLOT_INDEXES, 95, 19, 2, 2);
         playerInventory(0, 68);
     }
 

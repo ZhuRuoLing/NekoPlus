@@ -10,6 +10,6 @@ public class AnvilonEmitterUI extends HEUI<AnvilonEmitterBlockEntity> {
         super(0, 0, 172, 136, blockEntity, Component.translatable("block.highenergyanvilology.anvilon_emitter"));
         playerInventory(0, 50);
         slot(0, 77, 20);
-        label(6,45, Component.translatable("container.inventory"));
+
     }
 }

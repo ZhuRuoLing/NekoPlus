@@ -116,6 +116,7 @@ public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGrou
         HEPlayerInventoryWidget inventory = new HEPlayerInventoryWidget();
         inventory.setSelfPosition(x, y);
         addWidgets(inventory);
+        label(6,y - 5, Component.translatable("container.inventory"));
         return inventory;
     }
 

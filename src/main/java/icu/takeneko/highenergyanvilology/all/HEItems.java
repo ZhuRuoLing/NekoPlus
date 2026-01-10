@@ -12,11 +12,13 @@ import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.item.AnvilonEmissionTubeItem;
 import icu.takeneko.highenergyanvilology.item.MageneticConfinementVesselItem;
 import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
+import icu.takeneko.highenergyanvilology.recipe.AnvilonEmissionTubeRecipe;
 import icu.takeneko.highenergyanvilology.recipe.LaserEtchingRecipe;
 import icu.takeneko.highenergyanvilology.util.DataGenUtils;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -44,7 +46,7 @@ public class HEItems {
                 .result(c.get())
                 .power(-64)
                 .time(20 * 2)
-                .save(p, p.safeId(c.get()) + "_charging")
+                .save(p, p.safeId(HEAnvilology.location(c.getName() + "_charging")))
         )
         .register();
 
@@ -56,7 +58,7 @@ public class HEItems {
                 .requires(ModItemTags.TITANIUM_INGOTS)
                 .requires(Items.IRON_INGOT)
                 .result(c.get(), 2)
-                .save(p, p.safeId(c.get()) + "_superheating");
+                .save(p, p.safeId(HEAnvilology.location(c.getName() + "_superheating")));
             p.storage(c, RecipeCategory.MISC, HEBlocks.TITANIUM_ALLOY_BLOCK);
         })
         .register();
@@ -148,7 +150,7 @@ public class HEItems {
                 .result(c.get())
                 .power(-8)
                 .time(20)
-                .save(p, p.safeId(c.get()) + "_charging");
+                .save(p, p.safeId(HEAnvilology.location(c.getName() + "_charging")));
         })
         .register();
 
@@ -162,7 +164,7 @@ public class HEItems {
                 .requires(Items.REDSTONE, 3)
                 .requires(HEItems.CHARGED_LEVITATION_POWDER, 5)
                 .result(c.get(), 18)
-                .save(p, p.safeId(c.get()) + "_superheating");
+                .save(p, p.safeId(HEAnvilology.location(c.getName() + "_superheating")));
         })
         .register();
 
@@ -254,7 +256,16 @@ public class HEItems {
                 .define('B', INTEGRATED_CHIP_CIRCUIT_BOARD)
                 .define('C', Items.ANVIL)
                 .define('D', CARBON_DIOXIDE_LASER_TUBE)
+                .unlockedBy("has_" + prov.safeName(TITANIUM_ALLOY_INGOT), RegistrateRecipeProvider.has(TITANIUM_ALLOY_INGOT))
+                .unlockedBy("has_" + prov.safeName(INTEGRATED_CHIP_CIRCUIT_BOARD), RegistrateRecipeProvider.has(INTEGRATED_CHIP_CIRCUIT_BOARD))
+                .unlockedBy("has_" + prov.safeName(Items.ANVIL), RegistrateRecipeProvider.has(Items.ANVIL))
+                .unlockedBy("has_" + prov.safeName(CARBON_DIOXIDE_LASER_TUBE), RegistrateRecipeProvider.has(CARBON_DIOXIDE_LASER_TUBE))
                 .save(prov, HEAnvilology.location("anvilon_emission_tube_plain"));
+
+            SpecialRecipeBuilder.special(AnvilonEmissionTubeRecipe::new)
+                .save(prov, HEAnvilology.location("anvilon_emission_tube_special"));
+        })
+        .model((ctx, prov) -> {
         })
         .register();
 

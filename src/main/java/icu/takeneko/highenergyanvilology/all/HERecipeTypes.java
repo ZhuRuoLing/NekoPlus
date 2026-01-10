@@ -36,8 +36,8 @@ public class HERecipeTypes {
 
     public static final RecipeSerializer<AnvilonEmissionTubeRecipe> ANVILON_EMISSION_TUBE_SERIALIZER = registerSerializer(
         "anvilon_emission_tube",
-        MapCodec.unit(AnvilonEmissionTubeRecipe::new),
-        StreamCodec.unit(new AnvilonEmissionTubeRecipe())
+        MapCodec.unit(() -> AnvilonEmissionTubeRecipe.INSTANCE),
+        StreamCodec.unit(AnvilonEmissionTubeRecipe.INSTANCE)
     );
 
     private static <T extends Recipe<?>> RecipeType<T> registerType(String name) {

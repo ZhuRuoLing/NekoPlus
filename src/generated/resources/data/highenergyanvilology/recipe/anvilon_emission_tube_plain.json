@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "highenergyanvilology:titanium_alloy_ingot"
+    },
+    "B": {
+      "item": "highenergyanvilology:integrated_chip_circuit_board"
+    },
+    "C": {
+      "item": "minecraft:anvil"
+    },
+    "D": {
+      "item": "highenergyanvilology:carbon_dioxide_laser_tube"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "C D",
+    "A A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "highenergyanvilology:anvilon_emission_tube"
+  }
+}

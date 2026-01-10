@@ -1,5 +1,6 @@
 package icu.takeneko.highenergyanvilology.all;
 
+import icu.takeneko.highenergyanvilology.HEAnvilology;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -12,6 +13,7 @@ public class HETags {
         //region common
         public static final TagKey<Block> STORAGE_BLOCKS_TITANIUM_ALLOY = storageBlocks("titanium_alloy");
         public static final TagKey<Block> STORAGE_BLOCKS_SILICON = storageBlocks("silicon");
+        public static final TagKey<Block> LIGHTWEIGHT_BLOCK = he("lightweight_block");
         //endregion
 
         //region util
@@ -19,6 +21,13 @@ public class HETags {
             return TagKey.create(
                     Registries.BLOCK,
                     ResourceLocation.fromNamespaceAndPath("c", id)
+            );
+        }
+
+        public static @NotNull TagKey<Block> he(String id) {
+            return TagKey.create(
+                Registries.BLOCK,
+                ResourceLocation.fromNamespaceAndPath(HEAnvilology.MODID, id)
             );
         }
 

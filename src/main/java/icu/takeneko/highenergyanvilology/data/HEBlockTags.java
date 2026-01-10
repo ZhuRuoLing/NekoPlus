@@ -3,12 +3,16 @@ package icu.takeneko.highenergyanvilology.data;
 import com.tterrag.registrate.providers.RegistrateTagsProvider;
 import dev.dubhe.anvilcraft.init.block.ModBlockTags;
 import icu.takeneko.highenergyanvilology.all.HEBlocks;
+import icu.takeneko.highenergyanvilology.all.HETags;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
-@SuppressWarnings({"DataFlowIssue","unchecked"})
+@SuppressWarnings({"DataFlowIssue", "unchecked"})
 public class HEBlockTags {
 
     @SuppressWarnings("rawtypes")
@@ -20,6 +24,10 @@ public class HEBlockTags {
         BlockTags.MINEABLE_WITH_PICKAXE,
         ModBlockTags.HAMMER_REMOVABLE
     };
+
+    private static ResourceKey<Block> key(Block block) {
+        return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow();
+    }
 
     public static void setupBlockTags(RegistrateTagsProvider<Block> provider) {
         ironPickaxeMineableBlock(HEBlocks.ANVILON_EMITTER_BLOCK, provider);
@@ -43,6 +51,12 @@ public class HEBlockTags {
 
         provider.addTag(ModBlockTags.OVERSEER_BASE)
             .add(HEBlocks.ROYAL_STEEL_CASING.getKey());
+
+        provider.addTag(HETags.Blocks.LIGHTWEIGHT_BLOCK)
+            .add(key(Blocks.SLIME_BLOCK))
+            .add(key(Blocks.HONEY_BLOCK))
+            .add(key(Blocks.SCAFFOLDING))
+            .addTag(BlockTags.LEAVES);
     }
 
     public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrateTagsProvider<Block> provider) {
