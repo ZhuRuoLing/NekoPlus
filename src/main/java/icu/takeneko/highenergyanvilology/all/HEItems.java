@@ -7,6 +7,7 @@ import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
 import icu.takeneko.highenergyanvilology.item.AnvilonEmissionTubeItem;
@@ -187,7 +188,10 @@ public class HEItems {
     public static final ItemEntry<Item> NANOFILTRATION_MEMBRANE = HEAnvilology.REGISTRATE
         .item("nanofiltration_membrane", Item::new)
         .recipe((c, p) -> {
-
+            StampingRecipe.builder()
+                .requires(ModItems.HARDEND_RESIN, 4)
+                .result(c.get())
+                .save(p, p.safeId(HEAnvilology.location(c.getName() + "_stamping")));
         })
         .register();
 
