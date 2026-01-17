@@ -96,7 +96,6 @@ public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGrou
             }
         }
 
-//        image(x, y, widthPx, heightPx, HEGuiResources.INVENTORY_SLOT_BORDER);
         return slots;
     }
 
