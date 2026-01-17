@@ -256,18 +256,16 @@ public class HEItems {
                 .pattern("ABA")
                 .pattern("C D")
                 .pattern("A A")
-                .define('A', TITANIUM_ALLOY_INGOT)
+                .define('A', ModItems.ROYAL_STEEL_INGOT)
                 .define('B', INTEGRATED_CHIP_CIRCUIT_BOARD)
                 .define('C', Items.ANVIL)
                 .define('D', CARBON_DIOXIDE_LASER_TUBE)
-                .unlockedBy("has_" + prov.safeName(TITANIUM_ALLOY_INGOT), RegistrateRecipeProvider.has(TITANIUM_ALLOY_INGOT))
+                .unlockedBy("has_" + prov.safeName(ModItems.ROYAL_STEEL_INGOT), RegistrateRecipeProvider.has(ModItems.ROYAL_STEEL_INGOT))
                 .unlockedBy("has_" + prov.safeName(INTEGRATED_CHIP_CIRCUIT_BOARD), RegistrateRecipeProvider.has(INTEGRATED_CHIP_CIRCUIT_BOARD))
                 .unlockedBy("has_" + prov.safeName(Items.ANVIL), RegistrateRecipeProvider.has(Items.ANVIL))
                 .unlockedBy("has_" + prov.safeName(CARBON_DIOXIDE_LASER_TUBE), RegistrateRecipeProvider.has(CARBON_DIOXIDE_LASER_TUBE))
                 .save(prov, HEAnvilology.location("anvilon_emission_tube_plain"));
 
-            SpecialRecipeBuilder.special(AnvilonEmissionTubeRecipe::new)
-                .save(prov, HEAnvilology.location("anvilon_emission_tube_special"));
         })
         .model((ctx, prov) -> {
         })

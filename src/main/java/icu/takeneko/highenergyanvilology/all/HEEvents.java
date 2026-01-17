@@ -2,7 +2,7 @@ package icu.takeneko.highenergyanvilology.all;
 
 import com.lowdragmc.lowdraglib.gui.modular.ModularUIGuiContainer;
 import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
-import dev.anvilcraft.lib.AnvilLib;
+import dev.anvilcraft.lib.recipe.AnvilLibRecipe;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.block.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.event.FallingBlockCollisionEventListener;
@@ -171,7 +171,7 @@ public class HEEvents {
         Vec3 position = eventPos.below().getBottomCenter().add(facing.getStepX() * 0.5 + 0.25 * facing.getStepX(), 0.55, facing.getStepZ() * 0.5 + 0.25 * facing.getStepX());
         AABB box = new AABB(eventPos.below());
         List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, box);
-        int anvilEfficency = AnvilLib.CONFIG.inWorldRecipeMaxEfficiency;
+        int anvilEfficency = AnvilLibRecipe.CONFIG.inWorldRecipeMaxEfficiency;
         for (ItemEntity entity : entities) {
             if (anvilEfficency <= 0) return;
             ItemStack itemStack = entity.getItem();

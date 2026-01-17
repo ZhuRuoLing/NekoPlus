@@ -1,0 +1,76 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anvilcraft:circuit_board": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:circuit_board"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_anvilcraft:ember_glass": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:ember_glass"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_gems/topaz": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:gems/topaz"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_highenergyanvilology:cryocooler": {
+      "conditions": {
+        "items": [
+          {
+            "items": "highenergyanvilology:cryocooler"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_highenergyanvilology:royal_steel_casing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "highenergyanvilology:royal_steel_casing"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "highenergyanvilology:particle_stabilizer"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_gems/topaz",
+      "has_anvilcraft:ember_glass",
+      "has_highenergyanvilology:royal_steel_casing",
+      "has_highenergyanvilology:cryocooler",
+      "has_anvilcraft:circuit_board"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "highenergyanvilology:particle_stabilizer"
+    ]
+  }
+}

@@ -2,7 +2,7 @@ package icu.takeneko.highenergyanvilology.mixin.anvilcraft;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.anvilcraft.lib.block.IMoveableEntityBlock;
+import dev.anvilcraft.lib.piston.IMoveableEntityBlock;
 import dev.dubhe.anvilcraft.block.StampingPlatformBlock;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;

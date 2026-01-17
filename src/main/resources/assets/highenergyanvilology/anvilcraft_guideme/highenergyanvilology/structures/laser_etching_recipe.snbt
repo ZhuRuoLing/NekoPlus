@@ -1,0 +1,19 @@
+{
+    DataVersion: 3955,
+    size: [1, 5, 2],
+    data: [
+        {pos: [0, 0, 0], state: "highenergyanvilology:high_energy_laser{facing:up,overload:false,powered:false}", nbt: {id: "highenergyanvilology:high_energy_laser"}},
+        {pos: [0, 1, 0], state: "anvilcraft:stamping_platform{facing:south,laser_targeted:true,waterlogged:false}", nbt: {id: "highenergyanvilology:stamping_platform"}},
+        {pos: [0, 3, 0], state: "minecraft:anvil{facing:east}"},
+        {pos: [0, 4, 0], state: "anvilcraft:magnet_block{lit:false}"},
+        {pos: [0, 4, 1], state: "minecraft:stone_button{face:wall,facing:south,powered:false}"}
+    ],
+    entities: [],
+    palette: [
+        "anvilcraft:magnet_block{lit:false}",
+        "minecraft:anvil{facing:east}",
+        "minecraft:stone_button{face:wall,facing:south,powered:false}",
+        "highenergyanvilology:high_energy_laser{facing:up,overload:false,powered:false}",
+        "anvilcraft:stamping_platform{facing:south,laser_targeted:true,waterlogged:false}"
+    ]
+}

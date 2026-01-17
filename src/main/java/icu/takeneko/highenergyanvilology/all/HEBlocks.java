@@ -80,6 +80,23 @@ public class HEBlocks {
                     .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
             );
         })
+        .recipe((ctx,prov) -> {
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ctx.get())
+                .pattern("ABA")
+                .pattern("EDE")
+                .pattern("ACA")
+                .define('A', HEItems.TITANIUM_ALLOY_INGOT)
+                .define('B', HEItems.INTEGRATED_CHIP_CIRCUIT_BOARD)
+                .define('C', ModBlocks.EMBER_GLASS)
+                .define('D', HEItems.ANVILON_EMISSION_TUBE)
+                .define('E', ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK)
+                .unlockedBy("has_" + prov.safeName(HEItems.TITANIUM_ALLOY_INGOT), RegistrateRecipeProvider.has(HEItems.TITANIUM_ALLOY_INGOT))
+                .unlockedBy("has_" + prov.safeName(HEItems.INTEGRATED_CHIP_CIRCUIT_BOARD), RegistrateRecipeProvider.has(HEItems.INTEGRATED_CHIP_CIRCUIT_BOARD))
+                .unlockedBy("has_" + prov.safeName(ModBlocks.EMBER_GLASS), RegistrateRecipeProvider.has(ModBlocks.EMBER_GLASS))
+                .unlockedBy("has_" + prov.safeName(HEItems.ANVILON_EMISSION_TUBE), RegistrateRecipeProvider.has(HEItems.ANVILON_EMISSION_TUBE))
+                .unlockedBy("has_" + prov.safeName(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK), RegistrateRecipeProvider.has(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK))
+                .save(prov, HEAnvilology.location(ctx.getName()));
+        })
         .build()
         .register();
 
@@ -122,7 +139,13 @@ public class HEBlocks {
                 .define('B', ModBlocks.EMBER_GLASS)
                 .define('C', ROYAL_STEEL_CASING)
                 .define('D', HEItems.CRYOCOOLER)
-                .define('E', ModItems.CIRCUIT_BOARD);
+                .define('E', ModItems.CIRCUIT_BOARD)
+                .unlockedBy("has_" + ModItemTags.GEMS_TOPAZ.location().getPath(), RegistrateRecipeProvider.has(ModItemTags.GEMS_TOPAZ))
+                .unlockedBy("has_" + ModBlocks.EMBER_GLASS.getRegisteredName(), RegistrateRecipeProvider.has(ModBlocks.EMBER_GLASS))
+                .unlockedBy("has_" + ROYAL_STEEL_CASING.getRegisteredName(), RegistrateRecipeProvider.has(ROYAL_STEEL_CASING))
+                .unlockedBy("has_" + HEItems.CRYOCOOLER.getRegisteredName(), RegistrateRecipeProvider.has(HEItems.CRYOCOOLER))
+                .unlockedBy("has_" + ModItems.CIRCUIT_BOARD.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.CIRCUIT_BOARD))
+                .save(prov);
         })
         .model((ctx, prov) -> {
             ModelUtils.wrapDefaultBlockItemTransform(

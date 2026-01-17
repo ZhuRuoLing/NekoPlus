@@ -1,0 +1,14 @@
+{
+  "type": "anvilcraft:stamping",
+  "ingredients": [
+    {
+      "count": 4,
+      "items": "anvilcraft:hardend_resin"
+    }
+  ],
+  "results": [
+    {
+      "id": "highenergyanvilology:nanofiltration_membrane"
+    }
+  ]
+}
