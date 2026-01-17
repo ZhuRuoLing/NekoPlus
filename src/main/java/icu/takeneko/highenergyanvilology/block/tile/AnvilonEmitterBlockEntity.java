@@ -1,11 +1,11 @@
 package icu.takeneko.highenergyanvilology.block.tile;
 
-import com.lowdragmc.lowdraglib.gui.modular.IUIHolder;
-import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
-import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
-import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
-import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
-import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+import com.lowdragmc.lowdraglib2.gui.holder.IModularUIHolder;
+import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
+import com.lowdragmc.lowdraglib2.gui.ui.UI;
+import com.lowdragmc.lowdraglib2.syncdata.annotation.DescSynced;
+import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HEPowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HESynedBlockEntity;
@@ -13,10 +13,10 @@ import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
 import icu.takeneko.highenergyanvilology.ui.AnvilonEmitterUI;
+import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class AnvilonEmitterBlockEntity
     extends HESynedBlockEntity
-    implements HEPowerConsumer, HEItemHandlerOwner, IUIHolder.Block, Tickable {
+    implements HEPowerConsumer, HEItemHandlerOwner, IModularUIHolder, Tickable {
 
     private static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(AnvilonEmitterBlockEntity.class);
 
@@ -82,12 +82,13 @@ public class AnvilonEmitterBlockEntity
         return MANAGED_FIELD_HOLDER;
     }
 
-    private WidgetGroup createUi() {
-        return new AnvilonEmitterUI(this);
+    @Override
+    public void notifyPersistence() {
+
     }
 
     @Override
-    public ModularUI createUI(Player entityPlayer) {
-        return new ModularUI(createUi(), this, entityPlayer);
+    public @Nullable ModularUI getModularUI() {
+        return new ModularUI(UI.of(new AnvilonEmitterUI(this)));
     }
 }

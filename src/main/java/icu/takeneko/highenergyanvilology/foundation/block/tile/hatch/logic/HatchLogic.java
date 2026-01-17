@@ -1,7 +1,7 @@
 package icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic;
 
-import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
-import com.lowdragmc.lowdraglib.syncdata.IContentChangeAware;
+import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
+import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import icu.takeneko.highenergyanvilology.block.tile.HEHatchBlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.neoforged.neoforge.common.util.INBTSerializable;

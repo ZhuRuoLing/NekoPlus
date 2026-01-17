@@ -1,7 +1,8 @@
 package icu.takeneko.highenergyanvilology.all;
 
-import com.lowdragmc.lowdraglib.gui.modular.ModularUIGuiContainer;
-import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+import com.lowdragmc.lowdraglib2.gui.holder.ModularUIContainerScreen;
+import com.lowdragmc.lowdraglib2.gui.holder.ModularUIScreen;
+import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import dev.anvilcraft.lib.recipe.AnvilLibRecipe;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.block.StampingPlatformBlock;
@@ -250,8 +251,8 @@ public class HEEvents {
         @SubscribeEvent
         public static void on(ClientTickEvent.Pre event) {
             Minecraft mc = Minecraft.getInstance();
-            if (!(mc.screen instanceof ModularUIGuiContainer screen)) return;
-            WidgetGroup mainGroup = screen.modularUI.mainGroup;
+            if (!(mc.screen instanceof ModularUIScreen screen)) return;
+            UIElement mainGroup = screen.modularUI.ui.rootElement;
             if (mainGroup instanceof Tickable tickable) {
                 tickable.tick();
             }

@@ -3,6 +3,7 @@ package icu.takeneko.highenergyanvilology.foundation.block;
 import dev.dubhe.anvilcraft.block.multipart.AbstractMultiPartBlock;
 import dev.dubhe.anvilcraft.block.state.ISimpleMultiPartBlockState;
 import dev.dubhe.anvilcraft.util.Util;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEUIBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class HESimpleMultiPartBlock<P extends Enum<P> & ISimpleMultiPartBlockState<P>> extends AbstractMultiPartBlock<P> {
+public abstract class HESimpleMultiPartBlock<P extends Enum<P> & ISimpleMultiPartBlockState<P>> extends AbstractMultiPartBlock<P> implements HEUIBlock {
 
     public HESimpleMultiPartBlock(Properties properties) {
         super(properties);

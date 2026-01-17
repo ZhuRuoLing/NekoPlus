@@ -1,18 +1,19 @@
-package icu.takeneko.highenergyanvilology.foundation.ui.widgets;
+package icu.takeneko.highenergyanvilology.foundation.ui;
 
-import com.lowdragmc.lowdraglib.gui.texture.IGuiTexture;
-import com.lowdragmc.lowdraglib.gui.widget.ImageWidget;
-import com.lowdragmc.lowdraglib.gui.widget.LabelWidget;
-import com.lowdragmc.lowdraglib.gui.widget.SlotWidget;
-import com.lowdragmc.lowdraglib.gui.widget.WidgetGroup;
+import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
+import com.lowdragmc.lowdraglib2.gui.ui.elements.TextElement;
+import com.lowdragmc.lowdraglib2.gui.ui.style.BasicStyle;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.foundation.ui.widgets.HEPlayerInventoryWidget;
+import icu.takeneko.highenergyanvilology.foundation.ui.widgets.HESlotWidget;
 import icu.takeneko.highenergyanvilology.ui.HEGuiResources;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.appliedenergistics.yoga.YogaEdge;
 
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "unused"})
-public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGroup {
+public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends UIElement {
     @Getter
     protected final T blockEntity;
     @Getter
@@ -28,37 +29,40 @@ public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGrou
         T blockEntity,
         Component title
     ) {
-        super(x, y, width, height);
+        super();
         this.blockEntity = blockEntity;
         this.title = title;
         label(6, 6, title);
-        setBackground(HEGuiResources.UI_BACKGROUND);
+        this.style(this::setupStyles);
     }
 
-    protected LabelWidget label(int x, int y, Component text) {
-        LabelWidget widget = new LabelWidget(x, y, text);
-        widget.setDropShadow(false);
-        widget.setColor(0x3E3E3E);
-        addWidgets(widget);
+    void setupStyles(BasicStyle style){
+        style.backgroundTexture(HEGuiResources.UI_BACKGROUND);
+    }
+
+    protected TextElement label(int x, int y, Component text) {
+        TextElement widget = new TextElement();
+        widget.layout(s -> s.setPosition(YogaEdge.TOP, x).setPosition(YogaEdge.LEFT, y));
+        widget.textStyle(textStyle -> textStyle.textShadow(false).textColor(0x3E3E3E));
+        addChild(widget);
         return widget;
     }
 
-    protected SlotWidget filteredInputSlot(int slotIdx, int x, int y) {
-        FilteredSlotWidget slot = new FilteredSlotWidget(blockEntity.getItemHandler(), slotIdx, x, y);
-        slot.setBackground(HEGuiResources.ITEM_SLOT);
-        addWidgets(slot);
+    protected HESlotWidget filteredInputSlot(int slotIdx, int x, int y) {
+        HESlotWidget slot = new HESlotWidget(blockEntity.getItemHandler(), slotIdx, x, y);
+        addChild(slot);
         return slot;
     }
 
-    protected SlotWidget[][] slot(int[][] slotIdx, int x, int y, int width, int height) {
+    protected HESlotWidget[][] slot(int[][] slotIdx, int x, int y, int width, int height) {
         return slot(slotIdx, x, y, width, height, true, true);
     }
 
-    protected SlotWidget[][] outputOnlySlot(int[][] slotIdx, int x, int y, int width, int height) {
+    protected HESlotWidget[][] outputOnlySlot(int[][] slotIdx, int x, int y, int width, int height) {
         return slot(slotIdx, x, y, width, height, true, false);
     }
 
-    protected SlotWidget[][] slot(int[][] slotIdx, int x, int y, int width, int height, boolean canTake, boolean canPut) {
+    protected HESlotWidget[][] slot(int[][] slotIdx, int x, int y, int width, int height, boolean canTake, boolean canPut) {
         var widthPx = width * SLOT_SIZE;
         var heightPx = height * SLOT_SIZE;
         var slots = new HESlotWidget[height][width];
@@ -70,64 +74,59 @@ public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends WidgetGrou
                 var offsetY = SLOT_SIZE * row;
 
                 var slot = new HESlotWidget(blockEntity.getItemHandler(), slotIdx[row][col], x + offsetX, y + offsetY);
-                slot.setBackground(HEGuiResources.ITEM_SLOT_WEAK);
+                slot.style(s -> s.backgroundTexture(HEGuiResources.ITEM_SLOT_WEAK));
 
                 var border = BorderPart.fromZeroIndexedPosInGrid(row, col, width, height);
                 if (border != BorderPart.NONE) {
                     var texture = switch (border) {
-                        case TOP, LEFT, RIGHT, BOTTOM
-                            -> HEGuiResources.INVENTORY_SLOT_BORDER_TOP;
-                        case TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
-                            -> HEGuiResources.INVENTORY_SLOT_BORDER_TOPLEFT;
-                        case COLUMN, ROW
-                            ->  HEGuiResources.INVENTORY_SLOT_BORDER_COLUMN;
-                        case COLUMN_TOP, COLUMN_BOTTOM, ROW_LEFT, ROW_RIGHT
-                            ->  HEGuiResources.INVENTORY_SLOT_BORDER_COLUMN_TOP;
-                        default
-                            -> HEGuiResources.INVENTORY_SLOT_BORDER;
+                        case TOP, LEFT, RIGHT, BOTTOM -> HEGuiResources.INVENTORY_SLOT_BORDER_TOP;
+                        case TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT -> HEGuiResources.INVENTORY_SLOT_BORDER_TOPLEFT;
+                        case COLUMN, ROW -> HEGuiResources.INVENTORY_SLOT_BORDER_COLUMN;
+                        case COLUMN_TOP, COLUMN_BOTTOM, ROW_LEFT, ROW_RIGHT -> HEGuiResources.INVENTORY_SLOT_BORDER_COLUMN_TOP;
+                        default -> HEGuiResources.INVENTORY_SLOT_BORDER;
                     };
                     slot.setBorderTexture(
                         texture.copy().rotate(border.getRotationDegrees() / 2) // WTF??
                     );
                 }
 
-                slot.setCanPutItems(canPut).setCanTakeItems(canTake);
-                addWidgets(slot);
+                //slot.setCanPutItems(canPut).setCanTakeItems(canTake);
+                addChild(slot);
             }
         }
 
         return slots;
     }
 
-    protected SlotWidget slot(int slotIdx, int x, int y) {
+    protected HESlotWidget slot(int slotIdx, int x, int y) {
         return slot(slotIdx, x, y, true, true);
     }
 
-    protected SlotWidget slot(int slotIdx, int x, int y, boolean canTake, boolean canPut) {
-        SlotWidget slot = new SlotWidget(blockEntity.getItemHandler(), slotIdx, x, y);
-        slot.setBackground(HEGuiResources.ITEM_SLOT);
-        slot.setCanPutItems(canPut).setCanTakeItems(canTake);
-        addWidgets(slot);
+    protected HESlotWidget slot(int slotIdx, int x, int y, boolean canTake, boolean canPut) {
+        HESlotWidget slot = new HESlotWidget(blockEntity.getItemHandler(), slotIdx, x, y);
+//        slot.setBackground(HEGuiResources.ITEM_SLOT);
+//        slot.setCanPutItems(canPut).setCanTakeItems(canTake);
+        addChild(slot);
         return slot;
     }
 
     protected HEPlayerInventoryWidget playerInventory(int x, int y) {
         HEPlayerInventoryWidget inventory = new HEPlayerInventoryWidget();
-        inventory.setSelfPosition(x, y);
-        addWidgets(inventory);
+        inventory.layout(l -> l.setPosition(YogaEdge.LEFT, x).setPosition(YogaEdge.TOP, y));
+        addChild(inventory);
         label(6,y - 5, Component.translatable("container.inventory"));
         return inventory;
     }
 
-    protected SlotWidget outputOnlySlot(int slotIdx, int x, int y) {
+    protected HESlotWidget outputOnlySlot(int slotIdx, int x, int y) {
         return slot(slotIdx, x, y, true, false);
     }
 
-    protected ImageWidget image(int x, int y, int width, int height, IGuiTexture texture) {
-        ImageWidget imageWidget = new ImageWidget(x, y, width, height, texture);
-        addWidgets(imageWidget);
-        return imageWidget;
-    }
+//    protected ImageWidget image(int x, int y, int width, int height, IGuiTexture texture) {
+//        ImageWidget imageWidget = new ImageWidget(x, y, width, height, texture);
+//        addWidgets(imageWidget);
+//        return imageWidget;
+//    }
 
     public enum BorderPart {
         NONE            ,

@@ -3,7 +3,7 @@ package icu.takeneko.highenergyanvilology.foundation.inventory;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import com.lowdragmc.lowdraglib.syncdata.IContentChangeAware;
+import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.NonNullList;

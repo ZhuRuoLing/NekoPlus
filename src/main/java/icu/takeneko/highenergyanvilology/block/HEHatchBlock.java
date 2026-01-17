@@ -3,6 +3,7 @@ package icu.takeneko.highenergyanvilology.block;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.HEHatchBlockEntity;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEUIBlock;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HEHatchTypes;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchType;
 import icu.takeneko.highenergyanvilology.util.BlockEntityUtil;
@@ -23,7 +24,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
 
-public class HEHatchBlock extends BaseEntityBlock {
+public class HEHatchBlock extends BaseEntityBlock implements HEUIBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
     private final HatchType<?> type;

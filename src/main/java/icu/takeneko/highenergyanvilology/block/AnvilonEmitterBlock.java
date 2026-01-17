@@ -1,6 +1,9 @@
 package icu.takeneko.highenergyanvilology.block;
 
-import com.lowdragmc.lowdraglib.gui.factory.BlockEntityUIFactory;
+import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
+import com.lowdragmc.lowdraglib2.gui.holder.IModularUIHolder;
+import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
+import com.lowdragmc.lowdraglib2.test.TestBlockEntity;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
@@ -78,7 +81,7 @@ public class AnvilonEmitterBlock extends HETranslucentEntityBlock implements Sim
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level instanceof ServerLevel) {
             if (level.getBlockEntity(pos) instanceof AnvilonEmitterBlockEntity be) {
-                BlockEntityUIFactory.INSTANCE.openUI(be, (ServerPlayer) player);
+                BlockUIMenuType.openUI((ServerPlayer) player, pos);
                 return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }
@@ -104,4 +107,6 @@ public class AnvilonEmitterBlock extends HETranslucentEntityBlock implements Sim
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
         return new AnvilonEmitterBlockEntity(HEBlockEntities.ANVILION_EMITTER.get(), blockPos, blockState);
     }
+
+
 }

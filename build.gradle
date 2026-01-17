@@ -183,7 +183,7 @@ dependencies {
     implementation("dev.anvilcraft.guideme:anvilcraft_guideme-neoforge-1.21.1:1.6.0+build.23") { transitive = false }
 
     jarJar(implementation "curse.maven:eyelib-1388469:7242460-sources-7242465")
-    jarJar(implementation "com.lowdragmc.ldlib:ldlib-neoforge-1.21.1:1.0.35.a")
+    jarJar(implementation "curse.maven:ldlib-626676:7467532-sources-7467534")
 
     compileOnly "org.appliedenergistics.yoga:yoga:1.0.0"
     compileOnly "org.appliedenergistics:guideme:${guideme_version}:api"

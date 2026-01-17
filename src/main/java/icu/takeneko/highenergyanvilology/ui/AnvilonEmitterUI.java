@@ -1,7 +1,7 @@
 package icu.takeneko.highenergyanvilology.ui;
 
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
-import icu.takeneko.highenergyanvilology.foundation.ui.widgets.HEUI;
+import icu.takeneko.highenergyanvilology.foundation.ui.HEUI;
 import net.minecraft.network.chat.Component;
 
 public class AnvilonEmitterUI extends HEUI<AnvilonEmitterBlockEntity> {

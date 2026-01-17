@@ -1,66 +1,36 @@
 package icu.takeneko.highenergyanvilology.foundation.ui.widgets;
 
-import com.lowdragmc.lowdraglib.gui.texture.IGuiTexture;
-import com.lowdragmc.lowdraglib.gui.widget.SlotWidget;
-import com.lowdragmc.lowdraglib.utils.Position;
-import com.lowdragmc.lowdraglib.utils.Size;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.world.Container;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
+import com.lowdragmc.lowdraglib2.gui.ui.elements.ItemSlot;
+import com.lowdragmc.lowdraglib2.gui.ui.rendering.GUIContext;
+import icu.takeneko.highenergyanvilology.ui.HEGuiResources;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
-import org.jetbrains.annotations.NotNull;
+import org.appliedenergistics.yoga.YogaEdge;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class HESlotWidget extends SlotWidget {
-
-    //region constractor
-    public HESlotWidget() {
-        super();
-    }
-
-    public HESlotWidget(Container inventory, int slotIndex, int xPosition, int yPosition, boolean canTakeItems, boolean canPutItems) {
-        super(inventory, slotIndex, xPosition, yPosition, canTakeItems, canPutItems);
-    }
-
-    public HESlotWidget(IItemHandlerModifiable itemHandler, int slotIndex, int xPosition, int yPosition, boolean canTakeItems, boolean canPutItems) {
-        super(itemHandler, slotIndex, xPosition, yPosition, canTakeItems, canPutItems);
-    }
-
-    public HESlotWidget(IItemHandlerModifiable itemHandler, int slotIndex, int xPosition, int yPosition) {
-        this(itemHandler, slotIndex, xPosition, yPosition, true, true);
-    }
-
-    public HESlotWidget(Container inventory, int slotIndex, int xPosition, int yPosition) {
-        this(inventory, slotIndex, xPosition, yPosition, true, true);
-    }
-    //endregion
-
+public class HESlotWidget extends ItemSlot {
 
     protected IGuiTexture borderTexture = null;
+
+    public HESlotWidget() {
+    }
+
+    public HESlotWidget(IItemHandlerModifiable itemHandler, int slot, int x, int y) {
+        layout(l -> l.setPosition(YogaEdge.TOP, y).setPosition(YogaEdge.LEFT, x));
+        style(s -> s.backgroundTexture(HEGuiResources.ITEM_SLOT));
+        bind(itemHandler, slot);
+    }
 
     public HESlotWidget setBorderTexture(IGuiTexture borderTexture) {
         this.borderTexture = borderTexture;
         return this;
     }
 
-    @OnlyIn(Dist.CLIENT)
     @Override
-    protected void drawBackgroundTexture(@NotNull GuiGraphics graphics, int mouseX, int mouseY) {
-        super.drawBackgroundTexture(graphics, mouseX, mouseY);
+    public void drawContents(boolean insideView, GUIContext guiContext) {
+        super.drawContents(insideView, guiContext);
         if (borderTexture != null) {
-            Position pos = getPosition();
-            Size size = getSize();
-            borderTexture.draw(graphics, mouseX, mouseY, pos.x, pos.y, size.width, size.height);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public void updateScreen() {
-        super.updateScreen();
-        if (hoverTexture != null) {
-            hoverTexture.updateTick();
+            borderTexture.draw(guiContext, getPositionX(), getPositionY(), getSizeWidth(), getSizeHeight());
         }
     }
 }

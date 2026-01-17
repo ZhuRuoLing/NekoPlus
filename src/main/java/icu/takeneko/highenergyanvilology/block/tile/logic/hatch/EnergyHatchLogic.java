@@ -1,6 +1,6 @@
 package icu.takeneko.highenergyanvilology.block.tile.logic.hatch;
 
-import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
+import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.highenergyanvilology.foundation.energy.HEEnergyStorage;
 import net.minecraft.core.HolderLookup;

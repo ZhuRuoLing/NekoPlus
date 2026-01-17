@@ -1,9 +1,11 @@
 package icu.takeneko.highenergyanvilology.block.tile;
 
-import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
-import com.lowdragmc.lowdraglib.syncdata.annotation.DescSynced;
-import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
-import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+import com.lowdragmc.lowdraglib2.gui.holder.IModularUIHolder;
+import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
+import com.lowdragmc.lowdraglib2.gui.ui.UI;
+import com.lowdragmc.lowdraglib2.syncdata.annotation.DescSynced;
+import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.highenergyanvilology.block.tile.logic.stabilizer.ParticleStabilizerLogic;
@@ -16,14 +18,12 @@ import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerSlice;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
-import icu.takeneko.highenergyanvilology.foundation.ui.HEBlockEntityUIHolder;
 import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ParticleStabilizerBlockEntity
     extends HESynedBlockEntity
-    implements HEOverclockablePowerConsumer, HEBlockEntityUIHolder, Tickable, BlockCollisionEventReceiver, HEItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
+    implements HEOverclockablePowerConsumer, IModularUIHolder, Tickable, BlockCollisionEventReceiver, HEItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
 
     public static final int MACHINE_COOLDOWN = 30 * 20;
 
@@ -125,6 +125,8 @@ public class ParticleStabilizerBlockEntity
         return getBlockPos();
     }
 
+
+
     @Override
     public boolean acceptCollision(FallingBlockEntity entity, double speed, AnvilEvent.CollisionBlock event) {
         return logic.handleCollision(this, entity, speed, event);
@@ -143,10 +145,7 @@ public class ParticleStabilizerBlockEntity
         return true;
     }
 
-    @Override
-    public ModularUI createUI(Player entityPlayer) {
-        return new ModularUI(new ParticleStabilizerUI(this), this, entityPlayer);
-    }
+
 
     @Override
     public int getBaseOverclockCost() {
@@ -201,6 +200,11 @@ public class ParticleStabilizerBlockEntity
     @Override
     public void resetState() {
         this.state = ParticleStabilizerBlockEntity.State.COOLING;
+    }
+
+    @Override
+    public @Nullable ModularUI getModularUI() {
+        return new ModularUI(UI.of(new ParticleStabilizerUI(this)));
     }
 
     public enum State {

@@ -1,10 +1,11 @@
 package icu.takeneko.highenergyanvilology.block;
 
-import com.lowdragmc.lowdraglib.gui.factory.BlockEntityUIFactory;
+import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.highenergyanvilology.block.tile.ParticleStabilizerBlockEntity;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEUIBlock;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.highenergyanvilology.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
@@ -27,7 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialRendererBlock {
+public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialRendererBlock, HEUIBlock {
     public ParticleStabilizerBlock(Properties properties) {
         super(properties);
     }
@@ -84,7 +85,7 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialR
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level instanceof ServerLevel) {
             if (level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity be) {
-                BlockEntityUIFactory.INSTANCE.openUI(be, (ServerPlayer) player);
+                BlockUIMenuType.openUI((ServerPlayer) player, pos);
                 return InteractionResult.sidedSuccess(level.isClientSide());
             }
         }

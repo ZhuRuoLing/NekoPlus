@@ -1,5 +1,6 @@
 package icu.takeneko.highenergyanvilology.foundation.block;
 
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEUIBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -11,7 +12,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class HETranslucentEntityBlock extends BaseEntityBlock {
+public abstract class HETranslucentEntityBlock extends BaseEntityBlock implements HEUIBlock {
 
     protected HETranslucentEntityBlock(Properties properties) {
         super(properties);

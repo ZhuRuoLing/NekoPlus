@@ -1,6 +1,6 @@
 package icu.takeneko.highenergyanvilology.foundation.energy;
 
-import com.lowdragmc.lowdraglib.syncdata.IContentChangeAware;
+import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import lombok.Getter;
 import lombok.Setter;
 import net.neoforged.neoforge.energy.EnergyStorage;

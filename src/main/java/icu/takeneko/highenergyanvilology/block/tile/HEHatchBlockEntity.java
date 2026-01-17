@@ -1,9 +1,9 @@
 package icu.takeneko.highenergyanvilology.block.tile;
 
-import com.lowdragmc.lowdraglib.gui.modular.IUIHolder;
-import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
-import com.lowdragmc.lowdraglib.syncdata.annotation.Persisted;
-import com.lowdragmc.lowdraglib.syncdata.field.ManagedFieldHolder;
+import com.lowdragmc.lowdraglib2.gui.holder.IModularUIHolder;
+import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
+import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HESynedBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchLogicHost;
@@ -14,8 +14,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
-public class HEHatchBlockEntity<C> extends HESynedBlockEntity implements HatchLogicHost, IUIHolder.Block, Tickable {
+public class HEHatchBlockEntity<C> extends HESynedBlockEntity implements HatchLogicHost, IModularUIHolder, Tickable {
     public static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(HEHatchBlockEntity.class);
 
     @Getter
@@ -56,7 +57,7 @@ public class HEHatchBlockEntity<C> extends HESynedBlockEntity implements HatchLo
     }
 
     @Override
-    public ModularUI createUI(Player entityPlayer) {
+    public @Nullable ModularUI getModularUI() {
         return logic.createUI();
     }
 }

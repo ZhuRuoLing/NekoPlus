@@ -1,12 +1,13 @@
 package icu.takeneko.highenergyanvilology.block.tile.logic.hatch;
 
-import com.lowdragmc.lowdraglib.gui.modular.ModularUI;
-import com.lowdragmc.lowdraglib.side.item.ItemTransferHelper;
+import com.lowdragmc.lowdraglib2.configurator.accessors.ItemStackAccessor;
+import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import icu.takeneko.highenergyanvilology.block.HEHatchBlock;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.HatchLogicHost;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.util.ItemTransferHelper;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.ItemHandlerHelper;
 
 public class ItemHatchLogic implements HatchLogic<IItemHandler>, HEItemHandlerOwner {
 
