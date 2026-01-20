@@ -1,5 +1,6 @@
 package icu.takeneko.highenergyanvilology.block.tile;
 
+import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.lowdragmc.lowdraglib2.gui.holder.IModularUIHolder;
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import com.lowdragmc.lowdraglib2.gui.ui.UI;
@@ -13,11 +14,13 @@ import icu.takeneko.highenergyanvilology.block.tile.logic.stabilizer.ParticleSta
 import icu.takeneko.highenergyanvilology.foundation.block.tile.BlockCollisionEventReceiver;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HEOverclockablePowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HESynedBlockEntity;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEUIBlock;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.Overclockable;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerSlice;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.foundation.ui.HEUI;
 import icu.takeneko.highenergyanvilology.recipe.AirCondensingRecipe;
 import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
 import lombok.Getter;
@@ -34,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ParticleStabilizerBlockEntity
     extends HESynedBlockEntity
-    implements HEOverclockablePowerConsumer, IModularUIHolder, Tickable, BlockCollisionEventReceiver, HEItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
+    implements HEOverclockablePowerConsumer, HEUIBlock.Provider, Tickable, BlockCollisionEventReceiver, HEItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
 
     public static final int MACHINE_COOLDOWN = 30 * 20;
 
@@ -203,8 +206,8 @@ public class ParticleStabilizerBlockEntity
     }
 
     @Override
-    public @Nullable ModularUI getModularUI() {
-        return new ModularUI(UI.of(new ParticleStabilizerUI(this)));
+    public ModularUI getModularUI(BlockUIMenuType.BlockUIHolder holder) {
+        return HEUI.of(new ParticleStabilizerUI(this), holder);
     }
 
     public enum State {

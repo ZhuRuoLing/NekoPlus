@@ -1,9 +1,6 @@
 package icu.takeneko.highenergyanvilology.block;
 
 import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
-import com.lowdragmc.lowdraglib2.gui.holder.IModularUIHolder;
-import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
-import com.lowdragmc.lowdraglib2.test.TestBlockEntity;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.highenergyanvilology.all.HEBlockEntities;
 import icu.takeneko.highenergyanvilology.block.tile.AnvilonEmitterBlockEntity;

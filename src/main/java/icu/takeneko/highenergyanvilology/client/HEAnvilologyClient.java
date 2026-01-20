@@ -1,5 +1,9 @@
 package icu.takeneko.highenergyanvilology.client;
 
+import com.lowdragmc.lowdraglib2.editor.resource.EditorResourceEvent;
+import com.lowdragmc.lowdraglib2.editor.resource.ResourceInstance;
+import com.lowdragmc.lowdraglib2.editor.resource.TexturesResource;
+import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
 import dev.dubhe.anvilcraft.api.rendering.CacheableBlockEntityRenderers;
 import dev.dubhe.anvilcraft.init.block.ModBlockEntities;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
@@ -11,6 +15,7 @@ import icu.takeneko.highenergyanvilology.client.extension.HEClientRendererExtens
 import icu.takeneko.highenergyanvilology.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
 import icu.takeneko.highenergyanvilology.client.renderer.laser.HELaserRenderer;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.SpecialRendererBlock;
+import icu.takeneko.highenergyanvilology.ui.HEGuiResources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
@@ -64,6 +69,14 @@ public class HEAnvilologyClient {
             ),
             HEItems.MAGNETIC_CONFINEMENT_VESSEL
         );
+    }
+
+    @SubscribeEvent
+    public static void on(EditorResourceEvent.LoadBuiltin event){
+        if (event.resourceInstance.resource == TexturesResource.INSTANCE){
+            HEGuiResources.setupRegistration((ResourceInstance<IGuiTexture>)event.resourceInstance);
+        }
+
     }
 
 }

@@ -1,0 +1,26 @@
+.he-ui-container {
+  background: built-in(heui:ui_background);
+  padding-all: 5;
+  gap-all: 4;
+}
+
+.__inventory_main__, .__inventory_hotbar__ {
+  background: built-in(heui:slot_border);
+}
+
+.bordered {
+  background: built-in(heui:slot_border);
+}
+
+.bordered_slot {
+  background: built-in(heui:slot);
+}
+
+item-slot {
+  background: built-in(heui:slot_unbordered);
+}
+
+text {
+  text-color: #3e3e3e;
+  text-shadow: false;
+}

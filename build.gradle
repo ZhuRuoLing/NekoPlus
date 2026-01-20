@@ -104,6 +104,8 @@ neoForge {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
             systemProperty 'mixin.debug.export', "true"
+            jvmArgument("-XX:+IgnoreUnrecognizedVMOptions")
+            jvmArgument("-XX:+AllowEnhancedClassRedefinition")
         }
 
         server {
@@ -183,7 +185,7 @@ dependencies {
     implementation("dev.anvilcraft.guideme:anvilcraft_guideme-neoforge-1.21.1:1.6.0+build.23") { transitive = false }
 
     jarJar(implementation "curse.maven:eyelib-1388469:7242460-sources-7242465")
-    jarJar(implementation "curse.maven:ldlib-626676:7467532-sources-7467534")
+    jarJar(implementation "com.lowdragmc.ldlib2:ldlib2-neoforge-1.21.1:2.1.9:all"){ transitive = false }
 
     compileOnly "org.appliedenergistics.yoga:yoga:1.0.0"
     compileOnly "org.appliedenergistics:guideme:${guideme_version}:api"

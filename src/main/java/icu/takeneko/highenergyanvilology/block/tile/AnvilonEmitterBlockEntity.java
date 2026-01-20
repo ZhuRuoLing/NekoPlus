@@ -1,5 +1,6 @@
 package icu.takeneko.highenergyanvilology.block.tile;
 
+import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.lowdragmc.lowdraglib2.gui.holder.IModularUIHolder;
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import com.lowdragmc.lowdraglib2.gui.ui.UI;
@@ -10,8 +11,10 @@ import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HEPowerConsumer;
 import icu.takeneko.highenergyanvilology.foundation.block.tile.HESynedBlockEntity;
 import icu.takeneko.highenergyanvilology.foundation.Tickable;
+import icu.takeneko.highenergyanvilology.foundation.block.tile.HEUIBlock;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandler;
 import icu.takeneko.highenergyanvilology.foundation.inventory.HEItemHandlerOwner;
+import icu.takeneko.highenergyanvilology.foundation.ui.HEUI;
 import icu.takeneko.highenergyanvilology.ui.AnvilonEmitterUI;
 import icu.takeneko.highenergyanvilology.ui.ParticleStabilizerUI;
 import lombok.Getter;
@@ -26,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class AnvilonEmitterBlockEntity
     extends HESynedBlockEntity
-    implements HEPowerConsumer, HEItemHandlerOwner, IModularUIHolder, Tickable {
+    implements HEPowerConsumer, HEItemHandlerOwner, HEUIBlock.Provider, Tickable {
 
     private static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(AnvilonEmitterBlockEntity.class);
 
@@ -88,7 +91,7 @@ public class AnvilonEmitterBlockEntity
     }
 
     @Override
-    public @Nullable ModularUI getModularUI() {
-        return new ModularUI(UI.of(new AnvilonEmitterUI(this)));
+    public ModularUI getModularUI(BlockUIMenuType.BlockUIHolder holder) {
+        return HEUI.of(new AnvilonEmitterUI(this), holder);
     }
 }
