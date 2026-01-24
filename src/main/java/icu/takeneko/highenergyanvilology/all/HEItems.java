@@ -7,6 +7,7 @@ import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.CookingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import icu.takeneko.highenergyanvilology.HEAnvilology;
@@ -20,6 +21,9 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -268,6 +272,29 @@ public class HEItems {
 
         })
         .model((ctx, prov) -> {
+        })
+        .register();
+
+    public static final ItemEntry<Item> GUMMY_BEAR = HEAnvilology.REGISTRATE
+        .item("gummy_bear", Item::new)
+        .properties(p -> p.food(
+            new FoodProperties.Builder()
+                .alwaysEdible()
+                .fast()
+                .nutrition(2)
+                .saturationModifier(2)
+                .effect(() -> new MobEffectInstance(MobEffects.SATURATION, 20), 1f)
+                .build()
+        ))
+        .model((ctx, prov) -> {
+        })
+        .recipe((ctx, prov) -> {
+            CookingRecipe.builder()
+                .requires(ModItems.RESIN, 2)
+                .requires(Items.SUGAR, 2)
+                .requires(Items.ORANGE_DYE, 1)
+                .result(ctx.get(), 5)
+                .save(prov, HEAnvilology.location(ctx.getName()));
         })
         .register();
 

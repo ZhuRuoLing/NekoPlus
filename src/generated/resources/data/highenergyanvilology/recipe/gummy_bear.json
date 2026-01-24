@@ -1,0 +1,22 @@
+{
+  "type": "anvilcraft:cooking",
+  "ingredients": [
+    {
+      "count": 2,
+      "items": "anvilcraft:resin"
+    },
+    {
+      "count": 2,
+      "items": "minecraft:sugar"
+    },
+    {
+      "items": "minecraft:orange_dye"
+    }
+  ],
+  "results": [
+    {
+      "count": 5,
+      "id": "highenergyanvilology:gummy_bear"
+    }
+  ]
+}
