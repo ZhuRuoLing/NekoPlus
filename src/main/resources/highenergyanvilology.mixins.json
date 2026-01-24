@@ -6,6 +6,7 @@
   "mixins": [
     "anvilcraft.AnvilEventListenerMixin",
     "anvilcraft.BaseLaserBlockEntityMixin",
+    "anvilcraft.BlockPlacerBlockMixin",
     "anvilcraft.ChargerBlockEntityMixin",
     "anvilcraft.GiantAnvilShockEventListenerMixin",
     "anvilcraft.LaserEmitPacketMixin",

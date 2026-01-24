@@ -3,7 +3,7 @@ navigation:
   title: "高能铁砧学-稳定粉"
   icon: "highenergyanvilology:stabilize_powder"
   parent: "highenergyanvilology.md"
-  position: 201
+  position: 203
 item_ids:
 - highenergyanvilology:stabilize_powder
 ---
