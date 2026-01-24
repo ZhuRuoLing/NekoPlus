@@ -10,6 +10,7 @@ import icu.takeneko.highenergyanvilology.ui.HEGuiResources;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import org.appliedenergistics.yoga.YogaFlexDirection;
 
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "unused"})
 public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends UIElement {
@@ -127,103 +128,116 @@ public class HEUI<T extends BlockEntity & HEItemHandlerOwner> extends UIElement 
         return new ModularUI(UI.of(ui, HEGuiResources.STYLESHEET), holder.player);
     }
 
-    public enum BorderPart {
-        NONE,
-        ALL,
-
-        TOP,
-        BOTTOM,
-        LEFT,
-        RIGHT,
-
-        TOP_LEFT,
-        TOP_RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_RIGHT,
-
-        COLUMN,
-        ROW,
-
-        COLUMN_TOP,
-        COLUMN_BOTTOM,
-        ROW_LEFT,
-        ROW_RIGHT,
-
-        ;
-
-        public float getRotationDegrees() {
-            switch (this) {
-                case BOTTOM_LEFT, LEFT, ROW_LEFT, ROW -> {
-                    return -90;
-                }
-                case TOP_RIGHT, RIGHT, ROW_RIGHT -> {
-                    return 90;
-                }
-                case BOTTOM_RIGHT, BOTTOM, COLUMN_BOTTOM -> {
-                    return 180;
-                }
-                default -> {
-                    return 0;
-                }
-            }
-        }
-
-        public static BorderPart fromZeroIndexedPosInGrid(int row, int col, int width, int height) {
-            assert col >= 0 && row >= 0 && col < width && row < height;
-
-            if (width == 1 && height == 1) {
-                return ALL;
-            }
-
-            if (height == 1) {
-                if (col == 0) {
-                    return ROW_LEFT;
-                }
-                if (col == width - 1) {
-                    return ROW_RIGHT;
-                }
-                return ROW;
-            }
-
-            if (width == 1) {
-                if (row == 0) {
-                    return COLUMN_TOP;
-                }
-                if (row == height - 1) {
-                    return COLUMN_BOTTOM;
-                }
-                return COLUMN;
-            }
-
-
-            if (col == 0) {
-                if (row == 0) {
-                    return TOP_LEFT;
-                }
-                if (row == height - 1) {
-                    return BOTTOM_LEFT;
-                }
-                return LEFT;
-            }
-
-            if (col == width - 1) {
-                if (row == 0) {
-                    return TOP_RIGHT;
-                }
-                if (row == height - 1) {
-                    return BOTTOM_RIGHT;
-                }
-                return RIGHT;
-            }
-
-            if (row == 0) {
-                return TOP;
-            }
-            if (row == height - 1) {
-                return BOTTOM;
-            }
-
-            return NONE;
-        }
+    public static UIElement layout(
+        UIElement... children
+    ) {
+        var e = new UIElement();
+        e.addChildren(children);
+        return e;
     }
+    public static UIElement horizontalLayout(
+        UIElement... children
+    ) {
+        return layout(children).layout(l -> l.flexDirection(YogaFlexDirection.ROW));
+    }
+
+//    public enum BorderPart {
+//        NONE,
+//        ALL,
+//
+//        TOP,
+//        BOTTOM,
+//        LEFT,
+//        RIGHT,
+//
+//        TOP_LEFT,
+//        TOP_RIGHT,
+//        BOTTOM_LEFT,
+//        BOTTOM_RIGHT,
+//
+//        COLUMN,
+//        ROW,
+//
+//        COLUMN_TOP,
+//        COLUMN_BOTTOM,
+//        ROW_LEFT,
+//        ROW_RIGHT,
+//
+//        ;
+//
+//        public float getRotationDegrees() {
+//            switch (this) {
+//                case BOTTOM_LEFT, LEFT, ROW_LEFT, ROW -> {
+//                    return -90;
+//                }
+//                case TOP_RIGHT, RIGHT, ROW_RIGHT -> {
+//                    return 90;
+//                }
+//                case BOTTOM_RIGHT, BOTTOM, COLUMN_BOTTOM -> {
+//                    return 180;
+//                }
+//                default -> {
+//                    return 0;
+//                }
+//            }
+//        }
+//
+//        public static BorderPart fromZeroIndexedPosInGrid(int row, int col, int width, int height) {
+//            assert col >= 0 && row >= 0 && col < width && row < height;
+//
+//            if (width == 1 && height == 1) {
+//                return ALL;
+//            }
+//
+//            if (height == 1) {
+//                if (col == 0) {
+//                    return ROW_LEFT;
+//                }
+//                if (col == width - 1) {
+//                    return ROW_RIGHT;
+//                }
+//                return ROW;
+//            }
+//
+//            if (width == 1) {
+//                if (row == 0) {
+//                    return COLUMN_TOP;
+//                }
+//                if (row == height - 1) {
+//                    return COLUMN_BOTTOM;
+//                }
+//                return COLUMN;
+//            }
+//
+//
+//            if (col == 0) {
+//                if (row == 0) {
+//                    return TOP_LEFT;
+//                }
+//                if (row == height - 1) {
+//                    return BOTTOM_LEFT;
+//                }
+//                return LEFT;
+//            }
+//
+//            if (col == width - 1) {
+//                if (row == 0) {
+//                    return TOP_RIGHT;
+//                }
+//                if (row == height - 1) {
+//                    return BOTTOM_RIGHT;
+//                }
+//                return RIGHT;
+//            }
+//
+//            if (row == 0) {
+//                return TOP;
+//            }
+//            if (row == height - 1) {
+//                return BOTTOM;
+//            }
+//
+//            return NONE;
+//        }
+//    }
 }
