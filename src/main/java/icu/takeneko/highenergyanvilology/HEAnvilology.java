@@ -22,6 +22,9 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 
+import java.io.Serializable;
+import java.util.List;
+
 
 @Mod(HEAnvilology.MODID)
 public class HEAnvilology {
