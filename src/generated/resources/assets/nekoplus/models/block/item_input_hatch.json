@@ -1,0 +1,7 @@
+{
+  "parent": "nekoplus:block/hatch_base",
+  "textures": {
+    "all": "nekoplus:block/royal_steel_casing",
+    "overlay": "nekoplus:block/hatch_item_input"
+  }
+}

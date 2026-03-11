@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "nekoplus:titanium_alloy_ingot"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "nekoplus:titanium_alloy_nugget"
+  }
+}

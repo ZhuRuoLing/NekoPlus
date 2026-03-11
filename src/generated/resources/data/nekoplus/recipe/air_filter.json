@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "nekoplus:titanium_alloy_nugget"
+    },
+    "B": {
+      "item": "nekoplus:nanofiltration_membrane"
+    }
+  },
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekoplus:air_filter"
+  }
+}

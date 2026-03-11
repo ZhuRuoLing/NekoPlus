@@ -1,0 +1,16 @@
+{
+  "type": "nekoplus:air_condensing",
+  "dimension": "minecraft:the_nether",
+  "probability": 0.3,
+  "results": [
+    {
+      "count": 8,
+      "id": "nekoplus:sulfur"
+    },
+    {
+      "count": 1,
+      "id": "nekoplus:dry_ice"
+    }
+  ],
+  "ticks": 10
+}

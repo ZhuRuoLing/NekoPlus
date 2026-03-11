@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "anvilcraft:royal_steel_ingot"
+    },
+    "B": {
+      "item": "nekoplus:integrated_chip_circuit_board"
+    },
+    "C": {
+      "item": "minecraft:anvil"
+    },
+    "D": {
+      "item": "nekoplus:carbon_dioxide_laser_tube"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "C D",
+    "A A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekoplus:anvilon_emission_tube"
+  }
+}

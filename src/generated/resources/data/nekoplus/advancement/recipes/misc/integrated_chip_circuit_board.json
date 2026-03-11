@@ -1,0 +1,65 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anvilcraft:hardend_resin": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:hardend_resin"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_circuit_board": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:circuit_board"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nekoplus:silicon_chip": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:silicon_chip"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_silver_plate": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:plates/silver"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekoplus:integrated_chip_circuit_board"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_silver_plate",
+      "has_circuit_board",
+      "has_nekoplus:silicon_chip",
+      "has_anvilcraft:hardend_resin"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekoplus:integrated_chip_circuit_board"
+    ]
+  }
+}

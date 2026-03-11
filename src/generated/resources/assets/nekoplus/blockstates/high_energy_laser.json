@@ -1,0 +1,108 @@
+{
+  "variants": {
+    "facing=down,overload=false,powered=false": {
+      "model": "nekoplus:block/high_energy_laser",
+      "x": 180
+    },
+    "facing=down,overload=false,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 180
+    },
+    "facing=down,overload=true,powered=false": {
+      "model": "nekoplus:block/high_energy_laser_overload",
+      "x": 180
+    },
+    "facing=down,overload=true,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 180
+    },
+    "facing=east,overload=false,powered=false": {
+      "model": "nekoplus:block/high_energy_laser",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,overload=false,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,overload=true,powered=false": {
+      "model": "nekoplus:block/high_energy_laser_overload",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,overload=true,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,overload=false,powered=false": {
+      "model": "nekoplus:block/high_energy_laser",
+      "x": 90
+    },
+    "facing=north,overload=false,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 90
+    },
+    "facing=north,overload=true,powered=false": {
+      "model": "nekoplus:block/high_energy_laser_overload",
+      "x": 90
+    },
+    "facing=north,overload=true,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 90
+    },
+    "facing=south,overload=false,powered=false": {
+      "model": "nekoplus:block/high_energy_laser",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,overload=false,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,overload=true,powered=false": {
+      "model": "nekoplus:block/high_energy_laser_overload",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,overload=true,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,overload=false,powered=false": {
+      "model": "nekoplus:block/high_energy_laser"
+    },
+    "facing=up,overload=false,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off"
+    },
+    "facing=up,overload=true,powered=false": {
+      "model": "nekoplus:block/high_energy_laser_overload"
+    },
+    "facing=up,overload=true,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off"
+    },
+    "facing=west,overload=false,powered=false": {
+      "model": "nekoplus:block/high_energy_laser",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,overload=false,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,overload=true,powered=false": {
+      "model": "nekoplus:block/high_energy_laser_overload",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,overload=true,powered=true": {
+      "model": "nekoplus:block/high_energy_laser_off",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

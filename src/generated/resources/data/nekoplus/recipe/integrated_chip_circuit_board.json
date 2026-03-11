@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "tag": "c:plates/silver"
+    },
+    "B": {
+      "item": "anvilcraft:circuit_board"
+    },
+    "C": {
+      "item": "nekoplus:silicon_chip"
+    },
+    "D": {
+      "item": "anvilcraft:hardend_resin"
+    }
+  },
+  "pattern": [
+    "ABB",
+    "ACB",
+    "DDD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekoplus:integrated_chip_circuit_board"
+  }
+}

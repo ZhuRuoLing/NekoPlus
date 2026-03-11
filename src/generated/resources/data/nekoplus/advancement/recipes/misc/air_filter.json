@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_nanofiltration_membrane": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:nanofiltration_membrane"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekoplus:air_filter"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_titanium_alloy_nugget": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:titanium_alloy_nugget"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nanofiltration_membrane",
+      "has_titanium_alloy_nugget"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekoplus:air_filter"
+    ]
+  }
+}

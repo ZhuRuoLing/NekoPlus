@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nekoplus:block/titanium_alloy_anvil",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "nekoplus:block/titanium_alloy_anvil",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "nekoplus:block/titanium_alloy_anvil"
+    },
+    "facing=west": {
+      "model": "nekoplus:block/titanium_alloy_anvil",
+      "y": 90
+    }
+  }
+}

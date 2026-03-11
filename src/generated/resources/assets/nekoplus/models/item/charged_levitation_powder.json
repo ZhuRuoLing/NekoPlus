@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "nekoplus:item/charged_levitation_powder"
+  }
+}

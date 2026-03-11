@@ -1,0 +1,12 @@
+{
+  "type": "anvilcraft:charger_charging",
+  "ingredient": {
+    "item": "anvilcraft:levitation_powder"
+  },
+  "power": -8,
+  "result": {
+    "count": 1,
+    "id": "nekoplus:charged_levitation_powder"
+  },
+  "time": 20
+}

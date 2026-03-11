@@ -1,0 +1,6 @@
+{
+  "parent": "nekoplus:block/high_energy_laser_base",
+  "textures": {
+    "3": "nekoplus:block/high_energy_laser"
+  }
+}

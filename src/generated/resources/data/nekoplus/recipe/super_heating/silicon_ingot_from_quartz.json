@@ -1,0 +1,14 @@
+{
+  "type": "anvilcraft:super_heating",
+  "ingredients": [
+    {
+      "count": 4,
+      "items": "minecraft:quartz"
+    }
+  ],
+  "results": [
+    {
+      "id": "nekoplus:silicon_ingot"
+    }
+  ]
+}

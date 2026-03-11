@@ -1,0 +1,10 @@
+{
+  "type": "nekoplus:laser_etching",
+  "input": {
+    "item": "nekoplus:silicon_wafer"
+  },
+  "output": {
+    "count": 4,
+    "id": "nekoplus:silicon_chip"
+  }
+}

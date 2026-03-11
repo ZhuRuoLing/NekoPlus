@@ -1,0 +1,17 @@
+{
+  "type": "anvilcraft:super_heating",
+  "ingredients": [
+    {
+      "count": 48,
+      "items": "minecraft:glass"
+    },
+    {
+      "items": "nekoplus:stabilize_powder"
+    }
+  ],
+  "results": [
+    {
+      "id": "nekoplus:silicon_ingot"
+    }
+  ]
+}
