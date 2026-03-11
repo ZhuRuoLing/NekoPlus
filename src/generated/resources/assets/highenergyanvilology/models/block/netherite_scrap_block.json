@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "highenergyanvilology:block/netherite_scrap_block"
-  }
-}

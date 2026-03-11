@@ -1,0 +1,10 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "nekoplus:anvilon_emitter": {
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.default" }],
+      "textures": [ "variable.overload ? Texture.overload : Texture.default" ]
+    }
+  }
+}

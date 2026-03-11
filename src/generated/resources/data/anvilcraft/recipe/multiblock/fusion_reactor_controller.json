@@ -68,31 +68,31 @@
     ],
     "symbols": {
       "A": {
-        "block": "highenergyanvilology:titanium_alloy_block"
+        "block": "nekoplus:titanium_alloy_block"
       },
       "B": {
         "block": "anvilcraft:ember_glass"
       },
       "C": {
-        "block": "highenergyanvilology:energy_output_hatch",
+        "block": "nekoplus:energy_output_hatch",
         "properties": {
           "facing": "west"
         }
       },
       "D": {
-        "block": "highenergyanvilology:item_output_hatch",
+        "block": "nekoplus:item_output_hatch",
         "properties": {
           "facing": "east"
         }
       },
       "E": {
-        "block": "highenergyanvilology:item_input_hatch",
+        "block": "nekoplus:item_input_hatch",
         "properties": {
           "facing": "south"
         }
       },
       "F": {
-        "block": "highenergyanvilology:fusion_reactor_controller",
+        "block": "nekoplus:fusion_reactor_controller",
         "properties": {
           "facing": "south"
         }
@@ -101,6 +101,6 @@
   },
   "result": {
     "count": 1,
-    "id": "highenergyanvilology:fusion_reactor_controller"
+    "id": "nekoplus:fusion_reactor_controller"
   }
 }

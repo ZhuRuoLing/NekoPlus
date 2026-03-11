@@ -1,21 +1,21 @@
 {
   "values": [
-    "highenergyanvilology:anvilon_emitter",
-    "highenergyanvilology:particle_stabilizer",
-    "highenergyanvilology:titanium_alloy_block",
-    "highenergyanvilology:silicon_block",
-    "highenergyanvilology:royal_steel_casing",
-    "highenergyanvilology:stellar_engine",
-    "highenergyanvilology:tardis",
-    "highenergyanvilology:high_energy_laser",
-    "highenergyanvilology:netherite_scrap_block",
-    "highenergyanvilology:titanium_alloy_anvil",
-    "highenergyanvilology:anvilon_emitter",
-    "highenergyanvilology:particle_stabilizer",
-    "highenergyanvilology:royal_steel_casing",
-    "highenergyanvilology:stellar_engine",
-    "highenergyanvilology:tardis",
-    "highenergyanvilology:high_energy_laser",
-    "highenergyanvilology:titanium_alloy_anvil"
+    "nekoplus:anvilon_emitter",
+    "nekoplus:particle_stabilizer",
+    "nekoplus:titanium_alloy_block",
+    "nekoplus:silicon_block",
+    "nekoplus:royal_steel_casing",
+    "nekoplus:stellar_engine",
+    "nekoplus:tardis",
+    "nekoplus:high_energy_laser",
+    "nekoplus:netherite_scrap_block",
+    "nekoplus:titanium_alloy_anvil",
+    "nekoplus:anvilon_emitter",
+    "nekoplus:particle_stabilizer",
+    "nekoplus:royal_steel_casing",
+    "nekoplus:stellar_engine",
+    "nekoplus:tardis",
+    "nekoplus:high_energy_laser",
+    "nekoplus:titanium_alloy_anvil"
   ]
 }

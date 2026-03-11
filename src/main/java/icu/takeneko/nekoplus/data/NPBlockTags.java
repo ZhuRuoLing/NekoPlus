@@ -1,0 +1,73 @@
+package icu.takeneko.nekoplus.data;
+
+import com.tterrag.registrate.providers.RegistrateTagsProvider;
+import dev.dubhe.anvilcraft.init.block.ModBlockTags;
+import icu.takeneko.nekoplus.all.NPBlocks;
+import icu.takeneko.nekoplus.all.NPTags;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+
+@SuppressWarnings({"DataFlowIssue", "unchecked"})
+public class NPBlockTags {
+
+    @SuppressWarnings("rawtypes")
+    public static final TagKey[] IRON_PICKAXE_MINEABLE = new TagKey[]{
+        BlockTags.INCORRECT_FOR_WOODEN_TOOL,
+        BlockTags.INCORRECT_FOR_GOLD_TOOL,
+        BlockTags.INCORRECT_FOR_STONE_TOOL,
+        BlockTags.NEEDS_IRON_TOOL,
+        BlockTags.MINEABLE_WITH_PICKAXE,
+        ModBlockTags.HAMMER_REMOVABLE
+    };
+
+    private static ResourceKey<Block> key(Block block) {
+        return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow();
+    }
+
+    public static void setupBlockTags(RegistrateTagsProvider<Block> provider) {
+        ironPickaxeMineableBlock(NPBlocks.ANVILON_EMITTER_BLOCK, provider);
+        ironPickaxeMineableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
+        ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_BLOCK, provider);
+        ironPickaxeMineableBlock(NPBlocks.SILICON_BLOCK, provider);
+        ironPickaxeMineableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
+        ironPickaxeMineableBlock(NPBlocks.STELLAR_ENGINE, provider);
+        ironPickaxeMineableBlock(NPBlocks.TARDIS, provider);
+        ironPickaxeMineableBlock(NPBlocks.HIGH_ENERGY_LASER, provider);
+        ironPickaxeMineableBlock(NPBlocks.NETHERITE_SCRAP_BLOCK, provider);
+        ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
+
+        wrenchableBlock(NPBlocks.ANVILON_EMITTER_BLOCK, provider);
+        wrenchableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
+        wrenchableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
+        wrenchableBlock(NPBlocks.STELLAR_ENGINE, provider);
+        wrenchableBlock(NPBlocks.TARDIS, provider);
+        wrenchableBlock(NPBlocks.HIGH_ENERGY_LASER, provider);
+        wrenchableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
+
+        provider.addTag(ModBlockTags.OVERSEER_BASE)
+            .add(NPBlocks.ROYAL_STEEL_CASING.getKey());
+
+        provider.addTag(NPTags.Blocks.LIGHTWEIGHT_BLOCK)
+            .add(key(Blocks.SLIME_BLOCK))
+            .add(key(Blocks.HONEY_BLOCK))
+            .add(key(Blocks.SCAFFOLDING))
+            .addTag(BlockTags.LEAVES);
+    }
+
+    public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrateTagsProvider<Block> provider) {
+        for (TagKey<Block> tagKey : IRON_PICKAXE_MINEABLE) {
+            provider.addTag(tagKey)
+                .add(holder.getKey());
+        }
+    }
+
+    public static void wrenchableBlock(Holder<Block> holder, RegistrateTagsProvider<Block> provider) {
+        provider.addTag(ModBlockTags.HAMMER_REMOVABLE)
+            .add(holder.getKey());
+    }
+}
