@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekoplus:super_heating/silicon_ingot_from_glass"
+        "recipe": "nekoplus:advanced_chip"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nekoplus:super_heating/silicon_ingot_from_glass"
+      "nekoplus:advanced_chip"
     ]
   }
 }

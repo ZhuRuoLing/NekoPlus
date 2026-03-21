@@ -1,10 +1,10 @@
 {
   "type": "nekoplus:laser_etching",
   "input": {
-    "item": "nekoplus:silicon_wafer"
+    "item": "anvilcraft:processor"
   },
   "output": {
     "count": 4,
-    "id": "nekoplus:silicon_chip"
+    "id": "nekoplus:advanced_chip"
   }
 }

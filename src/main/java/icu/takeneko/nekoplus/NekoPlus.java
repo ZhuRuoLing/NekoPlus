@@ -1,7 +1,6 @@
 package icu.takeneko.nekoplus;
 
-import com.tterrag.registrate.Registrate;
-import icu.takeneko.nekoplus.all.NPAnvilMaterials;
+import dev.anvilcraft.lib.v2.registrum.Registrum;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPCreativeTabs;
@@ -27,20 +26,19 @@ import net.neoforged.fml.ModContainer;
 public class NekoPlus {
     public static final String MODID = "nekoplus";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final Registrate REGISTRATE = Registrate.create(MODID);
+    public static final Registrum REGISTRUM = Registrum.create(MODID);
 
     public NekoPlus(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, NPConfig.SPEC);
 
         setupRegistration(modEventBus);
-        NPDataGen.setupDataGeneration(REGISTRATE);
+        NPDataGen.setupDataGeneration(REGISTRUM);
     }
 
     private void setupRegistration(IEventBus modEventBus) {
         NPBlocks.setupRegistration();
         NPBlockEntities.setupRegistration();
         NPItems.setupRegistration();
-        NPAnvilMaterials.DR.register(modEventBus);
         NPCreativeTabs.DR.register(modEventBus);
         NPDataComponents.DR.register(modEventBus);
         NPMenuTypes.DR.register(modEventBus);

@@ -1,13 +1,12 @@
 package icu.takeneko.nekoplus.all;
 
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import com.tterrag.registrate.util.entry.BlockEntry;
+import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
+import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.init.block.ModBlockTags;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import icu.takeneko.nekoplus.NekoPlus;
-import icu.takeneko.nekoplus.block.AnvilonEmitterBlock;
 import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
@@ -19,7 +18,6 @@ import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
 import icu.takeneko.nekoplus.util.ModelUtils;
-import icu.takeneko.nekoplus.util.StateUtils;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Direction;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -49,58 +47,10 @@ import net.neoforged.neoforge.common.Tags;
 public class NPBlocks {
 
     static {
-        NekoPlus.REGISTRATE.defaultCreativeTab(NPCreativeTabs.TAB.getKey());
+        NekoPlus.REGISTRUM.defaultCreativeTab(NPCreativeTabs.TAB.getKey());
     }
 
-    public static final BlockEntry<AnvilonEmitterBlock> ANVILON_EMITTER_BLOCK = NekoPlus.REGISTRATE
-        .block("anvilon_emitter", AnvilonEmitterBlock::new)
-        .properties(prop -> Blocks.IRON_BLOCK.properties()
-            .noOcclusion()
-            .isRedstoneConductor(StateUtils::always)
-            .isSuffocating(StateUtils::never)
-            .isViewBlocking(StateUtils::never)
-        )
-        .tag(ModBlockTags.LASER_CAN_PASS_THROUGH)
-        .defaultBlockstate()
-        .blockstate((ctx, cons) -> {
-            cons.simpleBlock(
-                ctx.get(),
-                cons.models()
-                    .getBuilder("block/anvilon_emitter")
-                    .texture("particle", "nekoplus:block/anvilon_emitter")
-            );
-        })
-        .defaultLang()
-        .defaultLoot()
-        .item()
-        .properties(p -> p.rarity(Rarity.UNCOMMON))
-        .model((ctx, prov) -> {
-            ModelUtils.wrapDefaultBlockItemTransform(
-                prov.getBuilder(ctx.getName())
-                    .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
-            );
-        })
-        .recipe((ctx,prov) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ctx.get())
-                .pattern("ABA")
-                .pattern("EDE")
-                .pattern("ACA")
-                .define('A', NPItems.TITANIUM_ALLOY_INGOT)
-                .define('B', NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD)
-                .define('C', ModBlocks.EMBER_GLASS)
-                .define('D', NPItems.ANVILON_EMISSION_TUBE)
-                .define('E', ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK)
-                .unlockedBy("has_" + prov.safeName(NPItems.TITANIUM_ALLOY_INGOT), RegistrateRecipeProvider.has(NPItems.TITANIUM_ALLOY_INGOT))
-                .unlockedBy("has_" + prov.safeName(NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD), RegistrateRecipeProvider.has(NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD))
-                .unlockedBy("has_" + prov.safeName(ModBlocks.EMBER_GLASS), RegistrateRecipeProvider.has(ModBlocks.EMBER_GLASS))
-                .unlockedBy("has_" + prov.safeName(NPItems.ANVILON_EMISSION_TUBE), RegistrateRecipeProvider.has(NPItems.ANVILON_EMISSION_TUBE))
-                .unlockedBy("has_" + prov.safeName(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK), RegistrateRecipeProvider.has(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK))
-                .save(prov, NekoPlus.location(ctx.getName()));
-        })
-        .build()
-        .register();
-
-    public static final BlockEntry<Block> ROYAL_STEEL_CASING = NekoPlus.REGISTRATE
+    public static final BlockEntry<Block> ROYAL_STEEL_CASING = NekoPlus.REGISTRUM
         .block("royal_steel_casing", Block::new)
         .initialProperties(() -> Blocks.NETHERITE_BLOCK)
         .properties(p -> p.strength(2f, 6.0F))
@@ -111,13 +61,13 @@ public class NPBlocks {
                 .pattern("A A")
                 .pattern(" A ")
                 .define('A', ModItems.ROYAL_STEEL_INGOT)
-                .unlockedBy("has_" + prov.safeName(ModItems.ROYAL_STEEL_INGOT), RegistrateRecipeProvider.has(ModItems.ROYAL_STEEL_INGOT))
+                .unlockedBy("has_" + prov.safeName(ModItems.ROYAL_STEEL_INGOT), RegistrumRecipeProvider.has(ModItems.ROYAL_STEEL_INGOT))
                 .save(prov);
         })
         .build()
         .register();
 
-    public static final BlockEntry<ParticleStabilizerBlock> PARTICLE_STABILIZER = NekoPlus.REGISTRATE
+    public static final BlockEntry<ParticleStabilizerBlock> PARTICLE_STABILIZER = NekoPlus.REGISTRUM
         .block("particle_stabilizer", ParticleStabilizerBlock::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
         .blockstate((ctx, cons) -> {
@@ -140,11 +90,11 @@ public class NPBlocks {
                 .define('C', ROYAL_STEEL_CASING)
                 .define('D', NPItems.CRYOCOOLER)
                 .define('E', ModItems.CIRCUIT_BOARD)
-                .unlockedBy("has_" + ModItemTags.GEMS_TOPAZ.location().getPath(), RegistrateRecipeProvider.has(ModItemTags.GEMS_TOPAZ))
-                .unlockedBy("has_" + ModBlocks.EMBER_GLASS.getRegisteredName(), RegistrateRecipeProvider.has(ModBlocks.EMBER_GLASS))
-                .unlockedBy("has_" + ROYAL_STEEL_CASING.getRegisteredName(), RegistrateRecipeProvider.has(ROYAL_STEEL_CASING))
-                .unlockedBy("has_" + NPItems.CRYOCOOLER.getRegisteredName(), RegistrateRecipeProvider.has(NPItems.CRYOCOOLER))
-                .unlockedBy("has_" + ModItems.CIRCUIT_BOARD.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.CIRCUIT_BOARD))
+                .unlockedBy("has_" + ModItemTags.GEMS_TOPAZ.location().getPath(), RegistrumRecipeProvider.has(ModItemTags.GEMS_TOPAZ))
+                .unlockedBy("has_" + ModBlocks.EMBER_GLASS.getRegisteredName(), RegistrumRecipeProvider.has(ModBlocks.EMBER_GLASS))
+                .unlockedBy("has_" + ROYAL_STEEL_CASING.getRegisteredName(), RegistrumRecipeProvider.has(ROYAL_STEEL_CASING))
+                .unlockedBy("has_" + NPItems.CRYOCOOLER.getRegisteredName(), RegistrumRecipeProvider.has(NPItems.CRYOCOOLER))
+                .unlockedBy("has_" + ModItems.CIRCUIT_BOARD.getRegisteredName(), RegistrumRecipeProvider.has(ModItems.CIRCUIT_BOARD))
                 .save(prov);
         })
         .model((ctx, prov) -> {
@@ -156,7 +106,7 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<HighEnergyLaserBlock> HIGH_ENERGY_LASER = NekoPlus.REGISTRATE
+    public static final BlockEntry<HighEnergyLaserBlock> HIGH_ENERGY_LASER = NekoPlus.REGISTRUM
         .block("high_energy_laser", HighEnergyLaserBlock::new)
         .blockstate((ctx, prov) -> {
             // "3": "nekoplus:block/high_energy_laser",
@@ -213,16 +163,16 @@ public class NPBlocks {
                 .define('C', NPItems.TITANIUM_ALLOY_INGOT)
                 .define('D', ModItems.TRANSCENDIUM_INGOT)
                 .define('E', NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD)
-                .unlockedBy("has_" + ModItems.TIN_NUGGET.getRegisteredName(), RegistrateRecipeProvider.has(ModItems.TIN_NUGGET))
-                .unlockedBy("has_" + NPItems.CARBON_DIOXIDE_LASER_TUBE.getRegisteredName(), RegistrateRecipeProvider.has(NPItems.CARBON_DIOXIDE_LASER_TUBE))
-                .unlockedBy("has_" + NPItems.TITANIUM_ALLOY_INGOT.getRegisteredName(), RegistrateRecipeProvider.has(NPItems.TITANIUM_ALLOY_INGOT))
-                .unlockedBy("has_" + NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD.getRegisteredName(), RegistrateRecipeProvider.has(NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD))
+                .unlockedBy("has_" + ModItems.TIN_NUGGET.getRegisteredName(), RegistrumRecipeProvider.has(ModItems.TIN_NUGGET))
+                .unlockedBy("has_" + NPItems.CARBON_DIOXIDE_LASER_TUBE.getRegisteredName(), RegistrumRecipeProvider.has(NPItems.CARBON_DIOXIDE_LASER_TUBE))
+                .unlockedBy("has_" + NPItems.TITANIUM_ALLOY_INGOT.getRegisteredName(), RegistrumRecipeProvider.has(NPItems.TITANIUM_ALLOY_INGOT))
+                .unlockedBy("has_" + NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD.getRegisteredName(), RegistrumRecipeProvider.has(NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD))
                 .save(prov);
         })
         .build()
         .register();
 
-    public static final BlockEntry<StellarEngineBlock> STELLAR_ENGINE = NekoPlus.REGISTRATE
+    public static final BlockEntry<StellarEngineBlock> STELLAR_ENGINE = NekoPlus.REGISTRUM
         .block("stellar_engine", StellarEngineBlock::new)
         .initialProperties(() -> Blocks.NETHERITE_BLOCK)
         .properties(p -> p.sound(SoundType.METAL)
@@ -248,7 +198,7 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<TardisBlock> TARDIS = NekoPlus.REGISTRATE
+    public static final BlockEntry<TardisBlock> TARDIS = NekoPlus.REGISTRUM
         .block("tardis", TardisBlock::new)
         .initialProperties(() -> Blocks.NETHERITE_BLOCK)
         .properties(p -> p.sound(SoundType.METAL)
@@ -294,7 +244,7 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<Block> NETHERITE_SCRAP_BLOCK = NekoPlus.REGISTRATE
+    public static final BlockEntry<Block> NETHERITE_SCRAP_BLOCK = NekoPlus.REGISTRUM
         .block("netherite_scrap_block", Block::new)
         .defaultBlockstate()
         .item()
@@ -304,16 +254,16 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<Block> SILICON_BLOCK = NekoPlus.REGISTRATE
-        .block("silicon_block", Block::new)
-        .initialProperties(() -> Blocks.IRON_BLOCK)
-        .tag(Tags.Blocks.STORAGE_BLOCKS, NPTags.Blocks.STORAGE_BLOCKS_SILICON)
-        .item()
-        .tag(Tags.Items.STORAGE_BLOCKS, NPTags.Items.STORAGE_BLOCKS_SILICON)
-        .build()
-        .register();
+//    public static final BlockEntry<Block> SILICON_BLOCK = NekoPlus.REGISTRUM
+//        .block("silicon_block", Block::new)
+//        .initialProperties(() -> Blocks.IRON_BLOCK)
+//        .tag(Tags.Blocks.STORAGE_BLOCKS, NPTags.Blocks.STORAGE_BLOCKS_SILICON)
+//        .item()
+//        .tag(Tags.Items.STORAGE_BLOCKS, NPTags.Items.STORAGE_BLOCKS_SILICON)
+//        .build()
+//        .register();
 
-    public static final BlockEntry<Block> TITANIUM_ALLOY_BLOCK = NekoPlus.REGISTRATE
+    public static final BlockEntry<Block> TITANIUM_ALLOY_BLOCK = NekoPlus.REGISTRUM
         .block("titanium_alloy_block", Block::new)
         .initialProperties(() -> Blocks.NETHERITE_BLOCK)
         .tag(Tags.Blocks.STORAGE_BLOCKS, NPTags.Blocks.STORAGE_BLOCKS_TITANIUM_ALLOY)
@@ -322,7 +272,7 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<TitaniumAlloyAnvilBlock> TITANIUM_ALLOY_ANVIL = NekoPlus.REGISTRATE
+    public static final BlockEntry<TitaniumAlloyAnvilBlock> TITANIUM_ALLOY_ANVIL = NekoPlus.REGISTRUM
         .block("titanium_alloy_anvil", TitaniumAlloyAnvilBlock::new)
         .initialProperties(() -> Blocks.ANVIL)
         .properties(p -> p.pushReaction(PushReaction.NORMAL))
@@ -349,14 +299,14 @@ public class NPBlocks {
                 .pattern("BBB")
                 .define('A', TITANIUM_ALLOY_BLOCK)
                 .define('B', NPItems.TITANIUM_ALLOY_INGOT)
-                .unlockedBy("has_" + ctx.safeName(TITANIUM_ALLOY_BLOCK), RegistrateRecipeProvider.has(TITANIUM_ALLOY_BLOCK))
-                .unlockedBy("has_" + ctx.safeName(NPItems.TITANIUM_ALLOY_INGOT), RegistrateRecipeProvider.has(NPItems.TITANIUM_ALLOY_INGOT))
+                .unlockedBy("has_" + ctx.safeName(TITANIUM_ALLOY_BLOCK), RegistrumRecipeProvider.has(TITANIUM_ALLOY_BLOCK))
+                .unlockedBy("has_" + ctx.safeName(NPItems.TITANIUM_ALLOY_INGOT), RegistrumRecipeProvider.has(NPItems.TITANIUM_ALLOY_INGOT))
                 .save(ctx);
         })
         .build()
         .register();
 
-    public static final BlockEntry<FusionReactorControllerBlock> FUSION_REACTOR_CONTROLLER = NekoPlus.REGISTRATE
+    public static final BlockEntry<FusionReactorControllerBlock> FUSION_REACTOR_CONTROLLER = NekoPlus.REGISTRUM
         .block("fusion_reactor_controller", FusionReactorControllerBlock::new)
         .lang("Fusion Reactor Integrated Controller MK1")
         .blockstate((ctx, prov) -> {
@@ -401,7 +351,7 @@ public class NPBlocks {
 
     public static BlockEntry<NPHatchBlock> hatch(HatchType<?> type, boolean isInput, ItemLike recipeItem) {
         String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
-        return NekoPlus.REGISTRATE
+        return NekoPlus.REGISTRUM
             .block(id, p -> new NPHatchBlock(p, type, isInput))
             .blockstate((ctx, prov) -> {
                 ModelFile modelFile = prov.models()
@@ -435,8 +385,8 @@ public class NPBlocks {
                 ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE, ctx.get())
                     .requires(recipeItem)
                     .requires(ROYAL_STEEL_CASING)
-                    .unlockedBy("has_" + prov.safeName(recipeItem), RegistrateRecipeProvider.has(recipeItem))
-                    .unlockedBy("has_" + prov.safeName(ROYAL_STEEL_CASING), RegistrateRecipeProvider.has(ROYAL_STEEL_CASING))
+                    .unlockedBy("has_" + prov.safeName(recipeItem), RegistrumRecipeProvider.has(recipeItem))
+                    .unlockedBy("has_" + prov.safeName(ROYAL_STEEL_CASING), RegistrumRecipeProvider.has(ROYAL_STEEL_CASING))
                     .save(prov);
             })
             .build()

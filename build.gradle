@@ -170,12 +170,13 @@ configurations {
 }
 
 dependencies {
-    api(libs.registrate)
+    runtimeOnly(libs.registrate)
     runtimeOnly(libs.anvillib)
     compileOnly(libs.anvillibConfig)
     compileOnly(libs.anvillibRecipe)
     compileOnly(libs.anvillibMoveableEntityBlock)
     compileOnly(libs.anvillibIntegration)
+    compileOnly(libs.anvillibRegistrum)
     implementation(libs.anvilcraft) { transitive = false }
     implementation(libs.curios)
     compileOnlyApi(libs.jeiCommonApi) 

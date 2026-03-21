@@ -1,6 +1,6 @@
 package icu.takeneko.nekoplus.data;
 
-import com.tterrag.registrate.providers.RegistrateTagsProvider;
+import dev.anvilcraft.lib.v2.registrum.providers.RegistrumTagsProvider;
 import dev.dubhe.anvilcraft.init.block.ModBlockTags;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPTags;
@@ -29,11 +29,9 @@ public class NPBlockTags {
         return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow();
     }
 
-    public static void setupBlockTags(RegistrateTagsProvider<Block> provider) {
-        ironPickaxeMineableBlock(NPBlocks.ANVILON_EMITTER_BLOCK, provider);
+    public static void setupBlockTags(RegistrumTagsProvider<Block> provider) {
         ironPickaxeMineableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
         ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_BLOCK, provider);
-        ironPickaxeMineableBlock(NPBlocks.SILICON_BLOCK, provider);
         ironPickaxeMineableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
         ironPickaxeMineableBlock(NPBlocks.STELLAR_ENGINE, provider);
         ironPickaxeMineableBlock(NPBlocks.TARDIS, provider);
@@ -41,7 +39,6 @@ public class NPBlockTags {
         ironPickaxeMineableBlock(NPBlocks.NETHERITE_SCRAP_BLOCK, provider);
         ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
 
-        wrenchableBlock(NPBlocks.ANVILON_EMITTER_BLOCK, provider);
         wrenchableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
         wrenchableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
         wrenchableBlock(NPBlocks.STELLAR_ENGINE, provider);
@@ -59,14 +56,14 @@ public class NPBlockTags {
             .addTag(BlockTags.LEAVES);
     }
 
-    public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrateTagsProvider<Block> provider) {
+    public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrumTagsProvider<Block> provider) {
         for (TagKey<Block> tagKey : IRON_PICKAXE_MINEABLE) {
             provider.addTag(tagKey)
                 .add(holder.getKey());
         }
     }
 
-    public static void wrenchableBlock(Holder<Block> holder, RegistrateTagsProvider<Block> provider) {
+    public static void wrenchableBlock(Holder<Block> holder, RegistrumTagsProvider<Block> provider) {
         provider.addTag(ModBlockTags.HAMMER_REMOVABLE)
             .add(holder.getKey());
     }

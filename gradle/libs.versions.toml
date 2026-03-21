@@ -1,8 +1,8 @@
 [versions]
 minecraft = "1.21.1"
 registrate = "MC1.21-1.3.0+62"
-anvillib = "2.0.0+build.186"
-anvilcraft = "1.6.0+snapshot.1600"
+anvillib = "2.0.0+snapshot.222"
+anvilcraft = "1.6.0+snapshot.1651"
 curios = "9.0.15+1.21.1"
 jei = "19.21.0.247"
 jade = "15.3.4+neoforge"
@@ -23,3 +23,4 @@ anvillibConfig = { group = "dev.anvilcraft.lib", name = "anvillib-config-neoforg
 anvillibRecipe = { group = "dev.anvilcraft.lib", name = "anvillib-recipe-neoforge-1.21.1", version.ref = "anvillib" }
 anvillibMoveableEntityBlock = { group = "dev.anvilcraft.lib", name = "anvillib-moveable-entity-block-neoforge-1.21.1", version.ref = "anvillib" }
 anvillibIntegration = { group = "dev.anvilcraft.lib", name = "anvillib-integration-neoforge-1.21.1", version.ref = "anvillib" }
+anvillibRegistrum = { group = "dev.anvilcraft.lib", name = "anvillib-registrum-neoforge-1.21.1", version.ref = "anvillib" }

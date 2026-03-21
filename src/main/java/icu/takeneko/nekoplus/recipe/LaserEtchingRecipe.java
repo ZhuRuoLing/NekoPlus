@@ -2,8 +2,8 @@ package icu.takeneko.nekoplus.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
-import dev.anvilcraft.lib.recipe.component.ChanceItemStack;
+import dev.anvilcraft.lib.v2.recipe.component.ChanceItemStack;
+import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
 import icu.takeneko.nekoplus.all.NPRecipeTypes;
 import lombok.Builder;
 import net.minecraft.advancements.Advancement;
@@ -70,7 +70,7 @@ public record LaserEtchingRecipe(Ingredient input, ChanceItemStack output) imple
         return NPRecipeTypes.LASER_ETCHING;
     }
 
-    public void save(ResourceLocation id, RegistrateRecipeProvider output) {
+    public void save(ResourceLocation id, RegistrumRecipeProvider output) {
         Advancement.Builder builder = output.advancement()
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
             .rewards(AdvancementRewards.Builder.recipe(id))

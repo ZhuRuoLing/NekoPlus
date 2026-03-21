@@ -6,7 +6,6 @@
   "mixins": [
     "anvilcraft.AnvilEventListenerMixin",
     "anvilcraft.BaseLaserBlockEntityMixin",
-    "anvilcraft.BlockPlacerBlockMixin",
     "anvilcraft.ChargerBlockEntityMixin",
     "anvilcraft.GiantAnvilShockEventListenerMixin",
     "anvilcraft.LaserEmitPacketMixin",
@@ -20,7 +19,6 @@
     "anvilcraft.LaserBlockRendererMixin",
     "minecraft.GlDebugMixin",
     "minecraft.TextureManagerMixin",
-    "self.AnvilonEmitterAnimationMixin",
     "self.ParticleStabilizerBlockEntityMixin",
     "self.StellarEngineBlockEntityMixin",
     "self.TardisBlockEntityMixin"

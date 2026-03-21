@@ -2,8 +2,6 @@ package icu.takeneko.nekoplus.all;
 
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.foundation.NPCodecs;
-import icu.takeneko.nekoplus.foundation.material.AnvilMaterial;
-import icu.takeneko.nekoplus.foundation.material.AnvilonType;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -13,24 +11,6 @@ import java.util.UUID;
 
 public class NPDataComponents {
     public static final DeferredRegister<DataComponentType<?>> DR = DeferredRegister.create(BuiltInRegistries.DATA_COMPONENT_TYPE, NekoPlus.MODID);
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<AnvilMaterial>> CONTAINED_ANVILON_TYPE = DR.register(
-        "contained_anvilon_type",
-        () -> DataComponentType.<AnvilMaterial>builder()
-            .persistent(AnvilMaterial.CODEC)
-            .networkSynchronized(AnvilMaterial.STREAM_CODEC)
-            .cacheEncoding()
-            .build()
-    );
-
-    public static final DeferredHolder<DataComponentType<?>, DataComponentType<AnvilonType.Contained>> CONTAINED_ANVILION_STATUS = DR.register(
-        "contained_anvilon_status",
-        () -> DataComponentType.<AnvilonType.Contained>builder()
-            .persistent(AnvilonType.Contained.CODEC)
-            .networkSynchronized(AnvilonType.Contained.STREAM_CODEC)
-            .cacheEncoding()
-            .build()
-    );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<UUID>> ENTANGLE_ANVILON_UUID = DR.register(
         "entangle_anvilon_uuid",

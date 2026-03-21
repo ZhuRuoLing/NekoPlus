@@ -3,8 +3,8 @@ package icu.takeneko.nekoplus.block;
 import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
-import icu.takeneko.nekoplus.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
+import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
@@ -71,7 +71,7 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialR
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (level instanceof ServerLevel) {
-            return (BlockEntityTicker<T>) BlockEntityUtil.<AnvilonEmitterBlockEntity>createTicker();
+            return (BlockEntityTicker<T>) BlockEntityUtil.<ParticleStabilizerBlockEntity>createTicker();
         }
         return null;
     }

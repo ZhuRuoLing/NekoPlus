@@ -12,7 +12,6 @@ import icu.takeneko.nekoplus.all.NPHammerTooltipProviders;
 import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.client.extension.NPClientExtension;
 import icu.takeneko.nekoplus.client.extension.NPClientRendererExtension;
-import icu.takeneko.nekoplus.client.renderer.bewlr.MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer;
 import icu.takeneko.nekoplus.client.renderer.laser.NPLaserRenderer;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.nekoplus.ui.NPGuiResources;
@@ -61,14 +60,6 @@ public class NekoPlusClient {
             }
         });
         event.registerItem(new NPClientExtension(bewlrItem), bewlrItem.reversed().toArray(new Item[0]));
-        event.registerItem(new NPClientRendererExtension(
-                new MageneticConfinementVesselItemBlockEntityWithoutLevelRenderer(
-                    Minecraft.getInstance().getBlockEntityRenderDispatcher(),
-                    Minecraft.getInstance().getEntityModels()
-                )
-            ),
-            NPItems.MAGNETIC_CONFINEMENT_VESSEL
-        );
     }
 
     @SubscribeEvent

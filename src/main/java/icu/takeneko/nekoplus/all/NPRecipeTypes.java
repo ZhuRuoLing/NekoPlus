@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.foundation.recipes.RecipeSerializerImpl;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
-import icu.takeneko.nekoplus.recipe.AnvilonEmissionTubeRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -31,13 +30,6 @@ public class NPRecipeTypes {
         "laser_etching",
         LaserEtchingRecipe.MAP_CODEC,
         LaserEtchingRecipe.STREAM_CODEC
-    );
-
-
-    public static final RecipeSerializer<AnvilonEmissionTubeRecipe> ANVILON_EMISSION_TUBE_SERIALIZER = registerSerializer(
-        "anvilon_emission_tube",
-        MapCodec.unit(() -> AnvilonEmissionTubeRecipe.INSTANCE),
-        StreamCodec.unit(AnvilonEmissionTubeRecipe.INSTANCE)
     );
 
     private static <T extends Recipe<?>> RecipeType<T> registerType(String name) {

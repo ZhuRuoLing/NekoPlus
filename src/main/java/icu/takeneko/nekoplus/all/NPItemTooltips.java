@@ -28,7 +28,7 @@ public class NPItemTooltips {
     }
 
     private static Component translatable(String key, String translation) {
-        return NekoPlus.REGISTRATE.addRawLang(key, translation);
+        return NekoPlus.REGISTRUM.addRawLang(key, translation);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
@@ -46,6 +46,5 @@ public class NPItemTooltips {
         tooltip(NPItems.STABILIZE_POWDER, "S₈((Al₆Si₆Ca₈Na₈)₁₂(Al₃Si₃Na₄Cl)₂(FeS₂)(CaCO₃))₂(Si(FeS₂)₅(CrAl₂O₃)Hg₃)₃Lv₅");
         tooltip(NPItems.CHARGED_LEVITATION_POWDER, "Lv");
         tooltip(NPItems.DRY_ICE, "CO₂");
-        tooltip(NPItems.SILICON_WAFER, "It is wafer, but in Minecraft!");
     }
 }

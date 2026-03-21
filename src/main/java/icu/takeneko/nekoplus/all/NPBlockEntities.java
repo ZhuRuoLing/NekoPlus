@@ -1,19 +1,17 @@
 package icu.takeneko.nekoplus.all;
 
-import com.tterrag.registrate.util.entry.BlockEntityEntry;
-import com.tterrag.registrate.util.entry.BlockEntry;
+import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
+import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockRenderer;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
-import icu.takeneko.nekoplus.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.nekoplus.block.tile.NPHatchBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
-import icu.takeneko.nekoplus.client.renderer.tesr.AnvilonEmitterBlockEntityRenderer;
 import icu.takeneko.nekoplus.client.renderer.tesr.ParticleStabilizerBlockEntityRenderer;
 import icu.takeneko.nekoplus.client.renderer.tesr.StellarEngineBlockEntityRenderer;
 import icu.takeneko.nekoplus.client.renderer.tesr.TardisBlockEntityRenderer;
@@ -23,37 +21,37 @@ import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
 
 public class NPBlockEntities {
-    public static final BlockEntityEntry<AnvilonEmitterBlockEntity> ANVILION_EMITTER = NekoPlus.REGISTRATE
-        .blockEntity("anvilon_emitter", AnvilonEmitterBlockEntity::new)
-        .validBlock(NPBlocks.ANVILON_EMITTER_BLOCK::get)
-        .renderer(() -> AnvilonEmitterBlockEntityRenderer::new)
-        .register();
+//    public static final BlockEntityEntry<AnvilonEmitterBlockEntity> ANVILION_EMITTER = NekoPlus.REGISTRUM
+//        .blockEntity("anvilon_emitter", AnvilonEmitterBlockEntity::new)
+//        .validBlock(NPBlocks.ANVILON_EMITTER_BLOCK::get)
+//        .renderer(() -> AnvilonEmitterBlockEntityRenderer::new)
+//        .register();
 
-    public static final BlockEntityEntry<ParticleStabilizerBlockEntity> PARTICLE_STABILIZER = NekoPlus.REGISTRATE
+    public static final BlockEntityEntry<ParticleStabilizerBlockEntity> PARTICLE_STABILIZER = NekoPlus.REGISTRUM
         .blockEntity("particle_stabilizer", ParticleStabilizerBlockEntity::new)
         .validBlock(NPBlocks.PARTICLE_STABILIZER)
         .renderer(() -> ParticleStabilizerBlockEntityRenderer::new)
         .register();
 
-    public static final BlockEntityEntry<StellarEngineBlockEntity> STELLAR_ENGINE = NekoPlus.REGISTRATE
+    public static final BlockEntityEntry<StellarEngineBlockEntity> STELLAR_ENGINE = NekoPlus.REGISTRUM
         .blockEntity("stellar_engine", StellarEngineBlockEntity::new)
         .validBlock(NPBlocks.STELLAR_ENGINE)
         .renderer(() -> StellarEngineBlockEntityRenderer::new)
         .register();
 
-    public static final BlockEntityEntry<TardisBlockEntity> TARDIS = NekoPlus.REGISTRATE
+    public static final BlockEntityEntry<TardisBlockEntity> TARDIS = NekoPlus.REGISTRUM
         .blockEntity("tardis", TardisBlockEntity::new)
         .validBlock(NPBlocks.TARDIS)
         .renderer(() -> TardisBlockEntityRenderer::new)
         .register();
 
-    public static final BlockEntityEntry<HighEnergyLaserBlockEntity> HIGH_ENERGY_LASER = NekoPlus.REGISTRATE
+    public static final BlockEntityEntry<HighEnergyLaserBlockEntity> HIGH_ENERGY_LASER = NekoPlus.REGISTRUM
         .blockEntity("high_energy_laser", HighEnergyLaserBlockEntity::new)
         .validBlock(NPBlocks.HIGH_ENERGY_LASER)
         .renderer(() -> LaserBlockRenderer::new)
         .register();
 
-    public static final BlockEntityEntry<StampingPlatformBlockEntity> STAMPING_PLATFORM = NekoPlus.REGISTRATE
+    public static final BlockEntityEntry<StampingPlatformBlockEntity> STAMPING_PLATFORM = NekoPlus.REGISTRUM
         .blockEntity("stamping_platform", StampingPlatformBlockEntity::new)
         .validBlock(ModBlocks.STAMPING_PLATFORM)
         .register();
@@ -70,7 +68,7 @@ public class NPBlockEntities {
         BlockEntry<NPHatchBlock> blockEntry
     ) {
         String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
-        return NekoPlus.REGISTRATE
+        return NekoPlus.REGISTRUM
             .<NPHatchBlockEntity<C>>blockEntity(
                 id,
                 (ty, pos, state) -> new NPHatchBlockEntity<>(ty, pos, state, type, isInput)

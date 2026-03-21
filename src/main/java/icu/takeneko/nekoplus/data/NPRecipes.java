@@ -1,6 +1,6 @@
 package icu.takeneko.nekoplus.data;
 
-import com.tterrag.registrate.providers.RegistrateRecipeProvider;
+import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
 import dev.dubhe.anvilcraft.recipe.mineral.MineralFountainRecipe;
 import dev.dubhe.anvilcraft.recipe.multiblock.BlockPredicateWithState;
 import dev.dubhe.anvilcraft.recipe.multiblock.MultiblockRecipe;
@@ -9,7 +9,7 @@ import icu.takeneko.nekoplus.all.NPBlocks;
 import net.minecraft.world.level.block.Blocks;
 
 public class NPRecipes {
-    public static void addRecipes(RegistrateRecipeProvider provider) {
+    public static void addRecipes(RegistrumRecipeProvider provider) {
         MineralFountainRecipe.builder()
             .fromBlock(Blocks.NETHERRACK)
             .needBlock(NPBlocks.NETHERITE_SCRAP_BLOCK.get())

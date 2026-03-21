@@ -1,9 +1,9 @@
 package icu.takeneko.nekoplus.util;
 
-import com.tterrag.registrate.providers.DataGenContext;
-import com.tterrag.registrate.providers.RegistrateBlockstateProvider;
-import com.tterrag.registrate.providers.RegistrateItemModelProvider;
-import com.tterrag.registrate.providers.RegistrateProvider;
+import dev.anvilcraft.lib.v2.registrum.providers.DataGenContext;
+import dev.anvilcraft.lib.v2.registrum.providers.RegistrumBlockstateProvider;
+import dev.anvilcraft.lib.v2.registrum.providers.RegistrumItemModelProvider;
+import dev.anvilcraft.lib.v2.registrum.providers.RegistrumProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +16,7 @@ public class DataGenUtils {
 
     public static <T extends Block> void existingBlockModel(
         DataGenContext<Block, T> ctx,
-        RegistrateBlockstateProvider prov
+        RegistrumBlockstateProvider prov
     ) {
         prov.getVariantBuilder(ctx.get())
             .partialState()
@@ -29,7 +29,7 @@ public class DataGenUtils {
 
     public static void customRenderer(
         DataGenContext<?, ?> ctx,
-        RegistrateItemModelProvider prov
+        RegistrumItemModelProvider prov
     ) {
         prov.getBuilder(ctx.getName())
             .parent(new ModelFile.UncheckedModelFile(ResourceLocation.withDefaultNamespace("builtin/entity")))
@@ -43,7 +43,7 @@ public class DataGenUtils {
             .transform(ItemDisplayContext.FIRST_PERSON_LEFT_HAND).rotation(0, 225, 0).translation(0, 0, 0).scale(0.55f, 0.55f, 0.55f).end();
     }
 
-    public static <T extends RegistrateProvider> void emptyConsumer(
+    public static <T extends RegistrumProvider> void emptyConsumer(
         DataGenContext<?, ?> ctx,
         T prov
     ) {

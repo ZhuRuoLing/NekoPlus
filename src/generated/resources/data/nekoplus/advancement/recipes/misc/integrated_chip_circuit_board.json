@@ -21,11 +21,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_nekoplus:silicon_chip": {
+    "has_nekoplus:advanced_chip": {
       "conditions": {
         "items": [
           {
-            "items": "nekoplus:silicon_chip"
+            "items": "nekoplus:advanced_chip"
           }
         ]
       },
@@ -53,7 +53,7 @@
       "has_the_recipe",
       "has_silver_plate",
       "has_circuit_board",
-      "has_nekoplus:silicon_chip",
+      "has_nekoplus:advanced_chip",
       "has_anvilcraft:hardend_resin"
     ]
   ],

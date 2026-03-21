@@ -2,10 +2,9 @@ package icu.takeneko.nekoplus.mixin.anvilcraft;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.anvilcraft.lib.piston.IMoveableEntityBlock;
+import dev.anvilcraft.lib.v2.piston.IMoveableEntityBlock;
 import dev.dubhe.anvilcraft.block.StampingPlatformBlock;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
-import icu.takeneko.nekoplus.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.internal.StampingPlatformsInternals;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
@@ -48,14 +47,6 @@ public class StampingPlatformMixin extends Block implements EntityBlock, IMoveab
     )
     void addLaserTargetedState(StateDefinition.Builder<Block, BlockState> builder, CallbackInfo ci) {
         builder.add(StampingPlatformsInternals.LASER_TARGETED);
-    }
-
-    @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        if (level instanceof ServerLevel) {
-            return (BlockEntityTicker<T>) BlockEntityUtil.<AnvilonEmitterBlockEntity>createTicker();
-        }
-        return null;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package icu.takeneko.nekoplus.block;
 
 import com.mojang.serialization.MapCodec;
-import icu.takeneko.nekoplus.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.nekoplus.block.tile.NPHatchBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
@@ -64,14 +63,6 @@ public class NPHatchBlock extends BaseEntityBlock implements NPUIBlock {
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
-    }
-
-    @Override
-    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        if (level instanceof ServerLevel) {
-            return (BlockEntityTicker<T>) BlockEntityUtil.<AnvilonEmitterBlockEntity>createTicker();
-        }
-        return null;
     }
 
     @Override

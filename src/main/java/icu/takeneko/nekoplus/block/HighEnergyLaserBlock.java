@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec;
 import dev.dubhe.anvilcraft.api.hammer.IHammerChangeable;
 import dev.dubhe.anvilcraft.api.power.IPowerComponent;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
-import icu.takeneko.nekoplus.block.tile.AnvilonEmitterBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.NPTranslucentEntityBlock;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
@@ -116,7 +115,7 @@ public class HighEnergyLaserBlock extends NPTranslucentEntityBlock implements IH
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (level instanceof ServerLevel) {
-            return (BlockEntityTicker<T>) BlockEntityUtil.<AnvilonEmitterBlockEntity>createTicker();
+            return (BlockEntityTicker<T>) BlockEntityUtil.<HighEnergyLaserBlockEntity>createTicker();
         }
         return null;
     }
