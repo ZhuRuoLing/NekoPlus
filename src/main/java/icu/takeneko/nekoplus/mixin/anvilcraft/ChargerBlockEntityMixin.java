@@ -109,4 +109,9 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
     public int getOverclockedInputPower() {
         return getBaseInputPower() * he$efficency;
     }
+
+    @Override
+    public int currentOverclockRatio() {
+        return he$efficency;
+    }
 }

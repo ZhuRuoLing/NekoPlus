@@ -159,6 +159,11 @@ public class ParticleStabilizerBlockEntity
     }
 
     @Override
+    public int currentOverclockRatio() {
+        return efficiency;
+    }
+
+    @Override
     public boolean isOverclockable() {
         return this.state == State.COOLING;
     }

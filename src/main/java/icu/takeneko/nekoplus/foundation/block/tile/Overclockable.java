@@ -7,6 +7,8 @@ public interface Overclockable {
 
     int maxOverclockRatio();
 
+    int currentOverclockRatio();
+
     default boolean isOverclockable() {
         return true;
     }
