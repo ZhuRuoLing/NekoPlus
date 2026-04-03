@@ -25,5 +25,7 @@ public class NPTranslations {
         provider.add("tooltip.nekoplus.overclock.enabled", "§bOverclock: §a§lON");
         provider.add("tooltip.nekoplus.overclock.disabled", "§bOverclock: §e§lOFF");
         provider.add("tooltip.nekoplus.overclock.ratio", "OC: %s/%s");
+
+        provider.add("subtitles.block.particle_stabilizer.working", "Particle Stabilizer: Working");
     }
 }

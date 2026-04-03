@@ -32,7 +32,8 @@ item_ids:
 - <ItemLink id="nekoplus:sulfur" />
 
 ### 资源：末地
-没做。
+
+- <ItemLink id="anvilcraft:levitation_powder" />
 
 
 ## 配方

@@ -1,0 +1,12 @@
+{
+  "type": "nekoplus:air_condensing",
+  "dimension": "minecraft:the_end",
+  "probability": 0.8,
+  "results": [
+    {
+      "count": 4,
+      "id": "anvilcraft:levitation_powder"
+    }
+  ],
+  "ticks": 10
+}

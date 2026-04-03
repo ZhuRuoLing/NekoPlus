@@ -1,12 +1,19 @@
 package icu.takeneko.nekoplus.data;
 
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
+import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.mineral.MineralFountainRecipe;
 import dev.dubhe.anvilcraft.recipe.multiblock.BlockPredicateWithState;
 import dev.dubhe.anvilcraft.recipe.multiblock.MultiblockRecipe;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlocks;
+import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+
+import java.util.List;
 
 public class NPRecipes {
     public static void addRecipes(RegistrumRecipeProvider provider) {
@@ -15,6 +22,14 @@ public class NPRecipes {
             .needBlock(NPBlocks.NETHERITE_SCRAP_BLOCK.get())
             .toBlock(Blocks.ANCIENT_DEBRIS)
             .save(provider, NekoPlus.location("mineral_fountain/ancient_debris"));
+
+        AirCondensingRecipe.builder()
+            .dimension(provider.resolve(BuiltinDimensionTypes.END))
+            .results(List.of(new ItemStack(ModItems.LEVITATION_POWDER.asItem(), 4)))
+            .probability(ConstantValue.exactly(0.8f))
+            .ticks(10)
+            .build()
+            .save(NekoPlus.location("air_condensing/end"), provider);
 
 //        MultiblockConversionRecipe.builder()
 //            .inputLayer("  AAA  ", " ABBBA ", "CBBBBBD", "CBBBBBD", "CBBBBBD", " ABBBA ", "  EFE  ")

@@ -8,6 +8,7 @@ import icu.takeneko.nekoplus.all.NPDataComponents;
 import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.all.NPMenuTypes;
 import icu.takeneko.nekoplus.all.NPRecipeTypes;
+import icu.takeneko.nekoplus.all.NPSoundEvents;
 import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.data.NPDataGen;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -42,6 +43,7 @@ public class NekoPlus {
         NPCreativeTabs.DR.register(modEventBus);
         NPDataComponents.DR.register(modEventBus);
         NPMenuTypes.DR.register(modEventBus);
+        NPSoundEvents.DR.register(modEventBus);
         NPRecipeTypes.DR.register(modEventBus);
         NPRecipeTypes.RECIPE_SERIALIZER_DR.register(modEventBus);
     }

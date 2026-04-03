@@ -54,6 +54,7 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
                 }
             }
             if (currentRecipe != null) {
+
                 int currentProgress = host.getProgress();
                 if (currentProgress + 1 > currentRecipe.getTicks()) {
                     currentProgress = 0;

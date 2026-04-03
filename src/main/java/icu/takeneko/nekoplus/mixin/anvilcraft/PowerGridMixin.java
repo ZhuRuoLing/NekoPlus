@@ -9,11 +9,14 @@ import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.foundation.block.tile.NPPowerComponent;
 import icu.takeneko.nekoplus.util.OverclockUtil;
+import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
@@ -63,7 +66,10 @@ public class PowerGridMixin {
     @Inject(
         method = "flush",
         at = @At(
-            value = "TAIL"
+            value = "FIELD",
+            target = "Ldev/dubhe/anvilcraft/api/power/PowerGrid;consume:I",
+            opcode = Opcodes.GETFIELD,
+            ordinal = 3
         )
     )
     void calculate(

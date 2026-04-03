@@ -24,6 +24,7 @@ public class OverclockableDataProvider implements IBlockComponentProvider, IServ
         CompoundTag serverData = blockAccessor.getServerData();
         if (!serverData.contains("OCEnabled")) return;
         boolean ocEnabled = serverData.getBoolean("OCEnabled");
+        boolean inOCState = serverData.getBoolean("InOCState");
         iTooltip.add(ocEnabled
             ? Component.translatable("tooltip.nekoplus.overclock.enabled")
             : Component.translatable("tooltip.nekoplus.overclock.disabled")
@@ -31,13 +32,13 @@ public class OverclockableDataProvider implements IBlockComponentProvider, IServ
         if (ocEnabled) {
             int ocCurrent = serverData.getInt("OCCurrent");
             int ocMax = serverData.getInt("OCMax");
-            if (ocCurrent == 1) {
+            if (ocCurrent == 1 && !inOCState) {
                 ocCurrent = 0;
             }
             iTooltip.add(
                 IElementHelper.get().progress(
                     ocCurrent / (float) ocMax,
-                    Component.translatable("tooltip.nekoplus.overclock.ratio", ocMax, ocCurrent),
+                    Component.translatable("tooltip.nekoplus.overclock.ratio", ocCurrent, ocMax),
                     IElementHelper.get().progressStyle().color(0x1111ee).textColor(-1),
                     Util.make(STYLE, boxStyle -> {
                         boxStyle.borderColor = new int[]{0xFFE0E0E0, 0xFFE0E0E0, 0xFFE0E0E0, 0xFFE0E0E0};
@@ -59,6 +60,7 @@ public class OverclockableDataProvider implements IBlockComponentProvider, IServ
     public void appendServerData(CompoundTag compoundTag, BlockAccessor blockAccessor) {
         if (!(blockAccessor.getBlockEntity() instanceof NPOverclockablePowerConsumer powerConsumer)) return;
         compoundTag.putBoolean("OCEnabled", powerConsumer.isOverclockEnabled());
+        compoundTag.putBoolean("InOCState", powerConsumer.isOverclockable());
         compoundTag.putInt("OCMax", powerConsumer.maxOverclockRatio());
         compoundTag.putInt("OCCurrent", powerConsumer.isOverclockable() ? powerConsumer.currentOverclockRatio() : 0);
     }

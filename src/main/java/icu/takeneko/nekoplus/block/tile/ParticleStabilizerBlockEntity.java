@@ -4,11 +4,14 @@ import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
+import com.lowdragmc.lowdraglib2.syncdata.annotation.RequireRerender;
 import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
+import icu.takeneko.nekoplus.all.NPSoundEvents;
 import icu.takeneko.nekoplus.block.tile.logic.stabilizer.ParticleStabilizerLogic;
 import icu.takeneko.nekoplus.block.tile.logic.stabilizer.ParticleStabilizerLogicHost;
+import icu.takeneko.nekoplus.client.sound.LoopingBlockSoundInstance;
 import icu.takeneko.nekoplus.foundation.block.tile.BlockCollisionEventReceiver;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
@@ -23,12 +26,17 @@ import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.ui.ParticleStabilizerUI;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -52,7 +60,8 @@ public class ParticleStabilizerBlockEntity
     @Persisted
     @DescSynced
     @Getter
-    private State state = State.COOLING;
+    @RequireRerender
+    private State state = State.WORKING;
 
     @Persisted
     @Getter
@@ -68,7 +77,7 @@ public class ParticleStabilizerBlockEntity
 
     @Getter
     @Setter
-    @DescSynced
+    //@DescSynced
     @Persisted
     private int progress;
 
@@ -81,6 +90,14 @@ public class ParticleStabilizerBlockEntity
     @Setter
     @Nullable
     private AirCondensingRecipe currentRecipe;
+
+    @Getter
+    @DescSynced
+    @RequireRerender
+    private boolean isWorking;
+
+    @OnlyIn(Dist.CLIENT)
+    private LoopingBlockSoundInstance soundInstance;
 
     private final ParticleStabilizerLogic logic = new ParticleStabilizerLogic.Impl();
 
@@ -103,6 +120,30 @@ public class ParticleStabilizerBlockEntity
             updateState(State.WORKING);
         }
         logic.tick(this);
+        isWorking = this.currentRecipe != null;
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void scheduleRenderUpdate() {
+        super.scheduleRenderUpdate();
+        if (isWorking || this.state == State.COOLING) {
+            if (soundInstance != null) {
+                soundInstance.stopNow();
+            }
+            soundInstance = new LoopingBlockSoundInstance(
+                NPSoundEvents.PARTICLE_STABILIZER_WORKING.get(),
+                SoundSource.BLOCKS,
+                this
+            );
+
+            Minecraft.getInstance().getSoundManager().play(soundInstance);
+        } else {
+            if (soundInstance != null) {
+                soundInstance.stopNow();
+                soundInstance = null;
+            }
+        }
     }
 
     private void updateState(State value) {
@@ -126,8 +167,6 @@ public class ParticleStabilizerBlockEntity
         return getBlockPos();
     }
 
-
-
     @Override
     public boolean acceptCollision(FallingBlockEntity entity, double speed, AnvilEvent.CollisionBlock event) {
         return logic.handleCollision(this, entity, speed, event);
@@ -145,8 +184,6 @@ public class ParticleStabilizerBlockEntity
         }
         return true;
     }
-
-
 
     @Override
     public int getBaseOverclockCost() {

@@ -1,0 +1,8 @@
+{
+  "block.particle_stabilizer.working": {
+    "sounds": [
+        "nekoplus:block/particle_stabilizer/working"
+    ],
+    "subtitle": "subtitles.block.particle_stabilizer.working"
+  }
+}
