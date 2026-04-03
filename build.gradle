@@ -74,6 +74,13 @@ repositories {
         name "firstdarkdev"
         url "https://maven.firstdarkdev.xyz/snapshots"
     }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroup("software.bernie.geckolib")
+        }
+    }
 }
 
 base {
@@ -185,9 +192,10 @@ dependencies {
     implementation(libs.jade)
     implementation("dev.anvilcraft.guideme:anvilcraft_guideme-neoforge-1.21.1:1.6.0+build.23") { transitive = false }
 
-    jarJar(implementation "curse.maven:eyelib-1388469:7242460-sources-7242465")
-    jarJar(implementation "com.lowdragmc.ldlib2:ldlib2-neoforge-1.21.1:2.1.9:all"){ transitive = false }
+    jarJar(implementation "com.lowdragmc.ldlib2:ldlib2-neoforge-1.21.1:2.2.5:all"){ transitive = false }
+    implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
 
+    compileOnly "dev.vfyjxf:taffy:1.1.4"
     compileOnly "org.appliedenergistics.yoga:yoga:1.0.0"
     compileOnly "org.appliedenergistics:guideme:${guideme_version}:api"
     runtimeOnly "org.appliedenergistics:guideme:${guideme_version}"

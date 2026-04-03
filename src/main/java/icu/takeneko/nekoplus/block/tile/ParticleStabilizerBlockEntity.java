@@ -9,9 +9,11 @@ import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.nekoplus.all.NPSoundEvents;
+import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.tile.logic.stabilizer.ParticleStabilizerLogic;
 import icu.takeneko.nekoplus.block.tile.logic.stabilizer.ParticleStabilizerLogicHost;
 import icu.takeneko.nekoplus.client.sound.LoopingBlockSoundInstance;
+import icu.takeneko.nekoplus.data.NPSounds;
 import icu.takeneko.nekoplus.foundation.block.tile.BlockCollisionEventReceiver;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
@@ -27,20 +29,20 @@ import icu.takeneko.nekoplus.ui.ParticleStabilizerUI;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
+@SuppressWarnings("DataFlowIssue")
 public class ParticleStabilizerBlockEntity
     extends NPSynedBlockEntity
     implements NPOverclockablePowerConsumer, NPUIBlock.Provider, Tickable, BlockCollisionEventReceiver, NPItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
@@ -68,6 +70,7 @@ public class ParticleStabilizerBlockEntity
     private int countdown = MACHINE_COOLDOWN;
 
     @DescSynced
+    @RequireRerender
     @Getter
     @Setter
     private boolean isOverload = false;
@@ -77,7 +80,6 @@ public class ParticleStabilizerBlockEntity
 
     @Getter
     @Setter
-    //@DescSynced
     @Persisted
     private int progress;
 
@@ -112,7 +114,17 @@ public class ParticleStabilizerBlockEntity
     @Override
     public void tick() {
         flushState();
-        if (this.isOverload) return;
+        BlockState newState = getBlockState().setValue(ParticleStabilizerBlock.OVERLOAD, isOverload);
+        newState = newState.setValue(ParticleStabilizerBlock.COOLING, state == State.COOLING);
+        level.setBlock(getPos(), newState, Block.UPDATE_ALL);
+        if (this.isOverload) {
+            if (this.progress != 0) {
+                BlockPos pos = this.getPos();
+                level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), NPSoundEvents.INTERRUPT.get(), SoundSource.BLOCKS, 0.5f, 1);
+                this.progress = 0;
+            }
+            return;
+        }
         if (countdown > 0) {
             this.countdown = Math.max(countdown - efficiency, 0);
             updateState(State.COOLING);
@@ -121,13 +133,14 @@ public class ParticleStabilizerBlockEntity
         }
         logic.tick(this);
         isWorking = this.currentRecipe != null;
+
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void scheduleRenderUpdate() {
         super.scheduleRenderUpdate();
-        if (isWorking || this.state == State.COOLING) {
+        if ((isWorking || this.state == State.COOLING) && !isOverload) {
             if (soundInstance != null) {
                 soundInstance.stopNow();
             }
@@ -163,7 +176,7 @@ public class ParticleStabilizerBlockEntity
     }
 
     @Override
-    public @NotNull BlockPos getPos() {
+    public BlockPos getPos() {
         return getBlockPos();
     }
 

@@ -13,4 +13,9 @@ public class NPSoundEvents {
         "block.particle_stabilizer.working",
         () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.particle_stabilizer.working"))
     );
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> INTERRUPT = DR.register(
+        "block.interrupt",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.interrupt"))
+    );
 }

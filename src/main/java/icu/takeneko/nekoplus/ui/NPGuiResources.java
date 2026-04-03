@@ -31,6 +31,12 @@ public class NPGuiResources {
     public final static SpriteTexture INVENTORY_SLOT_BORDER_COLUMN_TOP = SpriteTexture.of(NekoPlus.location("textures/gui/slot_inventory_border_column_top.png")).setBorder(1, 1, 1, 1);
     public final static SpriteTexture INVENTORY_SLOT_BORDER5 = SpriteTexture.of(NekoPlus.location("textures/gui/slot_inventory_border5.png")).setBorder(6, 6, 28, 28);
 
+    public static final SpriteTexture PROGRESS_ARROW_BG = SpriteTexture.of(NekoPlus.location("textures/gui/progress_bar_arrow.png"))
+        .setSprite(0,0,20,20);
+    public static final SpriteTexture PROGRESS_ARROW_FG = SpriteTexture.of(NekoPlus.location("textures/gui/progress_bar_arrow.png"))
+        .setSprite(0,20,20,20)
+        .setWrapMode(SpriteTexture.WrapMode.REPEAT);
+
     public static final Stylesheet STYLESHEET = StylesheetManager.INSTANCE.getStylesheetSafe(NekoPlus.location(StylesheetManager.PATH + "/he.lss"));
 
     public static void setupRegistration(ResourceInstance<IGuiTexture> resourceInstance) {

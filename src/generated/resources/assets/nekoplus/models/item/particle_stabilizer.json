@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:builtin/entity",
+  "parent": "nekoplus:block/particle_stabilizer_parent",
   "display": {
     "firstperson_lefthand": {
       "rotation": [
@@ -90,5 +90,8 @@
         0
       ]
     }
+  },
+  "textures": {
+    "1": "nekoplus:block/particle_stabilizer"
   }
 }

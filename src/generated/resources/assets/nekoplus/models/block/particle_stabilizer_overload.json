@@ -1,6 +1,6 @@
 {
   "parent": "nekoplus:block/particle_stabilizer_parent",
   "textures": {
-    "1": "nekoplus:block/particle_stabilizer"
+    "1": "nekoplus:block/particle_stabilizer_overload"
   }
 }

@@ -25,12 +25,22 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialRendererBlock, NPUIBlock {
+public class ParticleStabilizerBlock extends BaseEntityBlock implements NPUIBlock {
+    public static final BooleanProperty COOLING = BooleanProperty.create("cooling");
+    public static final BooleanProperty OVERLOAD = BooleanProperty.create("overload");
+
     public ParticleStabilizerBlock(Properties properties) {
         super(properties);
+        registerDefaultState(
+            getStateDefinition().any()
+                .setValue(COOLING, false)
+                .setValue(OVERLOAD, false)
+        );
     }
 
     @Override
@@ -41,6 +51,11 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialR
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(COOLING, OVERLOAD);
     }
 
     @Override
@@ -63,8 +78,6 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialR
                     Mth.randomBetween(randomsource, -0.75f, 0.75f) * 0.08F
                 );
             }
-
-
         }
     }
 
@@ -105,7 +118,7 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements SpecialR
 
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (level instanceof ServerLevel) {
+        if (level instanceof ServerLevel && !state.is(newState.getBlock())) {
             if (level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity be) {
                 Containers.dropContents(level, pos, be.getItemHandler().getStacks());
             }

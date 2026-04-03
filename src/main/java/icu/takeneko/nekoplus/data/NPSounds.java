@@ -19,7 +19,16 @@ public class NPSounds extends SoundDefinitionsProvider {
             definition()
                 .subtitle("subtitles.block.particle_stabilizer.working")
                 .with(
-                    sound(NekoPlus.location("block/particle_stabilizer/working"), SoundDefinition.SoundType.EVENT)
+                    sound(NekoPlus.location("block/particle_stabilizer/working"))
+                        .attenuationDistance(10)
+                )
+        );
+        this.add(
+            NPSoundEvents.INTERRUPT.unwrapKey().orElseThrow().location(),
+            definition()
+                .subtitle("subtitles.block.interrupt")
+                .with(
+                    sound(NekoPlus.location("block/interrupt"))
                         .attenuationDistance(10)
                 )
         );

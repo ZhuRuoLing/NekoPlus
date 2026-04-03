@@ -49,6 +49,7 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
                     currentRecipe = recipe.get().value();
                 } else {
                     host.setProgress(0);
+                    host.setMaxProgress(1);
                     host.setCurrentRecipe(null);
                     currentRecipe = null;
                 }

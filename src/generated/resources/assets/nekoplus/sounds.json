@@ -1,7 +1,19 @@
 {
+  "block.interrupt": {
+    "sounds": [
+      {
+        "attenuation_distance": 10,
+        "name": "nekoplus:block/interrupt"
+      }
+    ],
+    "subtitle": "subtitles.block.interrupt"
+  },
   "block.particle_stabilizer.working": {
     "sounds": [
-        "nekoplus:block/particle_stabilizer/working"
+      {
+        "attenuation_distance": 10,
+        "name": "nekoplus:block/particle_stabilizer/working"
+      }
     ],
     "subtitle": "subtitles.block.particle_stabilizer.working"
   }

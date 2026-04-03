@@ -1,26 +1,43 @@
 package icu.takeneko.nekoplus.ui;
 
+import com.lowdragmc.lowdraglib2.gui.sync.bindings.impl.DataBindingBuilder;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.ItemSlot;
+import com.lowdragmc.lowdraglib2.gui.ui.elements.ProgressBar;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.TextElement;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.inventory.InventorySlots;
+import dev.vfyjxf.taffy.style.AlignContent;
+import dev.vfyjxf.taffy.style.AlignItems;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
 import net.minecraft.network.chat.Component;
-import org.appliedenergistics.yoga.YogaAlign;
-import org.appliedenergistics.yoga.YogaJustify;
 
 public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> implements Tickable {
-    //private final ProgressTexture progressTexture = HEGuiResources.getProgressTexture();
+
+    private final ProgressBar progressBar;
 
     public ParticleStabilizerUI(ParticleStabilizerBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.particle_stabilizer"));
-
+        this.progressBar = new ProgressBar()
+            .setValue(0.5f)
+            .label(l -> l.setText(""))
+            .bar(it ->
+                it.style(it1 -> it1.backgroundTexture(NPGuiResources.PROGRESS_ARROW_FG))
+                    .layout(lyt -> lyt.paddingAll(0))
+            )
+            .barContainer(it ->
+                it.style(it1 -> it1.backgroundTexture(NPGuiResources.PROGRESS_ARROW_BG))
+                    .layout(lyt -> lyt.paddingAll(0))
+            );
+        this.progressBar.bind(DataBindingBuilder.floatValS2C(() -> blockEntity.getProgress() / ((float) blockEntity.getMaxProgress())).build());
+        this.progressBar.layout(it -> it.minWidth(20).minHeight(20));
+        this.progressBar.progressBarStyle(it -> it.interpolate(false));
         addChildren(
             horizontalLayout(
                 new ItemSlot()
                     .bind(blockEntity.getItemHandler(), 0)
                     .addClass("bordered_slot"),
+                progressBar,
                 layout(
                     horizontalLayout(
                         new ItemSlot()
@@ -38,8 +55,8 @@ public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> im
                     l.minWidth(0)
                 ).addClass("bordered")
             ).layout(l ->
-                l.alignItems(YogaAlign.CENTER)
-                    .setJustifyContent(YogaJustify.SPACE_EVENLY)
+                l.alignItems(AlignItems.CENTER)
+                    .justifyContent(AlignContent.SPACE_EVENLY)
                     .widthPercent(100)
             ),
             new TextElement()

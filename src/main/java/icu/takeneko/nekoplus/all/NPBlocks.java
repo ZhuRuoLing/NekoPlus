@@ -73,12 +73,27 @@ public class NPBlocks {
         .initialProperties(() -> Blocks.IRON_BLOCK)
         .properties(BlockBehaviour.Properties::noOcclusion)
         .blockstate((ctx, cons) -> {
-            cons.simpleBlock(
-                ctx.get(),
-                cons.models()
-                    .getBuilder("block/particle_stabilizer")
-                    .texture("particle", "nekoplus:block/particle_stabilizer")
-            );
+            cons.getVariantBuilder(ctx.get())
+                .forAllStates(blockState -> {
+                    boolean isOverload = blockState.getValue(ParticleStabilizerBlock.OVERLOAD);
+                    boolean isCooling = blockState.getValue(ParticleStabilizerBlock.COOLING);
+                    ResourceLocation texture;
+                    if (isOverload) {
+                        texture = NekoPlus.location("block/particle_stabilizer_overload");
+                    } else {
+                        if (isCooling) {
+                            texture = NekoPlus.location("block/particle_stabilizer_freezing");
+                        } else {
+                            texture = NekoPlus.location("block/particle_stabilizer");
+                        }
+                    }
+                    ModelFile file = cons.models()
+                        .withExistingParent(texture.getPath().replaceFirst("block/", ""), NekoPlus.location("block/particle_stabilizer_parent"))
+                        .texture("1", texture);
+                    return ConfiguredModel.builder()
+                        .modelFile(file)
+                        .build();
+                });
         })
         .item()
         .properties(p -> p.rarity(Rarity.UNCOMMON))
@@ -101,8 +116,8 @@ public class NPBlocks {
         })
         .model((ctx, prov) -> {
             ModelUtils.wrapDefaultBlockItemTransform(
-                prov.getBuilder(ctx.getName())
-                    .parent(new ModelFile.UncheckedModelFile("builtin/entity"))
+                prov.withExistingParent(ctx.getName(), NekoPlus.location("block/particle_stabilizer_parent"))
+                    .texture("1", NekoPlus.location("block/particle_stabilizer"))
             );
         })
         .build()

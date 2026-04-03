@@ -12,9 +12,6 @@ import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
-import icu.takeneko.nekoplus.client.renderer.tesr.ParticleStabilizerBlockEntityRenderer;
-import icu.takeneko.nekoplus.client.renderer.tesr.StellarEngineBlockEntityRenderer;
-import icu.takeneko.nekoplus.client.renderer.tesr.TardisBlockEntityRenderer;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -30,19 +27,16 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<ParticleStabilizerBlockEntity> PARTICLE_STABILIZER = NekoPlus.REGISTRUM
         .blockEntity("particle_stabilizer", ParticleStabilizerBlockEntity::new)
         .validBlock(NPBlocks.PARTICLE_STABILIZER)
-        .renderer(() -> ParticleStabilizerBlockEntityRenderer::new)
         .register();
 
     public static final BlockEntityEntry<StellarEngineBlockEntity> STELLAR_ENGINE = NekoPlus.REGISTRUM
         .blockEntity("stellar_engine", StellarEngineBlockEntity::new)
         .validBlock(NPBlocks.STELLAR_ENGINE)
-        .renderer(() -> StellarEngineBlockEntityRenderer::new)
         .register();
 
     public static final BlockEntityEntry<TardisBlockEntity> TARDIS = NekoPlus.REGISTRUM
         .blockEntity("tardis", TardisBlockEntity::new)
         .validBlock(NPBlocks.TARDIS)
-        .renderer(() -> TardisBlockEntityRenderer::new)
         .register();
 
     public static final BlockEntityEntry<HighEnergyLaserBlockEntity> HIGH_ENERGY_LASER = NekoPlus.REGISTRUM

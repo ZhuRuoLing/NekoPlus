@@ -13,16 +13,12 @@
     "anvilcraft.PowerGridMixin",
     "anvilcraft.ServerBlockEntityEventListenerMixin",
     "anvilcraft.SimplePowerGridMixin",
-    "anvilcraft.StampingPlatformMixin",
-    "eyelib.RenderControllerEntryMixin"
+    "anvilcraft.StampingPlatformMixin"
   ],
   "client": [
     "anvilcraft.LaserBlockRendererMixin",
     "minecraft.GlDebugMixin",
-    "minecraft.TextureManagerMixin",
-    "self.ParticleStabilizerBlockEntityMixin",
-    "self.StellarEngineBlockEntityMixin",
-    "self.TardisBlockEntityMixin"
+    "minecraft.TextureManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
