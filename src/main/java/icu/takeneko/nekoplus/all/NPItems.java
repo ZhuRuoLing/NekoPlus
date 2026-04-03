@@ -90,11 +90,11 @@ public class NPItems {
 //        .register();
 
     public static final ItemEntry<Item> ADVANCED_PROCESSOR = NekoPlus.REGISTRUM
-        .item("advanced_chip", Item::new)
+        .item("advanced_processor", Item::new)
         .recipe((ctx, prov) ->
             LaserEtchingRecipe.builder()
                 .input(Ingredient.of(ModItems.PROCESSOR))
-                .output(ChanceItemStack.of(ctx.get().getDefaultInstance(), 4))
+                .output(ChanceItemStack.of(ctx.get().getDefaultInstance(), 1))
                 .build()
                 .save(ctx.getId(), prov)
         )

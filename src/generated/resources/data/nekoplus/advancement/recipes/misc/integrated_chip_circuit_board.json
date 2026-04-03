@@ -21,11 +21,11 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "has_nekoplus:advanced_chip": {
+    "has_nekoplus:advanced_processor": {
       "conditions": {
         "items": [
           {
-            "items": "nekoplus:advanced_chip"
+            "items": "nekoplus:advanced_processor"
           }
         ]
       },
@@ -53,7 +53,7 @@
       "has_the_recipe",
       "has_silver_plate",
       "has_circuit_board",
-      "has_nekoplus:advanced_chip",
+      "has_nekoplus:advanced_processor",
       "has_anvilcraft:hardend_resin"
     ]
   ],

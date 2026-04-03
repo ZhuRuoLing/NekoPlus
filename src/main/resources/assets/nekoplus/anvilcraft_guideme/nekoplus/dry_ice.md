@@ -3,7 +3,7 @@ navigation:
   title: "猫+ | 干冰"
   icon: "nekoplus:dry_ice"
   parent: "nekoplus.md"
-  position: 201
+  position: 203
 item_ids:
 - nekoplus:dry_ice
 ---

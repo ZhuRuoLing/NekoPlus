@@ -12,4 +12,8 @@ public interface Overclockable {
     default boolean isOverclockable() {
         return true;
     }
+
+    default boolean isOverclockEnabled() {
+        return true;
+    }
 }

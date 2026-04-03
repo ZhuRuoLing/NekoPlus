@@ -3,8 +3,11 @@ package icu.takeneko.nekoplus.mixin.anvilcraft;
 import dev.dubhe.anvilcraft.block.ChargerBlock;
 import dev.dubhe.anvilcraft.block.entity.ChargerBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
+import icu.takeneko.nekoplus.internal.ChargerBlockEntityInternals;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -26,7 +29,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @Mixin(ChargerBlockEntity.class)
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPOverclockablePowerConsumer {
+public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPOverclockablePowerConsumer, ChargerBlockEntityInternals.Extension {
 
     @Shadow
     private boolean isCharger;
@@ -42,6 +45,9 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
 
     @Unique
     private int he$efficency = 1;
+
+    @Unique
+    private boolean np$ocEnabled = false;
 
     public ChargerBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
@@ -64,6 +70,22 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
         this.timeLeft = Math.clamp(timeLeft, 0, Integer.MAX_VALUE);
     }
 
+    @Inject(
+        method = "saveAdditional",
+        at = @At("HEAD")
+    )
+    void saveNP(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo ci){
+        tag.putBoolean("OCEnabled", np$ocEnabled);
+    }
+
+    @Inject(
+        method = "loadAdditional",
+        at = @At("HEAD")
+    )
+    void loadNP(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo ci){
+        this.np$ocEnabled = tag.getBoolean("OCEnabled");
+    }
+
     @Override
     public void setEfficiency(int value) {
         he$efficency = value;
@@ -81,7 +103,7 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
 
     @Override
     public boolean isOverclockable() {
-        return isCharger && isGridWorking() && timeLeft > 0 && !getBlockState().getValue(ChargerBlock.POWERED);
+        return isCharger && np$ocEnabled && isGridWorking() && timeLeft > 0 && !getBlockState().getValue(ChargerBlock.POWERED);
     }
 
     @Override
@@ -96,7 +118,7 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
 
     @Override
     public int getBaseInputPower() {
-        return isCharger && !this.getBlockState().getValue(ChargerBlock.POWERED) ? -powerValue : 0;
+        return (isCharger && !this.getBlockState().getValue(ChargerBlock.POWERED)) ? -powerValue : 0;
     }
 
     @Overwrite
@@ -108,6 +130,16 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
     @Override
     public int getOverclockedInputPower() {
         return getBaseInputPower() * he$efficency;
+    }
+
+    @Override
+    public void toggleOverclock() {
+        this.np$ocEnabled = !this.np$ocEnabled;
+    }
+
+    @Override
+    public boolean isOverclockEnabled() {
+        return np$ocEnabled;
     }
 
     @Override

@@ -4,7 +4,6 @@
     "item": "anvilcraft:processor"
   },
   "output": {
-    "count": 4,
-    "id": "nekoplus:advanced_chip"
+    "id": "nekoplus:advanced_processor"
   }
 }

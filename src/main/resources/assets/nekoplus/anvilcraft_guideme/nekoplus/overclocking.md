@@ -17,6 +17,8 @@ item_ids:
 
 超频计算器会使所有可超频的机器尽可能的超频。
 
+> 部分机器，如充电器，支持使用<ItemLink id="nekoplus:charged_levitation_powder" />切换超频开关。
+
 ## 支持超频的机器
 
 - <ItemLink id="anvilcraft:charger" />

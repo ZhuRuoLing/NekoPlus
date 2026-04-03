@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekoplus:advanced_chip"
+        "recipe": "nekoplus:advanced_processor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nekoplus:advanced_chip"
+      "nekoplus:advanced_processor"
     ]
   }
 }
