@@ -9,6 +9,7 @@ import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.tile.NPHatchBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
+import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
@@ -32,6 +33,11 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<StellarEngineBlockEntity> STELLAR_ENGINE = NekoPlus.REGISTRUM
         .blockEntity("stellar_engine", StellarEngineBlockEntity::new)
         .validBlock(NPBlocks.STELLAR_ENGINE)
+        .register();
+
+    public static final BlockEntityEntry<ProgrammableLogicGateBlockEntity> PROGRAMMABLE_LOGIC_GATE = NekoPlus.REGISTRUM
+        .blockEntity("programmable_logic_gate", ProgrammableLogicGateBlockEntity::new)
+        .validBlock(NPBlocks.PROGRAMMABLE_LOGIC_GATE)
         .register();
 
     public static final BlockEntityEntry<TardisBlockEntity> TARDIS = NekoPlus.REGISTRUM

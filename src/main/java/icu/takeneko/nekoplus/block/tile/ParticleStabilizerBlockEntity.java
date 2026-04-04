@@ -133,7 +133,6 @@ public class ParticleStabilizerBlockEntity
         }
         logic.tick(this);
         isWorking = this.currentRecipe != null;
-
     }
 
     @Override

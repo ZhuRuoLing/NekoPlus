@@ -1,0 +1,65 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anvilcraft:advanced_comparator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:advanced_comparator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_iron_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:iron_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nekoplus:advanced_processor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:advanced_processor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_redstone_torch": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:redstone_torch"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekoplus:programmable_logic_gate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_redstone_torch",
+      "has_anvilcraft:advanced_comparator",
+      "has_nekoplus:advanced_processor",
+      "has_iron_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekoplus:programmable_logic_gate"
+    ]
+  }
+}

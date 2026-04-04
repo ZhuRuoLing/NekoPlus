@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": {
+      "item": "minecraft:redstone_torch"
+    },
+    "B": {
+      "item": "anvilcraft:advanced_comparator"
+    },
+    "C": {
+      "item": "nekoplus:advanced_processor"
+    },
+    "D": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    " A ",
+    "BCB",
+    "DDD"
+  ],
+  "result": {
+    "count": 1,
+    "id": "nekoplus:programmable_logic_gate"
+  }
+}

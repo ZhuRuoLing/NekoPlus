@@ -11,6 +11,7 @@ import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
+import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.StellarEngineBlock;
 import icu.takeneko.nekoplus.block.TardisBlock;
 import icu.takeneko.nekoplus.block.TitaniumAlloyAnvilBlock;
@@ -20,14 +21,17 @@ import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
 import icu.takeneko.nekoplus.util.ModelUtils;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
@@ -43,6 +47,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.neoforged.neoforge.common.Tags;
 
 public class NPBlocks {
@@ -185,6 +190,34 @@ public class NPBlocks {
                 .unlockedBy("has_" + NPItems.TITANIUM_ALLOY_INGOT.getRegisteredName(), RegistrumRecipeProvider.has(NPItems.TITANIUM_ALLOY_INGOT))
                 .unlockedBy("has_" + NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD.getRegisteredName(), RegistrumRecipeProvider.has(NPItems.INTEGRATED_CHIP_CIRCUIT_BOARD))
                 .save(prov);
+        })
+        .build()
+        .register();
+
+    public static final BlockEntry<ProgrammableLogicGateBlock> PROGRAMMABLE_LOGIC_GATE = NekoPlus.REGISTRUM
+        .block("programmable_logic_gate", ProgrammableLogicGateBlock::new)
+        .properties(properties -> properties.strength(3.0F, 3.5F).sound(SoundType.STONE).noOcclusion())
+        .blockstate((ctx, cons) -> {
+            MultiPartBlockStateBuilder builder = cons.getMultipartBuilder(ctx.get());
+
+        })
+        .item()
+        .recipe((ctx, prov) ->
+            ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ctx.get())
+                .pattern(" A ")
+                .pattern("BCB")
+                .pattern("DDD")
+                .define('A', Ingredient.of(Items.REDSTONE_TORCH.getDefaultInstance()))
+                .define('B', ModBlocks.ADVANCED_COMPARATOR)
+                .define('C', NPItems.ADVANCED_PROCESSOR)
+                .define('D', Ingredient.of(Items.IRON_INGOT))
+                .unlockedBy("has_" + BuiltInRegistries.ITEM.getKey(Items.REDSTONE_TORCH).getPath(), RegistrumRecipeProvider.has(Items.REDSTONE_TORCH))
+                .unlockedBy("has_" + ModBlocks.ADVANCED_COMPARATOR.getRegisteredName(), RegistrumRecipeProvider.has(ModBlocks.ADVANCED_COMPARATOR))
+                .unlockedBy("has_" + NPItems.ADVANCED_PROCESSOR.getRegisteredName(), RegistrumRecipeProvider.has(NPItems.ADVANCED_PROCESSOR))
+                .unlockedBy("has_" + BuiltInRegistries.ITEM.getKey(Items.IRON_INGOT).getPath(), RegistrumRecipeProvider.has(Items.IRON_INGOT))
+                .save(prov, prov.safeId(ctx.getId()))
+        )
+        .model((ctx, prov) -> {
         })
         .build()
         .register();
