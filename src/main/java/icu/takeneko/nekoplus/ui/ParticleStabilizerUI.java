@@ -14,11 +14,9 @@ import net.minecraft.network.chat.Component;
 
 public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> implements Tickable {
 
-    private final ProgressBar progressBar;
-
     public ParticleStabilizerUI(ParticleStabilizerBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.particle_stabilizer"));
-        this.progressBar = new ProgressBar()
+        ProgressBar progressBar = new ProgressBar()
             .setValue(0.5f)
             .label(l -> l.setText(""))
             .bar(it ->
@@ -29,9 +27,9 @@ public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> im
                 it.style(it1 -> it1.backgroundTexture(NPGuiResources.PROGRESS_ARROW_BG))
                     .layout(lyt -> lyt.paddingAll(0))
             );
-        this.progressBar.bind(DataBindingBuilder.floatValS2C(() -> blockEntity.getProgress() / ((float) blockEntity.getMaxProgress())).build());
-        this.progressBar.layout(it -> it.minWidth(20).minHeight(20));
-        this.progressBar.progressBarStyle(it -> it.interpolate(false));
+        progressBar.bind(DataBindingBuilder.floatValS2C(() -> blockEntity.getProgress() / ((float) blockEntity.getMaxProgress())).build());
+        progressBar.layout(it -> it.minWidth(20).minHeight(20));
+        progressBar.progressBarStyle(it -> it.interpolate(false));
         addChildren(
             horizontalLayout(
                 new ItemSlot()
@@ -68,12 +66,5 @@ public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> im
 
     @Override
     public void tick() {
-//        int maxProgress = blockEntity.getMaxProgress();
-//        if (maxProgress > 0) {
-//            float progress = (float) blockEntity.getProgress() / maxProgress;
-//            progressTexture.setProgress(progress);
-//            return;
-//        }
-//        progressTexture.setProgress(0);
     }
 }

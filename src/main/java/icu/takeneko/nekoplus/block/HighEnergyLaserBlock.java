@@ -8,6 +8,7 @@ import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.NPTranslucentEntityBlock;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
 import icu.takeneko.nekoplus.util.VoxelShapeUtils;
+import lombok.experimental.ExtensionMethod;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -32,6 +33,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@ExtensionMethod(VoxelShapeUtils.class)
 public class HighEnergyLaserBlock extends NPTranslucentEntityBlock implements IHammerChangeable {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
@@ -51,7 +53,7 @@ public class HighEnergyLaserBlock extends NPTranslucentEntityBlock implements IH
                 SHAPES[value.ordinal()] = UP_SHAPE;
                 continue;
             }
-            VoxelShape rotated = VoxelShapeUtils.rotate(UP_SHAPE, value.getOpposite());
+            VoxelShape rotated = UP_SHAPE.rotate(value.getOpposite());
             SHAPES[value.ordinal()] = rotated;
         }
     }

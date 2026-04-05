@@ -13,7 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue", "unused"})
-public class NPUI<T extends BlockEntity & NPItemHandlerOwner> extends UIElement {
+public class NPUI<T extends BlockEntity> extends UIElement {
     @Getter
     protected final T blockEntity;
     @Getter
@@ -36,7 +36,7 @@ public class NPUI<T extends BlockEntity & NPItemHandlerOwner> extends UIElement 
         );
     }
 
-    public static <T extends BlockEntity & NPItemHandlerOwner> ModularUI of(NPUI<T> ui, BlockUIMenuType.BlockUIHolder holder) {
+    public static <T extends BlockEntity> ModularUI of(NPUI<T> ui, BlockUIMenuType.BlockUIHolder holder) {
         return new ModularUI(UI.of(ui, NPGuiResources.STYLESHEET), holder.player);
     }
 

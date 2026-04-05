@@ -1,0 +1,22 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"3": "anvilcraft:block/redstone_torch_unified"
+	},
+	"elements": [
+		{
+			"from": [7, 3, 1],
+			"to": [9, 9, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5, 2]},
+			"faces": {
+				"north": {"uv": [11, 6, 13, 12], "texture": "#3"},
+				"east": {"uv": [11, 6, 13, 12], "texture": "#3"},
+				"south": {"uv": [11, 6, 13, 12], "texture": "#3"},
+				"west": {"uv": [11, 6, 13, 12], "texture": "#3"},
+				"up": {"uv": [11, 6, 13, 8], "texture": "#3"},
+				"down": {"uv": [11, 6, 13, 8], "texture": "#3"}
+			}
+		}
+	]
+}

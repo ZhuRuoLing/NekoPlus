@@ -29,5 +29,7 @@ public class NPTranslations {
         provider.add("category.nekoplus.air_condensing.dimension", "Dimension: %s");
         provider.add("category.nekoplus.laser_etching", "Laser Etching");
         provider.add("category.nekoplus.laser_etching.laser_requirement", "Requires Laser Strength >= 64");
+
+        provider.add("evaluator.undefined_symbol", "Tried to access undefined symbol %s or its value has not been set.");
     }
 }

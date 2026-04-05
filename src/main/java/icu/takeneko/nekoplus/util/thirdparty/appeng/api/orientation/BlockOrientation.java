@@ -5,6 +5,8 @@ import java.util.Set;
 
 import com.mojang.math.Transformation;
 
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
@@ -176,21 +178,21 @@ public enum BlockOrientation {
         return values()[facing.ordinal() * 4 + spin];
     }
 
-//    public static BlockOrientation get(BlockEntity blockEntity) {
-//        var blockState = blockEntity.getBlockState();
-//        return get(blockState);
-//    }
+    public static BlockOrientation get(BlockEntity blockEntity) {
+        var blockState = blockEntity.getBlockState();
+        return get(blockState);
+    }
 
-//    public static BlockOrientation get(BlockState state) {
-//        var strategy = IOrientationStrategy.get(state);
-//        return get(strategy, state);
-//    }
-//
-//    public static BlockOrientation get(IOrientationStrategy strategy, BlockState state) {
-//        var facing = strategy.getFacing(state);
-//        var spin = strategy.getSpin(state);
-//        return get(facing, spin);
-//    }
+    public static BlockOrientation get(BlockState state) {
+        var strategy = IOrientationStrategy.get(state);
+        return get(strategy, state);
+    }
+
+    public static BlockOrientation get(IOrientationStrategy strategy, BlockState state) {
+        var facing = strategy.getFacing(state);
+        var spin = strategy.getSpin(state);
+        return get(facing, spin);
+    }
 
     public Direction getSide(RelativeSide side) {
         return rotate(side.getUnrotatedSide());

@@ -20,12 +20,12 @@ public interface IOrientationStrategy {
     // NORTH for vertical axes
     IntegerProperty SPIN = IntegerProperty.create("spin", 0, 3);
 
-//    static IOrientationStrategy get(BlockState state) {
-//        if (state.getBlock() instanceof IOrientableBlock orientableBlock) {
-//            return orientableBlock.getOrientationStrategy();
-//        }
-//        return OrientationStrategies.none();
-//    }
+    static IOrientationStrategy get(BlockState state) {
+        if (state.getBlock() instanceof IOrientableBlock orientableBlock) {
+            return orientableBlock.getOrientationStrategy();
+        }
+        return OrientationStrategies.none();
+    }
 
     default Direction getFacing(BlockState state) {
         return Direction.NORTH;
@@ -57,9 +57,9 @@ public interface IOrientationStrategy {
         return setUp(setFacing(state, facing), up);
     }
 
-//    default Direction getSide(BlockState state, RelativeSide side) {
-//        return BlockOrientation.get(this, state).rotate(side.getUnrotatedSide());
-//    }
+    default Direction getSide(BlockState state, RelativeSide side) {
+        return BlockOrientation.get(this, state).rotate(side.getUnrotatedSide());
+    }
 
     default BlockState getStateForPlacement(BlockState state, BlockPlaceContext context) {
         return state;

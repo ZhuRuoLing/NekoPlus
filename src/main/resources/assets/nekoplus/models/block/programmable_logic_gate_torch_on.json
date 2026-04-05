@@ -1,0 +1,51 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"3": "anvilcraft:block/redstone_torch_unified",
+		"4": "nekoplus:block/redstone_torch_outline",
+		"particle": "nekoplus:block/redstone_torch_outline"
+	},
+	"elements": [
+		{
+			"from": [7, 3, 1],
+			"to": [9, 6, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5, 2]},
+			"faces": {
+				"north": {"uv": [3, 9, 5, 12], "texture": "#3"},
+				"east": {"uv": [3, 9, 5, 12], "texture": "#3"},
+				"south": {"uv": [3, 9, 5, 12], "texture": "#3"},
+				"west": {"uv": [3, 9, 5, 12], "texture": "#3"},
+				"up": {"uv": [3, 6, 5, 8], "texture": "#3"},
+				"down": {"uv": [3, 6, 5, 8], "texture": "#3"}
+			}
+		},
+		{
+			"from": [7, 6, 1],
+			"to": [9, 9, 3],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 5, 2]},
+			"faces": {
+				"north": {"uv": [3, 6, 5, 9], "texture": "#3", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"east": {"uv": [3, 6, 5, 9], "texture": "#3", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"south": {"uv": [3, 6, 5, 9], "texture": "#3", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"west": {"uv": [3, 6, 5, 9], "texture": "#3", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"up": {"uv": [3, 6, 5, 8], "texture": "#3", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"down": {"uv": [3, 6, 5, 8], "texture": "#3", "neoforge_data": {"block_light": 15, "sky_light": 15}}
+			}
+		},
+		{
+			"name": "cube_outline",
+			"from": [9.5, 9.5, 3.5],
+			"to": [6.5, 6.5, 0.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [6.5, 6.5, 0.5]},
+			"faces": {
+				"north": {"uv": [0, 0, 3, 3], "rotation": 180, "texture": "#4", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"east": {"uv": [0, 0, 3, 3], "rotation": 180, "texture": "#4", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"south": {"uv": [0, 0, 3, 3], "rotation": 180, "texture": "#4", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"west": {"uv": [0, 0, 3, 3], "rotation": 180, "texture": "#4", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"up": {"uv": [0, 0, 3, 3], "rotation": 180, "texture": "#4", "neoforge_data": {"block_light": 15, "sky_light": 15}},
+				"down": {"uv": [0, 0, 3, 3], "rotation": 180, "texture": "#4", "neoforge_data": {"block_light": 15, "sky_light": 15}}
+			}
+		}
+	]
+}

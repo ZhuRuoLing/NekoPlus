@@ -28,7 +28,6 @@ import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -38,6 +37,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -199,7 +199,37 @@ public class NPBlocks {
         .properties(properties -> properties.strength(3.0F, 3.5F).sound(SoundType.STONE).noOcclusion())
         .blockstate((ctx, cons) -> {
             MultiPartBlockStateBuilder builder = cons.getMultipartBuilder(ctx.get());
+            ModelFile base = cons.models().getExistingFile(NekoPlus.location("block/programmable_logic_gate"));
+            ModelFile torchOn = cons.models().getExistingFile(NekoPlus.location("block/programmable_logic_gate_torch_on"));
+            ModelFile torchOff = cons.models().getExistingFile(NekoPlus.location("block/programmable_logic_gate_torch_off"));
+            Direction.Plane.HORIZONTAL.stream().forEach(it -> {
+                int yRot = ((int) it.toYRot() + 180) % 360;
+                builder.part()
+                    .modelFile(base)
+                    .rotationY(yRot)
+                    .addModel()
+                    .condition(ProgrammableLogicGateBlock.FACING, it)
+                    .end();
+                int yRotE = 0;
+                for (BooleanProperty p : ProgrammableLogicGateBlock.PROPERTIES_ENABLE) {
+                    builder.part()
+                        .modelFile(torchOn)
+                        .rotationY(yRot + yRotE)
+                        .addModel()
+                        .condition(ProgrammableLogicGateBlock.FACING, it)
+                        .condition(p, true)
+                        .end();
 
+                    builder.part()
+                        .modelFile(torchOff)
+                        .rotationY(yRot + yRotE)
+                        .addModel()
+                        .condition(ProgrammableLogicGateBlock.FACING, it)
+                        .condition(p, false)
+                        .end();
+                    yRotE += 90;
+                }
+            });
         })
         .item()
         .recipe((ctx, prov) ->

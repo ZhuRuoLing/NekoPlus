@@ -18,6 +18,7 @@
   "category.nekoplus.laser_etching.laser_requirement": "Requires Laser Strength >= 64",
   "config.jade.plugin_nekoplus.overclockable": "Overclocking",
   "config.jade.plugin_nekoplus.particle_stabilizer": "Particle Stabilizer",
+  "evaluator.undefined_symbol": "Tried to access undefined symbol %s or its value has not been set.",
   "item.nekoplus.advanced_processor": "Advanced Processor",
   "item.nekoplus.air_filter": "Air Filter",
   "item.nekoplus.carbon_dioxide_laser_tube": "Carbon Dioxide Laser Tube",
