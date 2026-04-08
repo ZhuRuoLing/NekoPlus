@@ -1,11 +1,7 @@
 package icu.takeneko.nekoplus.data;
 
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumLangProvider;
-import icu.takeneko.nekoplus.all.NPBuiltinRegistries;
 import icu.takeneko.nekoplus.all.NPItemTooltips;
-import net.minecraft.resources.ResourceKey;
-
-import java.util.Map;
 
 public class NPTranslations {
     public static void addTranslations(RegistrumLangProvider provider) {
@@ -29,6 +25,11 @@ public class NPTranslations {
         provider.add("category.nekoplus.air_condensing.dimension", "Dimension: %s");
         provider.add("category.nekoplus.laser_etching", "Laser Etching");
         provider.add("category.nekoplus.laser_etching.laser_requirement", "Requires Laser Strength >= 64");
+
+        provider.add("ui.programmable_logic_gate.red", "Configure Pin: Red");
+        provider.add("ui.programmable_logic_gate.green", "Configure Pin: Green");
+        provider.add("ui.programmable_logic_gate.blue", "Configure Pin: Blue");
+        provider.add("ui.programmable_logic_gate.white", "Configure Pin: White");
 
         provider.add("evaluator.undefined_symbol", "Tried to access undefined symbol %s or its value has not been set.");
     }

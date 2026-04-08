@@ -8,6 +8,7 @@ import dev.dubhe.anvilcraft.api.rendering.CacheableBlockEntityRenderers;
 import dev.dubhe.anvilcraft.init.block.ModBlockEntities;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
+import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPHammerTooltipProviders;
 import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.client.extension.NPClientExtension;
@@ -16,6 +17,8 @@ import icu.takeneko.nekoplus.client.renderer.laser.NPLaserRenderer;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.nekoplus.ui.NPGuiResources;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -25,6 +28,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -49,6 +53,7 @@ public class NekoPlusClient {
         CacheableBlockEntityRenderers.register(ModBlockEntities.RUBY_LASER.get(), NPLaserRenderer);
         CacheableBlockEntityRenderers.register(ModBlockEntities.RUBY_PRISM.get(), NPLaserRenderer);
         CacheableBlockEntityRenderers.register(NPBlockEntities.HIGH_ENERGY_LASER.get(), NPLaserRenderer);
+        ItemBlockRenderTypes.setRenderLayer(NPBlocks.PROGRAMMABLE_LOGIC_GATE.get(), ChunkRenderTypeSet.of(RenderType.cutout()));
     }
 
     @SubscribeEvent

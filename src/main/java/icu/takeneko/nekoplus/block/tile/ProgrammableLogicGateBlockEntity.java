@@ -14,6 +14,7 @@ import icu.takeneko.nekoplus.foundation.inventory.NPItemHandlerOwner;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
 import icu.takeneko.nekoplus.ui.ProgrammableLogicGateUI;
 import icu.takeneko.nekoplus.util.thirdparty.appeng.api.orientation.RelativeSide;
+import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -27,18 +28,22 @@ public class ProgrammableLogicGateBlockEntity
 
     @Persisted
     @DescSynced
+    @Getter
     private final PinState pinR = new PinState("r", PinMode.INPUT, RelativeSide.LEFT);
 
     @Persisted
     @DescSynced
+    @Getter
     private final PinState pinG = new PinState("g", PinMode.INPUT, RelativeSide.BACK);
 
     @Persisted
     @DescSynced
+    @Getter
     private final PinState pinB = new PinState("b", PinMode.INPUT, RelativeSide.RIGHT);
 
     @Persisted
     @DescSynced
+    @Getter
     private final PinState pinW = new PinState("w", PinMode.OUTPUT, RelativeSide.FRONT);
 
     public ProgrammableLogicGateBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {

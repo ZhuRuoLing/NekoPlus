@@ -47,5 +47,9 @@
   "tooltip.nekoplus.particle_stabilizer.ready": "ʎpɐǝᴚ",
   "tooltip.nekoplus.particle_stabilizer.state": " :ǝʇɐʇS",
   "tooltip.nekoplus.royal_steel_casing": "ㄥ§uϛ§o⥝§ᴉㄥ§ʇƐ§ɐq§uɐ§ᴉǝ§ᵷɔ§ɐ߈§ɯp§Iϛ§ sᴉ pǝǝu noʎ ꞁꞁⱯㄥ§",
-  "tooltip.nekoplus.stabilize_powder": "₅ʌꞀ₃(₃ᵷH(₃O₂ꞁⱯɹƆ)₅(₂SǝℲ)ᴉS)₂((₃OƆɐƆ)(₂SǝℲ)₂(ꞁƆ₄ɐN₃ᴉS₃ꞁⱯ)₂₁(₈ɐN₈ɐƆ₆ᴉS₆ꞁⱯ))₈S"
+  "tooltip.nekoplus.stabilize_powder": "₅ʌꞀ₃(₃ᵷH(₃O₂ꞁⱯɹƆ)₅(₂SǝℲ)ᴉS)₂((₃OƆɐƆ)(₂SǝℲ)₂(ꞁƆ₄ɐN₃ᴉS₃ꞁⱯ)₂₁(₈ɐN₈ɐƆ₆ᴉS₆ꞁⱯ))₈S",
+  "ui.programmable_logic_gate.blue": "ǝnꞁᗺ :uᴉԀ ǝɹnᵷᴉɟuoƆ",
+  "ui.programmable_logic_gate.green": "uǝǝɹ⅁ :uᴉԀ ǝɹnᵷᴉɟuoƆ",
+  "ui.programmable_logic_gate.red": "pǝᴚ :uᴉԀ ǝɹnᵷᴉɟuoƆ",
+  "ui.programmable_logic_gate.white": "ǝʇᴉɥM :uᴉԀ ǝɹnᵷᴉɟuoƆ"
 }
