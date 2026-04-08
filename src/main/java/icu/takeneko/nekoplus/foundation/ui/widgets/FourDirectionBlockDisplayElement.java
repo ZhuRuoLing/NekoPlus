@@ -116,6 +116,44 @@ public class FourDirectionBlockDisplayElement extends UIElement {
             blockEntity.getBlockPos(),
             guiContext.mc
         );
+// test
+//        var gap = 32;
+//        var numPerLine = 19;
+//        var scale = 24f;
+//        for (int iy = 0; iy <= 45/5; iy++) {
+//            for (int ix = 0; ix <= 90 / 5; ix++) {
+//                var rotX = 90 - ix * 5;
+//                var rotY = iy * 5;
+//                float x1 = gap + ix % numPerLine * gap;
+//                float y1 = gap + iy * gap;
+//                renderRotatedBlock(
+//                    guiContext.pose.pose,
+//                    blockState,
+//                    x1,
+//                    y1,
+//                    100,
+//                    scale,
+//                    rotX,
+//                    rotY,
+//                    6 / 16f,
+//                    blockEntity.getBlockPos(),
+//                    guiContext.mc
+//                );
+//                renderRotatedBlock(
+//                    guiContext.pose.pose,
+//                    blockState,
+//                    x1,
+//                    y1,
+//                    100,
+//                    scale,
+//                    -90,
+//                    0,
+//                    6 / 16f,
+//                    blockEntity.getBlockPos(),
+//                    guiContext.mc
+//                );
+//            }
+//        }
     }
 
     public enum ColorDirection {
@@ -151,7 +189,8 @@ public class FourDirectionBlockDisplayElement extends UIElement {
         poseStack.translate(x, y, z);
         poseStack.scale(scale, scale, scale);
         poseStack.mulPose(new Matrix4f().scaling(1, -1, 1));
-        poseStack.translate(0.5f, blockVisualHeight, 0.5f);
+        poseStack.translate(0.5f, 0.5f, 0.5f);
+        poseStack.translate(0f, (float) -Math.cos(Math.toRadians(xRot)) * blockVisualHeight / 2, 0f);
         poseStack.mulPose(Axis.XP.rotationDegrees(xRot));
         poseStack.mulPose(Axis.YP.rotationDegrees(yRot + 180f));
         poseStack.translate(-0.5f, 0, -0.5f);
