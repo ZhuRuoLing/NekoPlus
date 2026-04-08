@@ -43,6 +43,12 @@ public class NPGuiResources {
         .setSprite(0,20,20,20)
         .setWrapMode(SpriteTexture.WrapMode.REPEAT);
 
+    public static final SpriteTexture CROSS = SpriteTexture.of(NekoPlus.location("textures/gui/cross_small.png"))
+        .setSprite(0,0,7,7);
+
+    public static final SpriteTexture DOWN_ARROW = SpriteTexture.of(NekoPlus.location("textures/gui/down_arrow.png"))
+        .setSprite(0,0,14,14);
+
     public static final Stylesheet STYLESHEET = StylesheetManager.INSTANCE.getStylesheetSafe(NekoPlus.location(StylesheetManager.PATH + "/he.lss"));
 
     public static void setupRegistration(ResourceInstance<IGuiTexture> resourceInstance) {

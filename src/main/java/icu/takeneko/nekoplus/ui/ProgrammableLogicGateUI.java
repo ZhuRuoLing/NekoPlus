@@ -1,9 +1,12 @@
 package icu.takeneko.nekoplus.ui;
 
+import com.lowdragmc.lowdraglib2.gui.sync.bindings.impl.DataBindingBuilder;
 import com.lowdragmc.lowdraglib2.gui.texture.ColorRectTexture;
+import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import com.lowdragmc.lowdraglib2.gui.ui.data.TextWrap;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.Button;
+import com.lowdragmc.lowdraglib2.gui.ui.elements.Selector;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.TextElement;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.inventory.InventorySlots;
 import com.lowdragmc.lowdraglib2.gui.util.WindowDragHelper;
@@ -14,11 +17,14 @@ import dev.vfyjxf.taffy.style.TaffyDisplay;
 import dev.vfyjxf.taffy.style.TaffyPosition;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
+import icu.takeneko.nekoplus.block.tile.logic.fpg.PinMode;
 import icu.takeneko.nekoplus.block.tile.logic.fpg.PinState;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
 import icu.takeneko.nekoplus.foundation.ui.widgets.FourDirectionBlockDisplayElement;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.List;
 
 public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEntity> {
     public ProgrammableLogicGateUI(ProgrammableLogicGateBlockEntity blockEntity) {
@@ -66,7 +72,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         UIElement root = new UIElement();
         root.style(s -> s.background(NPGuiResources.UI_BACKGROUND));
         background.addChildren(root);
-        root.layout(l -> l.marginAll(1).paddingAll(3));
+        root.layout(l -> l.marginAll(1).paddingHorizontal(3).paddingVertical(4));
 
         UIElement titleBar = new UIElement().layout(layout -> {
             layout.flexDirection(FlexDirection.ROW);
@@ -87,10 +93,36 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
                 ),
             new Button()
                 .noText()
+                .buttonStyle(s -> s.baseTexture(NPGuiResources.UI_BACKGROUND)
+                    .hoverTexture(NPGuiResources.BUTTON_HOVERED)
+                    .pressedTexture(NPGuiResources.BUTTON_PRESSED)
+                )
+                .addPostIcon(NPGuiResources.CROSS)
                 .setOnClick(e -> background.layout(l -> l.display(TaffyDisplay.NONE)))
-                .layout(l -> l.width(12).height(12).paddingAll(1))
+                .layout(l -> l.width(14).height(14))
         );
         root.addChildren(titleBar);
+
+        Selector<PinMode> pinModeSelector = new Selector<>();
+        pinModeSelector.buttonIcon.style(s -> s.background(NPGuiResources.DOWN_ARROW));
+        UIElement pinMode = horizontalLayout(
+            new TextElement()
+                .setText(Component.translatable("ui.programmable_logic_gate.pin_mode")),
+            pinModeSelector
+                .selectorStyle(s -> s.showOverlay(false).focusOverlay(IGuiTexture.EMPTY))
+                .setCandidates(List.of(PinMode.values()))
+                .bind(DataBindingBuilder.enumVal(PinMode.class, state::getMode, state::setMode).build())
+                .layout(l -> l.alignSelf(AlignItems.END).minWidthPercent(50).paddingVertical(2).justifySelf(AlignItems.END))
+                .style(s -> s.background(NPGuiResources.UI_BACKGROUND))
+        ).layout(l ->
+            l.alignItems(AlignItems.CENTER)
+                .justifyContent(AlignContent.SPACE_BETWEEN)
+                .paddingVertical(4)
+                .widthPercent(100)
+        );
+
+
+        root.addChildren(pinMode);
 
         return background;
     }

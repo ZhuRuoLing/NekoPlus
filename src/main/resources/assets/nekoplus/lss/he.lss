@@ -21,6 +21,11 @@ item-slot {
 }
 
 text {
+  adaptive-height: true;
+  adaptive-width: true;
+}
+
+text {
   text-color: #3e3e3e;
   text-shadow: false;
 }

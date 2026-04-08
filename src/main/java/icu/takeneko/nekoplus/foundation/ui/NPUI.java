@@ -6,7 +6,6 @@ import com.lowdragmc.lowdraglib2.gui.ui.UI;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.TextElement;
 import dev.vfyjxf.taffy.style.FlexDirection;
-import icu.takeneko.nekoplus.foundation.inventory.NPItemHandlerOwner;
 import icu.takeneko.nekoplus.ui.NPGuiResources;
 import lombok.Getter;
 import net.minecraft.network.chat.Component;
@@ -40,16 +39,18 @@ public class NPUI<T extends BlockEntity> extends UIElement {
         return new ModularUI(UI.of(ui, NPGuiResources.STYLESHEET), holder.player);
     }
 
-    public static UIElement layout(
+    public static UIElement div(
         UIElement... children
     ) {
         var e = new UIElement();
         e.addChildren(children);
         return e;
     }
+
+
     public static UIElement horizontalLayout(
         UIElement... children
     ) {
-        return layout(children).layout(l -> l.flexDirection(FlexDirection.ROW));
+        return div(children).layout(l -> l.flexDirection(FlexDirection.ROW));
     }
 }

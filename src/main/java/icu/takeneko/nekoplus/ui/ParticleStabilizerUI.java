@@ -36,7 +36,7 @@ public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> im
                     .bind(blockEntity.getItemHandler(), 0)
                     .addClass("bordered_slot"),
                 progressBar,
-                layout(
+                div(
                     horizontalLayout(
                         new ItemSlot()
                             .bind(blockEntity.getItemHandler(), 1),

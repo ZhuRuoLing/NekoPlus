@@ -30,6 +30,7 @@ public class NPTranslations {
         provider.add("ui.programmable_logic_gate.green", "Configure Pin: Green");
         provider.add("ui.programmable_logic_gate.blue", "Configure Pin: Blue");
         provider.add("ui.programmable_logic_gate.white", "Configure Pin: White");
+        provider.add("ui.programmable_logic_gate.pin_mode", "Pin Mode:");
 
         provider.add("evaluator.undefined_symbol", "Tried to access undefined symbol %s or its value has not been set.");
     }
