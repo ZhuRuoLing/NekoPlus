@@ -13,6 +13,12 @@ public class NPGuiResources {
     public static final SpriteTexture UI_BACKGROUND = SpriteTexture.of(NekoPlus.location("textures/gui/background.png"))
         .setSpriteSize(Size.of(16, 16))
         .setBorder(4, 4, 4, 4);
+    public static final SpriteTexture BUTTON_HOVERED = SpriteTexture.of(NekoPlus.location("textures/gui/button_hovered.png"))
+        .setSpriteSize(Size.of(16, 16))
+        .setBorder(4, 4, 4, 4);
+    public static final SpriteTexture BUTTON_PRESSED = SpriteTexture.of(NekoPlus.location("textures/gui/button_pressed.png"))
+        .setSpriteSize(Size.of(16, 16))
+        .setBorder(4, 4, 4, 4);
     public final static SpriteTexture ITEM_SLOT = SpriteTexture.of(NekoPlus.location("textures/gui/slot.png"))
         .setSpriteSize(Size.of(18, 18))
         .setBorder(1, 1, 1, 1);
