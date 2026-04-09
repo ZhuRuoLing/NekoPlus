@@ -1,5 +1,6 @@
 package icu.takeneko.nekoplus.block.tile.logic.fpg;
 
+import com.google.common.base.Strings;
 import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -8,6 +9,7 @@ import icu.takeneko.nekoplus.util.CodecUtils;
 import icu.takeneko.nekoplus.util.thirdparty.appeng.api.orientation.HorizontalFacingStrategy;
 import icu.takeneko.nekoplus.util.thirdparty.appeng.api.orientation.IOrientationStrategy;
 import icu.takeneko.nekoplus.util.thirdparty.appeng.api.orientation.RelativeSide;
+import it.unimi.dsi.fastutil.Arrays;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.ExtensionMethod;
@@ -87,6 +89,18 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
         }
     }
 
+    public String[] getPinExpression() {
+        return pinExpression.split("\n");
+    }
+
+    public void setPinExpression(String[] pinExpression) {
+        String old = this.pinExpression;
+        this.pinExpression = join(pinExpression);
+        if (!Objects.equals(old, this.pinExpression) && onContentsChanged != null) {
+            onContentsChanged.run();
+        }
+    }
+
     public void setPinExpression(String pinExpression) {
         String old = this.pinExpression;
         this.pinExpression = pinExpression;
@@ -112,6 +126,14 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
         SaveData saveData = SaveData.CODEC.decode(NbtOps.INSTANCE, compoundTag).getOrThrow().getFirst();
         this.load(saveData);
+    }
+
+    private static String join(String[] ss) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : ss) {
+            sb.append(s);
+        }
+        return sb.toString();
     }
 
     public record SaveData(

@@ -31,7 +31,7 @@ displayName = "${mod_name}" #mandatory
 
 displayURL="https://github.com/ZhuRuoLing/nekoplus" #optional
 
-logoFile="pack.png"
+logoFile="pack_cat_anvil.png"
 
 # A text field displayed in the mod UI
 authors = "${mod_authors}" #optional

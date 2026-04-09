@@ -12,7 +12,7 @@ public class NPCreativeTabs {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = DR.register(
         "tab",
         () -> CreativeModeTab.builder()
-            .title(NekoPlus.REGISTRUM.addRawLang("itemGroup.nekoplus.tab", "AnvilCraft: High Energy Anvilology"))
+            .title(NekoPlus.REGISTRUM.addRawLang("itemGroup.nekoplus.tab", "AnvilCraft: NekoPlus!"))
             .icon(NPBlocks.TARDIS.asItem()::getDefaultInstance)
             .build()
     );

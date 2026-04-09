@@ -21,6 +21,6 @@ public class ExpLanguageDefinition {
             OPERATOR,
             PAREN
         ),
-        Set.of("    ")
+        Set.of("(")
     );
 }

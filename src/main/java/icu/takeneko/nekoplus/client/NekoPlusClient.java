@@ -4,6 +4,7 @@ import com.lowdragmc.lowdraglib2.editor.resource.EditorResourceEvent;
 import com.lowdragmc.lowdraglib2.editor.resource.ResourceInstance;
 import com.lowdragmc.lowdraglib2.editor.resource.TexturesResource;
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.dubhe.anvilcraft.api.rendering.CacheableBlockEntityRenderers;
 import dev.dubhe.anvilcraft.init.block.ModBlockEntities;
 import icu.takeneko.nekoplus.NekoPlus;
@@ -16,6 +17,7 @@ import icu.takeneko.nekoplus.client.extension.NPClientRendererExtension;
 import icu.takeneko.nekoplus.client.renderer.laser.NPLaserRenderer;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.nekoplus.ui.NPGuiResources;
+import icu.takeneko.nekoplus.util.NPUIUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -54,6 +56,7 @@ public class NekoPlusClient {
         CacheableBlockEntityRenderers.register(ModBlockEntities.RUBY_PRISM.get(), NPLaserRenderer);
         CacheableBlockEntityRenderers.register(NPBlockEntities.HIGH_ENERGY_LASER.get(), NPLaserRenderer);
         ItemBlockRenderTypes.setRenderLayer(NPBlocks.PROGRAMMABLE_LOGIC_GATE.get(), ChunkRenderTypeSet.of(RenderType.cutout()));
+        RenderSystem.recordRenderCall(NPUIUtils::clientSetup);
     }
 
     @SubscribeEvent

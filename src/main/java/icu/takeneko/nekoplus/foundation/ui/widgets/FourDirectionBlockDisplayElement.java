@@ -7,6 +7,7 @@ import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvent;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvents;
 import com.lowdragmc.lowdraglib2.gui.ui.rendering.GUIContext;
+import com.lowdragmc.lowdraglib2.gui.util.UISoundUtils;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -21,11 +22,13 @@ import dev.dubhe.anvilcraft.client.init.ModShaders;
 import dev.dubhe.anvilcraft.client.support.RenderSupport;
 import dev.dubhe.anvilcraft.util.MathUtil;
 import dev.dubhe.anvilcraft.util.VertexConsumerWithPose;
+import icu.takeneko.nekoplus.block.tile.logic.fpg.PinMode;
 import icu.takeneko.nekoplus.util.ClientSupport;
 import it.unimi.dsi.fastutil.objects.Object2FloatLinkedOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -36,6 +39,9 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -49,6 +55,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
@@ -88,7 +95,10 @@ public class FourDirectionBlockDisplayElement extends UIElement {
         Vector2f position = new Vector2f(uiEvent.x, uiEvent.y);
         Optional<DirectionEntry> optional = entries.values().stream()
             .filter(it -> position.distance(it.position.x + horizontalCenter, it.position.y + verticalCenter) <= 10).findFirst();
-        optional.ifPresent(entry -> entry.callback.run());
+        optional.ifPresent(entry -> {
+            entry.callback.run();
+            UISoundUtils.playButtonClickSound();
+        });
     }
 
     public FourDirectionBlockDisplayElement block(BlockState blockState, BlockEntity blockEntity) {
@@ -102,7 +112,7 @@ public class FourDirectionBlockDisplayElement extends UIElement {
         return this;
     }
 
-    public FourDirectionBlockDisplayElement bindIOState(ColorDirection direction, @Nullable IBinding<Boolean> binding) {
+    public FourDirectionBlockDisplayElement bindIOState(ColorDirection direction, @Nullable IBinding<PinMode> binding) {
         entries.get(direction).ioState.bind(binding);
         return this;
     }
@@ -174,46 +184,25 @@ public class FourDirectionBlockDisplayElement extends UIElement {
             blockEntity.getBlockPos(),
             guiContext.mc
         );
-// test
-//        var gap = 32;
-//        var numPerLine = 19;
-//        var scale = 24f;
-//        for (int iy = 0; iy <= 45/5; iy++) {
-//            for (int ix = 0; ix <= 90 / 5; ix++) {
-//                var rotX = 90 - ix * 5;
-//                var rotY = iy * 5;
-//                float x1 = gap + ix % numPerLine * gap;
-//                float y1 = gap + iy * gap;
-//                renderRotatedBlock(
-//                    guiContext.pose.pose,
-//                    blockState,
-//                    x1,
-//                    y1,
-//                    100,
-//                    scale,
-//                    rotX,
-//                    rotY,
-//                    6 / 16f,
-//                    blockEntity.getBlockPos(),
-//                    guiContext.mc
-//                );
-//                renderRotatedBlock(
-//                    guiContext.pose.pose,
-//                    blockState,
-//                    x1,
-//                    y1,
-//                    100,
-//                    scale,
-//                    -90,
-//                    0,
-//                    6 / 16f,
-//                    blockEntity.getBlockPos(),
-//                    guiContext.mc
-//                );
-//            }
-//        }
 
         RenderSystem.enableBlend();
+
+        PoseStack poseStack = guiContext.pose.pose;
+        poseStack.pushPose();
+        poseStack.translate(horizontalCenter, verticalCenter, 0);
+
+        for (ColorDirection value : ColorDirection.values()) {
+            DirectionEntry entry = entries.get(value);
+            if (entry.ioState.mode == PinMode.DISABLE) continue;
+            boolean isOutput = entry.ioState.mode == PinMode.OUTPUT;
+            poseStack.pushPose();
+            poseStack.mulPose(Axis.ZP.rotationDegrees(-entry.rotationY));
+            poseStack.translate(0, 33f, 0);
+            renderIOState(poseStack, isOutput, value.color() | 0xff000000);
+            poseStack.popPose();
+        }
+
+        poseStack.popPose();
 
         entries.forEach((colorDirection, entry) -> {
             float rX = entry.position.x + horizontalCenter;
@@ -227,6 +216,40 @@ public class FourDirectionBlockDisplayElement extends UIElement {
                 7
             );
         });
+    }
+
+    private void renderIOState(
+        PoseStack poseStack,
+        boolean isOutput,
+        int color
+    ) {
+        Matrix4f matrix4f = poseStack.last().pose();
+        Tesselator tesselator = Tesselator.getInstance();
+        BufferBuilder bufferBuilder = tesselator.begin(
+            VertexFormat.Mode.TRIANGLES,
+            DefaultVertexFormat.POSITION_COLOR
+        );
+        if (isOutput) {
+            bufferBuilder.addVertex(matrix4f, 0, 2.5f, 10)
+                .setColor(color);
+            bufferBuilder.addVertex(matrix4f, 2.5f, -2.5f, 10)
+                .setColor(color);
+            bufferBuilder.addVertex(matrix4f, -2.5f, -2.5f, 10)
+                .setColor(color);
+        } else {
+            bufferBuilder.addVertex(matrix4f, 0, -2.5f, 10)
+                .setColor(color);
+            bufferBuilder.addVertex(matrix4f, -2.5f, 2.5f, 10)
+                .setColor(color);
+            bufferBuilder.addVertex(matrix4f, 2.5f, 2.5f, 10)
+                .setColor(color);
+        }
+
+
+        RenderSystem.enableBlend();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -377,22 +400,22 @@ public class FourDirectionBlockDisplayElement extends UIElement {
         }
     }
 
-    private static class BoundIODirectionUIStub extends UIElement implements IBindable<Boolean> {
+    private static class BoundIODirectionUIStub extends UIElement implements IBindable<PinMode> {
 
-        private boolean isOutput = false;
+        private PinMode mode = PinMode.DISABLE;
 
         @Override
-        public Boolean getValue() {
-            return isOutput;
+        public PinMode getValue() {
+            return mode;
         }
 
         @Override
-        public IDataSource<Boolean> setValue(@Nullable Boolean value) {
+        public IDataSource<PinMode> setValue(@Nullable PinMode value) {
             if (value == null) {
-                isOutput = false;
+                mode = PinMode.DISABLE;
                 return this;
             }
-            isOutput = value;
+            mode = value;
             return this;
         }
     }

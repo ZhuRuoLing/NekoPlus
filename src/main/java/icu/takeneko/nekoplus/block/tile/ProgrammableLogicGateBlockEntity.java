@@ -10,15 +10,12 @@ import icu.takeneko.nekoplus.block.tile.logic.fpg.PinMode;
 import icu.takeneko.nekoplus.block.tile.logic.fpg.PinState;
 import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
-import icu.takeneko.nekoplus.foundation.inventory.NPItemHandlerOwner;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
 import icu.takeneko.nekoplus.ui.ProgrammableLogicGateUI;
 import icu.takeneko.nekoplus.util.thirdparty.appeng.api.orientation.RelativeSide;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
