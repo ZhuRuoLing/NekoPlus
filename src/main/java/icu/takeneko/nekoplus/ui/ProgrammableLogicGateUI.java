@@ -1,11 +1,14 @@
 package icu.takeneko.nekoplus.ui;
 
+import com.lowdragmc.lowdraglib2.gui.sync.bindings.IBinding;
 import com.lowdragmc.lowdraglib2.gui.sync.bindings.IDataSource;
 import com.lowdragmc.lowdraglib2.gui.sync.bindings.impl.DataBindingBuilder;
+import com.lowdragmc.lowdraglib2.gui.sync.bindings.impl.SimpleBinding;
 import com.lowdragmc.lowdraglib2.gui.texture.ColorRectTexture;
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import com.lowdragmc.lowdraglib2.gui.ui.data.TextWrap;
+import com.lowdragmc.lowdraglib2.gui.ui.data.Tooltips;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.Button;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.Selector;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.TextArea;
@@ -152,7 +155,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         root.addChildren(titleBar);
         TextArea codeEditor = new TextArea();
         codeEditor.contentView.style(s -> s.background(IGuiTexture.EMPTY));
-        var expressionBinding = DataBindingBuilder
+        IBinding<String> expressionBinding = DataBindingBuilder
             .create(state::getPinExpression, state::setPinExpression)
             .syncType(String.class)
             .build();
@@ -169,18 +172,37 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
                 if (Objects.equals(current, value)) {
                     return this;
                 }
+                String[] lines;
                 if (value == null || value.isEmpty()) {
-                    codeEditor.setValue(new String[]{""}, false);
+                    lines = new String[]{""};
+                    codeEditor.setValue(lines, false);
                 } else {
-                    codeEditor.setValue(value.split("\n", -1), false);
+                    lines = value.split("\n", -1);
+                    codeEditor.setValue(lines, false);
                 }
+                List<Component> validationResult = PinState.validate(lines);
+                codeEditor.style(s -> {
+                    if (validationResult == null) {
+                        s.tooltips();
+                    } else {
+                        s.tooltips(validationResult.toArray(new Component[0]));
+                    }
+                });
                 return this;
             }
         });
         codeEditor.addSyncValue(expressionBinding.getSyncValue());
-        codeEditor.registerValueListener(arr ->
-            expressionBinding.getSyncValue().setValue(String.join("\n", arr))
-        );
+        codeEditor.registerValueListener(arr -> {
+            expressionBinding.getSyncValue().setValue(String.join("\n", arr));
+            List<Component> validationResult = PinState.validate(arr);
+            codeEditor.style(s -> {
+                if (validationResult == null) {
+                    s.tooltips(Tooltips.empty());
+                } else {
+                    s.tooltips(validationResult.toArray(new Component[0]));
+                }
+            });
+        });
         UIElement expression = horizontalLayout(
             new TextElement().setText(Component.translatable("ui.programmable_logic_gate.expression")),
             codeEditor

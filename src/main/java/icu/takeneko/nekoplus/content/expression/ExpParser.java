@@ -1,8 +1,11 @@
 package icu.takeneko.nekoplus.content.expression;
 
 import icu.takeneko.nekoplus.content.expression.ast.*;
+import lombok.Getter;
+import net.minecraft.network.chat.Component;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ExpParser {
 
@@ -13,11 +16,12 @@ public class ExpParser {
         this.tokens = tokens;
         this.position = 0;
     }
-    
+
     public AstNode parse() {
         AstNode node = parseExpression();
         if (!isAtEnd()) {
-            throw new ParseException("Unexpected token: " + peek());
+            ExpToken peek = peek();
+            throw new ParseException("Unexpected token: " + peek, Component.translatable("evaluator.inspection.unexpected_token", peek.lexeme()));
         }
         return node;
     }
@@ -34,7 +38,7 @@ public class ExpParser {
                 AstNode value = parseAssignment();
                 return new AssignmentAstNode(var.name(), value);
             } else {
-                throw new ParseException("Left side of assignment must be a variable");
+                throw new ParseException("Expression is not assignable", Component.translatable("evaluator.inspection.not_assignable", new AstNodePrinter().print(node)));
             }
         }
 
@@ -104,7 +108,8 @@ public class ExpParser {
             return node;
         }
 
-        throw new ParseException("Unexpected token: " + peek());
+        ExpToken peek = peek();
+        throw new ParseException("Unexpected token: " + peek, Component.translatable("evaluator.inspection.unexpected_token", peek.lexeme()));
     }
 
     private boolean match(ExpTokenType type) {
@@ -139,12 +144,17 @@ public class ExpParser {
 
     private ExpToken consume(ExpTokenType type, String message) {
         if (check(type)) return advance();
-        throw new ParseException(message + ", got: " + peek());
+        ExpToken peek = peek();
+        throw new ParseException(message + ", got: " + peek, Component.translatable("evaluator.inspection.expect_" + type.name().toLowerCase(Locale.ROOT), peek.lexeme()));
     }
-    
+
     public static class ParseException extends RuntimeException {
-        public ParseException(String message) {
+        @Getter
+        private final Component formattedMessage;
+
+        public ParseException(String message, Component formattedMessage) {
             super(message);
+            this.formattedMessage = formattedMessage;
         }
     }
 }

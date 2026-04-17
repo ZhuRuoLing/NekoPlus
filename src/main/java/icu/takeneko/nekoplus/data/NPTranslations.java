@@ -33,6 +33,12 @@ public class NPTranslations {
         provider.add("ui.programmable_logic_gate.pin_mode", "Pin Mode ");
         provider.add("ui.programmable_logic_gate.expression", "Expression ");
 
-        provider.add("evaluator.undefined_symbol", "Tried to access undefined symbol %s or its value has not been set.");
+        provider.add("evaluator.undefined_symbol", "Tried to use undeclared identifier %s or its value has not been set.");
+        provider.add("evaluator.inspection.undefined_symbol", "§c§lerror:§r use of undeclared identifier '%s' at line %s: %s <--[HERE]");
+        provider.add("evaluator.inspection.summary_pl", "%s errors generated.");
+        provider.add("evaluator.inspection.summary", "1 error generated.");
+        provider.add("evaluator.inspection.unexpected_token", "§c§lerror:§r unexpected token: ...%s <-- [HERE]");
+        provider.add("evaluator.inspection.expect_rparen", "§c§lerror:§r expected ')'");
+        provider.add("evaluator.inspection.not_assignable", "§c§lerror:§r expression is not assignable: ...%s <-- [HERE]");
     }
 }

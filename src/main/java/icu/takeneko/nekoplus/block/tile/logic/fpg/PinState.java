@@ -4,6 +4,10 @@ import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
+import icu.takeneko.nekoplus.content.expression.ExpExpressionParser;
+import icu.takeneko.nekoplus.content.expression.ExpParser;
+import icu.takeneko.nekoplus.content.expression.ast.AstNode;
+import icu.takeneko.nekoplus.content.expression.validation.ExpValidator;
 import icu.takeneko.nekoplus.util.thirdparty.appeng.api.orientation.RelativeSide;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,14 +16,21 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.ComponentUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAware {
+    public static final Set<String> PREDEFINED_SYMBOLS = Set.of("w", "r", "g", "b");
+
     @Getter
     private final String name;
     private final RelativeSide side;
@@ -85,6 +96,7 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
     public void setPinExpression(String pinExpression) {
         String old = this.pinExpression;
         this.pinExpression = pinExpression;
+        System.out.println("pinExpression = " + pinExpression);
         if (!Objects.equals(old, pinExpression) && onContentsChanged != null) {
             onContentsChanged.run();
         }
@@ -107,6 +119,23 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
         SaveData saveData = SaveData.CODEC.decode(NbtOps.INSTANCE, compoundTag).getOrThrow().getFirst();
         this.load(saveData);
+    }
+
+    public static List<Component> validate(String... expressions) {
+        Set<String> symbols = new HashSet<>(PREDEFINED_SYMBOLS);
+        ExpValidator validator = new ExpValidator(symbols);
+        for (String s : expressions) {
+            validator.nextLine(s);
+            try {
+                AstNode parsed = ExpExpressionParser.parse(s);
+                parsed.accept(validator);
+            } catch (ExpParser.ParseException pe) {
+                validator.getValidationResult().add(pe.getFormattedMessage());
+            }
+        }
+        if (validator.getValidationResult().isEmpty()) return null;
+        validator.addSummary();
+        return validator.getValidationResult();
     }
 
     public record SaveData(
