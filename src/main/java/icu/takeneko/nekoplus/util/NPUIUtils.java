@@ -1,19 +1,23 @@
 package icu.takeneko.nekoplus.util;
 
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
+import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvent;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvents;
 import com.lowdragmc.lowdraglib2.gui.ui.rendering.GUIContext;
 import com.lowdragmc.lowdraglib2.gui.util.WindowDragHelper;
 import dev.dubhe.anvilcraft.util.DistExecutor;
+import lombok.SneakyThrows;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -26,6 +30,19 @@ public class NPUIUtils {
     private static long CURSOR_RESIZE_V;
     private static long CURSOR_RESIZE_TLBR;
     private static long CURSOR_RESIZE_TRBL;
+
+    private static final MethodHandle MT_MUI_CSAL;
+
+    static {
+        MT_MUI_CSAL = getMT_ModularUI_calculateStyleAndLayout();
+    }
+
+    @SneakyThrows
+    private static MethodHandle getMT_ModularUI_calculateStyleAndLayout(){
+        Method method = ModularUI.class.getDeclaredMethod("calculateStyleAndLayout");
+        method.setAccessible(true);
+        return MethodHandles.lookup().unreflect(method);
+    }
 
     public static void clientSetup() {
         CURSOR_NORMAL = GLFW.glfwCreateStandardCursor(GLFW.GLFW_ARROW_CURSOR);
@@ -183,7 +200,7 @@ public class NPUIUtils {
     }
 
     public static long mapResizeHandle(WindowDragHelper.ResizeHandle handle) {
-        return switch (handle){
+        return switch (handle) {
             case LEFT, RIGHT -> CURSOR_RESIZE_H;
             case TOP, BOTTOM -> CURSOR_RESIZE_V;
             case TOP_LEFT, BOTTOM_RIGHT -> CURSOR_RESIZE_TLBR;
@@ -216,6 +233,16 @@ public class NPUIUtils {
         if (bottom) return WindowDragHelper.ResizeHandle.BOTTOM;
 
         return null;
+    }
+
+    @SneakyThrows
+    public static void forceReLayout(ModularUI ui) {
+        MT_MUI_CSAL.invoke(ui);
+    }
+
+    @SneakyThrows
+    public static void forceReLayout(UIElement element){
+        MT_MUI_CSAL.invoke(element.getModularUI());
     }
 
     public static void drawResizeIcon(GUIContext guiContext, UIElement element, float padding) {

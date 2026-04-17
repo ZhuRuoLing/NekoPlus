@@ -1,5 +1,6 @@
 package icu.takeneko.nekoplus.ui;
 
+import com.lowdragmc.lowdraglib2.gui.sync.bindings.IDataSource;
 import com.lowdragmc.lowdraglib2.gui.sync.bindings.impl.DataBindingBuilder;
 import com.lowdragmc.lowdraglib2.gui.texture.ColorRectTexture;
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
@@ -7,6 +8,7 @@ import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import com.lowdragmc.lowdraglib2.gui.ui.data.TextWrap;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.Button;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.Selector;
+import com.lowdragmc.lowdraglib2.gui.ui.elements.TextArea;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.TextElement;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.codeeditor.CodeEditor;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.inventory.InventorySlots;
@@ -20,39 +22,59 @@ import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
 import icu.takeneko.nekoplus.block.tile.logic.fpg.PinMode;
 import icu.takeneko.nekoplus.block.tile.logic.fpg.PinState;
-import icu.takeneko.nekoplus.content.expression.ldlib.ExpLanguageDefinition;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
 import icu.takeneko.nekoplus.foundation.ui.widgets.FourDirectionBlockDisplayElement;
 import icu.takeneko.nekoplus.util.NPUIUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 import org.joml.Vector2f;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Objects;
 
 public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEntity> {
+    private static final EnumMap<FourDirectionBlockDisplayElement.ColorDirection, WindowPosition> WINDOW_POSITION_CACHE = new EnumMap<>(FourDirectionBlockDisplayElement.ColorDirection.class);
+
     public ProgrammableLogicGateUI(ProgrammableLogicGateBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.programmable_logic_gate"));
         BlockState state = blockEntity.getBlockState();
         Direction direction = state.getValue(ProgrammableLogicGateBlock.FACING);
         int yRot = (((int) direction.toYRot() + 180) % 360) - (direction.getAxis() == Direction.Axis.X ? -180 : 0);
-        UIElement redWindow = createPinWindow(blockEntity.getPinR(), "ui.programmable_logic_gate.red", FourDirectionBlockDisplayElement.ColorDirection.RED.color());
-        UIElement greenWindow = createPinWindow(blockEntity.getPinG(), "ui.programmable_logic_gate.green", FourDirectionBlockDisplayElement.ColorDirection.GREEN.color());
-        UIElement blueWindow = createPinWindow(blockEntity.getPinB(), "ui.programmable_logic_gate.blue", FourDirectionBlockDisplayElement.ColorDirection.BLUE.color());
-        UIElement whiteWindow = createPinWindow(blockEntity.getPinW(), "ui.programmable_logic_gate.white", FourDirectionBlockDisplayElement.ColorDirection.WHITE.color());
+        UIElement redWindow = createPinWindow(blockEntity.getPinR(), "ui.programmable_logic_gate.red", FourDirectionBlockDisplayElement.ColorDirection.RED.color(), FourDirectionBlockDisplayElement.ColorDirection.RED);
+        UIElement greenWindow = createPinWindow(blockEntity.getPinG(), "ui.programmable_logic_gate.green", FourDirectionBlockDisplayElement.ColorDirection.GREEN.color(), FourDirectionBlockDisplayElement.ColorDirection.GREEN);
+        UIElement blueWindow = createPinWindow(blockEntity.getPinB(), "ui.programmable_logic_gate.blue", FourDirectionBlockDisplayElement.ColorDirection.BLUE.color(), FourDirectionBlockDisplayElement.ColorDirection.BLUE);
+        UIElement whiteWindow = createPinWindow(blockEntity.getPinW(), "ui.programmable_logic_gate.white", FourDirectionBlockDisplayElement.ColorDirection.WHITE.color(), FourDirectionBlockDisplayElement.ColorDirection.WHITE);
         addChildren(
             new FourDirectionBlockDisplayElement()
                 .block(state, blockEntity)
                 .yRot0(yRot)
-                .bindIOState(FourDirectionBlockDisplayElement.ColorDirection.RED, DataBindingBuilder.enumValS2C(PinMode.class,blockEntity.getPinR()::getMode).build())
-                .bindIOState(FourDirectionBlockDisplayElement.ColorDirection.GREEN, DataBindingBuilder.enumValS2C(PinMode.class,blockEntity.getPinG()::getMode).build())
-                .bindIOState(FourDirectionBlockDisplayElement.ColorDirection.BLUE, DataBindingBuilder.enumValS2C(PinMode.class,blockEntity.getPinB()::getMode).build())
-                .bindIOState(FourDirectionBlockDisplayElement.ColorDirection.WHITE, DataBindingBuilder.enumValS2C(PinMode.class,blockEntity.getPinW()::getMode).build())
-                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.RED, () -> redWindow.setDisplay(TaffyDisplay.DEFAULT))
-                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.GREEN, () -> greenWindow.setDisplay(TaffyDisplay.DEFAULT))
-                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.BLUE, () -> blueWindow.setDisplay(TaffyDisplay.DEFAULT))
-                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.WHITE, () -> whiteWindow.setDisplay(TaffyDisplay.DEFAULT)),
+                .bindIOState(FourDirectionBlockDisplayElement.ColorDirection.RED, DataBindingBuilder.enumValS2C(PinMode.class, blockEntity.getPinR()::getMode).build())
+                .bindIOState(FourDirectionBlockDisplayElement.ColorDirection.GREEN, DataBindingBuilder.enumValS2C(PinMode.class, blockEntity.getPinG()::getMode).build())
+                .bindIOState(FourDirectionBlockDisplayElement.ColorDirection.BLUE, DataBindingBuilder.enumValS2C(PinMode.class, blockEntity.getPinB()::getMode).build())
+                .bindIOState(FourDirectionBlockDisplayElement.ColorDirection.WHITE, DataBindingBuilder.enumValS2C(PinMode.class, blockEntity.getPinW()::getMode).build())
+                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.RED, () -> {
+                    redWindow.setDisplay(TaffyDisplay.DEFAULT);
+                    NPUIUtils.forceReLayout(this);
+                    saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.RED, redWindow, true);
+                })
+                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.GREEN, () -> {
+                    greenWindow.setDisplay(TaffyDisplay.DEFAULT);
+                    NPUIUtils.forceReLayout(this);
+                    saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.GREEN, greenWindow, true);
+                })
+                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.BLUE, () -> {
+                    blueWindow.setDisplay(TaffyDisplay.DEFAULT);
+                    NPUIUtils.forceReLayout(this);
+                    saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.BLUE, blueWindow, true);
+                })
+                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.WHITE, () -> {
+                    whiteWindow.setDisplay(TaffyDisplay.DEFAULT);
+                    NPUIUtils.forceReLayout(this);
+                    saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.WHITE, whiteWindow, true);
+                }),
             new TextElement()
                 .setText(Component.translatable("container.inventory"))
                 .textStyle(ts -> ts.adaptiveHeight(true)),
@@ -61,7 +83,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         addChildren(redWindow, greenWindow, blueWindow, whiteWindow);
     }
 
-    private UIElement createPinWindow(PinState state, String name, int color) {
+    private UIElement createPinWindow(PinState state, String name, int color, FourDirectionBlockDisplayElement.ColorDirection direction) {
         UIElement background = new UIElement() {
             @Override
             public void drawBackgroundAdditional(GUIContext guiContext) {
@@ -80,6 +102,17 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
             .paddingAll(2)
             .minWidth(140)
         );
+        // restore cached position/size/display
+        WindowPosition cached = WINDOW_POSITION_CACHE.get(direction);
+        if (cached != null && cacheValid(cached)) {
+            background.layout(l -> l
+                .left(cached.x())
+                .top(cached.y())
+                .width(cached.width())
+                .height(cached.height())
+                .display(cached.shown() ? TaffyDisplay.DEFAULT : TaffyDisplay.NONE)
+            );
+        }
         UIElement root = new UIElement();
         root.style(s -> s.background(NPGuiResources.UI_BACKGROUND));
         background.addChildren(root);
@@ -92,9 +125,8 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
             layout.gapAll(2);
         });
 
-
-        NPUIUtils.setDragMove(titleBar, background, null, null);
-        NPUIUtils.setBorderResize(background, background, 4, new Vector2f(140, 76), new Vector2f(1000, 1000), null, null, null);
+        NPUIUtils.setDragMove(titleBar, background, null, e -> saveWindowPosition(direction, background));
+        NPUIUtils.setBorderResize(background, background, 4, new Vector2f(140, 76), new Vector2f(1000, 1000), null, null, e -> saveWindowPosition(direction, background));
 
         titleBar.addChildren(
             new TextElement()
@@ -111,19 +143,48 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
                     .pressedTexture(NPGuiResources.BUTTON_PRESSED)
                 )
                 .addPostIcon(NPGuiResources.CROSS)
-                .setOnClick(e -> background.layout(l -> l.display(TaffyDisplay.NONE)))
+                .setOnClick(e -> {
+                    background.layout(l -> l.display(TaffyDisplay.NONE));
+                    updatePositionWithClosed(direction);
+                })
                 .layout(l -> l.width(14).height(14))
         );
         root.addChildren(titleBar);
-        CodeEditor codeEditor = new CodeEditor();
+        TextArea codeEditor = new TextArea();
         codeEditor.contentView.style(s -> s.background(IGuiTexture.EMPTY));
+        var expressionBinding = DataBindingBuilder
+            .create(state::getPinExpression, state::setPinExpression)
+            .syncType(String.class)
+            .build();
+        expressionBinding.setRemoteDataSource(new IDataSource<>() {
+            @Override
+            public String getValue() {
+                return String.join("\n", codeEditor.getValue());
+            }
+
+            @Override
+            public IDataSource<String> setValue(@Nullable String value) {
+                // 防止反馈循环：内容相同时跳过，避免光标被重置
+                String current = String.join("\n", codeEditor.getValue());
+                if (Objects.equals(current, value)) {
+                    return this;
+                }
+                if (value == null || value.isEmpty()) {
+                    codeEditor.setValue(new String[]{""}, false);
+                } else {
+                    codeEditor.setValue(value.split("\n", -1), false);
+                }
+                return this;
+            }
+        });
+        codeEditor.addSyncValue(expressionBinding.getSyncValue());
+        codeEditor.registerValueListener(arr ->
+            expressionBinding.getSyncValue().setValue(String.join("\n", arr))
+        );
         UIElement expression = horizontalLayout(
-            new TextElement()
-                .setText(Component.translatable("ui.programmable_logic_gate.expression")),
+            new TextElement().setText(Component.translatable("ui.programmable_logic_gate.expression")),
             codeEditor
-                .setLanguage(ExpLanguageDefinition.INSTANCE)
                 .textAreaStyle(ts -> ts.focusOverlay(IGuiTexture.EMPTY))
-                .bind(DataBindingBuilder.create(state::getPinExpression, state::setPinExpression).build())
                 .layout(l -> l.alignSelf(AlignItems.END).height(20).minHeight(20).flexGrow(1).heightPercent(100).paddingVertical(2).justifySelf(AlignItems.END))
                 .style(s -> s.background(NPGuiResources.UI_BACKGROUND))
         ).layout(l ->
@@ -136,6 +197,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         ).setDisplay(state.getMode() == PinMode.OUTPUT);
         Selector<PinMode> pinModeSelector = new Selector<>();
         pinModeSelector.buttonIcon.style(s -> s.background(NPGuiResources.DOWN_ARROW));
+        pinModeSelector.bind(DataBindingBuilder.enumVal(PinMode.class, state::getMode, state::setMode).build());
         UIElement pinMode = horizontalLayout(
             new TextElement()
                 .setText(Component.translatable("ui.programmable_logic_gate.pin_mode")),
@@ -143,7 +205,6 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
                 .selectorStyle(s -> s.showOverlay(false).focusOverlay(IGuiTexture.EMPTY))
                 .setCandidates(List.of(PinMode.values()))
                 .setOnValueChanged(pm -> expression.setDisplay(pm == PinMode.OUTPUT))
-                .bind(DataBindingBuilder.enumVal(PinMode.class, state::getMode, state::setMode).build())
                 .layout(l -> l.alignSelf(AlignItems.END).minWidthPercent(50).paddingVertical(2).justifySelf(AlignItems.END))
                 .style(s -> s.background(NPGuiResources.UI_BACKGROUND))
         ).layout(l ->
@@ -155,5 +216,51 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         root.addChildren(pinMode);
         root.addChildren(expression);
         return background;
+    }
+
+    private static boolean cacheValid(WindowPosition cached) {
+        return cached.x != 0
+            && cached.y != 0
+            && cached.width != 0
+            && cached.height != 0;
+    }
+
+    private void saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection direction, UIElement background) {
+        saveWindowPosition(direction, background, background.isDisplayed());
+    }
+
+    private void updatePositionWithClosed(FourDirectionBlockDisplayElement.ColorDirection direction) {
+        WindowPosition windowPosition = WINDOW_POSITION_CACHE.get(direction);
+        if (windowPosition == null || !cacheValid(windowPosition)) return;
+        WINDOW_POSITION_CACHE.put(
+            direction,
+            new WindowPosition(
+                windowPosition.x,
+                windowPosition.y,
+                windowPosition.width,
+                windowPosition.height,
+                false
+            )
+        );
+    }
+
+    private void saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection direction, UIElement background, boolean displayed) {
+        WindowPosition value = new WindowPosition(
+            (int) background.getLayoutX(),
+            (int) background.getLayoutY(),
+            (int) background.getSizeWidth(),
+            (int) background.getSizeHeight(),
+            displayed
+        );
+        WINDOW_POSITION_CACHE.put(direction, value);
+    }
+
+    private record WindowPosition(
+        int x,
+        int y,
+        int width,
+        int height,
+        boolean shown
+    ) {
     }
 }

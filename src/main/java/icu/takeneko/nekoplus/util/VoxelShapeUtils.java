@@ -1,6 +1,6 @@
 /*
  * https://github.com/mekanism/Mekanism/blob/1.21.x/src/main/java/mekanism/common/util/VoxelShapeUtils.java
- * Original License: MIT
+ * SPDX-License-Identifier: MIT
  */
 package icu.takeneko.nekoplus.util;
 
