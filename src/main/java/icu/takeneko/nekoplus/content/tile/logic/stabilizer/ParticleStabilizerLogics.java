@@ -1,0 +1,90 @@
+package icu.takeneko.nekoplus.content.tile.logic.stabilizer;
+
+import dev.dubhe.anvilcraft.api.event.AnvilEvent;
+import icu.takeneko.nekoplus.all.NPItems;
+import icu.takeneko.nekoplus.all.NPRecipeTypes;
+import icu.takeneko.nekoplus.foundation.recipes.SingleRecipeInput;
+import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
+import icu.takeneko.nekoplus.util.ContainerUtil;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
+
+import java.util.Objects;
+import java.util.Optional;
+
+public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
+    GAS_COLLECTOR {
+        @Override
+        public boolean isValidTriggerItem(ItemStack stack) {
+            return stack.is(NPItems.AIR_FILTER);
+        }
+
+        @Override
+        public boolean tryTrigger(ParticleStabilizerLogicHost host) {
+            return isValidTriggerItem(host.getTriggerItem());
+        }
+
+        @Override
+        public void tick(ParticleStabilizerLogicHost host) {
+            Holder<DimensionType> holder = host.getLevel().dimensionTypeRegistration();
+            AirCondensingRecipe currentRecipe = host.getCurrentRecipe();
+            if (currentRecipe == null || Objects.equals(currentRecipe.getDimension().getKey(), holder.getKey())) {
+                Optional<RecipeHolder<AirCondensingRecipe>> recipe = ServerLifecycleHooks.getCurrentServer().getRecipeManager()
+                    .getRecipeFor(
+                        NPRecipeTypes.AIR_CONDENSING,
+                        SingleRecipeInput.of(holder.value()),
+                        host.getLevel()
+                    );
+                if (recipe.isPresent()) {
+                    host.setCurrentRecipe(recipe.get().value());
+                    host.setMaxProgress(recipe.get().value().getTicks());
+                    currentRecipe = recipe.get().value();
+                } else {
+                    host.setProgress(0);
+                    host.setMaxProgress(1);
+                    host.setCurrentRecipe(null);
+                    currentRecipe = null;
+                }
+            }
+            if (currentRecipe != null) {
+
+                int currentProgress = host.getProgress();
+                if (currentProgress + 1 > currentRecipe.getTicks()) {
+                    currentProgress = 0;
+                    LootContext context = new LootContext.Builder(
+                        new LootParams.Builder((ServerLevel) host.getLevel())
+                            .create(LootContextParamSet.builder().build())
+                    ).create(Optional.empty());
+                    float v = currentRecipe.getProbability().getFloat(context);
+                    if (host.getLevel().random.nextFloat() < v) {
+                        for (ItemStack result : currentRecipe.getResults()) {
+                            ContainerUtil.insertItem(host.getOutputItemHandler(), result.copy());
+                        }
+                    }
+                } else {
+                    currentProgress++;
+                }
+                host.setProgress(currentProgress);
+            }
+        }
+
+        @Override
+        public boolean handleCollision(ParticleStabilizerLogicHost host, FallingBlockEntity entity, double speed, AnvilEvent.CollisionBlock event) {
+            return false;
+        }
+
+        @Override
+        public void deactivate(ParticleStabilizerLogicHost host) {
+            host.setProgress(0);
+            host.setCurrentRecipe(null);
+        }
+    };
+}

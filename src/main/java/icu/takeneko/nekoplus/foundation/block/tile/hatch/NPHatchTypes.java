@@ -1,9 +1,9 @@
 package icu.takeneko.nekoplus.foundation.block.tile.hatch;
 
 import icu.takeneko.nekoplus.all.NPBlockEntities;
-import icu.takeneko.nekoplus.block.tile.logic.hatch.EnergyHatchLogic;
+import icu.takeneko.nekoplus.content.tile.logic.hatch.EnergyHatchLogic;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.logic.HatchLogic;
-import icu.takeneko.nekoplus.block.tile.logic.hatch.ItemHatchLogic;
+import icu.takeneko.nekoplus.content.tile.logic.hatch.ItemHatchLogic;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
