@@ -4,6 +4,7 @@ import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
+import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.ExpEvaluationContext;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.ExpExpressionParser;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.ExpParser;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.ast.AstNode;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -38,15 +40,16 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
     @Getter
     private PinMode mode = PinMode.DISABLE;
 
-    @Getter
     private boolean state = false;
-
+    private boolean dirty = true;
     @Getter
     private String pinExpression = "";
 
     @Getter
     @Setter
     private Runnable onContentsChanged;
+
+    private EvaluationCache cache = new EvaluationCache();
 
     public PinState(String name, PinMode mode, RelativeSide side) {
         this.name = name;
@@ -60,15 +63,19 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
         this.pinExpression = data.pinExpr;
     }
 
-    public BlockState update(Level level, BlockPos pos, BlockState blockState) {
+    public BlockState update(Level level, BlockPos pos, BlockState blockState, ExpEvaluationContext context) {
         if (mode == PinMode.DISABLE) return blockState;
-        if (boundProperty == null) throw new IllegalStateException("No bind state specified for pin " + name);
+        if (boundProperty == null) {
+            throw new IllegalStateException("No bind state specified for pin " + name);
+        }
         if (mode == PinMode.INPUT) {
             Direction direction = ProgrammableLogicGateBlock.ORIENTATION_STRATEGY.getSide(blockState, side);
             this.state = level.getSignal(pos.relative(direction), direction.getOpposite()) > 0;
             return blockState.setValue(boundProperty, this.state);
         }
-        if (mode != PinMode.OUTPUT) return blockState;
+        if (mode == PinMode.OUTPUT) {
+            this.state = evaluatePin(context);
+        }
         return blockState.setValue(boundProperty, this.state);
     }
 
@@ -88,6 +95,9 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
         PinMode old = this.mode;
         this.mode = mode;
         if (old != mode && onContentsChanged != null) {
+            if (this.mode == PinMode.OUTPUT) {
+                this.dirty = true;
+            }
             onContentsChanged.run();
         }
     }
@@ -95,8 +105,8 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
     public void setPinExpression(String pinExpression) {
         String old = this.pinExpression;
         this.pinExpression = pinExpression;
-        System.out.println("pinExpression = " + pinExpression);
         if (!Objects.equals(old, pinExpression) && onContentsChanged != null) {
+            dirty = true;
             onContentsChanged.run();
         }
     }
@@ -120,6 +130,20 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
         this.load(saveData);
     }
 
+    public boolean evaluatePin(ExpEvaluationContext context) {
+        if (dirty) {
+            String[] strings = this.pinExpression.split("\n");
+            List<AstNode> nodes = new ArrayList<>();
+            for (String string : strings) {
+                AstNode parsed = ExpExpressionParser.parse(string);
+                nodes.add(parsed);
+            }
+            cache.rebuild(context, nodes, name);
+            this.dirty = false;
+        }
+        return cache.getResult(context);
+    }
+
     public static List<Component> validate(String... expressions) {
         Set<String> symbols = new HashSet<>(PREDEFINED_SYMBOLS);
         ExpValidator validator = new ExpValidator(symbols);
@@ -135,6 +159,18 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
         if (validator.getValidationResult().isEmpty()) return null;
         validator.addSummary();
         return validator.getValidationResult();
+    }
+
+    public boolean getState() {
+        return state;
+    }
+
+    public void updateContext(ExpEvaluationContext context) {
+        if (this.mode == PinMode.INPUT) {
+            context.put(name, state);
+            return;
+        }
+        context.put(name, false);
     }
 
     public record SaveData(

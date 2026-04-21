@@ -8,6 +8,7 @@ import dev.dubhe.anvilcraft.api.item.IDiskCloneable;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.PinMode;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.PinState;
+import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.ExpEvaluationContext;
 import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
@@ -63,10 +64,15 @@ public class ProgrammableLogicGateBlockEntity
     public void updatePins() {
         BlockPos blockPos = getBlockPos();
         BlockState blockState = level.getBlockState(blockPos);
-        blockState = pinR.update(level, blockPos, blockState);
-        blockState = pinG.update(level, blockPos, blockState);
-        blockState = pinB.update(level, blockPos, blockState);
-        blockState = pinW.update(level, blockPos, blockState);
+        ExpEvaluationContext context = new ExpEvaluationContext();
+        pinR.updateContext(context);
+        pinG.updateContext(context);
+        pinB.updateContext(context);
+        pinW.updateContext(context);
+        blockState = pinR.update(level, blockPos, blockState, context);
+        blockState = pinG.update(level, blockPos, blockState, context);
+        blockState = pinB.update(level, blockPos, blockState, context);
+        blockState = pinW.update(level, blockPos, blockState, context);
         level.setBlockAndUpdate(blockPos, blockState);
     }
 

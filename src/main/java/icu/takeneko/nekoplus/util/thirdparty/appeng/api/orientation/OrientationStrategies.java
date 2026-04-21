@@ -10,7 +10,7 @@ public final class OrientationStrategies {
     private static final IOrientationStrategy horizontalFacing = new HorizontalFacingStrategy();
     private static final IOrientationStrategy facing = new FacingStrategy(BlockStateProperties.FACING);
     private static final IOrientationStrategy facingNoPlayerRotation = new FacingStrategy(BlockStateProperties.FACING, false);
-    //private static final IOrientationStrategy full = new FacingWithSpinStrategy();
+    private static final IOrientationStrategy full = new FacingWithSpinStrategy();
 
     /**
      * The blocks orientation cannot be changed.

@@ -8,6 +8,7 @@ import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvents;
 import com.lowdragmc.lowdraglib2.gui.ui.rendering.GUIContext;
 import com.lowdragmc.lowdraglib2.gui.util.WindowDragHelper;
 import dev.dubhe.anvilcraft.util.DistExecutor;
+import icu.takeneko.nekoplus.foundation.ui.widgets.ResizeAwareUIElement;
 import lombok.SneakyThrows;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -38,7 +39,7 @@ public class NPUIUtils {
     }
 
     @SneakyThrows
-    private static MethodHandle getMT_ModularUI_calculateStyleAndLayout(){
+    private static MethodHandle getMT_ModularUI_calculateStyleAndLayout() {
         Method method = ModularUI.class.getDeclaredMethod("calculateStyleAndLayout");
         method.setAccessible(true);
         return MethodHandles.lookup().unreflect(method);
@@ -85,14 +86,16 @@ public class NPUIUtils {
         });
     }
 
-    public static void setBorderResize(UIElement element,
-                                       UIElement target,
-                                       float border,
-                                       Vector2f minSize,
-                                       Vector2f maxSize,
-                                       @Nullable Predicate<UIEvent> resizePredicate,
-                                       @Nullable BiPredicate<UIEvent, WindowDragHelper.DragResize> dragResizePredicate,
-                                       @Nullable Consumer<UIEvent> onFinish) {
+    public static void setBorderResize(
+        UIElement element,
+        UIElement target,
+        float border,
+        Vector2f minSize,
+        Vector2f maxSize,
+        @Nullable Predicate<UIEvent> resizePredicate,
+        @Nullable BiPredicate<UIEvent, WindowDragHelper.DragResize> dragResizePredicate,
+        @Nullable Consumer<UIEvent> onFinish
+    ) {
         element.addEventListener(UIEvents.MOUSE_DOWN, e -> {
             if (resizePredicate != null && !resizePredicate.test(e)) return;
             var handle = detectResizeHandle(element, e.x, e.y, border);
@@ -236,17 +239,23 @@ public class NPUIUtils {
     }
 
     @SneakyThrows
-    public static void forceReLayout(ModularUI ui) {
+    public static void forceRelayout(ModularUI ui) {
         MT_MUI_CSAL.invoke(ui);
     }
 
     @SneakyThrows
-    public static void forceReLayout(UIElement element){
+    public static void forceRelayout(UIElement element) {
         MT_MUI_CSAL.invoke(element.getModularUI());
     }
 
-    public static void drawResizeIcon(GUIContext guiContext, UIElement element, float padding) {
-        var handle = WindowDragHelper.detectResizeHandle(element, guiContext.mouseX, guiContext.mouseY, padding);
+    public static void drawResizeIcon(GUIContext guiContext, float padding, ResizeAwareUIElement... elements) {
+        WindowDragHelper.ResizeHandle handle = null;
+        for (ResizeAwareUIElement element : elements) {
+            if (handle == null && (element.isSelfOrChildHover() || element.isResizing())) {
+                handle = detectResizeHandle(element, guiContext.mouseX, guiContext.mouseY, padding);
+            }
+        }
+
         if (handle == null) {
             setCursor(CURSOR_NORMAL);
             return;

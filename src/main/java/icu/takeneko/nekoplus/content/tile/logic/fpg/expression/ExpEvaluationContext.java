@@ -2,7 +2,9 @@ package icu.takeneko.nekoplus.content.tile.logic.fpg.expression;
 
 import net.minecraft.network.chat.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ExpEvaluationContext {
@@ -19,12 +21,18 @@ public class ExpEvaluationContext {
         return value.asBoolean();
     }
 
-    public void put(String key, boolean value) {
-        values.put(key, value ? TriBoolean.TRUE : TriBoolean.FALSE);
+    public List<String> getInputKeys() {
+        return new ArrayList<>(values.keySet());
     }
 
-    public void putUndefined(String key) {
+    public ExpEvaluationContext put(String key, boolean value) {
+        values.put(key, value ? TriBoolean.TRUE : TriBoolean.FALSE);
+        return this;
+    }
+
+    public ExpEvaluationContext putUndefined(String key) {
         values.put(key, TriBoolean.UNDEFINED);
+        return this;
     }
 
     enum TriBoolean {
