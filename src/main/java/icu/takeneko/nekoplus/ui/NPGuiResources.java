@@ -13,6 +13,9 @@ public class NPGuiResources {
     public static final SpriteTexture UI_BACKGROUND = SpriteTexture.of(NekoPlus.location("textures/gui/background.png"))
         .setSpriteSize(Size.of(16, 16))
         .setBorder(4, 4, 4, 4);
+    public static final SpriteTexture TEXT_AREA_BACKGROUND = SpriteTexture.of(NekoPlus.location("textures/gui/text_area_background.png"))
+        .setSpriteSize(Size.of(16, 16))
+        .setBorder(4, 4, 4, 4);
     public static final SpriteTexture BUTTON_HOVERED = SpriteTexture.of(NekoPlus.location("textures/gui/button_hovered.png"))
         .setSpriteSize(Size.of(16, 16))
         .setBorder(4, 4, 4, 4);

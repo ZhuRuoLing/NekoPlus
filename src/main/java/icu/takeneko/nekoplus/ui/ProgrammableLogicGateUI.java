@@ -251,7 +251,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
                         .heightPercent(100)
                         .paddingVertical(2)
                         .justifySelf(AlignItems.END)
-                ).style(s -> s.background(NPGuiResources.UI_BACKGROUND))
+                ).style(s -> s.background(NPGuiResources.TEXT_AREA_BACKGROUND))
         ).layout(l ->
             l.alignItems(AlignItems.CENTER)
                 .justifyContent(AlignContent.SPACE_BETWEEN)
