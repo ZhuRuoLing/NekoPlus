@@ -16,7 +16,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -26,7 +26,7 @@ public class NPJeiPlugin implements IModPlugin {
     public static final RecipeType<RecipeHolder<LaserEtchingRecipe>> LASER_ETCHING_TYPE = createRecipeHolderType("laser_etching");
 
     @Override
-    public ResourceLocation getPluginUid() {
+    public Identifier getPluginUid() {
         return NekoPlus.location("jei");
     }
 

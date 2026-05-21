@@ -1,17 +1,16 @@
 package icu.takeneko.nekoplus.mixin.anvilcraft;
 
-import dev.dubhe.anvilcraft.block.ChargerBlock;
 import dev.dubhe.anvilcraft.block.entity.ChargerBlockEntity;
+import dev.dubhe.anvilcraft.block.power.generator.ChargerBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.internal.ChargerBlockEntityInternals;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -27,7 +26,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @SuppressWarnings({"AddedMixinMembersNamePattern", "OverwriteAuthorRequired"})
 @Mixin(ChargerBlockEntity.class)
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPOverclockablePowerConsumer, ChargerBlockEntityInternals.Extension {
 
@@ -70,20 +68,22 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
         this.timeLeft = Math.clamp(timeLeft, 0, Integer.MAX_VALUE);
     }
 
+
+
     @Inject(
         method = "saveAdditional",
         at = @At("HEAD")
     )
-    void saveNP(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo ci){
-        tag.putBoolean("OCEnabled", np$ocEnabled);
+    void saveNP(ValueOutput output, CallbackInfo ci){
+        output.putBoolean("oc_enabled", np$ocEnabled);
     }
 
     @Inject(
         method = "loadAdditional",
         at = @At("HEAD")
     )
-    void loadNP(CompoundTag tag, HolderLookup.Provider provider, CallbackInfo ci){
-        this.np$ocEnabled = tag.getBoolean("OCEnabled");
+    void loadNP(ValueInput input, CallbackInfo ci){
+        this.np$ocEnabled = input.getBooleanOr("oc_enabled", false);
     }
 
     @Override

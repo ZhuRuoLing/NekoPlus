@@ -2,7 +2,7 @@ package icu.takeneko.nekoplus.all;
 
 import icu.takeneko.nekoplus.NekoPlus;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -20,14 +20,14 @@ public class NPTags {
         public static @NotNull TagKey<Block> c(String id) {
             return TagKey.create(
                     Registries.BLOCK,
-                    ResourceLocation.fromNamespaceAndPath("c", id)
+                    Identifier.fromNamespaceAndPath("c", id)
             );
         }
 
         public static @NotNull TagKey<Block> he(String id) {
             return TagKey.create(
                 Registries.BLOCK,
-                ResourceLocation.fromNamespaceAndPath(NekoPlus.MODID, id)
+                Identifier.fromNamespaceAndPath(NekoPlus.MODID, id)
             );
         }
 
@@ -51,7 +51,7 @@ public class NPTags {
         public static @NotNull TagKey<Item> c(String id) {
             return TagKey.create(
                     Registries.ITEM,
-                    ResourceLocation.fromNamespaceAndPath("c", id)
+                    Identifier.fromNamespaceAndPath("c", id)
             );
         }
 

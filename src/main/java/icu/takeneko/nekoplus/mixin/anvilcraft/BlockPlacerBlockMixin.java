@@ -2,8 +2,8 @@ package icu.takeneko.nekoplus.mixin.anvilcraft;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.dubhe.anvilcraft.block.BlockPlacerBlock;
 import dev.dubhe.anvilcraft.block.state.Orientation;
+import dev.dubhe.anvilcraft.block.utility.BlockPlacerBlock;
 import icu.takeneko.nekoplus.internal.BlockPlacerBlockInternals;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;

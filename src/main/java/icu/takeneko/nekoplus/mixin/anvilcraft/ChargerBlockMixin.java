@@ -1,13 +1,14 @@
 package icu.takeneko.nekoplus.mixin.anvilcraft;
 
-import dev.dubhe.anvilcraft.block.ChargerBlock;
+import dev.dubhe.anvilcraft.block.power.generator.ChargerBlock;
+import dev.dubhe.anvilcraft.util.Util;
 import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.internal.ChargerBlockEntityInternals;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -30,17 +31,17 @@ public class ChargerBlockMixin {
         Player player,
         InteractionHand hand,
         BlockHitResult hit,
-        CallbackInfoReturnable<ItemInteractionResult> cir
+        CallbackInfoReturnable<InteractionResult> cir
     ) {
         if (stack.is(NPItems.CHARGED_LEVITATION_POWDER)) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS);
-                cir.setReturnValue(ItemInteractionResult.sidedSuccess(true));
+                cir.setReturnValue(Util.sidedSuccess(level));
                 return;
             }
             if (!(level.getBlockEntity(pos) instanceof ChargerBlockEntityInternals.Extension extension)) return;
             extension.toggleOverclock();
-            cir.setReturnValue(ItemInteractionResult.CONSUME);
+            cir.setReturnValue(InteractionResult.CONSUME);
             cir.cancel();
         }
     }

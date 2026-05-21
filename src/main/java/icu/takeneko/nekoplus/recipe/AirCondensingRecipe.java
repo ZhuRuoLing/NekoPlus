@@ -18,7 +18,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -128,7 +128,7 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
         return NPRecipeTypes.AIR_CONDENSING;
     }
 
-    public void save(ResourceLocation id, RegistrumRecipeProvider output) {
+    public void save(Identifier id, RegistrumRecipeProvider output) {
         Advancement.Builder builder = output.advancement()
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
             .rewards(AdvancementRewards.Builder.recipe(id))

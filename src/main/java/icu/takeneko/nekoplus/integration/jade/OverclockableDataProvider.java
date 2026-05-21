@@ -5,7 +5,7 @@ import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -15,7 +15,7 @@ import snownee.jade.api.ui.BoxStyle;
 import snownee.jade.api.ui.IElementHelper;
 
 public class OverclockableDataProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
-    public static final ResourceLocation ID = NekoPlus.location("overclockable");
+    public static final Identifier ID = NekoPlus.location("overclockable");
     private static final BoxStyle.GradientBorder STYLE = BoxStyle.GradientBorder.TRANSPARENT.clone();
     public static final OverclockableDataProvider INSTANCE = new OverclockableDataProvider();
 
@@ -52,7 +52,7 @@ public class OverclockableDataProvider implements IBlockComponentProvider, IServ
     }
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 

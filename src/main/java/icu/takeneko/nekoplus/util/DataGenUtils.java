@@ -4,7 +4,7 @@ import dev.anvilcraft.lib.v2.registrum.providers.DataGenContext;
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumBlockstateProvider;
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumItemModelProvider;
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
@@ -32,7 +32,7 @@ public class DataGenUtils {
         RegistrumItemModelProvider prov
     ) {
         prov.getBuilder(ctx.getName())
-            .parent(new ModelFile.UncheckedModelFile(ResourceLocation.withDefaultNamespace("builtin/entity")))
+            .parent(new ModelFile.UncheckedModelFile(Identifier.withDefaultNamespace("builtin/entity")))
             .transforms()
             .transform(ItemDisplayContext.GUI).rotation(15, -30, 0).translation(0, 0, 0).scale(0.625f, 0.625f, 0.625f).end()
             .transform(ItemDisplayContext.GROUND).rotation(0, 2, 0).translation(0, 3, 0).scale(0.5f, 0.5f, 0.5f).end()

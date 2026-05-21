@@ -109,5 +109,8 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
         return !getPoweredState() && !isOverload();
     }
 
-
+    @Override
+    public int getLaserColor() {
+        return 0xff8000ff;
+    }
 }

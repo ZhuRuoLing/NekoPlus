@@ -5,7 +5,7 @@ import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import snownee.jade.api.BlockAccessor;
 import snownee.jade.api.IBlockComponentProvider;
 import snownee.jade.api.IServerDataProvider;
@@ -14,10 +14,10 @@ import snownee.jade.api.config.IPluginConfig;
 
 public class ParticleStabilizerDataProvider implements IBlockComponentProvider, IServerDataProvider<BlockAccessor> {
     public static final ParticleStabilizerDataProvider INSTANCE = new ParticleStabilizerDataProvider();
-    public static final ResourceLocation ID = NekoPlus.location("particle_stabilizer");
+    public static final Identifier ID = NekoPlus.location("particle_stabilizer");
 
     @Override
-    public ResourceLocation getUid() {
+    public Identifier getUid() {
         return ID;
     }
 

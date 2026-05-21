@@ -2,7 +2,7 @@ package icu.takeneko.nekoplus.all;
 
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
-import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockRenderer;
+import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockEntityRenderer;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
@@ -48,7 +48,7 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<HighEnergyLaserBlockEntity> HIGH_ENERGY_LASER = NekoPlus.REGISTRUM
         .blockEntity("high_energy_laser", HighEnergyLaserBlockEntity::new)
         .validBlock(NPBlocks.HIGH_ENERGY_LASER)
-        .renderer(() -> LaserBlockRenderer::new)
+        .renderer(() -> LaserBlockEntityRenderer::new)
         .register();
 
     public static final BlockEntityEntry<StampingPlatformBlockEntity> STAMPING_PLATFORM = NekoPlus.REGISTRUM

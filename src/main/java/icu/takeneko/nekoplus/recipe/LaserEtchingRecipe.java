@@ -13,7 +13,7 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -70,7 +70,7 @@ public record LaserEtchingRecipe(Ingredient input, ChanceItemStack output) imple
         return NPRecipeTypes.LASER_ETCHING;
     }
 
-    public void save(ResourceLocation id, RegistrumRecipeProvider output) {
+    public void save(Identifier id, RegistrumRecipeProvider output) {
         Advancement.Builder builder = output.advancement()
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
             .rewards(AdvancementRewards.Builder.recipe(id))

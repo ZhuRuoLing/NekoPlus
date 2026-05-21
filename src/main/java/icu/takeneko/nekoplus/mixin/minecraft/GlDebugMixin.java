@@ -3,7 +3,7 @@ package icu.takeneko.nekoplus.mixin.minecraft;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.blaze3d.platform.GlDebug;
+import com.mojang.blaze3d.opengl.GlDebug;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

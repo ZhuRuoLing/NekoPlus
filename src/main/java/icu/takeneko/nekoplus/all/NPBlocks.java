@@ -25,7 +25,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
@@ -82,7 +82,7 @@ public class NPBlocks {
                 .forAllStates(blockState -> {
                     boolean isOverload = blockState.getValue(ParticleStabilizerBlock.OVERLOAD);
                     boolean isCooling = blockState.getValue(ParticleStabilizerBlock.COOLING);
-                    ResourceLocation texture;
+                    Identifier texture;
                     if (isOverload) {
                         texture = NekoPlus.location("block/particle_stabilizer_overload");
                     } else {
@@ -132,9 +132,9 @@ public class NPBlocks {
         .block("high_energy_laser", HighEnergyLaserBlock::new)
         .blockstate((ctx, prov) -> {
             // "3": "nekoplus:block/high_energy_laser",
-            ResourceLocation textureOff = NekoPlus.location("block/high_energy_laser_off");
-            ResourceLocation textureOverload = NekoPlus.location("block/high_energy_laser_overload");
-            ResourceLocation texture = NekoPlus.location("block/high_energy_laser");
+            Identifier textureOff = NekoPlus.location("block/high_energy_laser_off");
+            Identifier textureOverload = NekoPlus.location("block/high_energy_laser_overload");
+            Identifier texture = NekoPlus.location("block/high_energy_laser");
             BlockModelBuilder modelOff = prov.models().withExistingParent(ctx.getName() + "_off", NekoPlus.location("block/high_energy_laser_base"))
                 .texture("3", textureOff);
             BlockModelBuilder modelOverload = prov.models().withExistingParent(ctx.getName() + "_overload", NekoPlus.location("block/high_energy_laser_base"))
