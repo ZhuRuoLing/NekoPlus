@@ -57,10 +57,6 @@ public class ProgrammableLogicGateBlockEntity
         return NPUI.of(new ProgrammableLogicGateUI(this), holder);
     }
 
-    public void gatherState() {
-
-    }
-
     public void updatePins() {
         BlockPos blockPos = getBlockPos();
         BlockState blockState = level.getBlockState(blockPos);
