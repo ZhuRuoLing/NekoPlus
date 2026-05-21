@@ -4,6 +4,7 @@ import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
+import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.EvaluationException;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.ExpEvaluationContext;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.ExpExpressionParser;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.expression.ExpParser;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.neoforged.neoforge.common.util.INBTSerializable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,7 +40,7 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
     private BooleanProperty boundProperty;
 
     @Getter
-    private PinMode mode = PinMode.DISABLE;
+    private PinMode mode;
 
     private boolean state = false;
     private boolean dirty = true;
@@ -48,6 +50,10 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
     @Getter
     @Setter
     private Runnable onContentsChanged;
+
+    @Getter
+    @Nullable
+    private Component serverError = null;
 
     private EvaluationCache cache = new EvaluationCache();
 
@@ -74,7 +80,16 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
             return blockState.setValue(boundProperty, this.state);
         }
         if (mode == PinMode.OUTPUT) {
-            this.state = evaluatePin(context);
+            try {
+                this.state = evaluatePin(context);
+                this.serverError = null;
+            } catch (ExpParser.ParseException e) {
+                this.serverError = e.getFormattedMessage();
+                this.state = false;
+            } catch (EvaluationException e) {
+                this.serverError = e.getPrettyMessage();
+                this.state = false;
+            }
         }
         return blockState.setValue(boundProperty, this.state);
     }
