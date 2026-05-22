@@ -10,10 +10,13 @@
     "anvilcraft.GiantAnvilShockEventListenerMixin",
     "anvilcraft.LaserEmitPacketMixin",
     "anvilcraft.PowerGridMixin",
+    "anvilcraft.RubyPrismBlockEntityMixin",
     "anvilcraft.ServerBlockEntityEventListenerMixin",
     "anvilcraft.StampingPlatformMixin"
   ],
   "client": [
+    "anvilcraft.LaserCompilerMixin",
+    "anvilcraft.LaserRenderStateMixin",
     "minecraft.GlDebugMixin"
   ],
   "injectors": {

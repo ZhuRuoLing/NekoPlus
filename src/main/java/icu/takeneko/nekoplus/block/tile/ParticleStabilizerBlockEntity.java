@@ -102,7 +102,7 @@ public class ParticleStabilizerBlockEntity
     @RequireRerender
     private boolean isWorking;
 
-    @OnlyIn(Dist.CLIENT)
+    // @OnlyIn(Dist.CLIENT)
     private LoopingBlockSoundInstance soundInstance;
 
     private final ParticleStabilizerLogic logic = new ParticleStabilizerLogic.Impl();
@@ -140,7 +140,7 @@ public class ParticleStabilizerBlockEntity
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
+    // @OnlyIn(Dist.CLIENT)
     public void scheduleRenderUpdate() {
         super.scheduleRenderUpdate();
         if ((isWorking || this.state == State.COOLING) && !isOverload) {

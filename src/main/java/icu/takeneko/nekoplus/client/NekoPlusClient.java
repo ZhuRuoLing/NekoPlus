@@ -5,7 +5,10 @@ import com.lowdragmc.lowdraglib2.editor.resource.ResourceInstance;
 import com.lowdragmc.lowdraglib2.editor.resource.TexturesResource;
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElementRendererRegistry;
+import dev.anvilcraft.lib.v2.rendering.cachedber.renderer.CachedBlockEntityRenderDispatcher;
+import dev.dubhe.anvilcraft.client.renderer.laser.CachedLaserBlockEntityRenderer;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPHammerTooltipProviders;
 import icu.takeneko.nekoplus.client.extension.NPClientExtension;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
@@ -44,10 +47,13 @@ public class NekoPlusClient {
     @SubscribeEvent
     public static void on(FMLClientSetupEvent event) {
         RenderThreadSupport.recordRenderCall(NPUIUtils::clientSetup);
-        event.enqueueWork(() -> UIElementRendererRegistry.register(
-            FourDirectionBlockDisplayElement.class,
-            new FourDirectionBlockDisplayElementRenderer()
-        ));
+        event.enqueueWork(() -> {
+            UIElementRendererRegistry.register(
+                FourDirectionBlockDisplayElement.class,
+                new FourDirectionBlockDisplayElementRenderer()
+            );
+            CachedBlockEntityRenderDispatcher.INSTANCE.registerRenderer(NPBlockEntities.HIGH_ENERGY_LASER, new CachedLaserBlockEntityRenderer<>());
+        });
     }
 
     @SubscribeEvent

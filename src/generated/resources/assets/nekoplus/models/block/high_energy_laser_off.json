@@ -1,5 +1,5 @@
 {
-  "parent": "nekoplus:block/high_energy_laser",
+  "parent": "nekoplus:block/high_energy_laser_template",
   "textures": {
     "3": "nekoplus:block/high_energy_laser_off"
   }

@@ -5,14 +5,10 @@ import icu.takeneko.nekoplus.content.tile.logic.hatch.EnergyHatchLogic;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.nekoplus.content.tile.logic.hatch.ItemHatchLogic;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.neoforged.neoforge.energy.IEnergyStorage;
-import net.neoforged.neoforge.fluids.capability.IFluidHandler;
-import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import net.neoforged.neoforge.transfer.item.ItemResource;
-import net.neoforged.neoforge.transfer.item.ItemStackResourceHandler;
 import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.Nullable;
 

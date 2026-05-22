@@ -37,19 +37,19 @@ public class NPBlockStateDispatches {
     public static final TextureSlot SLOT_OVERLAY = TextureSlot.create("overlay");
 
     public static final ModelTemplate PARTICLE_STABILIZER_MODEL = new ModelTemplate(
-        Optional.of(NekoPlus.location("block/particle_stabilizer_parent")),
+        Optional.of(NekoPlus.location("block/particle_stabilizer_template")),
         Optional.empty(),
         SLOT_1
     );
 
     public static final ModelTemplate HIGH_ENERGY_LASER_MODEL = new ModelTemplate(
-        Optional.of(NekoPlus.location("block/high_energy_laser")),
+        Optional.of(NekoPlus.location("block/high_energy_laser_template")),
         Optional.empty(),
         SLOT_3
     );
 
     public static final ModelTemplate HATCH_BASE_MODEL = new ModelTemplate(
-        Optional.of(NekoPlus.location("block/hatch_base")),
+        Optional.of(NekoPlus.location("block/hatch_template")),
         Optional.empty(),
         SLOT_ALL,
         SLOT_OVERLAY
@@ -67,7 +67,7 @@ public class NPBlockStateDispatches {
                 Identifier texture = NekoPlus.location("block/high_energy_laser");
 
                 Identifier normalModel = generator.withParent(HIGH_ENERGY_LASER_MODEL)
-                    .suffix("_normal")
+                    .suffix("")
                     .texture(SLOT_3, texture)
                     .build(context.get());
 
@@ -143,7 +143,7 @@ public class NPBlockStateDispatches {
                 @NonNull RegistrumBlockModelGenerator generator
             ) {
                 Identifier normalModel = generator.withParent(PARTICLE_STABILIZER_MODEL)
-                    .suffix("_normal")
+                    .suffix("")
                     .texture(SLOT_1, NekoPlus.location("block/particle_stabilizer"))
                     .build(context.get());
 

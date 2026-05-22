@@ -1,5 +1,5 @@
 {
-  "parent": "nekoplus:block/particle_stabilizer_parent",
+  "parent": "nekoplus:block/particle_stabilizer_template",
   "textures": {
     "1": "nekoplus:block/particle_stabilizer_freezing"
   }

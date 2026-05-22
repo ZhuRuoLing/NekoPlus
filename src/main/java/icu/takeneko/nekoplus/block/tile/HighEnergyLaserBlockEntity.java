@@ -16,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements NPPowerConsumer, Tickable {
+    public static final int HIGH_ENERGY_LASER_COLOR = 0xff8000ff;
+
     @Nullable
     @Getter
     @Setter
@@ -111,6 +113,6 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
 
     @Override
     public int getLaserColor() {
-        return 0xff8000ff;
+        return HIGH_ENERGY_LASER_COLOR;
     }
 }

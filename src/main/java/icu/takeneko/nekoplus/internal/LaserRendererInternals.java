@@ -11,6 +11,10 @@ public class LaserRendererInternals {
         return extension.hasPureHELaserSource();
     }
 
+    public interface RenderStateAccess {
+        boolean isPureHELaserSource();
+    }
+
     public interface Extension {
         boolean hasPureHELaserSource();
 
