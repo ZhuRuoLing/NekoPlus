@@ -3,10 +3,9 @@ package icu.takeneko.nekoplus.foundation.block.tile.hatch.logic;
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import icu.takeneko.nekoplus.block.tile.NPHatchBlockEntity;
-import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 
-public interface HatchLogic<C> extends INBTSerializable<CompoundTag>, IContentChangeAware {
+public interface HatchLogic<C> extends ValueIOSerializable, IContentChangeAware {
     void tick();
 
     void onRemoved();

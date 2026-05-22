@@ -1,11 +1,11 @@
 package icu.takeneko.nekoplus.foundation.inventory;
 
-import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public interface NPItemHandlerOwner {
     void onContentChanged();
 
-    boolean isItemValid(int slot, ItemStack stack);
+    boolean isItemValid(int slot, ItemResource stack);
 
     NPItemHandler getItemHandler();
 }

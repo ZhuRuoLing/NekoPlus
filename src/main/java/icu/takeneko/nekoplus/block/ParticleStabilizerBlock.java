@@ -2,6 +2,7 @@ package icu.takeneko.nekoplus.block;
 
 import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.mojang.serialization.MapCodec;
+import dev.dubhe.anvilcraft.util.Util;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.foundation.Tickable;
@@ -9,6 +10,7 @@ import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -99,14 +101,14 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements NPUIBloc
         if (level instanceof ServerLevel) {
             if (level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity be) {
                 BlockUIMenuType.openUI((ServerPlayer) player, pos);
-                return InteractionResult.sidedSuccess(level.isClientSide());
+                return Util.sidedSuccess(level);
             }
         }
         return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
         if (level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity blockEntity) {
             return blockEntity.isOverload() ? 0 : switch (blockEntity.getState()) {
                 case COOLING -> 8;
@@ -114,16 +116,6 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements NPUIBloc
             };
         }
         return 0;
-    }
-
-    @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (level instanceof ServerLevel && !state.is(newState.getBlock())) {
-            if (level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity be) {
-                Containers.dropContents(level, pos, be.getItemHandler().getStacks());
-            }
-        }
-        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Override

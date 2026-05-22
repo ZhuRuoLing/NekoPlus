@@ -16,7 +16,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -30,7 +29,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -41,7 +41,7 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 4, 16);
     public static final IOrientationStrategy ORIENTATION_STRATEGY = HorizontalFacingStrategy.INSTANCE;
 
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final BooleanProperty RED_ENABLE = BooleanProperty.create("red_enable");
     public static final BooleanProperty GREEN_ENABLE = BooleanProperty.create("green_enable");
     public static final BooleanProperty BLUE_ENABLE = BooleanProperty.create("blue_enable");
@@ -87,13 +87,13 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (stack.is(ModItems.DISK.asItem())) {
-            if (level.isClientSide) {
-                return ItemInteractionResult.SUCCESS;
+            if (level.isClientSide()) {
+                return InteractionResult.SUCCESS;
             }
             if (level.getBlockEntity(pos) instanceof ProgrammableLogicGateBlockEntity blockEntity) {
-                return Util.interactionResultConverter().apply(blockEntity.useDisk(level, player, hand, player.getItemInHand(hand), hitResult));
+                return blockEntity.useDisk(level, player, hand, player.getItemInHand(hand), hitResult);
             }
         }
         return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
@@ -104,14 +104,21 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
         if (level instanceof ServerLevel) {
             if (level.getBlockEntity(pos) instanceof ProgrammableLogicGateBlockEntity be) {
                 BlockUIMenuType.openUI((ServerPlayer) player, pos);
-                return InteractionResult.sidedSuccess(level.isClientSide());
+                return Util.sidedSuccess(level);
             }
         }
         return InteractionResult.SUCCESS;
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+    protected void neighborChanged(
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Block block,
+        @org.jspecify.annotations.Nullable Orientation orientation,
+        boolean movedByPiston
+    ) {
         if (level instanceof ServerLevel) {
             if (level.getBlockEntity(pos) instanceof ProgrammableLogicGateBlockEntity be) {
                 be.updatePins();

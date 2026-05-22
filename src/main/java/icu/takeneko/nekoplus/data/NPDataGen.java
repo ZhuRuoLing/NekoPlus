@@ -11,11 +11,11 @@ public class NPDataGen {
     public static void setupDataGeneration(Registrum registrum) {
         registrum.addDataGenerator(ProviderType.BLOCK_TAGS, NPBlockTags::setupBlockTags);
         registrum.addDataGenerator(ProviderType.LANG, NPTranslations::addTranslations);
-        registrum.addDataGenerator(ProviderType.RECIPE, NPRecipes::addRecipes);
+        registrum.addDataGenerator(ProviderType.RECIPE, NPRecipesData::addRecipes);
     }
 
     @SubscribeEvent
     public static void on(GatherDataEvent event) {
-        event.createProvider(it -> new NPSounds(it, event.getExistingFileHelper()));
+        event.createProvider(NPSounds::new);
     }
 }

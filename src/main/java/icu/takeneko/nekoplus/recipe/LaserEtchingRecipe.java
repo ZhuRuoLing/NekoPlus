@@ -2,21 +2,23 @@ package icu.takeneko.nekoplus.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.anvilcraft.lib.v2.recipe.component.ChanceItemStack;
-import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
-import icu.takeneko.nekoplus.all.NPRecipeTypes;
+import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumRecipeProvider;
+import dev.anvilcraft.lib.v2.util.predicate.ChanceItemStack;
 import lombok.Builder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
@@ -40,42 +42,56 @@ public record LaserEtchingRecipe(Ingredient input, ChanceItemStack output) imple
         LaserEtchingRecipe::new
     );
 
+    public static final RecipeSerializer<LaserEtchingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+
     @Override
     public boolean matches(SingleRecipeInput input, Level level) {
         return this.input.test(input.item());
     }
 
     @Override
-    public ItemStack assemble(SingleRecipeInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(SingleRecipeInput singleRecipeInput) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
+    public boolean showNotification() {
+        return false;
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return ItemStack.EMPTY;
+    public String group() {
+        return "laser_etching";
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return NPRecipeTypes.LASER_ETCHING_SERIALIZER;
+    public RecipeSerializer<? extends Recipe<SingleRecipeInput>> getSerializer() {
+        return null;
     }
 
     @Override
-    public RecipeType<?> getType() {
-        return NPRecipeTypes.LASER_ETCHING;
+    public RecipeType<? extends Recipe<SingleRecipeInput>> getType() {
+        return null;
     }
 
-    public void save(Identifier id, RegistrumRecipeProvider output) {
+    @Override
+    public PlacementInfo placementInfo() {
+        return null;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return null;
+    }
+
+
+    public void save(RegistrumRecipeProvider output, Identifier id) {
+        ResourceKey<Recipe<?>> resourceKey = ResourceKey.create(Registries.RECIPE, id);
         Advancement.Builder builder = output.advancement()
-            .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-            .rewards(AdvancementRewards.Builder.recipe(id))
+            .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
+            .rewards(AdvancementRewards.Builder.recipe(resourceKey))
             .requirements(AdvancementRequirements.Strategy.OR);
 
-        output.accept(id, this, builder.build(id.withPrefix("recipes/laser_etching/")));
+        output.accept(resourceKey, this, builder.build(id.withPrefix("recipes/laser_etching/")));
     }
 }

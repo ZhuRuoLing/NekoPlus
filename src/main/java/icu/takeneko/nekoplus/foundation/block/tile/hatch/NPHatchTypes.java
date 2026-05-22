@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.item.ItemStackResourceHandler;
 import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,15 +36,15 @@ public final class NPHatchTypes {
         }
     };
 
-    public static final HatchType<IItemHandler> ITEM = new HatchType<>() {
+    public static final HatchType<ItemStackResourceHandler> ITEM = new HatchType<>() {
         @Override
-        public HatchLogic<IItemHandler> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
+        public HatchLogic<ItemStackResourceHandler> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
             return new ItemHatchLogic(logicHost, isInput);
         }
 
         @Override
         @Nullable
-        public IItemHandler getCapability(HatchLogic<IItemHandler> logic) {
+        public ItemStackResourceHandler getCapability(HatchLogic<ItemStackResourceHandler> logic) {
             return logic.getCapabilityInstance();
         }
 

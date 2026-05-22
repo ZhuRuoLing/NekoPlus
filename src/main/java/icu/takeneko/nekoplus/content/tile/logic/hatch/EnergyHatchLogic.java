@@ -3,12 +3,11 @@ package icu.takeneko.nekoplus.content.tile.logic.hatch;
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.nekoplus.foundation.energy.NPEnergyStorage;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.IntTag;
-import net.neoforged.neoforge.energy.IEnergyStorage;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
 
-public class EnergyHatchLogic implements HatchLogic<IEnergyStorage> {
+public class EnergyHatchLogic implements HatchLogic<EnergyHandler> {
 
     public static final int CAPACITY = 700 * 2400 * 800;
 
@@ -23,7 +22,7 @@ public class EnergyHatchLogic implements HatchLogic<IEnergyStorage> {
     }
 
     @Override
-    public IEnergyStorage getCapabilityInstance() {
+    public EnergyHandler getCapabilityInstance() {
         return energyStorage;
     }
 
@@ -43,16 +42,12 @@ public class EnergyHatchLogic implements HatchLogic<IEnergyStorage> {
     }
 
     @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        CompoundTag tag = new CompoundTag();
-        tag.put("Amount", energyStorage.serializeNBT(provider));
-        return tag;
+    public void serialize(ValueOutput output) {
+        energyStorage.serialize(output);
     }
 
     @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        if (nbt.contains("Amount", IntTag.TAG_INT)) {
-            energyStorage.deserializeNBT(provider, nbt.get("Amount"));
-        }
+    public void deserialize(ValueInput input) {
+        energyStorage.deserialize(input);
     }
 }

@@ -4,19 +4,13 @@ import com.lowdragmc.lowdraglib2.editor.resource.EditorResourceEvent;
 import com.lowdragmc.lowdraglib2.editor.resource.ResourceInstance;
 import com.lowdragmc.lowdraglib2.editor.resource.TexturesResource;
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
-import com.mojang.blaze3d.systems.RenderSystem;
-import dev.dubhe.anvilcraft.api.rendering.CacheableBlockEntityRenderers;
-import dev.dubhe.anvilcraft.init.block.ModBlockEntities;
 import icu.takeneko.nekoplus.NekoPlus;
-import icu.takeneko.nekoplus.all.NPBlockEntities;
-import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPHammerTooltipProviders;
 import icu.takeneko.nekoplus.client.extension.NPClientExtension;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
+import icu.takeneko.nekoplus.foundation.client.RenderThreadSupport;
 import icu.takeneko.nekoplus.ui.NPGuiResources;
 import icu.takeneko.nekoplus.util.NPUIUtils;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -26,7 +20,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.ChunkRenderTypeSet;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -47,12 +40,7 @@ public class NekoPlusClient {
 
     @SubscribeEvent
     public static void on(FMLClientSetupEvent event) {
-        NPLaserRenderer NPLaserRenderer = new NPLaserRenderer();
-        CacheableBlockEntityRenderers.register(ModBlockEntities.RUBY_LASER.get(), NPLaserRenderer);
-        CacheableBlockEntityRenderers.register(ModBlockEntities.RUBY_PRISM.get(), NPLaserRenderer);
-        CacheableBlockEntityRenderers.register(NPBlockEntities.HIGH_ENERGY_LASER.get(), NPLaserRenderer);
-        ItemBlockRenderTypes.setRenderLayer(NPBlocks.PROGRAMMABLE_LOGIC_GATE.get(), ChunkRenderTypeSet.of(RenderType.cutout()));
-        RenderSystem.recordRenderCall(NPUIUtils::clientSetup);
+        RenderThreadSupport.recordRenderCall(NPUIUtils::clientSetup);
     }
 
     @SubscribeEvent

@@ -3,12 +3,14 @@ package icu.takeneko.nekoplus.foundation.inventory;
 import lombok.Setter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class NPItemHandlerSlice extends ItemStackHandler {
+public class NPItemHandlerSlice extends ItemStacksResourceHandler {
 
     @Setter
     private boolean enableInput = false;
@@ -25,37 +27,50 @@ public class NPItemHandlerSlice extends ItemStackHandler {
     }
 
     public static NPItemHandlerSlice of(NPItemHandler itemHandler, int start, int end) {
-        return new NPItemHandlerSlice(new HENonNullList<>(itemHandler.getStacks().subList(start, end), ItemStack.EMPTY), itemHandler, start, end);
+        return new NPItemHandlerSlice(
+            new NPNonNullList<>(itemHandler.getStacks().subList(start, end), ItemStack.EMPTY),
+            itemHandler,
+            start,
+            end
+        );
     }
 
     @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
-        return delegate.isItemValid(startIndex + slot, stack);
+    public boolean isValid(int index, ItemResource resource) {
+        return delegate.isValid(startIndex + index, resource);
     }
 
     @Override
-    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+    public int insert(ItemResource resource, int amount, TransactionContext transaction) {
         if (enableInput) {
-            return super.insertItem(slot, stack, simulate);
+            return super.insert(resource, amount, transaction);
         }
-        return stack;
+        return 0;
     }
 
     @Override
-    public void setStackInSlot(int slot, ItemStack stack) {
+    public int insert(int index, ItemResource resource, int amount, TransactionContext transaction) {
         if (enableInput) {
-            super.setStackInSlot(slot, stack);
+            return super.insert(index, resource, amount, transaction);
+        }
+        return 0;
+    }
+
+    @Override
+    public void set(int index, ItemResource resource, int amount) {
+        if (enableInput) {
+            super.set(index, resource, amount);
         }
     }
 
     @Override
-    protected void onContentsChanged(int slot) {
-        delegate.onContentsChanged(slot);
+    protected void onContentsChanged(int index, ItemStack previousContents) {
+        delegate.onContentsChanged(index, previousContents);
     }
 
-    public static class HENonNullList<E> extends NonNullList<E> {
+    public static class NPNonNullList<E> extends NonNullList<E> {
 
-        public HENonNullList(List<E> list, @Nullable E defaultValue) {
+        public NPNonNullList(List<E> list, @Nullable E defaultValue) {
             super(list, defaultValue);
         }
     }

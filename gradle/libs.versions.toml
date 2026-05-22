@@ -6,6 +6,7 @@ curios = "15.0.0-beta.2+26.1.2"
 jei = "29.6.2.31"
 jade = "26.1.1+neoforge"
 geckolib = "5.5.1"
+ldlib2 = "26.1.2.10"
 
 [libraries]
 curios = { group = "top.theillusivec4.curios", name = "curios-neoforge", version.ref = "curios" }
@@ -19,6 +20,8 @@ jade = { group = "maven.modrinth", name = "jade", version.ref = "jade" }
 geckolib = { group = "com.geckolib", name = "geckolib-neoforge-26.1.2", version.ref = "geckolib" }
 
 anvilcraft = { group = "dev.dubhe", name = "anvilcraft-neoforge-26.1.2", version.ref = "anvilcraft" }
+
+ldlib2 = { group = "com.lowdragmc.ldlib2", name = "ldlib2-neoforge-26.1", version.ref = "ldlib2" }
 
 anvillib = { group = "dev.anvilcraft.lib", name = "anvillib-neoforge-26.1", version.ref = "anvillib" }
 anvillibConfig = { group = "dev.anvilcraft.lib", name = "anvillib-config-neoforge-26.1", version.ref = "anvillib" }

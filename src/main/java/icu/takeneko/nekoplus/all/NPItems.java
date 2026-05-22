@@ -12,7 +12,6 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
-import icu.takeneko.nekoplus.util.DataGenUtils;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.effect.MobEffectInstance;

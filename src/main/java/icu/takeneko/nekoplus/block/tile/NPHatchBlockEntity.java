@@ -46,7 +46,9 @@ public class NPHatchBlockEntity<C> extends NPSynedBlockEntity implements HatchLo
         return MANAGED_FIELD_HOLDER;
     }
 
-    public void onRemoved() {
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        super.preRemoveSideEffects(pos, state);
         this.logic.onRemoved();
     }
 

@@ -1,20 +1,20 @@
 package icu.takeneko.nekoplus.content.tile.logic.stabilizer;
 
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
+import dev.dubhe.anvilcraft.api.itemhandler.ItemHandlerUtil;
 import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.all.NPRecipeTypes;
 import icu.takeneko.nekoplus.foundation.recipes.SingleRecipeInput;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
-import icu.takeneko.nekoplus.util.ContainerUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.util.Objects;
@@ -55,18 +55,17 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
                 }
             }
             if (currentRecipe != null) {
-
                 int currentProgress = host.getProgress();
                 if (currentProgress + 1 > currentRecipe.getTicks()) {
                     currentProgress = 0;
                     LootContext context = new LootContext.Builder(
                         new LootParams.Builder((ServerLevel) host.getLevel())
-                            .create(LootContextParamSet.builder().build())
+                            .create(new ContextKeySet.Builder().build())
                     ).create(Optional.empty());
                     float v = currentRecipe.getProbability().getFloat(context);
-                    if (host.getLevel().random.nextFloat() < v) {
+                    if (host.getLevel().getRandom().nextFloat() < v) {
                         for (ItemStack result : currentRecipe.getResults()) {
-                            ContainerUtil.insertItem(host.getOutputItemHandler(), result.copy());
+                            ItemHandlerUtil.insertItem(host.getOutputItemHandler(), result.copy(), false);
                         }
                     }
                 } else {

@@ -89,8 +89,8 @@ base {
     archivesName = mod_id
 }
 
-// Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+// Mojang ships Java 25 to end users in 26.2.1, so mods should target Java 25.
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
     // Specify the version of NeoForge to use.
@@ -196,7 +196,7 @@ dependencies {
     implementation(libs.geckolib)
 //    implementation("dev.anvilcraft.guideme:anvilcraft_guideme-neoforge-1.21.1:1.6.0+build.23") { transitive = false }
 
-//    jarJar(implementation "com.lowdragmc.ldlib2:ldlib2-neoforge-1.21.1:2.2.5:all"){ transitive = false }
+    jarJar(implementation "com.lowdragmc.ldlib2:ldlib2-neoforge-26.1:26.1.2.10") { transitive = false }
 
     compileOnly "dev.vfyjxf:taffy:1.1.4"
     compileOnly "org.appliedenergistics.yoga:yoga:1.0.0"
@@ -247,9 +247,6 @@ publishing {
 
 java {
     withSourcesJar()
-
-    sourceCompatibility = 25
-    targetCompatibility = 25
 }
 
 tasks.withType(JavaCompile).configureEach {

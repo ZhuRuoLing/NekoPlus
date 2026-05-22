@@ -30,6 +30,7 @@ import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -38,7 +39,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 
 @SuppressWarnings("DataFlowIssue")
@@ -189,7 +192,7 @@ public class ParticleStabilizerBlockEntity
     }
 
     @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
+    public boolean isItemValid(int slot, @UnknownNullability ItemResource stack) {
         if (slot == 0) {
             return logic.isValidTriggerItem(stack);
         }
@@ -259,6 +262,12 @@ public class ParticleStabilizerBlockEntity
     @Override
     public ModularUI getModularUI(BlockUIMenuType.BlockUIHolder holder) {
         return NPUI.of(new ParticleStabilizerUI(this), holder);
+    }
+
+    @Override
+    public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+        super.preRemoveSideEffects(pos, state);
+        Containers.dropContents(level, pos, itemHandler.getStacks());
     }
 
     public enum State {

@@ -6,8 +6,9 @@ import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvent;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvents;
 import com.lowdragmc.lowdraglib2.gui.ui.rendering.GUIContext;
+import com.lowdragmc.lowdraglib2.gui.ui.rendering.IGUIContext;
 import com.lowdragmc.lowdraglib2.gui.util.WindowDragHelper;
-import dev.dubhe.anvilcraft.util.DistExecutor;
+import dev.anvilcraft.lib.v2.util.DistExecutor;
 import icu.takeneko.nekoplus.foundation.ui.widgets.ResizeAwareUIElement;
 import lombok.SneakyThrows;
 import net.minecraft.client.Minecraft;
@@ -199,7 +200,7 @@ public class NPUIUtils {
     }
 
     private static void setCursor(long cursor) {
-        DistExecutor.run(Dist.CLIENT, () -> () -> GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().getWindow(), cursor));
+        DistExecutor.run(Dist.CLIENT, () -> () -> GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().handle(), cursor));
     }
 
     public static long mapResizeHandle(WindowDragHelper.ResizeHandle handle) {

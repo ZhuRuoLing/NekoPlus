@@ -10,13 +10,13 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.Nullable;
 
 public class OverclockIndicatorBlock extends BaseEntityBlock {
     public static final IntegerProperty OVERCLOCK_LEVEL = IntegerProperty.create("overclock_level", 0, 4);
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
     public static final IntegerProperty SPIN = IOrientationStrategy.SPIN;
 
     public OverclockIndicatorBlock(Properties properties) {

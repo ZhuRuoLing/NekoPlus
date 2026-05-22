@@ -3,9 +3,10 @@ package icu.takeneko.nekoplus.foundation.energy;
 import com.lowdragmc.lowdraglib2.syncdata.IContentChangeAware;
 import lombok.Getter;
 import lombok.Setter;
-import net.neoforged.neoforge.energy.EnergyStorage;
+import net.neoforged.neoforge.transfer.energy.SimpleEnergyHandler;
+import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 
-public class NPEnergyStorage extends EnergyStorage implements IContentChangeAware {
+public class NPEnergyStorage extends SimpleEnergyHandler implements IContentChangeAware {
 
     @Getter
     @Setter
@@ -28,9 +29,9 @@ public class NPEnergyStorage extends EnergyStorage implements IContentChangeAwar
     }
 
     @Override
-    public int extractEnergy(int toExtract, boolean simulate) {
+    public int extract(int amount, TransactionContext transaction) {
         int oldValue = energy;
-        int value = super.extractEnergy(toExtract, simulate);
+        int value = super.extract(amount, transaction);
         if (energy != oldValue && onContentsChanged != null) {
             onContentsChanged.run();
         }
@@ -38,9 +39,9 @@ public class NPEnergyStorage extends EnergyStorage implements IContentChangeAwar
     }
 
     @Override
-    public int receiveEnergy(int toReceive, boolean simulate) {
+    public int insert(int amount, TransactionContext transaction) {
         int oldValue = energy;
-        int value = super.receiveEnergy(toReceive, simulate);
+        int value = super.insert(amount, transaction);
         if (energy != oldValue && onContentsChanged != null) {
             onContentsChanged.run();
         }

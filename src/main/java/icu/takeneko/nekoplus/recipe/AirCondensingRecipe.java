@@ -1,26 +1,30 @@
 package icu.takeneko.nekoplus.recipe;
 
+import com.mojang.logging.annotations.MethodsReturnNonnullByDefault;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
+import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumRecipeProvider;
 import icu.takeneko.nekoplus.all.NPRecipeTypes;
 import icu.takeneko.nekoplus.foundation.recipes.SingleRecipeInput;
 import lombok.Builder;
 import lombok.Getter;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
+import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -41,7 +45,7 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
     public static final MapCodec<AirCondensingRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(ins ->
         ins.group(
             DimensionType.CODEC.fieldOf("dimension").forGetter(AirCondensingRecipe::getDimension),
-            ItemStack.STRICT_CODEC.listOf().fieldOf("results").forGetter(AirCondensingRecipe::getResults),
+            ItemStack.CODEC.listOf().fieldOf("results").forGetter(AirCondensingRecipe::getResults),
             NumberProviders.CODEC.fieldOf("probability").forGetter(AirCondensingRecipe::getProbability),
             Codec.INT.fieldOf("ticks").forGetter(AirCondensingRecipe::getTicks)
         ).apply(ins, AirCondensingRecipe::new)
@@ -57,6 +61,11 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
         ByteBufCodecs.INT,
         AirCondensingRecipe::getTicks,
         AirCondensingRecipe::new
+    );
+
+    public static final RecipeSerializer<AirCondensingRecipe> SERIALIZER = new RecipeSerializer<>(
+        MAP_CODEC,
+        STREAM_CODEC
     );
 
 
@@ -104,36 +113,47 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
     }
 
     @Override
-    public ItemStack assemble(SingleRecipeInput<DimensionType> input, HolderLookup.Provider registries) {
+    public ItemStack assemble(SingleRecipeInput<DimensionType> dimensionTypeSingleRecipeInput) {
         return ItemStack.EMPTY;
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return true;
+    public boolean showNotification() {
+        return false;
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return ItemStack.EMPTY;
+    public String group() {
+        return "air_condensing";
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return NPRecipeTypes.AIR_CONDENSING_SERIALIZER;
+    public RecipeSerializer<? extends Recipe<SingleRecipeInput<DimensionType>>> getSerializer() {
+        return SERIALIZER;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<? extends Recipe<SingleRecipeInput<DimensionType>>> getType() {
         return NPRecipeTypes.AIR_CONDENSING;
     }
 
-    public void save(Identifier id, RegistrumRecipeProvider output) {
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return RecipeBookCategories.CRAFTING_MISC;
+    }
+
+    public void save(RegistrumRecipeProvider output, Identifier id) {
+        ResourceKey<Recipe<?>> resourceKey = ResourceKey.create(Registries.RECIPE, id);
         Advancement.Builder builder = output.advancement()
-            .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-            .rewards(AdvancementRewards.Builder.recipe(id))
+            .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(resourceKey))
+            .rewards(AdvancementRewards.Builder.recipe(resourceKey))
             .requirements(AdvancementRequirements.Strategy.OR);
 
-        output.accept(id, this, builder.build(id.withPrefix("recipes/air_condensing/")));
+        output.accept(resourceKey, this, builder.build(id.withPrefix("recipes/air_condensing/")));
     }
 }

@@ -32,7 +32,7 @@ public class ParticleStabilizerDataProvider implements IBlockComponentProvider, 
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
         CompoundTag serverData = blockAccessor.getServerData();
         if (!serverData.contains("Cooldown")) return;
-        int cooldown = serverData.getInt("Cooldown") / 20;
+        int cooldown = serverData.getIntOr("Cooldown", 0) / 20;
         if (cooldown > 0) {
             iTooltip.add(
                 Component.translatable("tooltip.nekoplus.particle_stabilizer.state")

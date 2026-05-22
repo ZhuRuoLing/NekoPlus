@@ -18,7 +18,6 @@ import icu.takeneko.nekoplus.block.TitaniumAlloyAnvilBlock;
 import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
-import icu.takeneko.nekoplus.util.ModelUtils;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;

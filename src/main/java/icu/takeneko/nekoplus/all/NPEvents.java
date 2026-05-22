@@ -5,7 +5,7 @@ import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import dev.anvilcraft.lib.v2.recipe.AnvilLibRecipe;
 import dev.dubhe.anvilcraft.api.entity.fakeplayer.AnvilCraftFakePlayers;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
-import dev.dubhe.anvilcraft.block.StampingPlatformBlock;
+import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.block.tile.BlockCollisionEventReceiver;
@@ -47,7 +47,7 @@ public class NPEvents {
     @SubscribeEvent
     public static void on(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
-            Capabilities.ItemHandler.BLOCK,
+            Capabilities.Item.BLOCK,
             NPBlockEntities.PARTICLE_STABILIZER.get(),
             (a, v) -> {
                 if (v == null) return a.getItemHandler();
@@ -57,19 +57,19 @@ public class NPEvents {
         );
 
         event.registerBlockEntity(
-            Capabilities.ItemHandler.BLOCK,
+            Capabilities.Item.BLOCK,
             NPBlockEntities.ITEM_INPUT_HATCH.get(),
             HatchLogic::getCapability
         );
 
         event.registerBlockEntity(
-            Capabilities.ItemHandler.BLOCK,
+            Capabilities.Item.BLOCK,
             NPBlockEntities.ITEM_OUTPUT_HATCH.get(),
             HatchLogic::getCapability
         );
 
         event.registerBlockEntity(
-            Capabilities.EnergyStorage.BLOCK,
+            Capabilities.Energy.BLOCK,
             NPBlockEntities.ENERGY_OUTPUT_HATCH.get(),
             HatchLogic::getCapability
         );
@@ -194,11 +194,11 @@ public class NPEvents {
         }
 
         @SubscribeEvent
-        public static void on(ModelEvent.RegisterAdditional event) {
+        public static void on(ModelEvent.RegisterStandalone event) {
         }
 
         @SubscribeEvent
-        public static void on(RegisterColorHandlersEvent.Item event) {
+        public static void on(RegisterColorHandlersEvent.ItemTintSources event) {
         }
     }
 }

@@ -14,6 +14,7 @@ import com.lowdragmc.lowdraglib2.gui.ui.elements.TextArea;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.TextElement;
 import com.lowdragmc.lowdraglib2.gui.ui.elements.inventory.InventorySlots;
 import com.lowdragmc.lowdraglib2.gui.ui.rendering.GUIContext;
+import com.lowdragmc.lowdraglib2.gui.ui.rendering.IGUIContext;
 import dev.vfyjxf.taffy.style.AlignContent;
 import dev.vfyjxf.taffy.style.AlignItems;
 import dev.vfyjxf.taffy.style.FlexDirection;
@@ -38,19 +39,39 @@ import java.util.List;
 import java.util.Objects;
 
 public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEntity> {
-    private static final EnumMap<FourDirectionBlockDisplayElement.ColorDirection, WindowPosition> WINDOW_POSITION_CACHE = new EnumMap<>(FourDirectionBlockDisplayElement.ColorDirection.class);
+    private static final EnumMap<FourDirectionBlockDisplayElement.ColorDirection, WindowPosition> WINDOW_POSITION_CACHE = new EnumMap<>(
+        FourDirectionBlockDisplayElement.ColorDirection.class);
     private final ResizeAwareUIElement[] windows = new ResizeAwareUIElement[4];
-
 
     public ProgrammableLogicGateUI(ProgrammableLogicGateBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.programmable_logic_gate"));
         BlockState state = blockEntity.getBlockState();
         Direction direction = state.getValue(ProgrammableLogicGateBlock.FACING);
         int yRot = (((int) direction.toYRot() + 180) % 360) - (direction.getAxis() == Direction.Axis.X ? -180 : 0);
-        ResizeAwareUIElement redWindow = createPinWindow(blockEntity.getPinR(), "ui.programmable_logic_gate.red", FourDirectionBlockDisplayElement.ColorDirection.RED.color(), FourDirectionBlockDisplayElement.ColorDirection.RED);
-        ResizeAwareUIElement greenWindow = createPinWindow(blockEntity.getPinG(), "ui.programmable_logic_gate.green", FourDirectionBlockDisplayElement.ColorDirection.GREEN.color(), FourDirectionBlockDisplayElement.ColorDirection.GREEN);
-        ResizeAwareUIElement blueWindow = createPinWindow(blockEntity.getPinB(), "ui.programmable_logic_gate.blue", FourDirectionBlockDisplayElement.ColorDirection.BLUE.color(), FourDirectionBlockDisplayElement.ColorDirection.BLUE);
-        ResizeAwareUIElement whiteWindow = createPinWindow(blockEntity.getPinW(), "ui.programmable_logic_gate.white", FourDirectionBlockDisplayElement.ColorDirection.WHITE.color(), FourDirectionBlockDisplayElement.ColorDirection.WHITE);
+        ResizeAwareUIElement redWindow = createPinWindow(
+            blockEntity.getPinR(),
+            "ui.programmable_logic_gate.red",
+            FourDirectionBlockDisplayElement.ColorDirection.RED.color(),
+            FourDirectionBlockDisplayElement.ColorDirection.RED
+        );
+        ResizeAwareUIElement greenWindow = createPinWindow(
+            blockEntity.getPinG(),
+            "ui.programmable_logic_gate.green",
+            FourDirectionBlockDisplayElement.ColorDirection.GREEN.color(),
+            FourDirectionBlockDisplayElement.ColorDirection.GREEN
+        );
+        ResizeAwareUIElement blueWindow = createPinWindow(
+            blockEntity.getPinB(),
+            "ui.programmable_logic_gate.blue",
+            FourDirectionBlockDisplayElement.ColorDirection.BLUE.color(),
+            FourDirectionBlockDisplayElement.ColorDirection.BLUE
+        );
+        ResizeAwareUIElement whiteWindow = createPinWindow(
+            blockEntity.getPinW(),
+            "ui.programmable_logic_gate.white",
+            FourDirectionBlockDisplayElement.ColorDirection.WHITE.color(),
+            FourDirectionBlockDisplayElement.ColorDirection.WHITE
+        );
         windows[0] = redWindow;
         windows[1] = greenWindow;
         windows[2] = blueWindow;
@@ -72,26 +93,34 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
                     FourDirectionBlockDisplayElement.ColorDirection.WHITE,
                     DataBindingBuilder.enumValS2C(PinMode.class, blockEntity.getPinW()::getMode).build()
                 )
-                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.RED, () -> {
-                    redWindow.setDisplay(TaffyDisplay.DEFAULT);
-                    NPUIUtils.forceRelayout(this);
-                    saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.RED, redWindow, true);
-                })
-                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.GREEN, () -> {
-                    greenWindow.setDisplay(TaffyDisplay.DEFAULT);
-                    NPUIUtils.forceRelayout(this);
-                    saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.GREEN, greenWindow, true);
-                })
-                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.BLUE, () -> {
-                    blueWindow.setDisplay(TaffyDisplay.DEFAULT);
-                    NPUIUtils.forceRelayout(this);
-                    saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.BLUE, blueWindow, true);
-                })
-                .setOnClickListener(FourDirectionBlockDisplayElement.ColorDirection.WHITE, () -> {
-                    whiteWindow.setDisplay(TaffyDisplay.DEFAULT);
-                    NPUIUtils.forceRelayout(this);
-                    saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.WHITE, whiteWindow, true);
-                }),
+                .setOnClickListener(
+                    FourDirectionBlockDisplayElement.ColorDirection.RED, () -> {
+                        redWindow.setDisplay(TaffyDisplay.DEFAULT);
+                        NPUIUtils.forceRelayout(this);
+                        saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.RED, redWindow, true);
+                    }
+                )
+                .setOnClickListener(
+                    FourDirectionBlockDisplayElement.ColorDirection.GREEN, () -> {
+                        greenWindow.setDisplay(TaffyDisplay.DEFAULT);
+                        NPUIUtils.forceRelayout(this);
+                        saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.GREEN, greenWindow, true);
+                    }
+                )
+                .setOnClickListener(
+                    FourDirectionBlockDisplayElement.ColorDirection.BLUE, () -> {
+                        blueWindow.setDisplay(TaffyDisplay.DEFAULT);
+                        NPUIUtils.forceRelayout(this);
+                        saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.BLUE, blueWindow, true);
+                    }
+                )
+                .setOnClickListener(
+                    FourDirectionBlockDisplayElement.ColorDirection.WHITE, () -> {
+                        whiteWindow.setDisplay(TaffyDisplay.DEFAULT);
+                        NPUIUtils.forceRelayout(this);
+                        saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection.WHITE, whiteWindow, true);
+                    }
+                ),
             new TextElement()
                 .setText(Component.translatable("container.inventory"))
                 .textStyle(ts -> ts.adaptiveHeight(true)),
@@ -101,12 +130,19 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
     }
 
     @Override
-    public void drawBackgroundAdditional(GUIContext guiContext) {
-        super.drawBackgroundAdditional(guiContext);
-        NPUIUtils.drawResizeIcon(guiContext, 4, windows);
+    protected void drawBackgroundAdditional(IGUIContext context) {
+        super.drawBackgroundAdditional(context);
+        if (context instanceof GUIContext guiContext) {
+            NPUIUtils.drawResizeIcon(guiContext, 4, windows);
+        }
     }
 
-    private ResizeAwareUIElement createPinWindow(PinState state, String name, int color, FourDirectionBlockDisplayElement.ColorDirection direction) {
+    private ResizeAwareUIElement createPinWindow(
+        PinState state,
+        String name,
+        int color,
+        FourDirectionBlockDisplayElement.ColorDirection direction
+    ) {
         ResizeAwareUIElement background = new ResizeAwareUIElement();
         background.style(s -> s.backgroundTexture(new ColorRectTexture(color | 0xff000000)));
         background.layout(l -> l
@@ -313,7 +349,11 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         );
     }
 
-    private void saveWindowPosition(FourDirectionBlockDisplayElement.ColorDirection direction, UIElement background, boolean displayed) {
+    private void saveWindowPosition(
+        FourDirectionBlockDisplayElement.ColorDirection direction,
+        UIElement background,
+        boolean displayed
+    ) {
         WindowPosition value = new WindowPosition(
             (int) background.getLayoutX(),
             (int) background.getLayoutY(),

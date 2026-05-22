@@ -8,9 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
-public class NPItemHandler extends ItemStackHandler implements IContentChangeAware {
+public class NPItemHandler extends ItemStacksResourceHandler implements IContentChangeAware {
     private final NPItemHandlerOwner owner;
     private final Table<Integer, Integer, NPItemHandlerSlice> cache = HashBasedTable.create();
 
@@ -23,16 +24,13 @@ public class NPItemHandler extends ItemStackHandler implements IContentChangeAwa
         this.owner = owner;
     }
 
-    public NPItemHandler(NPItemHandlerOwner owner) {
-        this.owner = owner;
-    }
-
     @Override
-    protected void onContentsChanged(int slot) {
+    protected void onContentsChanged(int index, ItemStack previousContents) {
         if (onContentsChanged != null) {
             onContentsChanged.run();
         }
         owner.onContentChanged();
+        super.onContentsChanged(index, previousContents);
     }
 
     public NonNullList<ItemStack> getStacks() {
@@ -40,8 +38,8 @@ public class NPItemHandler extends ItemStackHandler implements IContentChangeAwa
     }
 
     @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
-        return owner.isItemValid(slot, stack);
+    public boolean isValid(int index, ItemResource resource) {
+        return owner.isItemValid(index, resource);
     }
 
     public NPItemHandlerSlice slice(int start, int end) {

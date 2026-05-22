@@ -1,24 +1,24 @@
 package icu.takeneko.nekoplus.content.tile.logic.hatch;
 
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
+import dev.dubhe.anvilcraft.api.itemhandler.ItemHandlerUtil;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchLogicHost;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.nekoplus.foundation.inventory.NPItemHandler;
 import icu.takeneko.nekoplus.foundation.inventory.NPItemHandlerOwner;
-import icu.takeneko.nekoplus.util.ItemTransferHelper;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Containers;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
-public class ItemHatchLogic implements HatchLogic<IItemHandler>, NPItemHandlerOwner {
+public class ItemHatchLogic implements HatchLogic<ResourceHandler<ItemResource>>, NPItemHandlerOwner {
 
     @Getter
     private final NPItemHandler itemHandler = new NPItemHandler(9, this);
@@ -35,26 +35,22 @@ public class ItemHatchLogic implements HatchLogic<IItemHandler>, NPItemHandlerOw
         Direction facing = host.getBlockState().getValue(NPHatchBlock.FACING);
         Level level = host.getLevel();
         BlockPos pos = host.getBlockPos().relative(facing);
-        IItemHandler capability = level.getCapability(Capabilities.ItemHandler.BLOCK, pos, facing.getOpposite());
+        ResourceHandler<ItemResource> capability = level.getCapability(Capabilities.Item.BLOCK, pos, facing.getOpposite());
         if (capability != null) {
             if (isInput) {
-                ItemTransferHelper.importToTarget(
-                    itemHandler,
+                ItemHandlerUtil.exportToTarget(
+                    capability,
                     Integer.MAX_VALUE,
-                    __ -> true,
-                    level,
-                    pos,
-                    facing.getOpposite()
+                    (_,_) -> true,
+                    this.itemHandler
                 );
                 return;
             }
-            ItemTransferHelper.exportToTarget(
-                itemHandler,
+            ItemHandlerUtil.exportToTarget(
+                this.itemHandler,
                 Integer.MAX_VALUE,
-                __ -> true,
-                level,
-                pos,
-                facing.getOpposite()
+                (_,_) -> true,
+                capability
             );
         }
     }
@@ -65,7 +61,7 @@ public class ItemHatchLogic implements HatchLogic<IItemHandler>, NPItemHandlerOw
     }
 
     @Override
-    public IItemHandler getCapabilityInstance() {
+    public ResourceHandler<ItemResource> getCapabilityInstance() {
         return itemHandler;
     }
 
@@ -85,22 +81,22 @@ public class ItemHatchLogic implements HatchLogic<IItemHandler>, NPItemHandlerOw
     }
 
     @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return itemHandler.serializeNBT(provider);
-    }
-
-    @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        itemHandler.deserializeNBT(provider, nbt);
-    }
-
-    @Override
     public void onContentChanged() {
         host.markDirty();
     }
 
     @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
+    public boolean isItemValid(int slot, ItemResource stack) {
         return true;
+    }
+
+    @Override
+    public void serialize(ValueOutput output) {
+        itemHandler.serialize(output);
+    }
+
+    @Override
+    public void deserialize(ValueInput input) {
+        itemHandler.deserialize(input);
     }
 }

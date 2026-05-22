@@ -1,12 +1,12 @@
 package icu.takeneko.nekoplus.block;
 
+import dev.dubhe.anvilcraft.util.Util;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPBlockStateProperties;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
 import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.foundation.block.NPSimpleMultiPartBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
@@ -30,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class TardisBlock extends NPSimpleMultiPartBlock<Part3> implements SpecialRendererBlock, EntityBlock {
     public static final EnumProperty<Part3> PART = NPBlockStateProperties.PART_3;
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
     public TardisBlock(Properties properties) {
         super(properties);
@@ -67,7 +66,7 @@ public class TardisBlock extends NPSimpleMultiPartBlock<Part3> implements Specia
                 }
             }
         }
-        return pos.getY() < level.getMaxBuildHeight() - 2
+        return pos.getY() < level.getHeight() - 2
             && level.getBlockState(pos.above()).canBeReplaced()
             && level.getBlockState(pos.above(2)).canBeReplaced();
     }
@@ -94,7 +93,7 @@ public class TardisBlock extends NPSimpleMultiPartBlock<Part3> implements Specia
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level instanceof ClientLevel) {
+        if (level.isClientSide()) {
             Part3 part = state.getValue(PART);
             pos = switch (part) {
                 case TOP -> pos.below(2);
@@ -103,7 +102,7 @@ public class TardisBlock extends NPSimpleMultiPartBlock<Part3> implements Specia
             };
             if (level.getBlockEntity(pos) instanceof TardisBlockEntity tardis) {
                 tardis.onClick();
-                return InteractionResult.sidedSuccess(level.isClientSide);
+                return Util.sidedSuccess(level);
             }
         }
 

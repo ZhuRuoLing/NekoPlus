@@ -19,6 +19,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class ProgrammableLogicGateBlockEntity
     extends NPSynedBlockEntity
@@ -73,12 +75,12 @@ public class ProgrammableLogicGateBlockEntity
     }
 
     @Override
-    public void storeDiskData(CompoundTag tag) {
+    public void storeDiskData(ValueOutput output) {
 
     }
 
     @Override
-    public void applyDiskData(CompoundTag data) {
+    public void applyDiskData(ValueInput input) {
 
     }
 }

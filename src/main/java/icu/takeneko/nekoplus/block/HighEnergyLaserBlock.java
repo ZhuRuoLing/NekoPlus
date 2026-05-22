@@ -26,8 +26,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -35,7 +36,7 @@ import org.jetbrains.annotations.Nullable;
 
 @ExtensionMethod(VoxelShapeUtils.class)
 public class HighEnergyLaserBlock extends NPTranslucentEntityBlock implements IHammerChangeable {
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty OVERLOAD = IPowerComponent.OVERLOAD;
 
@@ -81,8 +82,15 @@ public class HighEnergyLaserBlock extends NPTranslucentEntityBlock implements IH
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
-        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+    protected void neighborChanged(
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Block block,
+        @org.jspecify.annotations.Nullable Orientation orientation,
+        boolean movedByPiston
+    ) {
+        super.neighborChanged(state, level, pos, block, orientation, movedByPiston);
         boolean signal = level.hasNeighborSignal(pos);
         level.setBlockAndUpdate(pos, state.setValue(POWERED, signal));
     }

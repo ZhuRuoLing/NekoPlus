@@ -1,7 +1,6 @@
 package icu.takeneko.nekoplus.util;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
 
 public class ContainerUtil {
     public static ItemStack insertItem(IItemHandler itemHandler, ItemStack input) {

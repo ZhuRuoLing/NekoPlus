@@ -20,11 +20,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 
 public class NPHatchBlock extends BaseEntityBlock implements NPUIBlock {
-    public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 
     private final HatchType<?> type;
     private final boolean isInput;
@@ -44,15 +44,6 @@ public class NPHatchBlock extends BaseEntityBlock implements NPUIBlock {
     @Override
     protected MapCodec<? extends BaseEntityBlock> codec() {
         return simpleCodec(i -> new NPHatchBlock(properties, NPHatchTypes.ITEM, false));
-    }
-
-    @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (level.getBlockEntity(pos) instanceof NPHatchBlockEntity<?> hatchBlockEntity) {
-            hatchBlockEntity.onRemoved();
-        }
-        level.invalidateCapabilities(pos);
-        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Override
