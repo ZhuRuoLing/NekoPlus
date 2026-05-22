@@ -17,6 +17,9 @@ import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class NPBlockEntities {
 //    public static final BlockEntityEntry<AnvilonEmitterBlockEntity> ANVILION_EMITTER = NekoPlus.REGISTRUM
@@ -56,11 +59,11 @@ public class NPBlockEntities {
         .validBlock(ModBlocks.STAMPING_PLATFORM)
         .register();
 
-    public static BlockEntityEntry<NPHatchBlockEntity<IItemHandler>> ITEM_INPUT_HATCH = hatch(NPHatchTypes.ITEM, true, NPBlocks.ITEM_INPUT_HATCH);
+    public static BlockEntityEntry<NPHatchBlockEntity<ResourceHandler<ItemResource>>> ITEM_INPUT_HATCH = hatch(NPHatchTypes.ITEM, true, NPBlocks.ITEM_INPUT_HATCH);
 
-    public static BlockEntityEntry<NPHatchBlockEntity<IItemHandler>> ITEM_OUTPUT_HATCH = hatch(NPHatchTypes.ITEM, false, NPBlocks.ITEM_OUTPUT_HATCH);
+    public static BlockEntityEntry<NPHatchBlockEntity<ResourceHandler<ItemResource>>> ITEM_OUTPUT_HATCH = hatch(NPHatchTypes.ITEM, false, NPBlocks.ITEM_OUTPUT_HATCH);
 
-    public static BlockEntityEntry<NPHatchBlockEntity<IEnergyStorage>> ENERGY_OUTPUT_HATCH = hatch(NPHatchTypes.ENERGY, false, NPBlocks.ENERGY_OUTPUT_HATCH);
+    public static BlockEntityEntry<NPHatchBlockEntity<EnergyHandler>> ENERGY_OUTPUT_HATCH = hatch(NPHatchTypes.ENERGY, false, NPBlocks.ENERGY_OUTPUT_HATCH);
 
     public static <C> BlockEntityEntry<NPHatchBlockEntity<C>> hatch(
         HatchType<C> type,

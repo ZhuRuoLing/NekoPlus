@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "A": {
-      "item": "anvilcraft:tin_nugget"
-    },
-    "B": {
-      "item": "nekoplus:carbon_dioxide_laser_tube"
-    },
-    "C": {
-      "item": "nekoplus:titanium_alloy_ingot"
-    },
-    "D": {
-      "item": "anvilcraft:transcendium_ingot"
-    },
-    "E": {
-      "item": "nekoplus:integrated_chip_circuit_board"
-    }
+    "A": "anvilcraft:tin_nugget",
+    "B": "nekoplus:carbon_dioxide_laser_tube",
+    "C": "nekoplus:titanium_alloy_ingot",
+    "D": "anvilcraft:transcendium_ingot",
+    "E": "nekoplus:integrated_chip_circuit_board"
   },
   "pattern": [
     " A ",
@@ -24,7 +14,6 @@
     "DED"
   ],
   "result": {
-    "count": 1,
     "id": "nekoplus:high_energy_laser"
   }
 }

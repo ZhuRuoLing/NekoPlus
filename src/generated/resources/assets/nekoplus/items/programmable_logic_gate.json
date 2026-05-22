@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "nekoplus:item/programmable_logic_gate"
+  }
+}

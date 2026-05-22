@@ -2,21 +2,11 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "tag": "c:gems/topaz"
-    },
-    "B": {
-      "item": "anvilcraft:ember_glass"
-    },
-    "C": {
-      "item": "nekoplus:royal_steel_casing"
-    },
-    "D": {
-      "item": "nekoplus:cryocooler"
-    },
-    "E": {
-      "item": "anvilcraft:circuit_board"
-    }
+    "A": "#c:gems/topaz",
+    "B": "anvilcraft:ember_glass",
+    "C": "nekoplus:royal_steel_casing",
+    "D": "nekoplus:cryocooler",
+    "E": "anvilcraft:circuit_board"
   },
   "pattern": [
     "ADA",
@@ -24,7 +14,6 @@
     "AEA"
   ],
   "result": {
-    "count": 1,
     "id": "nekoplus:particle_stabilizer"
   }
 }

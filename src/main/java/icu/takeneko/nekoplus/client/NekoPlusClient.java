@@ -4,11 +4,14 @@ import com.lowdragmc.lowdraglib2.editor.resource.EditorResourceEvent;
 import com.lowdragmc.lowdraglib2.editor.resource.ResourceInstance;
 import com.lowdragmc.lowdraglib2.editor.resource.TexturesResource;
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
+import com.lowdragmc.lowdraglib2.gui.ui.UIElementRendererRegistry;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPHammerTooltipProviders;
 import icu.takeneko.nekoplus.client.extension.NPClientExtension;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.nekoplus.foundation.client.RenderThreadSupport;
+import icu.takeneko.nekoplus.foundation.client.ui.renderer.FourDirectionBlockDisplayElementRenderer;
+import icu.takeneko.nekoplus.foundation.ui.widgets.FourDirectionBlockDisplayElement;
 import icu.takeneko.nekoplus.ui.NPGuiResources;
 import icu.takeneko.nekoplus.util.NPUIUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -41,6 +44,10 @@ public class NekoPlusClient {
     @SubscribeEvent
     public static void on(FMLClientSetupEvent event) {
         RenderThreadSupport.recordRenderCall(NPUIUtils::clientSetup);
+        event.enqueueWork(() -> UIElementRendererRegistry.register(
+            FourDirectionBlockDisplayElement.class,
+            new FourDirectionBlockDisplayElementRenderer()
+        ));
     }
 
     @SubscribeEvent
@@ -55,11 +62,10 @@ public class NekoPlusClient {
     }
 
     @SubscribeEvent
-    public static void on(EditorResourceEvent.LoadBuiltin event){
-        if (event.resourceInstance.resource == TexturesResource.INSTANCE){
-            NPGuiResources.setupRegistration((ResourceInstance<IGuiTexture>)event.resourceInstance);
+    public static void on(EditorResourceEvent.LoadBuiltin event) {
+        if (event.resourceInstance.resource == TexturesResource.INSTANCE) {
+            NPGuiResources.setupRegistration((ResourceInstance<IGuiTexture>) event.resourceInstance);
         }
-
     }
 
 }

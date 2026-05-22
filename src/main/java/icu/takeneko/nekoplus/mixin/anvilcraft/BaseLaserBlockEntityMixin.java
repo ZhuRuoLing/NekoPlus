@@ -153,7 +153,7 @@ public abstract class BaseLaserBlockEntityMixin
     )
     LaserEmitPacket fillCustomValue1(int laserLevel, BlockPos laserBlockPos, BlockPos irradiateBlockPos, Operation<LaserEmitPacket> original) {
         LaserEmitPacket packet = original.call(laserLevel, laserBlockPos, irradiateBlockPos);
-        LaserRendererInternals.PacketAccess packetAccess = (LaserRendererInternals.PacketAccess) packet;
+        LaserRendererInternals.PacketAccess packetAccess = (LaserRendererInternals.PacketAccess)(Object) packet;
         packetAccess.setPureHELaserSource(this.he$isPureHELaser);
         return packet;
     }
@@ -164,7 +164,7 @@ public abstract class BaseLaserBlockEntityMixin
     )
     LaserEmitPacket fillCustomValue2(int laserLevel, BlockPos laserBlockPos, BlockPos irradiateBlockPos, Operation<LaserEmitPacket> original) {
         LaserEmitPacket packet = original.call(laserLevel, laserBlockPos, irradiateBlockPos);
-        LaserRendererInternals.PacketAccess packetAccess = (LaserRendererInternals.PacketAccess) packet;
+        LaserRendererInternals.PacketAccess packetAccess = (LaserRendererInternals.PacketAccess)(Object) packet;
         packetAccess.setPureHELaserSource(this.he$isPureHELaser);
         return packet;
     }

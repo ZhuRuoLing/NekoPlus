@@ -2,7 +2,6 @@ package icu.takeneko.nekoplus.all;
 
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.nekoplus.NekoPlus;
-import icu.takeneko.nekoplus.foundation.recipes.RecipeSerializerImpl;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,7 +12,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-@SuppressWarnings({"unchecked", "rawtypes"})
 public class NPRecipeTypes {
     public static final DeferredRegister<RecipeType<?>> DR = DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, NekoPlus.MODID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZER_DR = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, NekoPlus.MODID);
@@ -39,7 +37,7 @@ public class NPRecipeTypes {
     }
 
     private static <T extends Recipe<?>> RecipeSerializer<T> registerSerializer(String name, MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) {
-        RecipeSerializer<T> serializer = new RecipeSerializerImpl(codec, streamCodec);
+        RecipeSerializer<T> serializer = new RecipeSerializer<>(codec, streamCodec);
         RECIPE_SERIALIZER_DR.register(name, () -> serializer);
         return serializer;
     }

@@ -6,7 +6,6 @@ import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvent;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvents;
 import com.lowdragmc.lowdraglib2.gui.ui.rendering.GUIContext;
-import com.lowdragmc.lowdraglib2.gui.ui.rendering.IGUIContext;
 import com.lowdragmc.lowdraglib2.gui.util.WindowDragHelper;
 import dev.anvilcraft.lib.v2.util.DistExecutor;
 import icu.takeneko.nekoplus.foundation.ui.widgets.ResizeAwareUIElement;

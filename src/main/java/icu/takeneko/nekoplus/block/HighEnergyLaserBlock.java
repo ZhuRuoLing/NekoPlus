@@ -40,15 +40,15 @@ public class HighEnergyLaserBlock extends NPTranslucentEntityBlock implements IH
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     public static final BooleanProperty OVERLOAD = IPowerComponent.OVERLOAD;
 
-    public static final VoxelShape UP_SHAPE = VoxelShapeUtils.combine(
-        Block.box(2, 0, 2, 14, 2, 14),
-        Block.box(5, 2, 5, 11, 14, 11),
-        Block.box(3, 2, 3, 13, 10, 13)
-    );
-
     public static final VoxelShape[] SHAPES = new VoxelShape[6];
 
     static {
+        VoxelShape UP_SHAPE = VoxelShapeUtils.combine(
+            Block.box(2, 0, 2, 14, 2, 14),
+            Block.box(5, 2, 5, 11, 14, 11),
+            Block.box(3, 2, 3, 13, 10, 13)
+        );
+
         for (Direction value : Direction.values()) {
             if (value == Direction.UP) {
                 SHAPES[value.ordinal()] = UP_SHAPE;

@@ -20,7 +20,7 @@ public class GlDebugMixin {
         String s,
         Object o,
         Operation<Void> original,
-        @Local(argsOnly = true, index = 3) int severity
+        @Local(argsOnly = true, index = 4) int severity
     ) {
         if (severity != 37190) {
             return;

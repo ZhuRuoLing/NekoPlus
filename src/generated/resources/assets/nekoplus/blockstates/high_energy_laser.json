@@ -1,7 +1,7 @@
 {
   "variants": {
     "facing=down,overload=false,powered=false": {
-      "model": "nekoplus:block/high_energy_laser",
+      "model": "nekoplus:block/high_energy_laser_normal",
       "x": 180
     },
     "facing=down,overload=false,powered=true": {
@@ -17,7 +17,7 @@
       "x": 180
     },
     "facing=east,overload=false,powered=false": {
-      "model": "nekoplus:block/high_energy_laser",
+      "model": "nekoplus:block/high_energy_laser_normal",
       "x": 90,
       "y": 90
     },
@@ -37,7 +37,7 @@
       "y": 90
     },
     "facing=north,overload=false,powered=false": {
-      "model": "nekoplus:block/high_energy_laser",
+      "model": "nekoplus:block/high_energy_laser_normal",
       "x": 90
     },
     "facing=north,overload=false,powered=true": {
@@ -53,7 +53,7 @@
       "x": 90
     },
     "facing=south,overload=false,powered=false": {
-      "model": "nekoplus:block/high_energy_laser",
+      "model": "nekoplus:block/high_energy_laser_normal",
       "x": 90,
       "y": 180
     },
@@ -73,7 +73,7 @@
       "y": 180
     },
     "facing=up,overload=false,powered=false": {
-      "model": "nekoplus:block/high_energy_laser"
+      "model": "nekoplus:block/high_energy_laser_normal"
     },
     "facing=up,overload=false,powered=true": {
       "model": "nekoplus:block/high_energy_laser_off"
@@ -85,7 +85,7 @@
       "model": "nekoplus:block/high_energy_laser_off"
     },
     "facing=west,overload=false,powered=false": {
-      "model": "nekoplus:block/high_energy_laser",
+      "model": "nekoplus:block/high_energy_laser_normal",
       "x": 90,
       "y": 270
     },

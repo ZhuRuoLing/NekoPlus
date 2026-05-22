@@ -13,7 +13,6 @@
         "model": "nekoplus:block/programmable_logic_gate_torch_on"
       },
       "when": {
-        "facing": "north",
         "white_enable": "true"
       }
     },
@@ -22,7 +21,6 @@
         "model": "nekoplus:block/programmable_logic_gate_torch_off"
       },
       "when": {
-        "facing": "north",
         "white_enable": "false"
       }
     },
@@ -32,8 +30,7 @@
         "y": 90
       },
       "when": {
-        "blue_enable": "true",
-        "facing": "north"
+        "blue_enable": "true"
       }
     },
     {
@@ -42,8 +39,7 @@
         "y": 90
       },
       "when": {
-        "blue_enable": "false",
-        "facing": "north"
+        "blue_enable": "false"
       }
     },
     {
@@ -52,7 +48,6 @@
         "y": 180
       },
       "when": {
-        "facing": "north",
         "green_enable": "true"
       }
     },
@@ -62,7 +57,6 @@
         "y": 180
       },
       "when": {
-        "facing": "north",
         "green_enable": "false"
       }
     },
@@ -72,7 +66,6 @@
         "y": 270
       },
       "when": {
-        "facing": "north",
         "red_enable": "true"
       }
     },
@@ -82,7 +75,6 @@
         "y": 270
       },
       "when": {
-        "facing": "north",
         "red_enable": "false"
       }
     },
@@ -101,7 +93,6 @@
         "y": 90
       },
       "when": {
-        "facing": "east",
         "white_enable": "true"
       }
     },
@@ -111,7 +102,6 @@
         "y": 90
       },
       "when": {
-        "facing": "east",
         "white_enable": "false"
       }
     },
@@ -121,8 +111,7 @@
         "y": 180
       },
       "when": {
-        "blue_enable": "true",
-        "facing": "east"
+        "blue_enable": "true"
       }
     },
     {
@@ -131,8 +120,7 @@
         "y": 180
       },
       "when": {
-        "blue_enable": "false",
-        "facing": "east"
+        "blue_enable": "false"
       }
     },
     {
@@ -141,7 +129,6 @@
         "y": 270
       },
       "when": {
-        "facing": "east",
         "green_enable": "true"
       }
     },
@@ -151,27 +138,22 @@
         "y": 270
       },
       "when": {
-        "facing": "east",
         "green_enable": "false"
       }
     },
     {
       "apply": {
-        "model": "nekoplus:block/programmable_logic_gate_torch_on",
-        "y": 360
+        "model": "nekoplus:block/programmable_logic_gate_torch_on"
       },
       "when": {
-        "facing": "east",
         "red_enable": "true"
       }
     },
     {
       "apply": {
-        "model": "nekoplus:block/programmable_logic_gate_torch_off",
-        "y": 360
+        "model": "nekoplus:block/programmable_logic_gate_torch_off"
       },
       "when": {
-        "facing": "east",
         "red_enable": "false"
       }
     },
@@ -190,7 +172,6 @@
         "y": 180
       },
       "when": {
-        "facing": "south",
         "white_enable": "true"
       }
     },
@@ -200,7 +181,6 @@
         "y": 180
       },
       "when": {
-        "facing": "south",
         "white_enable": "false"
       }
     },
@@ -210,8 +190,7 @@
         "y": 270
       },
       "when": {
-        "blue_enable": "true",
-        "facing": "south"
+        "blue_enable": "true"
       }
     },
     {
@@ -220,47 +199,40 @@
         "y": 270
       },
       "when": {
-        "blue_enable": "false",
-        "facing": "south"
+        "blue_enable": "false"
       }
     },
     {
       "apply": {
-        "model": "nekoplus:block/programmable_logic_gate_torch_on",
-        "y": 360
+        "model": "nekoplus:block/programmable_logic_gate_torch_on"
       },
       "when": {
-        "facing": "south",
         "green_enable": "true"
       }
     },
     {
       "apply": {
-        "model": "nekoplus:block/programmable_logic_gate_torch_off",
-        "y": 360
+        "model": "nekoplus:block/programmable_logic_gate_torch_off"
       },
       "when": {
-        "facing": "south",
         "green_enable": "false"
       }
     },
     {
       "apply": {
         "model": "nekoplus:block/programmable_logic_gate_torch_on",
-        "y": 450
+        "y": 90
       },
       "when": {
-        "facing": "south",
         "red_enable": "true"
       }
     },
     {
       "apply": {
         "model": "nekoplus:block/programmable_logic_gate_torch_off",
-        "y": 450
+        "y": 90
       },
       "when": {
-        "facing": "south",
         "red_enable": "false"
       }
     },
@@ -279,7 +251,6 @@
         "y": 270
       },
       "when": {
-        "facing": "west",
         "white_enable": "true"
       }
     },
@@ -289,67 +260,58 @@
         "y": 270
       },
       "when": {
-        "facing": "west",
         "white_enable": "false"
       }
     },
     {
       "apply": {
-        "model": "nekoplus:block/programmable_logic_gate_torch_on",
-        "y": 360
+        "model": "nekoplus:block/programmable_logic_gate_torch_on"
       },
       "when": {
-        "blue_enable": "true",
-        "facing": "west"
+        "blue_enable": "true"
       }
     },
     {
       "apply": {
-        "model": "nekoplus:block/programmable_logic_gate_torch_off",
-        "y": 360
+        "model": "nekoplus:block/programmable_logic_gate_torch_off"
       },
       "when": {
-        "blue_enable": "false",
-        "facing": "west"
+        "blue_enable": "false"
       }
     },
     {
       "apply": {
         "model": "nekoplus:block/programmable_logic_gate_torch_on",
-        "y": 450
+        "y": 90
       },
       "when": {
-        "facing": "west",
         "green_enable": "true"
       }
     },
     {
       "apply": {
         "model": "nekoplus:block/programmable_logic_gate_torch_off",
-        "y": 450
+        "y": 90
       },
       "when": {
-        "facing": "west",
         "green_enable": "false"
       }
     },
     {
       "apply": {
         "model": "nekoplus:block/programmable_logic_gate_torch_on",
-        "y": 540
+        "y": 180
       },
       "when": {
-        "facing": "west",
         "red_enable": "true"
       }
     },
     {
       "apply": {
         "model": "nekoplus:block/programmable_logic_gate_torch_off",
-        "y": 540
+        "y": 180
       },
       "when": {
-        "facing": "west",
         "red_enable": "false"
       }
     }

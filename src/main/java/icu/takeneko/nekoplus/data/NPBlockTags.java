@@ -60,12 +60,12 @@ public class NPBlockTags {
     public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrumTagsProvider<Block> provider) {
         for (TagKey<Block> tagKey : IRON_PICKAXE_MINEABLE) {
             provider.rawBuilder(tagKey)
-                .addTag(holder.getKey().identifier());
+                .addElement(holder.getKey().identifier());
         }
     }
 
     public static void wrenchableBlock(Holder<Block> holder, RegistrumTagsProvider<Block> provider) {
         provider.rawBuilder(ModBlockTags.HAMMER_REMOVABLE)
-            .addTag(holder.getKey().identifier());
+            .addElement(holder.getKey().identifier());
     }
 }

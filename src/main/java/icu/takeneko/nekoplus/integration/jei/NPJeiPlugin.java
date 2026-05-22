@@ -1,6 +1,7 @@
 package icu.takeneko.nekoplus.integration.jei;
 
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
+import dev.dubhe.anvilcraft.recipe.sync.RecipesRecord;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPItems;
@@ -11,7 +12,7 @@ import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.recipe.RecipeType;
+import mezz.jei.api.recipe.types.IRecipeType;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
@@ -19,30 +20,34 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeType;
 
 @JeiPlugin
 public class NPJeiPlugin implements IModPlugin {
-    public static final RecipeType<RecipeHolder<AirCondensingRecipe>> AIR_CONDENSING_TYPE = createRecipeHolderType("air_condensing");
-    public static final RecipeType<RecipeHolder<LaserEtchingRecipe>> LASER_ETCHING_TYPE = createRecipeHolderType("laser_etching");
+    public static IRecipeType<RecipeHolder<AirCondensingRecipe>> AIR_CONDENSING_TYPE;
+    public static IRecipeType<RecipeHolder<LaserEtchingRecipe>> LASER_ETCHING_TYPE;
 
     @Override
     public Identifier getPluginUid() {
         return NekoPlus.location("jei");
     }
 
-    public static <R extends Recipe<?>> RecipeType<RecipeHolder<R>> createRecipeHolderType(String name) {
-        return RecipeType.createRecipeHolderType(NekoPlus.location(name));
+    public static <R extends Recipe<I>, I extends RecipeInput> IRecipeType<RecipeHolder<R>> createRecipeHolderType(RecipeType<R> type) {
+        return IRecipeType.create(type);
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
+        AIR_CONDENSING_TYPE = createRecipeHolderType(NPRecipeTypes.AIR_CONDENSING);
+        LASER_ETCHING_TYPE = createRecipeHolderType(NPRecipeTypes.LASER_ETCHING);
         registration.addRecipes(
             AIR_CONDENSING_TYPE,
-            Minecraft.getInstance().getConnection().getRecipeManager().getAllRecipesFor(NPRecipeTypes.AIR_CONDENSING)
+            RecipesRecord.RECIPES.byType(NPRecipeTypes.AIR_CONDENSING).stream().toList()
         );
         registration.addRecipes(
             LASER_ETCHING_TYPE,
-            Minecraft.getInstance().getConnection().getRecipeManager().getAllRecipesFor(NPRecipeTypes.LASER_ETCHING)
+            RecipesRecord.RECIPES.byType(NPRecipeTypes.LASER_ETCHING).stream().toList()
         );
     }
 
@@ -56,13 +61,13 @@ public class NPJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addRecipeCatalysts(
+        registration.addCraftingStation(
             AIR_CONDENSING_TYPE,
             NPItems.AIR_FILTER,
             NPBlocks.PARTICLE_STABILIZER
         );
 
-        registration.addRecipeCatalysts(
+        registration.addCraftingStation(
             LASER_ETCHING_TYPE,
             NPBlocks.HIGH_ENERGY_LASER,
             ModBlocks.RUBY_LASER

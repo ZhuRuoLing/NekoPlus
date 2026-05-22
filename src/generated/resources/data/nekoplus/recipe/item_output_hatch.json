@@ -2,15 +2,10 @@
   "type": "minecraft:crafting_shapeless",
   "category": "redstone",
   "ingredients": [
-    {
-      "item": "anvilcraft:chute"
-    },
-    {
-      "item": "nekoplus:royal_steel_casing"
-    }
+    "anvilcraft:chute",
+    "nekoplus:royal_steel_casing"
   ],
   "result": {
-    "count": 1,
     "id": "nekoplus:item_output_hatch"
   }
 }

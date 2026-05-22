@@ -4,6 +4,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumRecipeProvider;
 import dev.anvilcraft.lib.v2.util.predicate.ChanceItemStack;
+import icu.takeneko.nekoplus.all.NPRecipeTypes;
 import lombok.Builder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeBookCategories;
 import net.minecraft.world.item.crafting.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -42,8 +44,6 @@ public record LaserEtchingRecipe(Ingredient input, ChanceItemStack output) imple
         LaserEtchingRecipe::new
     );
 
-    public static final RecipeSerializer<LaserEtchingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
-
     @Override
     public boolean matches(SingleRecipeInput input, Level level) {
         return this.input.test(input.item());
@@ -66,22 +66,22 @@ public record LaserEtchingRecipe(Ingredient input, ChanceItemStack output) imple
 
     @Override
     public RecipeSerializer<? extends Recipe<SingleRecipeInput>> getSerializer() {
-        return null;
+        return NPRecipeTypes.LASER_ETCHING_SERIALIZER;
     }
 
     @Override
     public RecipeType<? extends Recipe<SingleRecipeInput>> getType() {
-        return null;
+        return NPRecipeTypes.LASER_ETCHING;
     }
 
     @Override
     public PlacementInfo placementInfo() {
-        return null;
+        return PlacementInfo.NOT_PLACEABLE;
     }
 
     @Override
     public RecipeBookCategory recipeBookCategory() {
-        return null;
+        return RecipeBookCategories.CRAFTING_MISC;
     }
 
 

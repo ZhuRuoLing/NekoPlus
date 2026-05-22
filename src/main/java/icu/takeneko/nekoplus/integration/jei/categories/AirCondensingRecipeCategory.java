@@ -1,7 +1,6 @@
 package icu.takeneko.nekoplus.integration.jei.categories;
 
 import dev.dubhe.anvilcraft.client.support.RenderSupport;
-import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiRenderHelper;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil;
 import icu.takeneko.nekoplus.all.NPBlocks;
@@ -14,10 +13,10 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -45,26 +44,24 @@ public class AirCondensingRecipeCategory implements IRecipeCategory<RecipeHolder
     }
 
     @Override
-    public void draw(RecipeHolder<AirCondensingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<AirCondensingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         RenderSupport.renderBlock(
             guiGraphics,
             NPBlocks.PARTICLE_STABILIZER.getDefaultState(),
             81,
             40,
-            0,
-            12,
-            RenderSupport.SINGLE_BLOCK
+            12
         );
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(1, 1, 1);
-        guiGraphics.pose().scale(0.7943f, 0.7943f, 0.8f);
-        guiGraphics.drawString(
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().translate(1, 1);
+        guiGraphics.pose().scale(0.7943f, 0.7943f);
+        guiGraphics.text(
             Minecraft.getInstance().font,
-            Component.translatable("category.nekoplus.air_condensing.dimension", recipe.value().getDimension().getKey().location().toString()),
+            Component.translatable("category.nekoplus.air_condensing.dimension", recipe.value().getDimension().getKey().identifier().toString()),
             0, 0,
             16777215
         );
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
         arrowIn.draw(guiGraphics, 54, 30);
         arrowOutputFromBelow.draw(guiGraphics, 92, 29);
         JeiSlotUtil.drawInputSlots(guiGraphics, slotDefault, 1);
@@ -72,7 +69,7 @@ public class AirCondensingRecipeCategory implements IRecipeCategory<RecipeHolder
     }
 
     @Override
-    public RecipeType<RecipeHolder<AirCondensingRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<AirCondensingRecipe>> getRecipeType() {
         return NPJeiPlugin.AIR_CONDENSING_TYPE;
     }
 
@@ -90,7 +87,7 @@ public class AirCondensingRecipeCategory implements IRecipeCategory<RecipeHolder
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<AirCondensingRecipe> recipe, IFocusGroup focuses) {
         AirCondensingRecipe r = recipe.value();
         NPJeiSlotUtil.addInputSlots(builder, Collections.singletonList(Ingredient.of(NPItems.AIR_FILTER)));
-        NPJeiSlotUtil.addOutputSlots(builder, r.getResults());
+        NPJeiSlotUtil.addOutputSlots(builder, r.getResultsAsItemStack());
     }
 
     @Override

@@ -132,11 +132,11 @@ public class NPEvents {
             }
             SingleRecipeInput input = new SingleRecipeInput(itemStack.copyWithCount(actualCount));
             ServerLevel serverLevel = (ServerLevel) level;
-            Optional<RecipeHolder<LaserEtchingRecipe>> recipeHolderOptional = serverLevel.getRecipeManager().getRecipeFor(NPRecipeTypes.LASER_ETCHING, input, serverLevel);
+            Optional<RecipeHolder<LaserEtchingRecipe>> recipeHolderOptional = level.getServer().getRecipeManager().getRecipeFor(NPRecipeTypes.LASER_ETCHING, input, serverLevel);
             if (recipeHolderOptional.isPresent() && actualCount != 0) {
                 entity.discard();
                 LaserEtchingRecipe recipe = recipeHolderOptional.get().value();
-                ItemStack result = recipe.output().getResult(serverLevel);
+                ItemStack result = recipe.output().getResult(serverLevel).create();
                 result = result.copyWithCount(result.getCount() * actualCount);
                 int maxStackSize = result.getMaxStackSize();
                 while (result.getCount() > maxStackSize) {

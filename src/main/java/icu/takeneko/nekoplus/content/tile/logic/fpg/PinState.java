@@ -22,16 +22,19 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
-public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAware {
+public class PinState implements ValueIOSerializable, IContentChangeAware {
     public static final Set<String> PREDEFINED_SYMBOLS = Set.of("w", "r", "g", "b");
 
     @Getter
@@ -135,14 +138,14 @@ public class PinState implements INBTSerializable<CompoundTag>, IContentChangeAw
     }
 
     @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return (CompoundTag) SaveData.CODEC.encodeStart(NbtOps.INSTANCE, intoData()).getOrThrow();
+    public void serialize(ValueOutput output) {
+        output.store("data", SaveData.CODEC, intoData());
     }
 
     @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
-        SaveData saveData = SaveData.CODEC.decode(NbtOps.INSTANCE, compoundTag).getOrThrow().getFirst();
-        this.load(saveData);
+    public void deserialize(ValueInput input) {
+        Optional<SaveData> data = input.read("data", SaveData.CODEC);
+        data.ifPresent(this::load);
     }
 
     public boolean evaluatePin(ExpEvaluationContext context) {

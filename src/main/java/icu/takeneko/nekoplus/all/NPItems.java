@@ -1,24 +1,23 @@
 package icu.takeneko.nekoplus.all;
 
-import dev.anvilcraft.lib.v2.recipe.component.ChanceItemStack;
-import dev.anvilcraft.lib.v2.registrum.providers.RegistrumRecipeProvider;
 import dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry;
+import dev.anvilcraft.lib.v2.util.predicate.ChanceItemStack;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.CookingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
+import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
@@ -50,7 +49,7 @@ public class NPItems {
         .item("titanium_alloy_ingot", Item::new)
         .recipe((c, p) -> {
             SuperHeatingRecipe.builder()
-                .requires(ModItemTags.TITANIUM_INGOTS)
+                .requires(p.getItems(), ModItemTags.TITANIUM_INGOTS)
                 .requires(Items.IRON_INGOT)
                 .result(c.get(), 2)
                 .save(p, p.safeId(NekoPlus.location(c.getName() + "_superheating")));
@@ -65,44 +64,21 @@ public class NPItems {
         )
         .register();
 
-//    public static final ItemEntry<Item> SILICON_INGOT = NekoPlus.REGISTRUM
-//        .item("silicon_ingot", Item::new)
-//        .tag(NPTags.Items.SILICON)
-//        .recipe((c, p) -> {
-//            p.storage(c, RecipeCategory.MISC, NPBlocks.SILICON_BLOCK);
-//
-//            SuperHeatingRecipe.builder()
-//                .requires(Items.QUARTZ, 4)
-//                .result(c.get().getDefaultInstance().copyWithCount(1))
-//                .save(p, NekoPlus.location("super_heating/silicon_ingot_from_quartz"));
-//
-//            SuperHeatingRecipe.builder()
-//                .requires(Items.GLASS, 48)
-//                .requires(NPItems.STABILIZE_POWDER, 1)
-//                .result(c.get().getDefaultInstance().copyWithCount(1))
-//                .save(p, NekoPlus.location("super_heating/silicon_ingot_from_glass"));
-//        })
-//        .register();
-//
-//    public static final ItemEntry<Item> SILICON_WAFER = NekoPlus.REGISTRUM
-//        .item("silicon_wafer", Item::new)
-//        .register();
-
     public static final ItemEntry<Item> ADVANCED_PROCESSOR = NekoPlus.REGISTRUM
         .item("advanced_processor", Item::new)
         .recipe((ctx, prov) ->
             LaserEtchingRecipe.builder()
                 .input(Ingredient.of(ModItems.PROCESSOR))
-                .output(ChanceItemStack.of(ctx.get().getDefaultInstance(), 1))
+                .output(ChanceItemStack.of(new ItemStackTemplate(ctx.get()), 1))
                 .build()
-                .save(ctx.getId(), prov)
+                .save(prov, ctx.getId())
         )
         .register();
 
     public static final ItemEntry<Item> INTEGRATED_CHIP_CIRCUIT_BOARD = NekoPlus.REGISTRUM
         .item("integrated_chip_circuit_board", Item::new)
         .recipe((c, p) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
+            ShapedRecipeBuilder.shaped(p.getItems(), RecipeCategory.MISC, c.get())
                 .pattern("ABB")
                 .pattern("ACB")
                 .pattern("DDD")
@@ -110,10 +86,19 @@ public class NPItems {
                 .define('B', ModItems.CIRCUIT_BOARD)
                 .define('C', ADVANCED_PROCESSOR)
                 .define('D', ModItems.HARDEND_RESIN)
-                .unlockedBy("has_silver_plate", RegistrumRecipeProvider.has(NPTags.Items.SILVER_PLATE))
-                .unlockedBy("has_" + p.safeName(ModItems.CIRCUIT_BOARD), RegistrumRecipeProvider.has(ModItems.CIRCUIT_BOARD))
-                .unlockedBy("has_" + ADVANCED_PROCESSOR.getRegisteredName(), RegistrumRecipeProvider.has(ADVANCED_PROCESSOR))
-                .unlockedBy("has_" + ModItems.HARDEND_RESIN.getRegisteredName(), RegistrumRecipeProvider.has(ModItems.HARDEND_RESIN))
+                .unlockedBy("has_silver_plate", p.has(NPTags.Items.SILVER_PLATE))
+                .unlockedBy(
+                    "has_" + p.safeName(ModItems.CIRCUIT_BOARD),
+                    p.has(ModItems.CIRCUIT_BOARD)
+                )
+                .unlockedBy(
+                    "has_" + ADVANCED_PROCESSOR.getRegisteredName(),
+                    p.has(ADVANCED_PROCESSOR)
+                )
+                .unlockedBy(
+                    "has_" + ModItems.HARDEND_RESIN.getRegisteredName(),
+                    p.has(ModItems.HARDEND_RESIN)
+                )
                 .save(p);
         })
         .register();
@@ -129,18 +114,18 @@ public class NPItems {
         .recipe((ctx, prov) -> {
             AirCondensingRecipe.builder()
                 .dimension(prov.resolve(BuiltinDimensionTypes.NETHER))
-                .results(List.of(new ItemStack(ctx.get(), 8), new ItemStack(DRY_ICE.asItem(), 1)))
+                .results(List.of(new ItemStackTemplate(ctx.get(), 8), new ItemStackTemplate(DRY_ICE.asItem(), 1)))
                 .probability(ConstantValue.exactly(0.3f))
                 .ticks(10)
                 .build()
-                .save(NekoPlus.location("air_condensing/nether"), prov);
+                .save(prov, NekoPlus.location("air_condensing/nether"));
         })
         .register();
 
     public static final ItemEntry<Item> CHARGED_LEVITATION_POWDER = NekoPlus.REGISTRUM
         .item("charged_levitation_powder", Item::new)
         .recipe((c, p) -> {
-            ChargerChargingRecipe.builder()
+            ChargerChargingRecipe.builder(p.getItems())
                 .requires(ModItems.LEVITATION_POWDER)
                 .result(c.get())
                 .power(-8)
@@ -154,7 +139,7 @@ public class NPItems {
         .tag(Tags.Items.DUSTS)
         .recipe((c, p) -> {
             SuperHeatingRecipe.builder()
-                .requires(NPTags.Items.SULFUR, 8)
+                .requires(p.getItems(), NPTags.Items.SULFUR, 8)
                 .requires(Items.LAPIS_LAZULI, 2)
                 .requires(Items.REDSTONE, 3)
                 .requires(NPItems.CHARGED_LEVITATION_POWDER, 5)
@@ -166,15 +151,18 @@ public class NPItems {
     public static final ItemEntry<Item> CARBON_DIOXIDE_LASER_TUBE = NekoPlus.REGISTRUM
         .item("carbon_dioxide_laser_tube", Item::new)
         .recipe((ctx, prov) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ctx.get())
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.MISC, ctx.get())
                 .pattern(" A ")
                 .pattern("CBC")
                 .define('A', DRY_ICE)
                 .define('B', Items.GLASS_BOTTLE)
                 .define('C', ModItems.SILVER_NUGGET)
-                .unlockedBy("has_" + DRY_ICE.getRegisteredName(), RegistrumRecipeProvider.has(DRY_ICE))
-                .unlockedBy("has_" + prov.safeName(Items.GLASS_BOTTLE), RegistrumRecipeProvider.has(Items.GLASS_BOTTLE))
-                .unlockedBy("has_" + ModItems.SILVER_NUGGET.getRegisteredName(), RegistrumRecipeProvider.has(ModItems.SILVER_NUGGET))
+                .unlockedBy("has_" + DRY_ICE.getRegisteredName(), prov.has(DRY_ICE))
+                .unlockedBy("has_" + prov.safeName(Items.GLASS_BOTTLE), prov.has(Items.GLASS_BOTTLE))
+                .unlockedBy(
+                    "has_" + ModItems.SILVER_NUGGET.getRegisteredName(),
+                    prov.has(ModItems.SILVER_NUGGET)
+                )
                 .save(prov);
         })
         .register();
@@ -191,35 +179,39 @@ public class NPItems {
 
     public static final ItemEntry<Item> AIR_FILTER = NekoPlus.REGISTRUM
         .item("air_filter", Item::new)
-        .model(DataGenUtils::emptyConsumer)
+        .model(DataGenUtil::onlyInfo)
         .recipe((c, p) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
+            ShapedRecipeBuilder.shaped(p.getItems(), RecipeCategory.MISC, c.get())
                 .pattern(" A ")
                 .pattern("ABA")
                 .pattern(" A ")
                 .define('A', NPItems.TITANIUM_ALLOY_NUGGET)
                 .define('B', NANOFILTRATION_MEMBRANE)
-                .unlockedBy("has_" + p.safeName(NANOFILTRATION_MEMBRANE), RegistrumRecipeProvider.has(NANOFILTRATION_MEMBRANE))
-                .unlockedBy("has_" + p.safeName(TITANIUM_ALLOY_NUGGET), RegistrumRecipeProvider.has(TITANIUM_ALLOY_NUGGET))
+                .unlockedBy(
+                    "has_" + p.safeName(NANOFILTRATION_MEMBRANE),
+                    p.has(NANOFILTRATION_MEMBRANE)
+                )
+                .unlockedBy(
+                    "has_" + p.safeName(TITANIUM_ALLOY_NUGGET),
+                    p.has(TITANIUM_ALLOY_NUGGET)
+                )
                 .save(p);
         })
         .register();
 
     public static final ItemEntry<Item> CRYOCOOLER = NekoPlus.REGISTRUM
         .item("cryocooler", Item::new)
-        .model(DataGenUtils::emptyConsumer)
-        .recipe((c, p) -> {
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.get())
-                .pattern("CDC")
-                .pattern("ABA")
-                .pattern(" C ")
-                .define('A', Tags.Items.STORAGE_BLOCKS_COPPER)
-                .define('B', Blocks.BLUE_ICE)
-                .define('C', ModItemTags.GEMS_SAPPHIRE)
-                .define('D', ModItems.CIRCUIT_BOARD)
-                .unlockedBy("has_gem_sapphire", RegistrumRecipeProvider.has(ModItemTags.GEMS_SAPPHIRE))
-                .save(p);
-        })
+        .model(DataGenUtil::onlyInfo)
+        .recipe((c, p) -> ShapedRecipeBuilder.shaped(p.getItems(), RecipeCategory.MISC, c.get())
+            .pattern("CDC")
+            .pattern("ABA")
+            .pattern(" C ")
+            .define('A', Tags.Items.STORAGE_BLOCKS_COPPER)
+            .define('B', Blocks.BLUE_ICE)
+            .define('C', ModItemTags.GEMS_SAPPHIRE)
+            .define('D', ModItems.CIRCUIT_BOARD)
+            .unlockedBy("has_gem_sapphire", p.has(ModItemTags.GEMS_SAPPHIRE))
+            .save(p))
         .register();
 
     public static final ItemEntry<Item> GUMMY_BEAR = NekoPlus.REGISTRUM
@@ -227,14 +219,11 @@ public class NPItems {
         .properties(p -> p.food(
             new FoodProperties.Builder()
                 .alwaysEdible()
-                .fast()
                 .nutrition(2)
                 .saturationModifier(2)
-                .effect(() -> new MobEffectInstance(MobEffects.SATURATION, 20), 1f)
                 .build()
         ))
-        .model((ctx, prov) -> {
-        })
+        .model(DataGenUtil::onlyInfo)
         .recipe((ctx, prov) -> {
             CookingRecipe.builder()
                 .requires(ModItems.RESIN, 2)

@@ -15,7 +15,7 @@ public class NPDataGen {
     }
 
     @SubscribeEvent
-    public static void on(GatherDataEvent event) {
+    public static void on(GatherDataEvent.Client event) {
         event.createProvider(NPSounds::new);
     }
 }

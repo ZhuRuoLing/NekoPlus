@@ -1,3 +1,21 @@
+/*
+ * This file is part of Applied Energistics 2.
+ * Copyright (c) 2013 - 2014, AlgorithmX2, All rights reserved.
+ *
+ * Applied Energistics 2 is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Applied Energistics 2 is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Applied Energistics 2.  If not, see <http://www.gnu.org/licenses/lgpl>.
+ */
+
 package icu.takeneko.nekoplus.util.thirdparty.appeng.api.orientation;
 
 import java.util.EnumSet;
@@ -5,13 +23,15 @@ import java.util.Set;
 
 import com.mojang.math.Transformation;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * All possible rotations for a fully orientable block.
@@ -72,16 +92,16 @@ public enum BlockOrientation {
 
         // NOTE: Mojangs block model rotation rotates in the opposite direction
         quaternion = new Quaternionf().rotateYXZ(
-                -angleY * Mth.DEG_TO_RAD,
-                -angleX * Mth.DEG_TO_RAD,
-                -angleZ * Mth.DEG_TO_RAD);
+            -angleY * Mth.DEG_TO_RAD,
+            -angleX * Mth.DEG_TO_RAD,
+            -angleZ * Mth.DEG_TO_RAD);
 
         if (angleX == 0 && angleY == 0 && angleZ == 0) {
-            this.transformation = Transformation.identity();
+            this.transformation = Transformation.IDENTITY;
         } else {
             var rotationMatrix = new Matrix4f()
-                    .identity()
-                    .rotate(quaternion);
+                .identity()
+                .rotate(quaternion);
             this.transformation = new Transformation(rotationMatrix);
         }
         this.spin = spin;
@@ -92,33 +112,33 @@ public enum BlockOrientation {
         for (var direction : Direction.values()) {
             var normal = direction.step();
             normal.rotate(quaternion);
-            var rotatedTo = Direction.getNearest(normal.x(), normal.y(), normal.z());
+            var rotatedTo = Direction.getApproximateNearest(normal.x(), normal.y(), normal.z());
             rotatedSideTo[direction.ordinal()] = rotatedTo;
             rotatedSideFrom[rotatedTo.ordinal()] = direction;
         }
     }
 
-//    /**
-//     * Changes the orientation of the given block entity to this, if possible.
-//     */
-//    public void setOn(BlockEntity be) {
-//        setOn(be.getLevel(), be.getBlockPos());
-//    }
-//
-//    /**
-//     * Changes the orientation of the block at the given position/level to this, if possible.
-//     */
-//    public void setOn(Level level, BlockPos pos) {
-//        var state = level.getBlockState(pos);
-//        var strategy = IOrientationStrategy.get(state);
-//        var newState = strategy.setOrientation(state,
-//                getSide(RelativeSide.FRONT),
-//                getSpin());
-//        if (newState != state) {
-//            level.setBlockAndUpdate(pos, newState);
-//        }
-//
-//    }
+    /**
+     * Changes the orientation of the given block entity to this, if possible.
+     */
+    public void setOn(BlockEntity be) {
+        setOn(be.getLevel(), be.getBlockPos());
+    }
+
+    /**
+     * Changes the orientation of the block at the given position/level to this, if possible.
+     */
+    public void setOn(Level level, BlockPos pos) {
+        var state = level.getBlockState(pos);
+        var strategy = IOrientationStrategy.get(state);
+        var newState = strategy.setOrientation(state,
+            getSide(RelativeSide.FRONT),
+            getSpin());
+        if (newState != state) {
+            level.setBlockAndUpdate(pos, newState);
+        }
+
+    }
 
     public boolean isRedundant() {
         return angleX == 0 && angleY == 0 && angleZ == 0;

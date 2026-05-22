@@ -8,6 +8,7 @@ import com.lowdragmc.lowdraglib2.syncdata.annotation.RequireRerender;
 import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
+import dev.dubhe.anvilcraft.util.ItemResourceHelper;
 import icu.takeneko.nekoplus.all.NPSoundEvents;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.content.tile.logic.stabilizer.ParticleStabilizerLogic;
@@ -40,6 +41,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.transfer.item.ItemResource;
+import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnknownNullability;
 
@@ -192,7 +194,7 @@ public class ParticleStabilizerBlockEntity
     }
 
     @Override
-    public boolean isItemValid(int slot, @UnknownNullability ItemResource stack) {
+    public boolean isItemValid(int slot, ItemResource stack) {
         if (slot == 0) {
             return logic.isValidTriggerItem(stack);
         }
@@ -230,13 +232,20 @@ public class ParticleStabilizerBlockEntity
     }
 
     @Override
-    public ItemStack getTriggerItem() {
-        return itemHandler.getStackInSlot(0);
+    public ItemResource getTriggerResource() {
+        return itemHandler.getResource(0);
     }
 
     @Override
     public ItemStack tryConsumeTriggerItem() {
-        return itemHandler.slice(0, 1).extractItem(0, 1, false);
+        try (Transaction transaction = Transaction.openRoot()){
+            int extracted = itemHandler.slice(0, 1).extract(getTriggerResource(), 1, transaction);
+            if (extracted > 0) {
+                transaction.commit();
+                return getTriggerResource().toStack(extracted);
+            }
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override

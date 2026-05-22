@@ -185,6 +185,7 @@ dependencies {
     compileOnly(libs.anvillibMoveableEntityBlock)
     compileOnly(libs.anvillibIntegration)
     compileOnly(libs.anvillibRegistrum)
+    compileOnly(libs.anvillibRendering)
     implementation(libs.anvilcraft) { transitive = false }
 //    implementation(libs.curios)
     compileOnlyApi(libs.jeiCommonApi)

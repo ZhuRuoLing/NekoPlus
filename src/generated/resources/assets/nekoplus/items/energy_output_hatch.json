@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "nekoplus:block/energy_output_hatch"
+  }
+}

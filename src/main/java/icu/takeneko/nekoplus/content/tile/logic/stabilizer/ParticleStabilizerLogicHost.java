@@ -5,10 +5,11 @@ import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public interface ParticleStabilizerLogicHost {
 
-    ItemStack getTriggerItem();
+    ItemResource getTriggerResource();
 
     ItemStack tryConsumeTriggerItem();
 

@@ -1,17 +1,15 @@
 package icu.takeneko.nekoplus.integration.jei.categories;
 
-import dev.dubhe.anvilcraft.block.RubyLaserBlock;
+import dev.dubhe.anvilcraft.block.laser.RubyLaserBlock;
 import dev.dubhe.anvilcraft.client.support.RenderSupport;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiRecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiRenderHelper;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil;
 import icu.takeneko.nekoplus.all.NPBlocks;
-import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.integration.jei.NPJeiPlugin;
 import icu.takeneko.nekoplus.integration.jei.NPJeiSlotUtil;
-import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import mezz.jei.api.gui.ITickTimer;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -19,13 +17,12 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import mezz.jei.api.recipe.types.IRecipeType;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -58,37 +55,36 @@ public class LaserEtchingRecipeCategory implements IRecipeCategory<RecipeHolder<
     }
 
     @Override
-    public void draw(RecipeHolder<LaserEtchingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
+    public void draw(RecipeHolder<LaserEtchingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
         float anvilYOffset = JeiRenderHelper.getAnvilAnimationOffset(timer);
-        RenderSupport.renderBlock(
-            guiGraphics,
-            Blocks.ANVIL.defaultBlockState(),
-            81,
-            22 + anvilYOffset,
-            20,
-            12,
-            RenderSupport.SINGLE_BLOCK
-        );
+
         RenderSupport.renderBlock(
             guiGraphics,
             ModBlocks.STAMPING_PLATFORM.getDefaultState(),
             81,
             40,
-            0,
-            12,
-            RenderSupport.SINGLE_BLOCK
+            12
         );
 
-        guiGraphics.pose().pushPose();
-        guiGraphics.pose().translate(1, 1, 1);
-        guiGraphics.pose().scale(0.7943f, 0.7943f, 0.8f);
-        guiGraphics.drawString(
+        RenderSupport.renderBlock(
+            guiGraphics,
+            Blocks.ANVIL.defaultBlockState(),
+            81,
+            22 + anvilYOffset,
+            12
+        );
+
+
+        guiGraphics.pose().pushMatrix();
+        guiGraphics.pose().translate(1, 1);
+        guiGraphics.pose().scale(0.7943f, 0.7943f);
+        guiGraphics.text(
             Minecraft.getInstance().font,
             Component.translatable("category.nekoplus.laser_etching.laser_requirement"),
             0, 0,
             16777215
         );
-        guiGraphics.pose().popPose();
+        guiGraphics.pose().popMatrix();
 
         BlockState blockState;
         if (timerLaserIterate.getValue() >= 40) {
@@ -102,9 +98,7 @@ public class LaserEtchingRecipeCategory implements IRecipeCategory<RecipeHolder<
             blockState,
             81,
             57,
-            0,
-            12,
-            RenderSupport.SINGLE_BLOCK
+            12
         );
 
         arrowIn.draw(guiGraphics, 54, 30);
@@ -119,7 +113,7 @@ public class LaserEtchingRecipeCategory implements IRecipeCategory<RecipeHolder<
     }
 
     @Override
-    public RecipeType<RecipeHolder<LaserEtchingRecipe>> getRecipeType() {
+    public IRecipeType<RecipeHolder<LaserEtchingRecipe>> getRecipeType() {
         return NPJeiPlugin.LASER_ETCHING_TYPE;
     }
 

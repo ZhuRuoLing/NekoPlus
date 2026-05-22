@@ -2,22 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "nekoplus:dry_ice"
-    },
-    "B": {
-      "item": "minecraft:glass_bottle"
-    },
-    "C": {
-      "item": "anvilcraft:silver_nugget"
-    }
+    "A": "nekoplus:dry_ice",
+    "B": "minecraft:glass_bottle",
+    "C": "anvilcraft:silver_nugget"
   },
   "pattern": [
     " A ",
     "CBC"
   ],
   "result": {
-    "count": 1,
     "id": "nekoplus:carbon_dioxide_laser_tube"
   }
 }

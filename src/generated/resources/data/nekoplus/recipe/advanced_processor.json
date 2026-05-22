@@ -1,8 +1,6 @@
 {
   "type": "nekoplus:laser_etching",
-  "input": {
-    "item": "anvilcraft:processor"
-  },
+  "input": "anvilcraft:processor",
   "output": {
     "id": "nekoplus:advanced_processor"
   }

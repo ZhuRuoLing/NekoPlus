@@ -2,9 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "nekoplus:netherite_scrap_block"
-    }
+    "nekoplus:netherite_scrap_block"
   ],
   "result": {
     "count": 9,

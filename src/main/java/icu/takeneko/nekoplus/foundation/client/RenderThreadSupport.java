@@ -13,7 +13,6 @@ public class RenderThreadSupport {
 
     private static final Deque<Runnable> tasks = new ArrayDeque<>();
 
-
     public static void recordRenderCall(Runnable call) {
         if (Minecraft.getInstance().isSameThread()) {
             call.run();

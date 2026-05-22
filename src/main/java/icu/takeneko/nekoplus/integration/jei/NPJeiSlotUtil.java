@@ -1,13 +1,10 @@
 package icu.takeneko.nekoplus.integration.jei;
 
-import dev.anvilcraft.lib.v2.recipe.component.ChanceItemStack;
-import dev.dubhe.anvilcraft.integration.jei.util.JeiRecipeUtil;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.List;
 
@@ -15,7 +12,7 @@ public class NPJeiSlotUtil {
     public static void addSlotWithCount(
         IRecipeLayoutBuilder builder, int slotX, int slotY, Ingredient entry) {
         IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, slotX, slotY);
-        slot.addIngredients(entry);
+        slot.add(entry);
     }
 
     public static void addInputSlots(
@@ -25,7 +22,7 @@ public class NPJeiSlotUtil {
         if (inputSize == 1) {
             Ingredient ingredient = mergedIngredients.getFirst();
             IRecipeSlotBuilder slot = builder.addSlot(RecipeIngredientRole.INPUT, 21, 24);
-            slot.addIngredients(ingredient);
+            slot.add(ingredient);
         } else if (inputSize <= 4) {
             int startX = 11;
             int startY = 15;
@@ -60,7 +57,7 @@ public class NPJeiSlotUtil {
         if (outputSize == 1) {
             ItemStack stack = results.getFirst();
             builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 24)
-                .addItemStack(stack);
+                .add(stack);
         } else if (outputSize <= 4) {
             int startX = 117;
             int startY = 15;
@@ -69,7 +66,7 @@ public class NPJeiSlotUtil {
                 int col = index % 2;
                 ItemStack stack = results.get(index);
                 builder.addSlot(RecipeIngredientRole.OUTPUT, startX + 19 * col, startY + 19 * row)
-                    .addItemStack(stack);
+                    .add(stack);
             }
         } else if (outputSize <= 6) {
             int startX = 108;
@@ -79,7 +76,7 @@ public class NPJeiSlotUtil {
                 int col = index % 3;
                 ItemStack stack = results.get(index);
                 builder.addSlot(RecipeIngredientRole.OUTPUT, startX + 19 * col, startY + 19 * row)
-                    .addItemStack(stack);
+                    .add(stack);
             }
         } else {
             int startX = 108;
@@ -90,7 +87,7 @@ public class NPJeiSlotUtil {
                 int col = index % 3;
                 ItemStack stack = results.get(index);
                 builder.addSlot(RecipeIngredientRole.OUTPUT, startX + 19 * col, startY + 19 * row)
-                    .addItemStack(stack);
+                    .add(stack);
             }
         }
     }

@@ -7,6 +7,7 @@ import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -23,7 +24,7 @@ public class NPRecipesData {
 
         AirCondensingRecipe.builder()
             .dimension(provider.resolve(BuiltinDimensionTypes.END))
-            .results(List.of(new ItemStack(ModItems.LEVITATION_POWDER.asItem(), 4)))
+            .results(List.of(new ItemStackTemplate(ModItems.LEVITATION_POWDER.asItem(), 4)))
             .probability(ConstantValue.exactly(0.8f))
             .ticks(10)
             .build()

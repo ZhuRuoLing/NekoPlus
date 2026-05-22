@@ -3,10 +3,11 @@ package icu.takeneko.nekoplus.content.tile.logic.stabilizer;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public interface ParticleStabilizerLogic {
 
-    boolean isValidTriggerItem(ItemStack stack);
+    boolean isValidTriggerItem(ItemResource stack);
 
     boolean tryTrigger(ParticleStabilizerLogicHost host);
 
@@ -21,7 +22,7 @@ public interface ParticleStabilizerLogic {
         private final ParticleStabilizerLogic[] logics = ParticleStabilizerLogics.values();
 
         @Override
-        public boolean isValidTriggerItem(ItemStack stack) {
+        public boolean isValidTriggerItem(ItemResource stack) {
             for (ParticleStabilizerLogic logic : logics) {
                 if (logic.isValidTriggerItem(stack)) {
                     return true;

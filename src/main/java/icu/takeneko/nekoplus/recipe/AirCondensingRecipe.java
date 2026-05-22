@@ -21,6 +21,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.crafting.PlacementInfo;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeBookCategories;
@@ -45,7 +46,7 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
     public static final MapCodec<AirCondensingRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec(ins ->
         ins.group(
             DimensionType.CODEC.fieldOf("dimension").forGetter(AirCondensingRecipe::getDimension),
-            ItemStack.CODEC.listOf().fieldOf("results").forGetter(AirCondensingRecipe::getResults),
+            ItemStackTemplate.CODEC.listOf().fieldOf("results").forGetter(AirCondensingRecipe::getResults),
             NumberProviders.CODEC.fieldOf("probability").forGetter(AirCondensingRecipe::getProbability),
             Codec.INT.fieldOf("ticks").forGetter(AirCondensingRecipe::getTicks)
         ).apply(ins, AirCondensingRecipe::new)
@@ -54,7 +55,7 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
     public static final StreamCodec<RegistryFriendlyByteBuf, AirCondensingRecipe> STREAM_CODEC = StreamCodec.composite(
         DimensionType.STREAM_CODEC,
         AirCondensingRecipe::getDimension,
-        ByteBufCodecs.collection(ArrayList::new, ItemStack.STREAM_CODEC),
+        ByteBufCodecs.collection(ArrayList::new, ItemStackTemplate.STREAM_CODEC),
         AirCondensingRecipe::getResults,
         ByteBufCodecs.fromCodec(NumberProviders.CODEC),
         AirCondensingRecipe::getProbability,
@@ -63,20 +64,14 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
         AirCondensingRecipe::new
     );
 
-    public static final RecipeSerializer<AirCondensingRecipe> SERIALIZER = new RecipeSerializer<>(
-        MAP_CODEC,
-        STREAM_CODEC
-    );
-
-
     private final Holder<DimensionType> dimension;
-    private final List<ItemStack> results;
+    private final List<ItemStackTemplate> results;
     private final NumberProvider probability;
     private final int ticks;
 
     public AirCondensingRecipe(
         Holder<DimensionType> dimension,
-        List<ItemStack> results,
+        List<ItemStackTemplate> results,
         NumberProvider probability,
         int ticks
     ) {
@@ -84,6 +79,15 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
         this.results = results;
         this.probability = probability;
         this.ticks = ticks;
+    }
+
+    public List<ItemStack> getResultsAsItemStack() {
+        List<ItemStack> list = new ArrayList<>();
+        for (ItemStackTemplate it : results) {
+            ItemStack itemStack = it.create();
+            list.add(itemStack);
+        }
+        return list;
     }
 
     @Override
@@ -129,7 +133,7 @@ public final class AirCondensingRecipe implements Recipe<SingleRecipeInput<Dimen
 
     @Override
     public RecipeSerializer<? extends Recipe<SingleRecipeInput<DimensionType>>> getSerializer() {
-        return SERIALIZER;
+        return NPRecipeTypes.AIR_CONDENSING_SERIALIZER;
     }
 
     @Override

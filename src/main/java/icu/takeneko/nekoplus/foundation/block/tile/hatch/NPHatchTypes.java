@@ -8,20 +8,24 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.transfer.ResourceHandler;
+import net.neoforged.neoforge.transfer.energy.EnergyHandler;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStackResourceHandler;
 import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.Nullable;
 
 public final class NPHatchTypes {
-    public static final HatchType<IFluidHandler> FLUID = new HatchType<>() {
+    public static final HatchType<ResourceHandler<FluidResource>> FLUID = new HatchType<>() {
         @Override
-        public HatchLogic<IFluidHandler> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
+        public HatchLogic<ResourceHandler<FluidResource>> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
             throw new NotImplementedException();
         }
 
         @Override
         @Nullable
-        public IFluidHandler getCapability(HatchLogic<IFluidHandler> logic) {
+        public ResourceHandler<FluidResource> getCapability(HatchLogic<ResourceHandler<FluidResource>> logic) {
             return null;
         }
 
@@ -36,15 +40,15 @@ public final class NPHatchTypes {
         }
     };
 
-    public static final HatchType<ItemStackResourceHandler> ITEM = new HatchType<>() {
+    public static final HatchType<ResourceHandler<ItemResource>> ITEM = new HatchType<>() {
         @Override
-        public HatchLogic<ItemStackResourceHandler> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
+        public HatchLogic<ResourceHandler<ItemResource>> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
             return new ItemHatchLogic(logicHost, isInput);
         }
 
         @Override
         @Nullable
-        public ItemStackResourceHandler getCapability(HatchLogic<ItemStackResourceHandler> logic) {
+        public ResourceHandler<ItemResource> getCapability(HatchLogic<ResourceHandler<ItemResource>> logic) {
             return logic.getCapabilityInstance();
         }
 
@@ -59,15 +63,15 @@ public final class NPHatchTypes {
         }
     };
 
-    public static final HatchType<IEnergyStorage> ENERGY = new HatchType<>() {
+    public static final HatchType<EnergyHandler> ENERGY = new HatchType<>() {
         @Override
-        public HatchLogic<IEnergyStorage> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
+        public HatchLogic<EnergyHandler> createHatchLogic(HatchLogicHost logicHost, boolean isInput) {
             return new EnergyHatchLogic();
         }
 
         @Override
         @Nullable
-        public IEnergyStorage getCapability(HatchLogic<IEnergyStorage> logic) {
+        public EnergyHandler getCapability(HatchLogic<EnergyHandler> logic) {
             return logic.getCapabilityInstance();
         }
 

@@ -34,7 +34,7 @@ public abstract class NPTranslucentEntityBlock extends BaseEntityBlock implement
     }
 
     @Override
-    protected VoxelShape getOcclusionShape(BlockState state, BlockGetter level, BlockPos pos) {
+    protected VoxelShape getOcclusionShape(BlockState state) {
         return Shapes.empty();
     }
 
@@ -54,7 +54,7 @@ public abstract class NPTranslucentEntityBlock extends BaseEntityBlock implement
     }
 
     @Override
-    protected boolean propagatesSkylightDown(BlockState p_309084_, BlockGetter p_309133_, BlockPos p_309097_) {
+    protected boolean propagatesSkylightDown(BlockState state) {
         return true;
     }
 }

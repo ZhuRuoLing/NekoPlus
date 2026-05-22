@@ -16,6 +16,7 @@ import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -23,13 +24,13 @@ import java.util.Optional;
 public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
     GAS_COLLECTOR {
         @Override
-        public boolean isValidTriggerItem(ItemStack stack) {
-            return stack.is(NPItems.AIR_FILTER);
+        public boolean isValidTriggerItem(ItemResource stack) {
+            return stack.is(NPItems.AIR_FILTER.asItem());
         }
 
         @Override
         public boolean tryTrigger(ParticleStabilizerLogicHost host) {
-            return isValidTriggerItem(host.getTriggerItem());
+            return isValidTriggerItem(host.getTriggerResource());
         }
 
         @Override
@@ -64,7 +65,7 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
                     ).create(Optional.empty());
                     float v = currentRecipe.getProbability().getFloat(context);
                     if (host.getLevel().getRandom().nextFloat() < v) {
-                        for (ItemStack result : currentRecipe.getResults()) {
+                        for (ItemStack result : currentRecipe.getResultsAsItemStack()) {
                             ItemHandlerUtil.insertItem(host.getOutputItemHandler(), result.copy(), false);
                         }
                     }
