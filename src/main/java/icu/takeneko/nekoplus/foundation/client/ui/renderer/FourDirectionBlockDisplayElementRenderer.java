@@ -13,14 +13,16 @@ import com.mojang.math.Axis;
 import dev.anvilcraft.lib.v2.rendering.gui.GuiRenderExtras;
 import dev.anvilcraft.lib.v2.rendering.sdf.SdfGraphics;
 import icu.takeneko.nekoplus.content.tile.logic.fpg.PinMode;
+import icu.takeneko.nekoplus.foundation.client.ui.renderer.states.TinyTriangleRenderState;
 import icu.takeneko.nekoplus.foundation.ui.widgets.FourDirectionBlockDisplayElement;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix3x2f;
 import org.joml.Matrix3x2fStack;
-import org.joml.Matrix4f;
+import org.joml.Vector2f;
 
 public class FourDirectionBlockDisplayElementRenderer implements UIElementRenderer<FourDirectionBlockDisplayElement> {
 
@@ -45,38 +47,34 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
         element.updateYRot(yRot);
         SdfGraphics sdfGraphics = SdfGraphics.getInstance();
         GuiGraphicsExtractor graphics = guiContext.graphics;
-        renderRing(
-            sdfGraphics,
-            horizontalCenter,
-            verticalCenter,
-            0x77000000,
-            32,
-            32f
-        );
+        sdfGraphics
+            .reset()
+            .color(0x77000000)
+            .center(true)
+            .circle(horizontalCenter, verticalCenter, 32)
+            .fill()
+            .draw(graphics);
 
-        renderRing(
-            sdfGraphics,
-            horizontalCenter,
-            verticalCenter,
-            0xffededed,
-            33f,
-            0.75f
-        );
+        sdfGraphics
+            .reset()
+            .color(0xffededed)
+            .center(true)
+            .circle(horizontalCenter, verticalCenter, 32.5f)
+            .stroke(1f)
+            .draw(graphics);
 
         element.getEntries().forEach((colorDirection, entry) -> {
             float rX = entry.position.x + horizontalCenter;
             float rY = entry.position.y + verticalCenter;
-            renderRing(
-                sdfGraphics,
-                rX,
-                rY,
-                colorDirection.color() | 0xff000000,
-                7f,
-                7f
-            );
+            sdfGraphics
+                .reset()
+                .color(colorDirection.color() | 0xff000000)
+                .center(true)
+                .circle(rX, rY, 7f)
+                .light(0.5f)
+                .fill()
+                .draw(graphics);
         });
-
-        sdfGraphics.draw(graphics);
 
         renderRotatedBlock(
             element.getBlockState(),
@@ -88,22 +86,35 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
             graphics
         );
 
-        Matrix3x2fStack poseStack = guiContext.pose.pose;
-        poseStack.pushMatrix();
-        poseStack.translate(horizontalCenter, verticalCenter);
+        Matrix3x2fStack matrixStack = graphics.pose();
+        matrixStack.pushMatrix();
+        matrixStack.translate(horizontalCenter, verticalCenter);
 
         for (FourDirectionBlockDisplayElement.ColorDirection value : FourDirectionBlockDisplayElement.ColorDirection.values()) {
             FourDirectionBlockDisplayElement.DirectionEntry entry = element.getEntries().get(value);
             if (entry.ioState.getMode() == PinMode.DISABLE) continue;
             boolean isOutput = entry.ioState.getMode() == PinMode.OUTPUT;
-            poseStack.pushMatrix();
-            poseStack.rotate(-entry.rotationY);
-            poseStack.translate(0, 33f);
-            renderIOState(poseStack, isOutput, value.color() | 0xff000000);
-            poseStack.popMatrix();
+            matrixStack.pushMatrix();
+            matrixStack.rotate((float) -Math.toRadians(entry.rotationY));
+            matrixStack.translate(0, 33f);
+            Vector2f translated = matrixStack.transformPosition(new Vector2f(0, 0));
+            graphics.submitGuiElementRenderState(
+                new TinyTriangleRenderState(
+                    isOutput,
+                    new Matrix3x2f(matrixStack),
+                    value.color() | 0xff000000,
+                    new ScreenRectangle(
+                        (int) (translated.x - 2),
+                        (int) (translated.y - 2),
+                        (int) (translated.x + 2),
+                        (int) (translated.y + 2)
+                    )
+                )
+            );
+            matrixStack.popMatrix();
         }
 
-        poseStack.popMatrix();
+        matrixStack.popMatrix();
     }
 
     private void renderIOState(
@@ -147,39 +158,22 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
     ) {
         PoseStack poseStack = new PoseStack();
         poseStack.pushPose();
-        poseStack.mulPose(new Matrix4f().scaling(1, -1, 1));
-        poseStack.translate(0.5f, 0.5f, 0.5f);
-        poseStack.translate(0f, (float) -Math.cos(Math.toRadians(xRot)) * blockVisualHeight / 2, 0f);
         poseStack.mulPose(Axis.XP.rotationDegrees(xRot));
         poseStack.mulPose(Axis.YP.rotationDegrees(yRot + 180f));
-        poseStack.translate(-0.5f, 0, -0.5f);
+        //poseStack.translate(0f, (float) -Math.cos(Math.toRadians(xRot)) * blockVisualHeight / 2, 0f);
+        poseStack.translate(0f, blockVisualHeight, 0f);
 
         GuiRenderExtras.tessellateBlock(
             guiGraphics,
             block,
             null,
             null,
-            x,
-            y,
-            32,
+            x - 24,
+            y - 24,
+            48,
             true,
             poseStack
         );
         poseStack.popPose();
-    }
-
-    public static void renderRing(
-        SdfGraphics sdfGraphics,
-        float centerX,
-        float centerY,
-        int color,
-        float radius,
-        float strokeWidth
-    ) {
-        sdfGraphics
-            .color(color)
-            .center(true)
-            .circle(centerX, centerY, radius)
-            .stroke(strokeWidth);
     }
 }

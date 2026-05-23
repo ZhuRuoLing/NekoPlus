@@ -1,7 +1,14 @@
 package icu.takeneko.nekoplus.block.tile;
 
+import com.geckolib.animatable.GeoAnimatable;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.util.GeckoLibUtil;
+import com.lowdragmc.lowdraglib2.syncdata.annotation.DescSynced;
+import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
 import dev.dubhe.anvilcraft.api.power.IPowerProducer;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
+import icu.takeneko.nekoplus.client.renderer.animation.StellarEngineAnimationController;
 import icu.takeneko.nekoplus.foundation.grid.OffCenterPowerComponent;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +20,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
-public class StellarEngineBlockEntity extends BlockEntity implements IPowerProducer, OffCenterPowerComponent {
+public class StellarEngineBlockEntity extends BlockEntity implements IPowerProducer, OffCenterPowerComponent, GeoAnimatable {
+
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     private final AABB shape;
     @Getter
@@ -24,6 +33,18 @@ public class StellarEngineBlockEntity extends BlockEntity implements IPowerProdu
         super(type, pos, blockState);
         AABB inflated = new AABB(pos).inflate(3.5, 0, 3.5);
         this.shape = inflated.setMaxY(inflated.maxY + 8);
+    }
+
+    @Getter
+    @Setter
+    @Persisted
+    @DescSynced
+    private EngineAnimationState engineAnimationState = EngineAnimationState.CLOSED;
+
+    public void setOpen(boolean open) {
+        if (engineAnimationState == EngineAnimationState.CLOSED) {
+            engineAnimationState = EngineAnimationState.OPENING;
+        }
     }
 
     @Override
@@ -44,5 +65,23 @@ public class StellarEngineBlockEntity extends BlockEntity implements IPowerProdu
     @Override
     public BlockPos getPos() {
         return getBlockPos();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(StellarEngineAnimationController.openCloseController());
+        controllers.add(StellarEngineAnimationController.ringAnimation());
+        controllers.add(StellarEngineAnimationController.sunAnimation());
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return geoCache;
+    }
+
+    public enum EngineAnimationState {
+        CLOSED,
+        OPENING,
+        OPENED
     }
 }

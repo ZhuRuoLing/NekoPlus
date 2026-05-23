@@ -22,6 +22,7 @@ public class NPGuiResources {
     public static final SpriteTexture BUTTON_PRESSED = SpriteTexture.of(NekoPlus.location("textures/gui/button_pressed.png"))
         .setSpriteSize(Size.of(16, 16))
         .setBorder(4, 4, 4, 4);
+
     public final static SpriteTexture ITEM_SLOT = SpriteTexture.of(NekoPlus.location("textures/gui/slot.png"))
         .setSpriteSize(Size.of(18, 18))
         .setBorder(1, 1, 1, 1);
@@ -34,11 +35,6 @@ public class NPGuiResources {
     public final static SpriteTexture INVENTORY_SLOT_BORDER = SpriteTexture.of(NekoPlus.location("textures/gui/slot_inventory_border.png"))
         .setSpriteSize(Size.of(18, 18))
         .setBorder(1, 1, 1, 1);
-    public final static SpriteTexture INVENTORY_SLOT_BORDER_TOP = SpriteTexture.of(NekoPlus.location("textures/gui/slot_inventory_border_top.png")).setBorder(1, 1, 1, 1);
-    public final static SpriteTexture INVENTORY_SLOT_BORDER_TOPLEFT = SpriteTexture.of(NekoPlus.location("textures/gui/slot_inventory_border_topleft.png")).setBorder(1, 1, 1, 1);
-    public final static SpriteTexture INVENTORY_SLOT_BORDER_COLUMN = SpriteTexture.of(NekoPlus.location("textures/gui/slot_inventory_border_column.png")).setBorder(1, 1, 1, 1);
-    public final static SpriteTexture INVENTORY_SLOT_BORDER_COLUMN_TOP = SpriteTexture.of(NekoPlus.location("textures/gui/slot_inventory_border_column_top.png")).setBorder(1, 1, 1, 1);
-    public final static SpriteTexture INVENTORY_SLOT_BORDER5 = SpriteTexture.of(NekoPlus.location("textures/gui/slot_inventory_border5.png")).setBorder(6, 6, 28, 28);
 
     public static final SpriteTexture PROGRESS_ARROW_BG = SpriteTexture.of(NekoPlus.location("textures/gui/progress_bar_arrow.png"))
         .setSprite(0,0,20,20);

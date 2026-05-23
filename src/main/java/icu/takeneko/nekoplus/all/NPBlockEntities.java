@@ -1,5 +1,6 @@
 package icu.takeneko.nekoplus.all;
 
+import com.geckolib.renderer.GeoBlockRenderer;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockEntityRenderer;
@@ -13,6 +14,7 @@ import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
+import icu.takeneko.nekoplus.client.renderer.tesr.StellarEngineRenderer;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -36,6 +38,7 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<StellarEngineBlockEntity> STELLAR_ENGINE = NekoPlus.REGISTRUM
         .blockEntity("stellar_engine", StellarEngineBlockEntity::new)
         .validBlock(NPBlocks.STELLAR_ENGINE)
+        .renderer(() -> StellarEngineRenderer::new)
         .register();
 
     public static final BlockEntityEntry<ProgrammableLogicGateBlockEntity> PROGRAMMABLE_LOGIC_GATE = NekoPlus.REGISTRUM

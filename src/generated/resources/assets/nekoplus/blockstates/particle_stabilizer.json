@@ -1,13 +1,13 @@
 {
   "variants": {
     "cooling=false,overload=false": {
-      "model": "nekoplus:block/particle_stabilizer_freezing"
+      "model": "nekoplus:block/particle_stabilizer"
     },
     "cooling=false,overload=true": {
       "model": "nekoplus:block/particle_stabilizer_overload"
     },
     "cooling=true,overload=false": {
-      "model": "nekoplus:block/particle_stabilizer"
+      "model": "nekoplus:block/particle_stabilizer_freezing"
     },
     "cooling=true,overload=true": {
       "model": "nekoplus:block/particle_stabilizer_overload"

@@ -102,6 +102,10 @@ public class ParticleStabilizerBlockEntity
     @RequireRerender
     private boolean isWorking;
 
+    @Getter
+    @DescSynced
+    private boolean isOverclockEnabled = false;
+
     // @OnlyIn(Dist.CLIENT)
     private LoopingBlockSoundInstance soundInstance;
 
@@ -138,6 +142,7 @@ public class ParticleStabilizerBlockEntity
         logic.tick(this);
         isWorking = this.currentRecipe != null;
     }
+
 
     @Override
     // @OnlyIn(Dist.CLIENT)
@@ -218,7 +223,7 @@ public class ParticleStabilizerBlockEntity
 
     @Override
     public boolean isOverclockable() {
-        return this.state == State.COOLING;
+        return this.state == State.COOLING && isOverclockEnabled;
     }
 
     @Override
@@ -277,6 +282,10 @@ public class ParticleStabilizerBlockEntity
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         super.preRemoveSideEffects(pos, state);
         Containers.dropContents(level, pos, itemHandler.getStacks());
+    }
+
+    public void toggleOverclock() {
+        isOverclockEnabled = !isOverclockEnabled;
     }
 
     public enum State {

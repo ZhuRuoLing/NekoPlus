@@ -5,7 +5,7 @@
 	"texture_size": [128, 128],
 	"textures": {
 		"1": "nekoplus:block/particle_stabilizer",
-		"particle": "nekoplus:item/cryocooler"
+		"particle": "nekoplus:block/particle_stabilizer"
 	},
 	"elements": [
 		{

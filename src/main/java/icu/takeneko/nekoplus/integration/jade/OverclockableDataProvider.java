@@ -19,9 +19,9 @@ public class OverclockableDataProvider implements IServerDataProvider<BlockAcces
     @Override
     public void appendServerData(CompoundTag compoundTag, BlockAccessor blockAccessor) {
         if (!(blockAccessor.getBlockEntity() instanceof NPOverclockablePowerConsumer powerConsumer)) return;
-        compoundTag.putBoolean("OCEnabled", powerConsumer.isOverclockEnabled());
-        compoundTag.putBoolean("InOCState", powerConsumer.isOverclockable());
-        compoundTag.putInt("OCMax", powerConsumer.maxOverclockRatio());
-        compoundTag.putInt("OCCurrent", powerConsumer.isOverclockable() ? powerConsumer.currentOverclockRatio() : 0);
+        compoundTag.putBoolean("oc_enabled", powerConsumer.isOverclockEnabled());
+        compoundTag.putBoolean("is_overclocking", powerConsumer.isOverclockable());
+        compoundTag.putInt("overclock_max_ratio", powerConsumer.maxOverclockRatio());
+        compoundTag.putInt("overclock_current_ratio", powerConsumer.isOverclockable() ? powerConsumer.currentOverclockRatio() : 0);
     }
 }

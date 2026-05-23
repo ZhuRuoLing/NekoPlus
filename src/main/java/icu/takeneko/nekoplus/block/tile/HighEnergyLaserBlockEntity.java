@@ -23,6 +23,8 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
     @Setter
     private PowerGrid grid;
 
+    private boolean switchedOn = false;
+
     public HighEnergyLaserBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
     }
@@ -36,8 +38,9 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
     public void tick(Level level) {
         this.resetState();
         flushState();
+        this.switchedOn = !level.hasNeighborSignal(getBlockPos());
         if (level.hasNeighborSignal(getBlockPos()) == !getPoweredState()) {
-            setPoweredState(!level.hasNeighborSignal(getBlockPos()), 2);
+            setPoweredState(this.switchedOn, 2);
         }
         ((LaserRendererInternals.Extension) this).setPureHELaserSourceDirect(true);
         if (isSwitchedOn()) {
@@ -76,7 +79,7 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
 
     @Override
     public int getInputPower() {
-        return 1024;
+        return switchedOn ? 1024 : 0;
     }
 
     @Override

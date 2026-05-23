@@ -4,21 +4,27 @@ import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.mojang.serialization.MapCodec;
 import dev.dubhe.anvilcraft.util.Util;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
+import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
+import icu.takeneko.nekoplus.internal.ChargerBlockEntityInternals;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -89,6 +95,28 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements NPUIBloc
             return (BlockEntityTicker<T>) BlockEntityUtil.<ParticleStabilizerBlockEntity>createTicker();
         }
         return null;
+    }
+
+    @Override
+    protected InteractionResult useItemOn(
+        ItemStack stack,
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Player player,
+        InteractionHand hand,
+        BlockHitResult hitResult
+    ) {
+        if (stack.is(NPItems.CHARGED_LEVITATION_POWDER)) {
+            if (level.isClientSide()) {
+                level.playSound(player, pos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS);
+                return Util.sidedSuccess(level);
+            }
+            if (!(level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity blockEntity)) return InteractionResult.FAIL;
+            blockEntity.toggleOverclock();
+            return InteractionResult.CONSUME;
+        }
+        return InteractionResult.PASS;
     }
 
     @Override

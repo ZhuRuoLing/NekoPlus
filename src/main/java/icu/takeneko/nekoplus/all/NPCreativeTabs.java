@@ -13,7 +13,7 @@ public class NPCreativeTabs {
         "tab",
         () -> CreativeModeTab.builder()
             .title(NekoPlus.REGISTRUM.addRawLang("itemGroup.nekoplus.tab", "AnvilCraft: NekoPlus!"))
-            .icon(NPBlocks.TARDIS.asItem()::getDefaultInstance)
+            .icon(NPBlocks.HIGH_ENERGY_LASER.asItem()::getDefaultInstance)
             .build()
     );
 

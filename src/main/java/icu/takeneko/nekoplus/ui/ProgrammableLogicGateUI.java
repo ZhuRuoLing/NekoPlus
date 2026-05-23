@@ -212,7 +212,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
                 .textStyle(textStyle -> textStyle.textWrap(TextWrap.HOVER_ROLL)
                     .adaptiveHeight(true)
                     .textShadow(false)
-                    .textColor(0x403e53)
+                    .textColor(0xff403e53)
                 ),
             new Button()
                 .noText()

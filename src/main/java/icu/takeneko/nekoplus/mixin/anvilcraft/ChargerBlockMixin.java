@@ -35,7 +35,7 @@ public class ChargerBlockMixin {
     ) {
         if (stack.is(NPItems.CHARGED_LEVITATION_POWDER)) {
             if (level.isClientSide()) {
-                level.playSound(player, pos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS);
+                level.playSound(player, pos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS);
                 cir.setReturnValue(Util.sidedSuccess(level));
                 return;
             }

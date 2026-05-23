@@ -26,7 +26,7 @@ public class OverclockableComponentProvider implements IBlockComponentProvider {
     @Override
     public void appendTooltip(ITooltip iTooltip, BlockAccessor blockAccessor, IPluginConfig iPluginConfig) {
         CompoundTag serverData = blockAccessor.getServerData();
-        if (!serverData.contains("OCEnabled")) return;
+        if (!serverData.contains("oc_enabled")) return;
         boolean ocEnabled = serverData.getBooleanOr("oc_enabled", false);
         boolean inOCState = serverData.getBooleanOr("is_overclocking", false);
         iTooltip.add(ocEnabled

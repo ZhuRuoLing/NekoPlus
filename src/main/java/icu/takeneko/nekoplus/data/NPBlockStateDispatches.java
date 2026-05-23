@@ -172,12 +172,12 @@ public class NPBlockStateDispatches {
                             )
                             .select(
                                 false,
-                                false,
+                                true,
                                 BlockModelGenerators.plainVariant(freezingModel)
                             )
                             .select(
                                 false,
-                                true,
+                                false,
                                 BlockModelGenerators.plainVariant(normalModel)
                             )
                             .dispatch()
