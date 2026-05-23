@@ -8,7 +8,6 @@ import com.lowdragmc.lowdraglib2.syncdata.annotation.RequireRerender;
 import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
-import dev.dubhe.anvilcraft.util.ItemResourceHelper;
 import icu.takeneko.nekoplus.all.NPSoundEvents;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.content.tile.logic.stabilizer.ParticleStabilizerLogic;
@@ -20,6 +19,7 @@ import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.Overclockable;
 import icu.takeneko.nekoplus.foundation.Tickable;
+import icu.takeneko.nekoplus.foundation.client.sound.LoopingSoundController;
 import icu.takeneko.nekoplus.foundation.inventory.NPItemHandler;
 import icu.takeneko.nekoplus.foundation.inventory.NPItemHandlerSlice;
 import icu.takeneko.nekoplus.foundation.inventory.NPItemHandlerOwner;
@@ -38,12 +38,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.UnknownNullability;
 
 
 @SuppressWarnings("DataFlowIssue")
@@ -106,8 +103,9 @@ public class ParticleStabilizerBlockEntity
     @DescSynced
     private boolean isOverclockEnabled = false;
 
-    // @OnlyIn(Dist.CLIENT)
-    private LoopingBlockSoundInstance soundInstance;
+    @Getter
+    @Setter
+    private LoopingSoundController soundController;
 
     private final ParticleStabilizerLogic logic = new ParticleStabilizerLogic.Impl();
 
@@ -128,7 +126,16 @@ public class ParticleStabilizerBlockEntity
         if (this.isOverload) {
             if (this.progress != 0) {
                 BlockPos pos = this.getPos();
-                level.playSound(null, pos.getX(), pos.getY(), pos.getZ(), NPSoundEvents.INTERRUPT.get(), SoundSource.BLOCKS, 0.5f, 1);
+                level.playSound(
+                    null,
+                    pos.getX(),
+                    pos.getY(),
+                    pos.getZ(),
+                    NPSoundEvents.INTERRUPT.get(),
+                    SoundSource.BLOCKS,
+                    0.5f,
+                    1
+                );
                 this.progress = 0;
             }
             return;
@@ -148,23 +155,7 @@ public class ParticleStabilizerBlockEntity
     // @OnlyIn(Dist.CLIENT)
     public void scheduleRenderUpdate() {
         super.scheduleRenderUpdate();
-        if ((isWorking || this.state == State.COOLING) && !isOverload) {
-            if (soundInstance != null) {
-                soundInstance.stopNow();
-            }
-            soundInstance = new LoopingBlockSoundInstance(
-                NPSoundEvents.PARTICLE_STABILIZER_WORKING.get(),
-                SoundSource.BLOCKS,
-                this
-            );
-
-            Minecraft.getInstance().getSoundManager().play(soundInstance);
-        } else {
-            if (soundInstance != null) {
-                soundInstance.stopNow();
-                soundInstance = null;
-            }
-        }
+        ClientSupport.INSTANCE.handleSoundUpdates(this);
     }
 
     private void updateState(State value) {
@@ -243,7 +234,7 @@ public class ParticleStabilizerBlockEntity
 
     @Override
     public ItemStack tryConsumeTriggerItem() {
-        try (Transaction transaction = Transaction.openRoot()){
+        try (Transaction transaction = Transaction.openRoot()) {
             int extracted = itemHandler.slice(0, 1).extract(getTriggerResource(), 1, transaction);
             if (extracted > 0) {
                 transaction.commit();
@@ -290,5 +281,45 @@ public class ParticleStabilizerBlockEntity
 
     public enum State {
         COOLING, WORKING
+    }
+
+    private static class ClientSupport {
+        public static final ClientSupport INSTANCE = new ClientSupport();
+
+        public void handleSoundUpdates(ParticleStabilizerBlockEntity blockEntity) {
+            if ((blockEntity.isWorking || blockEntity.state == State.COOLING) && !blockEntity.isOverload) {
+                if (blockEntity.soundController != null) {
+                    blockEntity.soundController.stopNow();
+                }
+
+                blockEntity.soundController = new LoopingSoundController() {
+                    private boolean shouldPlay = true;
+
+                    @Override
+                    public boolean shouldSoundStop() {
+                        return !shouldPlay;
+                    }
+
+                    @Override
+                    public void stopNow() {
+                        shouldPlay = false;
+                    }
+                };
+
+                LoopingBlockSoundInstance<?> soundInstance = new LoopingBlockSoundInstance<>(
+                    NPSoundEvents.PARTICLE_STABILIZER_WORKING.get(),
+                    SoundSource.BLOCKS,
+                    blockEntity,
+                    blockEntity.soundController
+                );
+
+                Minecraft.getInstance().getSoundManager().play(soundInstance);
+            } else {
+                if (blockEntity.soundController != null) {
+                    blockEntity.soundController.stopNow();
+                    blockEntity.soundController = null;
+                }
+            }
+        }
     }
 }

@@ -40,6 +40,7 @@ public class PinState implements ValueIOSerializable, IContentChangeAware {
     @Getter
     private final String name;
     private final RelativeSide side;
+    private final Callback callback;
     private BooleanProperty boundProperty;
 
     @Getter
@@ -60,10 +61,11 @@ public class PinState implements ValueIOSerializable, IContentChangeAware {
 
     private EvaluationCache cache = new EvaluationCache();
 
-    public PinState(String name, PinMode mode, RelativeSide side) {
+    public PinState(String name, PinMode mode, RelativeSide side, Callback callback) {
         this.name = name;
         this.mode = mode;
         this.side = side;
+        this.callback = callback;
     }
 
     public void load(SaveData data) {
@@ -72,14 +74,19 @@ public class PinState implements ValueIOSerializable, IContentChangeAware {
         this.pinExpression = data.pinExpr;
     }
 
+    public Direction getDirection(BlockState blockState) {
+        return ProgrammableLogicGateBlock.ORIENTATION_STRATEGY.getSide(blockState, side);
+    }
+
     public BlockState update(Level level, BlockPos pos, BlockState blockState, ExpEvaluationContext context) {
         if (mode == PinMode.DISABLE) return blockState;
         if (boundProperty == null) {
             throw new IllegalStateException("No bind state specified for pin " + name);
         }
         if (mode == PinMode.INPUT) {
-            Direction direction = ProgrammableLogicGateBlock.ORIENTATION_STRATEGY.getSide(blockState, side);
+            Direction direction = getDirection(blockState);
             this.state = level.getSignal(pos.relative(direction), direction.getOpposite()) > 0;
+            context.put(this.name, this.state);
             return blockState.setValue(boundProperty, this.state);
         }
         if (mode == PinMode.OUTPUT) {
@@ -123,9 +130,12 @@ public class PinState implements ValueIOSerializable, IContentChangeAware {
     public void setPinExpression(String pinExpression) {
         String old = this.pinExpression;
         this.pinExpression = pinExpression;
-        if (!Objects.equals(old, pinExpression) && onContentsChanged != null) {
+        if (!Objects.equals(old, pinExpression)) {
             dirty = true;
-            onContentsChanged.run();
+
+            if (onContentsChanged != null) {
+                onContentsChanged.run();
+            }
         }
     }
 
@@ -188,7 +198,7 @@ public class PinState implements ValueIOSerializable, IContentChangeAware {
             context.put(name, state);
             return;
         }
-        context.put(name, false);
+        //context.put(name, false);
     }
 
     public record SaveData(
@@ -201,5 +211,9 @@ public class PinState implements ValueIOSerializable, IContentChangeAware {
             Codec.BOOL.fieldOf("state").forGetter(SaveData::state),
             Codec.STRING.fieldOf("pinExpr").forGetter(SaveData::pinExpr)
         ).apply(ins, SaveData::new));
+    }
+
+    public interface Callback {
+        void scheduleUpdate();
     }
 }

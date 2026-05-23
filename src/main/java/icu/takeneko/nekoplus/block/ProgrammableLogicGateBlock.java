@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -120,9 +121,23 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
         boolean movedByPiston
     ) {
         if (level instanceof ServerLevel) {
-            if (level.getBlockEntity(pos) instanceof ProgrammableLogicGateBlockEntity be) {
-                be.updatePins();
-            }
+            level.scheduleTick(pos, state.getBlock(), 2);
+        }
+    }
+
+    @Override
+    protected int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
+        if (level.getBlockEntity(pos) instanceof ProgrammableLogicGateBlockEntity be) {
+            return be.getSignal(direction.getOpposite());
+        }
+        return 0;
+    }
+
+    @Override
+    protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        super.tick(state, level, pos, random);
+        if (level.getBlockEntity(pos) instanceof ProgrammableLogicGateBlockEntity be) {
+            be.updatePins();
         }
     }
 

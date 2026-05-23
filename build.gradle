@@ -130,6 +130,9 @@ neoForge {
 
         server {
             server()
+
+            gameDirectory.set(new File("runServer/"))
+
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }

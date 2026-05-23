@@ -26,3 +26,6 @@ run-data
 repo
 /src/generated/resources/.cache/
 .qoder
+.vscode
+.codebuddy
+runServer

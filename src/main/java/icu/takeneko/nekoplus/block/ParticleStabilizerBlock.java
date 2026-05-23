@@ -116,7 +116,8 @@ public class ParticleStabilizerBlock extends BaseEntityBlock implements NPUIBloc
             blockEntity.toggleOverclock();
             return InteractionResult.CONSUME;
         }
-        return InteractionResult.PASS;
+
+        return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 
     @Override

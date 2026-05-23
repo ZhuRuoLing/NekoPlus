@@ -257,10 +257,10 @@ public class NPBlockStateDispatches {
                             .with(VariantMutator.Y_ROT.withValue(Quadrant.parseJson(yR)));
 
                         gen.with(
-                            condition().term(p, true),
+                            condition().term(p, true).term(ProgrammableLogicGateBlock.FACING, direction),
                             torchOnVariant
                         ).with(
-                            condition().term(p, false),
+                            condition().term(p, false).term(ProgrammableLogicGateBlock.FACING, direction),
                             torchOffVariant
                         );
 
