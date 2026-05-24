@@ -66,10 +66,10 @@ repositories {
         name = "k-4u Maven"
         url "https://maven.k-4u.nl"
     }
-    maven {
-        name = "OctoStudios Maven"
-        url = uri("https://maven.octo-studios.com/releases")
-    }
+//    maven {
+//        name = "OctoStudios Maven"
+//        url = uri("https://maven.octo-studios.com/releases")
+//    }
     maven {// Ldlib
         name "firstdarkdev"
         url "https://maven.firstdarkdev.xyz/snapshots"
