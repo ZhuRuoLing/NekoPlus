@@ -90,13 +90,6 @@ public class NPEvents {
     }
 
     @SubscribeEvent
-    public static void on(PlayerInteractEvent.RightClickBlock event) {
-        if (event.getEntity() == AnvilCraftFakePlayers.anvilcraftBlockPlacer.getPlayer()) {
-            //event.setUseBlock(TriState.FALSE);
-        }
-    }
-
-    @SubscribeEvent
     public static void onLandOnStampingPlatform(AnvilEvent.OnLand event) {
         BlockPos eventPos = event.getPos();
         Level level = event.getLevel();
