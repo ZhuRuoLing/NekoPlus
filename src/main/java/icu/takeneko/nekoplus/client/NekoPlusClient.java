@@ -11,6 +11,7 @@ import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPHammerTooltipProviders;
 import icu.takeneko.nekoplus.client.extension.NPClientExtension;
+import icu.takeneko.nekoplus.client.renderer.animation.NPMolangValues;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.nekoplus.foundation.client.RenderThreadSupport;
 import icu.takeneko.nekoplus.foundation.client.ui.renderer.FourDirectionBlockDisplayElementRenderer;
@@ -53,6 +54,7 @@ public class NekoPlusClient {
                 new FourDirectionBlockDisplayElementRenderer()
             );
             CachedBlockEntityRenderDispatcher.INSTANCE.registerRenderer(NPBlockEntities.HIGH_ENERGY_LASER, new CachedLaserBlockEntityRenderer<>());
+            NPMolangValues.register();
         });
     }
 

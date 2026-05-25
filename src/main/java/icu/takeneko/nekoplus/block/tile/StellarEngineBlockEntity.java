@@ -3,6 +3,7 @@ package icu.takeneko.nekoplus.block.tile;
 import com.geckolib.animatable.GeoAnimatable;
 import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animatable.stateless.StatelessAnimationController;
 import com.geckolib.util.GeckoLibUtil;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
@@ -69,9 +70,17 @@ public class StellarEngineBlockEntity extends BlockEntity implements IPowerProdu
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(StellarEngineAnimationController.openCloseController());
-        controllers.add(StellarEngineAnimationController.ringAnimation());
-        controllers.add(StellarEngineAnimationController.sunAnimation());
+//        controllers.add(StellarEngineAnimationController.openCloseController());
+//        controllers.add(StellarEngineAnimationController.ringAnimation());
+//        controllers.add(StellarEngineAnimationController.sunAnimation());
+        controllers.add(StellarEngineAnimationController.createStateless(
+            "ring",
+            StellarEngineAnimationController.ANIM_RING
+        ));
+        controllers.add(StellarEngineAnimationController.createStateless(
+            "sun",
+            StellarEngineAnimationController.ANIM_SUN
+        ));
     }
 
     @Override

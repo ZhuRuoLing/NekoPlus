@@ -39,8 +39,6 @@ public class NPJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        AIR_CONDENSING_TYPE = createRecipeHolderType(NPRecipeTypes.AIR_CONDENSING);
-        LASER_ETCHING_TYPE = createRecipeHolderType(NPRecipeTypes.LASER_ETCHING);
         registration.addRecipes(
             AIR_CONDENSING_TYPE,
             RecipesRecord.RECIPES.byType(NPRecipeTypes.AIR_CONDENSING).stream().toList()
@@ -53,6 +51,8 @@ public class NPJeiPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
+        AIR_CONDENSING_TYPE = createRecipeHolderType(NPRecipeTypes.AIR_CONDENSING);
+        LASER_ETCHING_TYPE = createRecipeHolderType(NPRecipeTypes.LASER_ETCHING);
         registration.addRecipeCategories(
             new AirCondensingRecipeCategory(registration.getJeiHelpers().getGuiHelper()),
             new LaserEtchingRecipeCategory(registration.getJeiHelpers().getGuiHelper())

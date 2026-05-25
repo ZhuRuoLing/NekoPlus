@@ -18,7 +18,18 @@
 			"loop": true,
 			"bones": {
 				"bone": {
-					"rotation": [0, "-math.mod(q.anim_time * 360 * prop.rotating.speed, 360)", 0]
+					"rotation": [0, "-math.mod(q.anim_time * 360 * tardis.rotating_speed, 360)", 0]
+				},
+				"door": {
+					"rotation": [0, 0, 0]
+				}
+			}
+		},
+		"nekoplus:animation.tardis.rotating1": {
+			"loop": true,
+			"bones": {
+				"bone": {
+					"rotation": [0, "-math.mod(q.anim_time * 360 * 2, 360)", 0.01]
 				},
 				"door": {
 					"rotation": [0, 0, 0]
@@ -34,7 +45,7 @@
 				"bone2": {
 					"position": [
 						0,
-						"math.sin(q.anim_time * 360 * prop.floating.speed) * prop.floating.delta_height + prop.floating.delta_height + prop.floating.min_height",
+						"math.sin(q.anim_time * 360 * tardis.floating.speed) * tardis.floating.delta_height + tardis.floating.delta_height + tardis.floating.min_height",
 						0
 					]
 				}
@@ -64,15 +75,11 @@
 		"nekoplus:animation.tardis.waving": {
 			"loop": true,
 			"bones": {
-				"bone": {
-					"relative_to": "geckolib_not_used",
-					"rotation": [0, 0, 0.01]
-				},
 				"bone2": {
 					"rotation": [
-						"-math.sin((q.anim_time + 0.25) * 360 * prop.waving.speed) * prop.waving.delta_deg",
+						"-math.sin((q.anim_time + 0.25) * 360 * tardis.waving.speed) * tardis.waving.delta_deg",
 						0,
-						"math.sin(q.anim_time * 360 * prop.waving.speed) * prop.waving.delta_deg"
+						"math.sin(q.anim_time * 360 * tardis.waving.speed) * tardis.waving.delta_deg"
 					]
 				}
 			}
@@ -83,7 +90,7 @@
 				"light": {
 					"relative_to": "geckolib_not_used",
 					"rotation": [-30, "-math.mod(q.anim_time * 360, 360)", 45],
-					"scale": "math.sin(q.anim_time * 180 * prop.flashing.speed) * prop.flashing.size + prop.flashing.size"
+					"scale": "math.sin(q.anim_time * 180 * tardis.flashing.speed) * tardis.flashing.size + tardis.flashing.size"
 				}
 			}
 		}

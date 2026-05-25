@@ -9,6 +9,7 @@ import icu.takeneko.nekoplus.foundation.block.NPSimpleMultiPartBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -93,7 +94,7 @@ public class TardisBlock extends NPSimpleMultiPartBlock<Part3> implements Specia
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if (level.isClientSide()) {
+        if (level instanceof ServerLevel) {
             Part3 part = state.getValue(PART);
             pos = switch (part) {
                 case TOP -> pos.below(2);

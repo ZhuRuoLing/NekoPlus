@@ -15,6 +15,7 @@ import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
 import icu.takeneko.nekoplus.client.renderer.tesr.StellarEngineRenderer;
+import icu.takeneko.nekoplus.client.renderer.tesr.TardisRenderer;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
 import net.neoforged.neoforge.energy.IEnergyStorage;
@@ -49,6 +50,7 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<TardisBlockEntity> TARDIS = NekoPlus.REGISTRUM
         .blockEntity("tardis", TardisBlockEntity::new)
         .validBlock(NPBlocks.TARDIS)
+        .renderer(() -> TardisRenderer::new)
         .register();
 
     public static final BlockEntityEntry<HighEnergyLaserBlockEntity> HIGH_ENERGY_LASER = NekoPlus.REGISTRUM
