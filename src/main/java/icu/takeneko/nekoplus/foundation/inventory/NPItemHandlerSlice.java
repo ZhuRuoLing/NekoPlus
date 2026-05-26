@@ -21,6 +21,7 @@ public class NPItemHandlerSlice extends ItemStacksResourceHandler {
 
     public NPItemHandlerSlice(NonNullList<ItemStack> stacks, NPItemHandler delegate, int startIndex, int endIndex) {
         super(stacks);
+        this.stacks = stacks;
         this.startIndex = startIndex;
         this.endIndex = endIndex;
         this.delegate = delegate;
@@ -28,7 +29,7 @@ public class NPItemHandlerSlice extends ItemStacksResourceHandler {
 
     public static NPItemHandlerSlice of(NPItemHandler itemHandler, int start, int end) {
         return new NPItemHandlerSlice(
-            new NPNonNullList<>(itemHandler.getStacks().subList(start, end), ItemStack.EMPTY),
+            new NPNonNullList<>(itemHandler.getStacks().list.subList(start, end), ItemStack.EMPTY),
             itemHandler,
             start,
             end
