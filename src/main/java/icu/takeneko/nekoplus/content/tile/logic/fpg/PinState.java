@@ -85,7 +85,7 @@ public class PinState implements ValueIOSerializable, IContentChangeAware {
         }
         if (mode == PinMode.INPUT) {
             Direction direction = getDirection(blockState);
-            this.state = level.getSignal(pos.relative(direction), direction.getOpposite()) > 0;
+            this.state = level.getSignal(pos.relative(direction), direction) > 0;
             context.put(this.name, this.state);
             return blockState.setValue(boundProperty, this.state);
         }

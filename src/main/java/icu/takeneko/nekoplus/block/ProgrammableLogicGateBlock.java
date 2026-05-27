@@ -121,7 +121,7 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
         boolean movedByPiston
     ) {
         if (level instanceof ServerLevel) {
-            level.scheduleTick(pos, state.getBlock(), 2);
+            level.scheduleTick(pos, state.getBlock(), 1);
         }
     }
 

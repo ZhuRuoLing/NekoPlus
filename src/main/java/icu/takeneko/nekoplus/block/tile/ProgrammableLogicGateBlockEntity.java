@@ -82,7 +82,7 @@ public class ProgrammableLogicGateBlockEntity
 
     public void scheduleUpdate() {
         if (level instanceof ServerLevel) {
-            level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
+            level.scheduleTick(getBlockPos(), getBlockState().getBlock(), 1);
         }
     }
 
