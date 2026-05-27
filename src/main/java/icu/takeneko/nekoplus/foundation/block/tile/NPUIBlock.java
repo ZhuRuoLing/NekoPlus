@@ -15,7 +15,7 @@ public interface NPUIBlock extends BlockUIMenuType.BlockUI {
         return null;
     }
 
-    public interface Provider {
+    interface Provider {
         ModularUI getModularUI(BlockUIMenuType.BlockUIHolder holder);
     }
 }

@@ -6,7 +6,6 @@ import icu.takeneko.nekoplus.all.NPBlockStateProperties;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
 import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.foundation.block.NPSimpleMultiPartBlock;
-import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -28,7 +27,7 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class TardisBlock extends NPSimpleMultiPartBlock<Part3> implements SpecialRendererBlock, EntityBlock {
+public class TardisBlock extends NPSimpleMultiPartBlock<Part3> implements EntityBlock {
     public static final EnumProperty<Part3> PART = NPBlockStateProperties.PART_3;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
 

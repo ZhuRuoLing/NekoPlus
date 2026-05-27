@@ -5,7 +5,6 @@ import dev.dubhe.anvilcraft.util.Util;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.NPTranslucentEntityBlock;
-import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -23,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
-public class StellarEngineBlock extends NPTranslucentEntityBlock implements SpecialRendererBlock {
+public class StellarEngineBlock extends NPTranslucentEntityBlock {
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     public StellarEngineBlock(Properties properties) {

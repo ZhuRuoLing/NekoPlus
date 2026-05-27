@@ -31,6 +31,7 @@ public class NekoPlus {
 
         setupRegistration(modEventBus);
         NPDataGen.setupDataGeneration(REGISTRUM);
+        LOGGER.info("Ciallo～(∠・ω< )⌒★");
     }
 
     private void setupRegistration(IEventBus modEventBus) {

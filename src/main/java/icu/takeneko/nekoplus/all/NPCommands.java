@@ -18,7 +18,7 @@ public class NPCommands {
     public static void on(RegisterClientCommandsEvent e) {
         CommandDispatcher<CommandSourceStack> dispatcher = e.getDispatcher();
         dispatcher.register(
-            Commands.literal("heClientInspection").
+            Commands.literal("npClientInspection").
                 then(
                     Commands.argument("pos", BlockPosArgument.blockPos()).
                         executes(context -> {

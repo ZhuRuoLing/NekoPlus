@@ -12,7 +12,6 @@ import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPHammerTooltipProviders;
 import icu.takeneko.nekoplus.client.extension.NPClientExtension;
 import icu.takeneko.nekoplus.client.renderer.animation.NPMolangValues;
-import icu.takeneko.nekoplus.foundation.block.tile.SpecialRendererBlock;
 import icu.takeneko.nekoplus.foundation.client.RenderThreadSupport;
 import icu.takeneko.nekoplus.foundation.client.ui.renderer.FourDirectionBlockDisplayElementRenderer;
 import icu.takeneko.nekoplus.foundation.ui.widgets.FourDirectionBlockDisplayElement;
@@ -56,17 +55,6 @@ public class NekoPlusClient {
             CachedBlockEntityRenderDispatcher.INSTANCE.registerRenderer(NPBlockEntities.HIGH_ENERGY_LASER, new CachedLaserBlockEntityRenderer<>());
             NPMolangValues.register();
         });
-    }
-
-    @SubscribeEvent
-    public static void on(RegisterClientExtensionsEvent event) {
-        List<Item> bewlrItem = new ArrayList<>();
-        BuiltInRegistries.ITEM.forEach(item -> {
-            if (item instanceof BlockItem blockItem && blockItem.getBlock() instanceof SpecialRendererBlock) {
-                bewlrItem.add(item);
-            }
-        });
-        event.registerItem(new NPClientExtension(bewlrItem), bewlrItem.reversed().toArray(new Item[0]));
     }
 
     @SubscribeEvent
