@@ -24,10 +24,6 @@ public class NPEnergyStorage extends SimpleEnergyHandler implements IContentChan
         super(capacity, maxReceive, maxExtract);
     }
 
-    public NPEnergyStorage(int capacity, int maxReceive, int maxExtract, int energy) {
-        super(capacity, maxReceive, maxExtract, energy);
-    }
-
     @Override
     public int extract(int amount, TransactionContext transaction) {
         int oldValue = energy;
