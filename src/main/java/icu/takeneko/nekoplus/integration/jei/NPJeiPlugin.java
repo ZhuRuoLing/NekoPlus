@@ -41,11 +41,11 @@ public class NPJeiPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(
             AIR_CONDENSING_TYPE,
-            RecipesRecord.RECIPES.byType(NPRecipeTypes.AIR_CONDENSING).stream().toList()
+            RecipesRecord.get().byType(NPRecipeTypes.AIR_CONDENSING).stream().toList()
         );
         registration.addRecipes(
             LASER_ETCHING_TYPE,
-            RecipesRecord.RECIPES.byType(NPRecipeTypes.LASER_ETCHING).stream().toList()
+            RecipesRecord.get().byType(NPRecipeTypes.LASER_ETCHING).stream().toList()
         );
     }
 

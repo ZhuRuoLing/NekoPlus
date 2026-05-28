@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "nekoplus:block/tardis"
+    "model": "nekoplus:item/tardis"
   }
 }

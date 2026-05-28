@@ -217,7 +217,7 @@ public class NPBlocks {
         })
         .item()
         .properties(p -> p.rarity(Rarity.EPIC))
-        .model(DataGenUtil::blockItem)
+        .model(DataGenUtil::onlyInfo)
         .build()
         .register();
 
