@@ -8,6 +8,7 @@ import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
+import icu.takeneko.nekoplus.block.MineralFountainPressurizerBlock;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
@@ -217,6 +218,12 @@ public class NPBlocks {
         .item()
         .properties(p -> p.rarity(Rarity.EPIC))
         .model(DataGenUtil::blockItem)
+        .build()
+        .register();
+
+    public static final BlockEntry<MineralFountainPressurizerBlock> MINERAL_FOUNTAIN_PRESSURIZER = NekoPlus.REGISTRUM
+        .block("mineral_fountail_pressurizer", MineralFountainPressurizerBlock::new)
+        .item()
         .build()
         .register();
 
