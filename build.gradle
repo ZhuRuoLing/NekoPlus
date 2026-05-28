@@ -43,7 +43,7 @@ repositories {
     maven {
         url = "https://maven.blamejared.com/"
         content {
-            includeGroup "mezz.jein"
+            includeGroup "mezz.jei"
         }
     }
     maven {
@@ -160,9 +160,9 @@ dependencies {
     implementation(libs.anvilcraft) { transitive = false }
 //    implementation(libs.curios)
 
-    compileOnlyApi(libs.jeiCommonApi)
-    compileOnlyApi(libs.jeiForgeApi)
-    implementation(libs.jeiForgeImpl)
+    compileOnly(libs.jeiCommonApi)
+    compileOnly(libs.jeiForgeApi)
+    compileOnly(libs.jeiForgeImpl)
 
     implementation(libs.jade)
 
