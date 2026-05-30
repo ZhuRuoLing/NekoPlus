@@ -348,6 +348,36 @@ public class NPBlockStateDispatches {
         };
     }
 
+    public static NonNullBiConsumer<DataGenContext<Block, AnvilBlock>, RegistrumBlockModelGenerator> catAnvil() {
+        return new NonNullBiConsumer<>() {
+            @Override
+            public void accept(
+                @NonNull DataGenContext<Block, AnvilBlock> ctx,
+                @NonNull RegistrumBlockModelGenerator gen
+            ) {
+                var modelId = NekoPlus.location("block/cat_anvil");
+
+                var dispatchWrap = PropertyDispatchWrap.initial(
+                    AnvilBlock.FACING
+                );
+
+                for (var direction : Direction.Plane.HORIZONTAL) {
+                    int yRot = ((int) direction.toYRot()) % 360;
+                    dispatchWrap.select(
+                        direction,
+                        BlockModelGenerators.plainVariant(modelId)
+                            .with(VariantMutator.Y_ROT.withValue(Quadrant.parseJson(yRot)))
+                    );
+                }
+
+                gen.blockStateOutput.accept(
+                    MultiVariantGenerator.dispatch(ctx.get())
+                        .with(dispatchWrap.dispatch())
+                );
+            }
+        };
+    }
+
     public static ConditionBuilder condition() {
         return new ConditionBuilder();
     }

@@ -18,4 +18,29 @@ public class NPSoundEvents {
         "block.interrupt",
         () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.interrupt"))
     );
+
+    public static final DeferredHolder<SoundEvent, SoundEvent> CAT_ANVIL_BASE = DR.register(
+        "block.cat_anvil.base",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.base"))
+    );
+    public static final DeferredHolder<SoundEvent, SoundEvent> CAT_ANVIL_BREAK = DR.register(
+        "block.cat_anvil.break",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.break"))
+    );
+    public static final DeferredHolder<SoundEvent, SoundEvent> CAT_ANVIL_STEP = DR.register(
+        "block.cat_anvil.step",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.step"))
+    );
+    public static final DeferredHolder<SoundEvent, SoundEvent> CAT_ANVIL_PLACE = DR.register(
+        "block.cat_anvil.place",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.place"))
+    );
+    public static final DeferredHolder<SoundEvent, SoundEvent> CAT_ANVIL_HIT = DR.register(
+        "block.cat_anvil.hit",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.hit"))
+    );
+    public static final DeferredHolder<SoundEvent, SoundEvent> CAT_ANVIL_FALL = DR.register(
+        "block.cat_anvil.fall",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.fall"))
+    );
 }

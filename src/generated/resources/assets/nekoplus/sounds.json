@@ -1,4 +1,88 @@
 {
+  "block.cat_anvil.base": {
+    "sounds": [
+      {
+        "name": "mob/cat/meow1",
+        "volume": 0.7,
+        "weight": 297
+      },
+      {
+        "name": "mob/cat/meow2",
+        "volume": 0.7,
+        "weight": 297
+      },
+      {
+        "name": "mob/cat/meow3",
+        "volume": 0.7,
+        "weight": 297
+      },
+      {
+        "name": "mob/cat/meow4",
+        "volume": 0.7,
+        "weight": 297
+      },
+      {
+        "name": "mob/cat/hiss1",
+        "volume": 0.25,
+        "weight": 4
+      },
+      {
+        "name": "mob/cat/hiss2",
+        "volume": 0.25,
+        "weight": 4
+      },
+      {
+        "name": "mob/cat/hiss3",
+        "volume": 0.25,
+        "weight": 4
+      }
+    ]
+  },
+  "block.cat_anvil.break": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "nekoplus:block.cat_anvil.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cat_anvil.fall": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "nekoplus:block.cat_anvil.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.cat_anvil.hit": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "nekoplus:block.cat_anvil.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.cat_anvil.place": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "nekoplus:block.cat_anvil.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.cat_anvil.step": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "nekoplus:block.cat_anvil.base"
+      }
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
   "block.interrupt": {
     "sounds": [
       {

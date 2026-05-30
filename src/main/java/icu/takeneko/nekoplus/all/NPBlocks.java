@@ -31,6 +31,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -42,12 +43,38 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.util.DeferredSoundType;
 
 public class NPBlocks {
 
     static {
         NekoPlus.REGISTRUM.defaultCreativeTab(NPCreativeTabs.TAB.getKey());
     }
+
+    public static final BlockEntry<AnvilBlock> CAT_ANVIL = NekoPlus.REGISTRUM
+        .block("cat_anvil", AnvilBlock::new)
+        .initialProperties(() -> Blocks.CAKE)
+        .properties(p -> p
+            .sound(new DeferredSoundType(
+                1f,
+                1f,
+                NPSoundEvents.CAT_ANVIL_BREAK,
+                NPSoundEvents.CAT_ANVIL_STEP,
+                NPSoundEvents.CAT_ANVIL_PLACE,
+                NPSoundEvents.CAT_ANVIL_HIT,
+                NPSoundEvents.CAT_ANVIL_FALL
+            ))
+        )
+        .tag(
+            BlockTags.ANVIL,
+            ModBlockTags.NON_MAGNETIC,
+            ModBlockTags.CANT_BROKEN_ANVIL,
+            BlockTags.MINEABLE_WITH_PICKAXE
+        )
+        .blockstate(NPBlockStateDispatches::catAnvil)
+        .item()
+        .build()
+        .register();
 
     public static final BlockEntry<Block> ROYAL_STEEL_CASING = NekoPlus.REGISTRUM
         .block("royal_steel_casing", Block::new)

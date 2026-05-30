@@ -1,4 +1,5 @@
 {
+  "block.nekoplus.cat_anvil": "Cat Anvil",
   "block.nekoplus.energy_output_hatch": "Energy Output Hatch",
   "block.nekoplus.fusion_reactor_controller": "Fusion Reactor Integrated Controller MK1",
   "block.nekoplus.high_energy_laser": "High Energy Laser",
@@ -29,6 +30,7 @@
   "item.nekoplus.advanced_processor": "Advanced Processor",
   "item.nekoplus.air_filter": "Air Filter",
   "item.nekoplus.carbon_dioxide_laser_tube": "Carbon Dioxide Laser Tube",
+  "item.nekoplus.cat_anvil": "Cat Anvil",
   "item.nekoplus.charged_levitation_powder": "Charged Levitation Powder",
   "item.nekoplus.cryocooler": "Cryocooler",
   "item.nekoplus.dry_ice": "Dry Ice",

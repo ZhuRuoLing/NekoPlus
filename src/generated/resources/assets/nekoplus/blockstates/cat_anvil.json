@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "nekoplus:block/cat_anvil",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "nekoplus:block/cat_anvil",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "nekoplus:block/cat_anvil"
+    },
+    "facing=west": {
+      "model": "nekoplus:block/cat_anvil",
+      "y": 90
+    }
+  }
+}
