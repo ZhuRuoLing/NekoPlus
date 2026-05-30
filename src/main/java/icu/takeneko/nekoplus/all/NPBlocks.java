@@ -21,6 +21,7 @@ import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.data.NPBlockStateDispatches;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
+import icu.takeneko.nekoplus.item.ShulkerHatchBlockItem;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -167,7 +168,21 @@ public class NPBlocks {
         .initialProperties(ROYAL_STEEL_CASING)
         .blockstate(NPBlockStateDispatches::shulkerHatch)
         .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-        .item()
+        .item(ShulkerHatchBlockItem::new)
+        .recipe((ctx, prov) ->
+            ShapelessRecipeBuilder.shapeless(prov.getItems(), RecipeCategory.REDSTONE, ctx.get(), 4)
+                .requires(Ingredient.of(NPBlocks.ROYAL_STEEL_CASING))
+                .requires(Ingredient.of(ModBlocks.CHUTE))
+                .unlockedBy(
+                    "has_" + NPBlocks.ROYAL_STEEL_CASING.getRegisteredName(),
+                    prov.has(NPBlocks.ROYAL_STEEL_CASING)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.CHUTE.getRegisteredName(),
+                    prov.has(ModBlocks.CHUTE)
+                )
+                .save(prov, prov.safeKey(ctx.getId()))
+        )
         .model(DataGenUtil::blockItem)
         .build()
         .register();

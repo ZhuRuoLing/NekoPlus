@@ -13,7 +13,8 @@ public class NPTags {
         //region common
         public static final TagKey<Block> STORAGE_BLOCKS_TITANIUM_ALLOY = storageBlocks("titanium_alloy");
         public static final TagKey<Block> STORAGE_BLOCKS_SILICON = storageBlocks("silicon");
-        public static final TagKey<Block> LIGHTWEIGHT_BLOCK = he("lightweight_block");
+        public static final TagKey<Block> LIGHTWEIGHT_BLOCK = np("lightweight_block");
+        public static final TagKey<Block> NESTED_SHULKER_BLOCK = np("nested_shulker_box");
         //endregion
 
         //region util
@@ -24,7 +25,7 @@ public class NPTags {
             );
         }
 
-        public static @NotNull TagKey<Block> he(String id) {
+        public static @NotNull TagKey<Block> np(String id) {
             return TagKey.create(
                 Registries.BLOCK,
                 Identifier.fromNamespaceAndPath(NekoPlus.MODID, id)

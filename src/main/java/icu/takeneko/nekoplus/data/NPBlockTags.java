@@ -2,6 +2,7 @@ package icu.takeneko.nekoplus.data;
 
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumTagsProvider;
 import dev.dubhe.anvilcraft.init.block.ModBlockTags;
+import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPTags;
 import net.minecraft.core.Holder;
@@ -55,6 +56,11 @@ public class NPBlockTags {
             .addElement(key(Blocks.HONEY_BLOCK))
             .addElement(key(Blocks.SCAFFOLDING))
             .addTag(BlockTags.LEAVES.location());
+
+        provider.rawBuilder(NPTags.Blocks.NESTED_SHULKER_BLOCK)
+            .addElement(ModBlocks.NESTING_SHULKER_BOX.getId())
+            .addElement(ModBlocks.OVER_NESTING_SHULKER_BOX.getId())
+            .addElement(ModBlocks.SUPERCRITICAL_NESTING_SHULKER_BOX.getId());
     }
 
     public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrumTagsProvider<Block> provider) {
