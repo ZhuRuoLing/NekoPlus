@@ -11,6 +11,7 @@ import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
+import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.block.TitaniumAlloyAnvilBlock;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
@@ -359,6 +360,36 @@ public class NPBlockStateDispatches {
 
                 var dispatchWrap = PropertyDispatchWrap.initial(
                     AnvilBlock.FACING
+                );
+
+                for (var direction : Direction.Plane.HORIZONTAL) {
+                    int yRot = ((int) direction.toYRot()) % 360;
+                    dispatchWrap.select(
+                        direction,
+                        BlockModelGenerators.plainVariant(modelId)
+                            .with(VariantMutator.Y_ROT.withValue(Quadrant.parseJson(yRot)))
+                    );
+                }
+
+                gen.blockStateOutput.accept(
+                    MultiVariantGenerator.dispatch(ctx.get())
+                        .with(dispatchWrap.dispatch())
+                );
+            }
+        };
+    }
+
+    public static NonNullBiConsumer<DataGenContext<Block, ShulkerHatchBlock>, RegistrumBlockModelGenerator> shulkerHatch() {
+        return new NonNullBiConsumer<>() {
+            @Override
+            public void accept(
+                @NonNull DataGenContext<Block, ShulkerHatchBlock> ctx,
+                @NonNull RegistrumBlockModelGenerator gen
+            ) {
+                var modelId = NekoPlus.location("block/shulker_hatch");
+
+                var dispatchWrap = PropertyDispatchWrap.initial(
+                    ShulkerHatchBlock.FACING
                 );
 
                 for (var direction : Direction.Plane.HORIZONTAL) {

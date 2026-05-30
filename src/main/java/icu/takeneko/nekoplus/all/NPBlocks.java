@@ -13,6 +13,7 @@ import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
+import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.block.StellarEngineBlock;
 import icu.takeneko.nekoplus.block.TardisBlock;
 import icu.takeneko.nekoplus.block.TitaniumAlloyAnvilBlock;
@@ -158,6 +159,16 @@ public class NPBlocks {
                 )
                 .save(prov);
         })
+        .build()
+        .register();
+
+    public static final BlockEntry<ShulkerHatchBlock> SHULKER_HATCH_BLOCK = NekoPlus.REGISTRUM
+        .block("shulker_hatch", ShulkerHatchBlock::new)
+        .initialProperties(ROYAL_STEEL_CASING)
+        .blockstate(NPBlockStateDispatches::shulkerHatch)
+        .tag(BlockTags.MINEABLE_WITH_PICKAXE)
+        .item()
+        .model(DataGenUtil::blockItem)
         .build()
         .register();
 
