@@ -3,7 +3,7 @@ package icu.takeneko.nekoplus.block.tile;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
-import icu.takeneko.nekoplus.util.ItemHandlerUtil;
+import icu.takeneko.nekoplus.util.ItemResourceHandlerUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -48,7 +48,7 @@ public class ShulkerHatchBlockEntity extends NPSynedBlockEntity implements Ticka
             }
         }
         ItemStack stack = presentResource.toStack(extracted);
-        ItemHandlerUtil.giveItemToPlayer(player, stack);
+        ItemResourceHandlerUtil.giveItemToPlayer(player, stack);
     }
 
     private ResourceHandler<ItemResource> getHandler() {

@@ -10,7 +10,7 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.PlayerInventoryWrapper;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
-public class ItemHandlerUtil {
+public class ItemResourceHandlerUtil {
     /**
      * Inserts the given itemstack into the players inventory.
      * If the inventory can't hold it, the item will be dropped in the world at the players position.
