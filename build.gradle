@@ -84,6 +84,15 @@ neoForge {
     runs {
         client {
             client()
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            systemProperty 'mixin.debug.export', "true"
+            jvmArgument("-XX:+IgnoreUnrecognizedVMOptions")
+            jvmArgument("-XX:+AllowEnhancedClassRedefinition")
+        }
+
+        clientMSA {
+            client()
             devLogin = true
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
@@ -111,6 +120,7 @@ neoForge {
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
+
         gameTestServer {
             type = "gameTestServer"
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id

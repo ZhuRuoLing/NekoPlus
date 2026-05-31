@@ -211,7 +211,7 @@ public class NPUIUtils {
         };
     }
 
-    @Nullable
+
     public static WindowDragHelper.ResizeHandle detectResizeHandle(UIElement element, float mouseWorldX, float mouseWorldY, float padding) {
         var local = element.getLocalMouse(mouseWorldX, mouseWorldY).sub(element.getPositionX(), element.getPositionY());
         var mx = local.x;
