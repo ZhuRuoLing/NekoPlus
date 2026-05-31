@@ -33,7 +33,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -163,7 +162,7 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<ShulkerHatchBlock> SHULKER_HATCH_BLOCK = NekoPlus.REGISTRUM
+    public static final BlockEntry<ShulkerHatchBlock> SHULKER_HATCH = NekoPlus.REGISTRUM
         .block("shulker_hatch", ShulkerHatchBlock::new)
         .initialProperties(ROYAL_STEEL_CASING)
         .blockstate(NPBlockStateDispatches::shulkerHatch)

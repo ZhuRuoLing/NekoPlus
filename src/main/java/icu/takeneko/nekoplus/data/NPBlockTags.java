@@ -8,7 +8,6 @@ import icu.takeneko.nekoplus.all.NPTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -40,7 +39,7 @@ public class NPBlockTags {
         ironPickaxeMineableBlock(NPBlocks.HIGH_ENERGY_LASER, provider);
         ironPickaxeMineableBlock(NPBlocks.NETHERITE_SCRAP_BLOCK, provider);
         ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
-        ironPickaxeMineableBlock(NPBlocks.SHULKER_HATCH_BLOCK, provider);
+        ironPickaxeMineableBlock(NPBlocks.SHULKER_HATCH, provider);
 
         wrenchableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
         wrenchableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
@@ -48,7 +47,7 @@ public class NPBlockTags {
         wrenchableBlock(NPBlocks.TARDIS, provider);
         wrenchableBlock(NPBlocks.HIGH_ENERGY_LASER, provider);
         wrenchableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
-        wrenchableBlock(NPBlocks.SHULKER_HATCH_BLOCK, provider);
+        wrenchableBlock(NPBlocks.SHULKER_HATCH, provider);
 
 
         provider.rawBuilder(ModBlockTags.OVERSEER_BASE)

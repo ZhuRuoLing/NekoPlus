@@ -31,7 +31,7 @@ public class NPBlockEntities {
 
     public static final BlockEntityEntry<ShulkerHatchBlockEntity> SHULKER_HATCH = NekoPlus.REGISTRUM
         .blockEntity("shulker_hatch", ShulkerHatchBlockEntity::new)
-        .validBlock(NPBlocks.SHULKER_HATCH_BLOCK)
+        .validBlock(NPBlocks.SHULKER_HATCH)
         .register();
 
     public static final BlockEntityEntry<ParticleStabilizerBlockEntity> PARTICLE_STABILIZER = NekoPlus.REGISTRUM

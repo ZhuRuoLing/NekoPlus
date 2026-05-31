@@ -42,6 +42,7 @@ public class NPItemTooltips {
         tooltip(NPBlocks.PARTICLE_STABILIZER, "That`s cold enough.");
         tooltip(NPBlocks.HIGH_ENERGY_LASER, "One beats sixty-four");
         tooltip(NPBlocks.ROYAL_STEEL_CASING, "§7All you need is §5I§dm§4a§cg§ei§an§ba§3t§7i§1o§5n§7");
+        tooltip(NPBlocks.SHULKER_HATCH, "Make a nested shulker box behaves like drawer");
 
         tooltip(NPItems.STABILIZE_POWDER, "S₈((Al₆Si₆Ca₈Na₈)₁₂(Al₃Si₃Na₄Cl)₂(FeS₂)(CaCO₃))₂(Si(FeS₂)₅(CrAl₂O₃)Hg₃)₃Lv₅");
         tooltip(NPItems.CHARGED_LEVITATION_POWDER, "Lv");

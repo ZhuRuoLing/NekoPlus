@@ -3,7 +3,6 @@ package icu.takeneko.nekoplus.all;
 import com.lowdragmc.lowdraglib2.gui.holder.ModularUIScreen;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import dev.anvilcraft.lib.v2.recipe.AnvilLibRecipe;
-import dev.dubhe.anvilcraft.api.entity.fakeplayer.AnvilCraftFakePlayers;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
@@ -18,7 +17,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.TriState;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -98,7 +96,7 @@ public class NPEvents {
         Direction face = event.getFace();
         if (face == null) return;
         BlockState state = level.getBlockState(pos);
-        if (state.is(NPBlocks.SHULKER_HATCH_BLOCK) && state.getValue(ShulkerHatchBlock.FACING) == face.getOpposite()) {
+        if (state.is(NPBlocks.SHULKER_HATCH) && state.getValue(ShulkerHatchBlock.FACING) == face.getOpposite()) {
             System.out.println("event.getAction() = " + event.getAction());
             if (event.getAction() == PlayerInteractEvent.LeftClickBlock.Action.START) {
                 state.attack(level, pos, event.getEntity());
