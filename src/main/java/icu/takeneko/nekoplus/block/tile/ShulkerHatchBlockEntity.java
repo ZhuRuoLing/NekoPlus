@@ -16,8 +16,13 @@ import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.transaction.Transaction;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class ShulkerHatchBlockEntity extends NPSynedBlockEntity implements Tickable {
 
+    private static final Map<UUID, Long> interactions = new HashMap<>();
     private int cooldown = 0;
 
     public ShulkerHatchBlockEntity(
@@ -62,27 +67,50 @@ public class ShulkerHatchBlockEntity extends NPSynedBlockEntity implements Ticka
 
     public void insert(Player player) {
         ItemStack itemInHand = player.getItemInHand(InteractionHand.MAIN_HAND).copy();
-        if (itemInHand.isEmpty()) return;
         ResourceHandler<ItemResource> handler = getHandler();
         ItemResource presentResource = handler.getResource(0);
         ItemResource handResource = ItemResource.of(itemInHand);
         if (presentResource.isEmpty() || presentResource.equals(handResource)) {
-            try (Transaction transaction = Transaction.openRoot()) {
-                int inserted;
-                try (Transaction test = Transaction.open(transaction)) {
-                    inserted = handler.insert(0, handResource, itemInHand.count(), test);
+            if (!itemInHand.isEmpty()) {
+                try (Transaction transaction = Transaction.openRoot()) {
+                    int inserted;
+                    try (Transaction test = Transaction.open(transaction)) {
+                        inserted = handler.insert(0, handResource, itemInHand.count(), test);
+                    }
+                    if (inserted > 0) {
+                        handler.insert(0, handResource, inserted, transaction);
+                        itemInHand.shrink(inserted);
+                        player.setItemInHand(
+                            InteractionHand.MAIN_HAND,
+                            itemInHand.isEmpty() ? ItemStack.EMPTY : itemInHand
+                        );
+                        transaction.commit();
+                    }
                 }
-                if (inserted > 0) {
-                    handler.insert(0, handResource, inserted, transaction);
-                    itemInHand.shrink(inserted);
-                    player.setItemInHand(
-                        InteractionHand.MAIN_HAND,
-                        itemInHand.isEmpty() ? ItemStack.EMPTY : itemInHand
-                    );
-                    transaction.commit();
+            }
+        } else {
+            long currentTimeMillis = System.currentTimeMillis();
+            if (currentTimeMillis - interactions.getOrDefault(player.getGameProfile().id(), currentTimeMillis) < 300) {
+                for (ItemStack itemStack : player.getInventory().getNonEquipmentItems()) {
+                    if (itemStack.isEmpty()) continue;
+                    ItemResource resource = ItemResource.of(itemStack);
+                    if (!resource.equals(presentResource)) continue;
+                    try (Transaction transaction = Transaction.openRoot()) {
+                        int inserted;
+                        try (Transaction test = Transaction.open(transaction)) {
+                            inserted = handler.insert(0, resource, itemStack.count(), test);
+                        }
+                        if (inserted > 0) {
+                            handler.insert(0, resource, inserted, transaction);
+                            itemInHand.shrink(inserted);
+                            itemStack.setCount(itemStack.count() - inserted);
+                            transaction.commit();
+                        }
+                    }
                 }
             }
         }
+        interactions.put(player.getGameProfile().id(), System.currentTimeMillis());
     }
 
     @Override
