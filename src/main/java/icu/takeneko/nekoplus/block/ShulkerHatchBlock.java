@@ -4,10 +4,14 @@ import com.mojang.serialization.MapCodec;
 import dev.anvilcraft.lib.v2.util.ShapeUtil;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPTags;
+import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ShulkerHatchBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.NPTranslucentEntityBlock;
+import icu.takeneko.nekoplus.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -16,6 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -108,6 +114,11 @@ public class ShulkerHatchBlock extends NPTranslucentEntityBlock {
     }
 
     @Override
+    protected VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+        return SHAPES[state.getValue(FACING).ordinal()];
+    }
+
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return level.getBlockState(pos.relative(state.getValue(FACING))).is(NPTags.Blocks.NESTED_SHULKER_BLOCK);
     }
@@ -127,6 +138,18 @@ public class ShulkerHatchBlock extends NPTranslucentEntityBlock {
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new ShulkerHatchBlockEntity(NPBlockEntities.SHULKER_HATCH.get(), pos, state);
+    }
+
+    @Override
+    public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(
+        Level level,
+        BlockState blockState,
+        BlockEntityType<T> type
+    ) {
+        if (level instanceof ServerLevel) {
+            return (BlockEntityTicker<T>) BlockEntityUtil.<ShulkerHatchBlockEntity>createTicker();
+        }
+        return null;
     }
 
     @Override

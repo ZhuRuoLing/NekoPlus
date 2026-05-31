@@ -18,6 +18,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.TriState;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
@@ -98,7 +99,10 @@ public class NPEvents {
         if (face == null) return;
         BlockState state = level.getBlockState(pos);
         if (state.is(NPBlocks.SHULKER_HATCH_BLOCK) && state.getValue(ShulkerHatchBlock.FACING) == face.getOpposite()) {
-            state.attack(level, pos, event.getEntity());
+            System.out.println("event.getAction() = " + event.getAction());
+            if (event.getAction() == PlayerInteractEvent.LeftClickBlock.Action.START) {
+                state.attack(level, pos, event.getEntity());
+            }
             event.setCanceled(true);
         }
     }

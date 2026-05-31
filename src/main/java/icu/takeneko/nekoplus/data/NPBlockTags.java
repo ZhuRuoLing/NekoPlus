@@ -40,6 +40,7 @@ public class NPBlockTags {
         ironPickaxeMineableBlock(NPBlocks.HIGH_ENERGY_LASER, provider);
         ironPickaxeMineableBlock(NPBlocks.NETHERITE_SCRAP_BLOCK, provider);
         ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
+        ironPickaxeMineableBlock(NPBlocks.SHULKER_HATCH_BLOCK, provider);
 
         wrenchableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
         wrenchableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
@@ -47,6 +48,8 @@ public class NPBlockTags {
         wrenchableBlock(NPBlocks.TARDIS, provider);
         wrenchableBlock(NPBlocks.HIGH_ENERGY_LASER, provider);
         wrenchableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
+        wrenchableBlock(NPBlocks.SHULKER_HATCH_BLOCK, provider);
+
 
         provider.rawBuilder(ModBlockTags.OVERSEER_BASE)
             .addElement(NPBlocks.ROYAL_STEEL_CASING.getKey().identifier());
