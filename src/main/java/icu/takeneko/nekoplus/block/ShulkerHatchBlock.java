@@ -2,24 +2,31 @@ package icu.takeneko.nekoplus.block;
 
 import com.mojang.serialization.MapCodec;
 import dev.anvilcraft.lib.v2.util.ShapeUtil;
+import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPTags;
+import icu.takeneko.nekoplus.block.tile.ShulkerHatchBlockEntity;
+import icu.takeneko.nekoplus.foundation.block.NPTranslucentEntityBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.redstone.Orientation;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
-public class ShulkerHatchBlock extends Block {
+public class ShulkerHatchBlock extends NPTranslucentEntityBlock {
     public static final VoxelShape SHAPE_N = box(
         1, 0, 0,
         15, 16, 2
@@ -76,6 +83,31 @@ public class ShulkerHatchBlock extends Block {
     }
 
     @Override
+    protected void attack(BlockState state, Level level, BlockPos pos, Player player) {
+        if (level.getBlockEntity(pos) instanceof ShulkerHatchBlockEntity entity) {
+            entity.eject(player);
+        }
+        super.attack(state, level, pos, player);
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Player player,
+        BlockHitResult hitResult
+    ) {
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+        if (level.getBlockEntity(pos) instanceof ShulkerHatchBlockEntity entity) {
+            entity.insert(player);
+        }
+        return InteractionResult.SUCCESS_SERVER;
+    }
+
+    @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return level.getBlockState(pos.relative(state.getValue(FACING))).is(NPTags.Blocks.NESTED_SHULKER_BLOCK);
     }
@@ -90,6 +122,11 @@ public class ShulkerHatchBlock extends Block {
             return defaultBlockState().setValue(FACING, facing.getOpposite());
         }
         return null;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new ShulkerHatchBlockEntity(NPBlockEntities.SHULKER_HATCH.get(), pos, state);
     }
 
     @Override

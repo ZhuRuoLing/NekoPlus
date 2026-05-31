@@ -16,7 +16,7 @@ import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.block.StellarEngineBlock;
 import icu.takeneko.nekoplus.block.TardisBlock;
-import icu.takeneko.nekoplus.block.TitaniumAlloyAnvilBlock;
+import icu.takeneko.nekoplus.block.FatAnvilBlock;
 import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.data.NPBlockStateDispatches;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
@@ -53,8 +53,8 @@ public class NPBlocks {
         NekoPlus.REGISTRUM.defaultCreativeTab(NPCreativeTabs.TAB.getKey());
     }
 
-    public static final BlockEntry<AnvilBlock> CAT_ANVIL = NekoPlus.REGISTRUM
-        .block("cat_anvil", AnvilBlock::new)
+    public static final BlockEntry<FatAnvilBlock> CAT_ANVIL = NekoPlus.REGISTRUM
+        .block("cat_anvil", FatAnvilBlock::new)
         .initialProperties(() -> Blocks.CAKE)
         .properties(p -> p
             .sound(new DeferredSoundType(
@@ -299,8 +299,8 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<TitaniumAlloyAnvilBlock> TITANIUM_ALLOY_ANVIL = NekoPlus.REGISTRUM
-        .block("titanium_alloy_anvil", TitaniumAlloyAnvilBlock::new)
+    public static final BlockEntry<FatAnvilBlock> TITANIUM_ALLOY_ANVIL = NekoPlus.REGISTRUM
+        .block("titanium_alloy_anvil", FatAnvilBlock::new)
         .initialProperties(() -> Blocks.ANVIL)
         .properties(p -> p.pushReaction(PushReaction.NORMAL))
         .tag(

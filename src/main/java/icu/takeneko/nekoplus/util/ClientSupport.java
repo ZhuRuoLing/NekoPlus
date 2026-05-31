@@ -3,7 +3,7 @@ package icu.takeneko.nekoplus.util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class ClientSupport {
     private static Level currentLevel;

@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TitaniumAlloyAnvilBlock extends AnvilBlock {
+public class FatAnvilBlock extends AnvilBlock {
     private static final VoxelShape BASE_X = Block.box(1.0, 0.0, 2.0, 15.0, 4.0, 14.0);
     private static final VoxelShape BASE_Y = Block.box(2.0, 0.0, 1.0, 14.0, 4.0, 15.0);
     private static final VoxelShape X_LEG1 = Block.box(4.0, 4.0, 5.0, 12.0, 10.0, 11.0);
@@ -21,7 +21,7 @@ public class TitaniumAlloyAnvilBlock extends AnvilBlock {
     public static final VoxelShape X_SHAPE = Shapes.or(BASE_X, X_LEG1, X_TOP);
     public static final VoxelShape Z_SHAPE = Shapes.or(BASE_Y, Z_LEG1, Z_TOP);
 
-    public TitaniumAlloyAnvilBlock(Properties properties) {
+    public FatAnvilBlock(Properties properties) {
         super(properties);
     }
 

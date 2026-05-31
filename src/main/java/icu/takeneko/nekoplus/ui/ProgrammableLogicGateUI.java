@@ -31,7 +31,7 @@ import icu.takeneko.nekoplus.util.NPUIUtils;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.joml.Vector2f;
 
 import java.util.EnumMap;

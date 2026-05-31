@@ -12,7 +12,7 @@ import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
-import icu.takeneko.nekoplus.block.TitaniumAlloyAnvilBlock;
+import icu.takeneko.nekoplus.block.FatAnvilBlock;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.ConditionBuilder;
@@ -319,11 +319,11 @@ public class NPBlockStateDispatches {
         };
     }
 
-    public static NonNullBiConsumer<DataGenContext<Block, TitaniumAlloyAnvilBlock>, RegistrumBlockModelGenerator> titaniumAlloyAnvil() {
+    public static NonNullBiConsumer<DataGenContext<Block, FatAnvilBlock>, RegistrumBlockModelGenerator> titaniumAlloyAnvil() {
         return new NonNullBiConsumer<>() {
             @Override
             public void accept(
-                @NonNull DataGenContext<Block, TitaniumAlloyAnvilBlock> context,
+                @NonNull DataGenContext<Block, FatAnvilBlock> context,
                 @NonNull RegistrumBlockModelGenerator generator
             ) {
                 Identifier modelId = NekoPlus.location("block/titanium_alloy_anvil");
@@ -349,11 +349,11 @@ public class NPBlockStateDispatches {
         };
     }
 
-    public static NonNullBiConsumer<DataGenContext<Block, AnvilBlock>, RegistrumBlockModelGenerator> catAnvil() {
+    public static NonNullBiConsumer<DataGenContext<Block, FatAnvilBlock>, RegistrumBlockModelGenerator> catAnvil() {
         return new NonNullBiConsumer<>() {
             @Override
             public void accept(
-                @NonNull DataGenContext<Block, AnvilBlock> ctx,
+                @NonNull DataGenContext<Block, FatAnvilBlock> ctx,
                 @NonNull RegistrumBlockModelGenerator gen
             ) {
                 var modelId = NekoPlus.location("block/cat_anvil");

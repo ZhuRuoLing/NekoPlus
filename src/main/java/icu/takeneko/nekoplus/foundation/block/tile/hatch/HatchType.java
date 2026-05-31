@@ -3,7 +3,7 @@ package icu.takeneko.nekoplus.foundation.block.tile.hatch;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.logic.HatchLogic;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public interface HatchType<C> extends StringRepresentable {
     HatchLogic<C> createHatchLogic(HatchLogicHost logicHost, boolean isInput);

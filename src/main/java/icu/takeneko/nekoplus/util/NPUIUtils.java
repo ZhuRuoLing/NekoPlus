@@ -12,7 +12,7 @@ import icu.takeneko.nekoplus.foundation.ui.widgets.ResizeAwareUIElement;
 import lombok.SneakyThrows;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
 

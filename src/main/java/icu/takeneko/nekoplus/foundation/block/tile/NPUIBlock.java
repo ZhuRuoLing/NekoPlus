@@ -2,7 +2,7 @@ package icu.takeneko.nekoplus.foundation.block.tile;
 
 import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public interface NPUIBlock extends BlockUIMenuType.BlockUI {
 

@@ -10,29 +10,18 @@ import dev.dubhe.anvilcraft.client.renderer.laser.CachedLaserBlockEntityRenderer
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPHammerTooltipProviders;
-import icu.takeneko.nekoplus.client.extension.NPClientExtension;
 import icu.takeneko.nekoplus.client.renderer.animation.NPMolangValues;
-import icu.takeneko.nekoplus.foundation.client.RenderThreadSupport;
 import icu.takeneko.nekoplus.foundation.client.ui.renderer.FourDirectionBlockDisplayElementRenderer;
 import icu.takeneko.nekoplus.foundation.ui.widgets.FourDirectionBlockDisplayElement;
 import icu.takeneko.nekoplus.ui.NPGuiResources;
-import icu.takeneko.nekoplus.util.NPUIUtils;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Mod(value = NekoPlus.MODID, dist = Dist.CLIENT)
 @EventBusSubscriber(value = Dist.CLIENT)
@@ -46,7 +35,6 @@ public class NekoPlusClient {
 
     @SubscribeEvent
     public static void on(FMLClientSetupEvent event) {
-        RenderThreadSupport.recordRenderCall(NPUIUtils::clientSetup);
         event.enqueueWork(() -> {
             UIElementRendererRegistry.register(
                 FourDirectionBlockDisplayElement.class,

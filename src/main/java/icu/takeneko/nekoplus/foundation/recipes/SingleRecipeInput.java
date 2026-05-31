@@ -2,7 +2,7 @@ package icu.takeneko.nekoplus.foundation.recipes;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class SingleRecipeInput<T> implements RecipeInput {
     @Nullable

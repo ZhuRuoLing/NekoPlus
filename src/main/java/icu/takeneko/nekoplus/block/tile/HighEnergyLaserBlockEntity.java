@@ -13,7 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements NPPowerConsumer, Tickable {
     public static final int HIGH_ENERGY_LASER_COLOR = 0xff8000ff;

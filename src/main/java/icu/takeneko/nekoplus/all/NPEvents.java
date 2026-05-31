@@ -7,6 +7,7 @@ import dev.dubhe.anvilcraft.api.entity.fakeplayer.AnvilCraftFakePlayers;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
+import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.block.tile.BlockCollisionEventReceiver;
 import icu.takeneko.nekoplus.foundation.block.tile.hatch.logic.HatchLogic;
@@ -90,6 +91,19 @@ public class NPEvents {
     }
 
     @SubscribeEvent
+    public static void on(PlayerInteractEvent.LeftClickBlock event) {
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+        Direction face = event.getFace();
+        if (face == null) return;
+        BlockState state = level.getBlockState(pos);
+        if (state.is(NPBlocks.SHULKER_HATCH_BLOCK) && state.getValue(ShulkerHatchBlock.FACING) == face.getOpposite()) {
+            state.attack(level, pos, event.getEntity());
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public static void onLandOnStampingPlatform(AnvilEvent.OnLand event) {
         BlockPos eventPos = event.getPos();
         Level level = event.getLevel();
@@ -98,7 +112,11 @@ public class NPEvents {
         if (!blockState.getValue(StampingPlatformsInternals.LASER_TARGETED)) return;
         Direction facing = blockState.getValue(StampingPlatformBlock.FACING);
         Vec3 motion = new Vec3(facing.getStepX(), -0.4, facing.getStepZ()).scale(0.2);
-        Vec3 position = eventPos.below().getBottomCenter().add(facing.getStepX() * 0.5 + 0.25 * facing.getStepX(), 0.55, facing.getStepZ() * 0.5 + 0.25 * facing.getStepX());
+        Vec3 position = eventPos.below().getBottomCenter().add(
+            facing.getStepX() * 0.5 + 0.25 * facing.getStepX(),
+            0.55,
+            facing.getStepZ() * 0.5 + 0.25 * facing.getStepX()
+        );
         AABB box = new AABB(eventPos.below());
         List<ItemEntity> entities = level.getEntitiesOfClass(ItemEntity.class, box);
         int anvilEfficency = AnvilLibRecipe.CONFIG.inWorldRecipeMaxEfficiency;
@@ -125,7 +143,11 @@ public class NPEvents {
             }
             SingleRecipeInput input = new SingleRecipeInput(itemStack.copyWithCount(actualCount));
             ServerLevel serverLevel = (ServerLevel) level;
-            Optional<RecipeHolder<LaserEtchingRecipe>> recipeHolderOptional = level.getServer().getRecipeManager().getRecipeFor(NPRecipeTypes.LASER_ETCHING, input, serverLevel);
+            Optional<RecipeHolder<LaserEtchingRecipe>> recipeHolderOptional = level.getServer().getRecipeManager().getRecipeFor(
+                NPRecipeTypes.LASER_ETCHING,
+                input,
+                serverLevel
+            );
             if (recipeHolderOptional.isPresent() && actualCount != 0) {
                 entity.discard();
                 LaserEtchingRecipe recipe = recipeHolderOptional.get().value();

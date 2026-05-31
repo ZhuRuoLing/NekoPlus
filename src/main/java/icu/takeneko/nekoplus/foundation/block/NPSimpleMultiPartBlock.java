@@ -8,7 +8,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public abstract class NPSimpleMultiPartBlock<P extends Enum<P> & ISimpleMultiPartBlockState<P>> extends AbstractMultiPartBlock<P> implements NPUIBlock {
 

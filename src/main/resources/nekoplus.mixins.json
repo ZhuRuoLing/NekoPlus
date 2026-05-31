@@ -16,7 +16,8 @@
   ],
   "client": [
     "anvilcraft.LaserCompilerMixin",
-    "anvilcraft.LaserRenderStateMixin"
+    "anvilcraft.LaserRenderStateMixin",
+    "minecraft.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1
