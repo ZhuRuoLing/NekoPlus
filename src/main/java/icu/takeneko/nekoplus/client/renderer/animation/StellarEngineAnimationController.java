@@ -1,7 +1,5 @@
 package icu.takeneko.nekoplus.client.renderer.animation;
 
-import com.geckolib.animatable.GeoAnimatable;
-import com.geckolib.animatable.stateless.StatelessAnimationController;
 import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
 import com.geckolib.animation.object.PlayState;
@@ -19,20 +17,26 @@ public class StellarEngineAnimationController extends AnimationController<Stella
     public static final RawAnimation ANIM_SUN = RawAnimation.begin()
         .thenLoop("nekoplus:animation.stellar_engine.sun");
 
-    public StellarEngineAnimationController(AnimationStateHandler<StellarEngineBlockEntity> handler) {
-        super("stellar_engine", handler);
+    public StellarEngineAnimationController(String name, AnimationStateHandler<StellarEngineBlockEntity> handler) {
+        super(name, handler);
     }
 
     public static StellarEngineAnimationController openCloseController() {
-        return new StellarEngineAnimationController(StellarEngineAnimationController::handleOpenCloseState);
+        return new StellarEngineAnimationController("open_close", StellarEngineAnimationController::handleOpenCloseState);
     }
 
     public static StellarEngineAnimationController ringAnimation() {
-        return new StellarEngineAnimationController(it -> StellarEngineAnimationController.handleOpened(it, ANIM_RING));
+        return new StellarEngineAnimationController(
+            "ring",
+            it -> StellarEngineAnimationController.handleOpened(it, ANIM_RING)
+        );
     }
 
     public static StellarEngineAnimationController sunAnimation() {
-        return new StellarEngineAnimationController(it -> StellarEngineAnimationController.handleOpened(it, ANIM_SUN));
+        return new StellarEngineAnimationController(
+            "sun",
+            it -> StellarEngineAnimationController.handleOpened(it, ANIM_SUN)
+        );
     }
 
     private static PlayState handleOpenCloseState(AnimationTest<StellarEngineBlockEntity> event) {
@@ -42,11 +46,7 @@ public class StellarEngineAnimationController extends AnimationController<Stella
 
         return switch (state) {
             case CLOSED -> event.setAndContinue(ANIM_CLOSED);
-            case OPENING -> {
-                yield event.setAndContinue(ANIM_OPEN);
-//                blockEntity.setEngineAnimationState(StellarEngineBlockEntity.EngineAnimationState.OPENED);
-//                yield PlayState.STOP;
-            }
+            case OPENING -> event.setAndContinue(ANIM_OPEN);
             case OPENED -> PlayState.STOP;
         };
     }
@@ -57,17 +57,8 @@ public class StellarEngineAnimationController extends AnimationController<Stella
         StellarEngineBlockEntity.EngineAnimationState state = blockEntity.getEngineAnimationState();
 
         return switch (state) {
-            case CLOSED, OPENED -> PlayState.STOP;
-            case OPENING -> {
-                event.setAnimation(animation);
-                yield PlayState.CONTINUE;
-            }
+            case CLOSED -> PlayState.STOP;
+            case OPENING, OPENED -> event.setAndContinue(animation);
         };
-    }
-
-    public static AnimationController<GeoAnimatable> createStateless(String name, RawAnimation animation) {
-        StatelessAnimationController controller = new StatelessAnimationController(name);
-        controller.setCurrentAnimation(animation);
-        return controller;
     }
 }

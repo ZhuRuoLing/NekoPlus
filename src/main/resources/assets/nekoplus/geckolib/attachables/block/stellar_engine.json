@@ -16,20 +16,11 @@
         "closed": "nekoplus:animation.stellar_engine.closed",
         "ring": "nekoplus:animation.stellar_engine.ring",
         "sun": "nekoplus:animation.stellar_engine.sun",
-        "open": "nekoplus:animation.stellar_engine.open",
-        "controller": "nekoplus:controller.animation.stellar_engine.main"
+        "open": "nekoplus:animation.stellar_engine.open"
       },
       "render_controllers": [
         "nekoplus:stellar_engine"
-      ],
-      "scripts": {
-        "animate": [
-          {
-            "closed": "!variable.not_closed",
-            "controller": "variable.not_closed"
-          }
-        ]
-      }
+      ]
     }
   }
 }
