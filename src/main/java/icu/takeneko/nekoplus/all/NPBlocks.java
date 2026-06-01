@@ -9,9 +9,7 @@ import dev.dubhe.anvilcraft.block.state.Cube323PartHalf;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
-import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.MineralFountainPressurizerBlock;
-import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
@@ -21,8 +19,6 @@ import icu.takeneko.nekoplus.block.TardisBlock;
 import icu.takeneko.nekoplus.block.FatAnvilBlock;
 import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.data.NPBlockStateDispatches;
-import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
-import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
 import icu.takeneko.nekoplus.item.ShulkerHatchBlockItem;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -34,7 +30,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -67,8 +62,7 @@ public class NPBlocks {
                 NPSoundEvents.CAT_ANVIL_HIT,
                 NPSoundEvents.CAT_ANVIL_FALL
             ))
-        )
-        .tag(
+        ).tag(
             BlockTags.ANVIL,
             ModBlockTags.NON_MAGNETIC,
             ModBlockTags.CANT_BROKEN_ANVIL,
@@ -246,29 +240,27 @@ public class NPBlocks {
             .explosionResistance(114514)
         )
         .blockstate(DataGenUtil::onlyState)
-        .loot((tab, block) -> {
-            tab.add(
-                block,
-                LootTable.lootTable()
-                    .withPool(
-                        tab.applyExplosionCondition(
-                            block,
-                            LootPool.lootPool()
-                                .setRolls(ConstantValue.exactly(1.0F))
-                                .add(
-                                    LootItem.lootTableItem(block)
-                                        .when(
-                                            LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
-                                                    TardisBlock.PART,
-                                                    Part3.BOTTOM
-                                                ))
-                                        )
-                                )
-                        )
+        .loot((tab, block) -> tab.add(
+            block,
+            LootTable.lootTable()
+                .withPool(
+                    tab.applyExplosionCondition(
+                        block,
+                        LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(
+                                LootItem.lootTableItem(block)
+                                    .when(
+                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
+                                                TardisBlock.PART,
+                                                Part3.BOTTOM
+                                            ))
+                                    )
+                            )
                     )
-            );
-        })
+                )
+        ))
         .item()
         .properties(p -> p.rarity(Rarity.EPIC))
         .model(DataGenUtil::onlyInfo)
@@ -278,29 +270,27 @@ public class NPBlocks {
     public static final BlockEntry<MineralFountainPressurizerBlock> MINERAL_FOUNTAIN_PRESSURIZER = NekoPlus.REGISTRUM
         .block("mineral_fountail_pressurizer", MineralFountainPressurizerBlock::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
-        .loot((tab, block) -> {
-            tab.add(
-                block,
-                LootTable.lootTable()
-                    .withPool(
-                        tab.applyExplosionCondition(
-                            block,
-                            LootPool.lootPool()
-                                .setRolls(ConstantValue.exactly(1.0F))
-                                .add(
-                                    LootItem.lootTableItem(block)
-                                        .when(
-                                            LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
-                                                    MineralFountainPressurizerBlock.PART,
-                                                    Cube323PartHalf.BOTTOM_CENTER
-                                                ))
-                                        )
-                                )
-                        )
+        .loot((tab, block) -> tab.add(
+            block,
+            LootTable.lootTable()
+                .withPool(
+                    tab.applyExplosionCondition(
+                        block,
+                        LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(
+                                LootItem.lootTableItem(block)
+                                    .when(
+                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
+                                                MineralFountainPressurizerBlock.PART,
+                                                Cube323PartHalf.BOTTOM_CENTER
+                                            ))
+                                    )
+                            )
                     )
-            );
-        })
+                )
+        ))
         .item()
         .build()
         .register();
@@ -358,50 +348,6 @@ public class NPBlocks {
         })
         .build()
         .register();
-
-    public static final BlockEntry<FusionReactorControllerBlock> FUSION_REACTOR_CONTROLLER = NekoPlus.REGISTRUM
-        .block("fusion_reactor_controller", FusionReactorControllerBlock::new)
-        .lang("Fusion Reactor Integrated Controller MK1")
-        .blockstate(NPBlockStateDispatches::fusionReactorController)
-        .item()
-        .properties(p -> p.rarity(Rarity.EPIC))
-        .recipe((ctx, prov) -> {
-        })
-        .build()
-        .register();
-
-    public static final BlockEntry<NPHatchBlock> ITEM_INPUT_HATCH = hatch(NPHatchTypes.ITEM, true, ModBlocks.CHUTE);
-
-    public static final BlockEntry<NPHatchBlock> ITEM_OUTPUT_HATCH = hatch(NPHatchTypes.ITEM, false, ModBlocks.CHUTE);
-
-    public static final BlockEntry<NPHatchBlock> ENERGY_OUTPUT_HATCH = hatch(
-        NPHatchTypes.ENERGY,
-        false,
-        ModItems.SUPER_CAPACITOR_EMPTY
-    );
-
-    public static BlockEntry<NPHatchBlock> hatch(HatchType<?> type, boolean isInput, ItemLike recipeItem) {
-        String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
-        return NekoPlus.REGISTRUM
-            .block(id, p -> new NPHatchBlock(p, type, isInput))
-            .blockstate(() -> NPBlockStateDispatches.hatch(
-                NekoPlus.location("block/" + "hatch_" + type.getSerializedName() + (isInput ? "_input" : "_output"))
-            ))
-            .item()
-            .recipe((ctx, prov) -> {
-                ShapelessRecipeBuilder.shapeless(prov.getItems(), RecipeCategory.REDSTONE, ctx.get())
-                    .requires(recipeItem)
-                    .requires(ROYAL_STEEL_CASING)
-                    .unlockedBy("has_" + prov.safeName(recipeItem), prov.has(recipeItem))
-                    .unlockedBy(
-                        "has_" + prov.safeName(ROYAL_STEEL_CASING),
-                        prov.has(ROYAL_STEEL_CASING)
-                    )
-                    .save(prov);
-            })
-            .build()
-            .register();
-    }
 
     public static void setupRegistration() {
     }

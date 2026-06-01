@@ -9,7 +9,6 @@ import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
-import icu.takeneko.nekoplus.block.NPHatchBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
@@ -270,52 +269,6 @@ public class NPBlockStateDispatches {
                     }
                 }
                 generator.blockStateOutput.accept(gen);
-            }
-        };
-    }
-
-    public static NonNullBiConsumer<DataGenContext<Block, NPHatchBlock>, RegistrumBlockModelGenerator> hatch(Identifier overlayTexture) {
-        return new NonNullBiConsumer<>() {
-            @Override
-            public void accept(
-                @NonNull DataGenContext<Block, NPHatchBlock> context,
-                @NonNull RegistrumBlockModelGenerator generator
-            ) {
-                Identifier modelId = generator.withParent(HATCH_BASE_MODEL)
-                    .texture(SLOT_ALL, NekoPlus.location("block/royal_steel_casing"))
-                    .texture(SLOT_OVERLAY, overlayTexture)
-                    .build(context.get());
-
-                PropertyDispatchWrap.C1<MultiVariant, Direction> dispatch = PropertyDispatchWrap.initial(
-                    NPHatchBlock.FACING
-                );
-
-                for (Direction direction : Direction.values()) {
-                    int yRot = direction.getAxis() != Direction.Axis.Y ? ((int) direction.toYRot() + 180) % 360 : 0;
-                    int xRot = 0;
-                    if (direction.getAxis() == Direction.Axis.Y) {
-                        if (direction == Direction.DOWN) {
-                            xRot = 180;
-                        }
-                    } else {
-                        xRot = 90;
-                    }
-
-                    VariantMutator mutator = VariantMutator.X_ROT
-                        .withValue(Quadrant.parseJson(xRot))
-                        .then(VariantMutator.Y_ROT.withValue(Quadrant.parseJson(yRot)))
-                        .then(VariantMutator.UV_LOCK.withValue(true));
-
-                    dispatch.select(
-                        direction,
-                        BlockModelGenerators.plainVariant(modelId).with(mutator)
-                    );
-                }
-
-                generator.blockStateOutput.accept(
-                    MultiVariantGenerator.dispatch(context.get())
-                        .with(dispatch.dispatch())
-                );
             }
         };
     }

@@ -9,7 +9,6 @@ import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.block.tile.BlockCollisionEventReceiver;
-import icu.takeneko.nekoplus.foundation.block.tile.hatch.logic.HatchLogic;
 import icu.takeneko.nekoplus.internal.StampingPlatformsInternals;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.client.Minecraft;
@@ -56,23 +55,23 @@ public class NPEvents {
             }
         );
 
-        event.registerBlockEntity(
-            Capabilities.Item.BLOCK,
-            NPBlockEntities.ITEM_INPUT_HATCH.get(),
-            HatchLogic::getCapability
-        );
-
-        event.registerBlockEntity(
-            Capabilities.Item.BLOCK,
-            NPBlockEntities.ITEM_OUTPUT_HATCH.get(),
-            HatchLogic::getCapability
-        );
-
-        event.registerBlockEntity(
-            Capabilities.Energy.BLOCK,
-            NPBlockEntities.ENERGY_OUTPUT_HATCH.get(),
-            HatchLogic::getCapability
-        );
+//        event.registerBlockEntity(
+//            Capabilities.Item.BLOCK,
+//            NPBlockEntities.ITEM_INPUT_HATCH.get(),
+//            HatchLogic::getCapability
+//        );
+//
+//        event.registerBlockEntity(
+//            Capabilities.Item.BLOCK,
+//            NPBlockEntities.ITEM_OUTPUT_HATCH.get(),
+//            HatchLogic::getCapability
+//        );
+//
+//        event.registerBlockEntity(
+//            Capabilities.Energy.BLOCK,
+//            NPBlockEntities.ENERGY_OUTPUT_HATCH.get(),
+//            HatchLogic::getCapability
+//        );
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)

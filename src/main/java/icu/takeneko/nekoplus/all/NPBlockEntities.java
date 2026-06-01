@@ -1,12 +1,9 @@
 package icu.takeneko.nekoplus.all;
 
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
-import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockEntityRenderer;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.NekoPlus;
-import icu.takeneko.nekoplus.block.NPHatchBlock;
-import icu.takeneko.nekoplus.block.tile.NPHatchBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
@@ -16,11 +13,6 @@ import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
 import icu.takeneko.nekoplus.client.renderer.tesr.StellarEngineRenderer;
 import icu.takeneko.nekoplus.client.renderer.tesr.TardisRenderer;
-import icu.takeneko.nekoplus.foundation.block.tile.hatch.NPHatchTypes;
-import icu.takeneko.nekoplus.foundation.block.tile.hatch.HatchType;
-import net.neoforged.neoforge.transfer.ResourceHandler;
-import net.neoforged.neoforge.transfer.energy.EnergyHandler;
-import net.neoforged.neoforge.transfer.item.ItemResource;
 
 public class NPBlockEntities {
 //    public static final BlockEntityEntry<AnvilonEmitterBlockEntity> ANVILION_EMITTER = NekoPlus.REGISTRUM
@@ -66,27 +58,6 @@ public class NPBlockEntities {
         .blockEntity("stamping_platform", StampingPlatformBlockEntity::new)
         .validBlock(ModBlocks.STAMPING_PLATFORM)
         .register();
-
-    public static BlockEntityEntry<NPHatchBlockEntity<ResourceHandler<ItemResource>>> ITEM_INPUT_HATCH = hatch(NPHatchTypes.ITEM, true, NPBlocks.ITEM_INPUT_HATCH);
-
-    public static BlockEntityEntry<NPHatchBlockEntity<ResourceHandler<ItemResource>>> ITEM_OUTPUT_HATCH = hatch(NPHatchTypes.ITEM, false, NPBlocks.ITEM_OUTPUT_HATCH);
-
-    public static BlockEntityEntry<NPHatchBlockEntity<EnergyHandler>> ENERGY_OUTPUT_HATCH = hatch(NPHatchTypes.ENERGY, false, NPBlocks.ENERGY_OUTPUT_HATCH);
-
-    public static <C> BlockEntityEntry<NPHatchBlockEntity<C>> hatch(
-        HatchType<C> type,
-        boolean isInput,
-        BlockEntry<NPHatchBlock> blockEntry
-    ) {
-        String id = type.getSerializedName() + (isInput ? "_input" : "_output") + "_hatch";
-        return NekoPlus.REGISTRUM
-            .<NPHatchBlockEntity<C>>blockEntity(
-                id,
-                (ty, pos, state) -> new NPHatchBlockEntity<>(ty, pos, state, type, isInput)
-            )
-            .validBlock(blockEntry)
-            .register();
-    }
 
     public static void setupRegistration() {
     }

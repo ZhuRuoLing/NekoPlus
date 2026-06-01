@@ -66,7 +66,7 @@ public class HighEnergyLaserBlock extends NPTranslucentEntityBlock implements IH
                 .any()
                 .setValue(FACING, Direction.NORTH)
                 .setValue(POWERED, false)
-                .setValue(OVERLOAD, false)
+                .setValue(OVERLOAD, true)
         );
     }
 
