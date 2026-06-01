@@ -36,6 +36,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.List;
@@ -86,6 +87,12 @@ public class NPEvents {
                 event.setCanceled(true);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void on(OnDatapackSyncEvent event) {
+        event.sendRecipes(NPRecipeTypes.LASER_ETCHING);
+        event.sendRecipes(NPRecipeTypes.AIR_CONDENSING);
     }
 
     @SubscribeEvent

@@ -7,10 +7,12 @@ import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.all.NPRecipeTypes;
+import icu.takeneko.nekoplus.client.NekoPlusClient;
 import icu.takeneko.nekoplus.integration.jei.categories.AirCondensingRecipeCategory;
 import icu.takeneko.nekoplus.integration.jei.categories.LaserEtchingRecipeCategory;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
+import kotlin.collections.ArrayDeque;
 import lombok.extern.slf4j.Slf4j;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JeiPlugin
@@ -46,8 +49,8 @@ public class NPJeiPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        List<RecipeHolder<AirCondensingRecipe>> airCondensing = JeiRecipeUtil.getRecipeHoldersFromType(NPRecipeTypes.AIR_CONDENSING);
-        List<RecipeHolder<LaserEtchingRecipe>> laserEtching  = JeiRecipeUtil.getRecipeHoldersFromType(NPRecipeTypes.LASER_ETCHING);
+        List<RecipeHolder<AirCondensingRecipe>> airCondensing = new ArrayList<>(NekoPlusClient.getSyncedRecipes().byType(NPRecipeTypes.AIR_CONDENSING));
+        List<RecipeHolder<LaserEtchingRecipe>> laserEtching  = new ArrayList<>(NekoPlusClient.getSyncedRecipes().byType(NPRecipeTypes.LASER_ETCHING));
 
         log.info("Loading {} recipes for {}", airCondensing.size(), NPRecipeTypes.AIR_CONDENSING);
         log.info("Loading {} recipes for {}", laserEtching.size(), NPRecipeTypes.LASER_ETCHING);
