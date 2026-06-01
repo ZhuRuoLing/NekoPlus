@@ -104,5 +104,27 @@ public class NPSounds extends SoundDefinitionsProvider {
                     )
                 )
         );
+        this.add(
+            NPSoundEvents.CAT_ANVIL_LAND.unwrapKey().orElseThrow().identifier(),
+            definition()
+                .subtitle("subtitles.block.anvil.land")
+                .with(
+                    sound(
+                        NPSoundEvents.CAT_ANVIL_BASE.getId(),
+                        SoundDefinition.SoundType.EVENT
+                    )
+                )
+        );
+        this.add(
+            NPSoundEvents.CAT_ANVIL_USE.unwrapKey().orElseThrow().identifier(),
+            definition()
+                .subtitle("subtitles.block.anvil.use")
+                .with(
+                    sound(
+                        NPSoundEvents.CAT_ANVIL_BASE.getId(),
+                        SoundDefinition.SoundType.EVENT
+                    )
+                )
+        );
     }
 }

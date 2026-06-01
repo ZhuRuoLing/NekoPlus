@@ -6,6 +6,7 @@ import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumBlockModelG
 import dev.anvilcraft.lib.v2.registrum.providers.generators.model.PropertyDispatchWrap;
 import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
@@ -349,11 +350,11 @@ public class NPBlockStateDispatches {
         };
     }
 
-    public static NonNullBiConsumer<DataGenContext<Block, FatAnvilBlock>, RegistrumBlockModelGenerator> catAnvil() {
+    public static NonNullBiConsumer<DataGenContext<Block, CatAnvilBlock>, RegistrumBlockModelGenerator> catAnvil() {
         return new NonNullBiConsumer<>() {
             @Override
             public void accept(
-                @NonNull DataGenContext<Block, FatAnvilBlock> ctx,
+                @NonNull DataGenContext<Block, CatAnvilBlock> ctx,
                 @NonNull RegistrumBlockModelGenerator gen
             ) {
                 var modelId = NekoPlus.location("block/cat_anvil");

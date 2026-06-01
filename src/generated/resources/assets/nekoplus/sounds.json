@@ -65,6 +65,15 @@
     ],
     "subtitle": "subtitles.block.generic.hit"
   },
+  "block.cat_anvil.land": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "nekoplus:block.cat_anvil.base"
+      }
+    ],
+    "subtitle": "subtitles.block.anvil.land"
+  },
   "block.cat_anvil.place": {
     "sounds": [
       {
@@ -82,6 +91,15 @@
       }
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.cat_anvil.use": {
+    "sounds": [
+      {
+        "type": "event",
+        "name": "nekoplus:block.cat_anvil.base"
+      }
+    ],
+    "subtitle": "subtitles.block.anvil.use"
   },
   "block.interrupt": {
     "sounds": [

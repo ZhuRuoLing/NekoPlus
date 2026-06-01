@@ -43,4 +43,12 @@ public class NPSoundEvents {
         "block.cat_anvil.fall",
         () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.fall"))
     );
+    public static final DeferredHolder<SoundEvent, SoundEvent> CAT_ANVIL_LAND = DR.register(
+        "block.cat_anvil.land",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.land"))
+    );
+    public static final DeferredHolder<SoundEvent, SoundEvent> CAT_ANVIL_USE = DR.register(
+        "block.cat_anvil.use",
+        () -> SoundEvent.createVariableRangeEvent(NekoPlus.location("block.cat_anvil.use"))
+    );
 }

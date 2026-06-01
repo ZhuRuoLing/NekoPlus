@@ -7,6 +7,7 @@ import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.MineralFountainPressurizerBlock;
 import icu.takeneko.nekoplus.block.NPHatchBlock;
@@ -52,8 +53,8 @@ public class NPBlocks {
         NekoPlus.REGISTRUM.defaultCreativeTab(NPCreativeTabs.TAB.getKey());
     }
 
-    public static final BlockEntry<FatAnvilBlock> CAT_ANVIL = NekoPlus.REGISTRUM
-        .block("cat_anvil", FatAnvilBlock::new)
+    public static final BlockEntry<CatAnvilBlock> CAT_ANVIL = NekoPlus.REGISTRUM
+        .block("cat_anvil", CatAnvilBlock::new)
         .initialProperties(() -> Blocks.CAKE)
         .properties(p -> p
             .sound(new DeferredSoundType(
