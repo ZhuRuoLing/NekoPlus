@@ -43,7 +43,7 @@ public class StellarEngineBlockEntity extends NPSynedBlockEntity implements IPow
     @Setter
     @Persisted
     @DescSynced
-    private EngineAnimationState engineAnimationState = EngineAnimationState.CLOSED;
+    private EngineAnimationState engineAnimationState = EngineAnimationState.OPENING;
 
     @Persisted
     private int openingTicks = 0;

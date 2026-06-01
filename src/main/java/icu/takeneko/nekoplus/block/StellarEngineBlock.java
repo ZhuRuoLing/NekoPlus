@@ -1,7 +1,6 @@
 package icu.takeneko.nekoplus.block;
 
 import com.mojang.serialization.MapCodec;
-import dev.dubhe.anvilcraft.util.Util;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.NPTranslucentEntityBlock;
@@ -9,8 +8,6 @@ import icu.takeneko.nekoplus.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -23,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
 public class StellarEngineBlock extends NPTranslucentEntityBlock {
@@ -47,22 +43,6 @@ public class StellarEngineBlock extends NPTranslucentEntityBlock {
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.INVISIBLE;
-    }
-
-    @Override
-    protected InteractionResult useWithoutItem(
-        BlockState state,
-        Level level,
-        BlockPos pos,
-        Player player,
-        BlockHitResult hitResult
-    ) {
-        if (!level.isClientSide()) {
-            if (level.getBlockEntity(pos) instanceof StellarEngineBlockEntity blockEntity) {
-                blockEntity.setOpen(true);
-            }
-        }
-        return Util.sidedSuccess(level);
     }
 
     @Override
