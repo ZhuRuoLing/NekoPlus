@@ -24,6 +24,7 @@ import org.jspecify.annotations.Nullable;
 
 public class StellarEngineBlockEntity extends NPSynedBlockEntity implements IPowerProducer, OffCenterPowerComponent, GeoAnimatable, Tickable {
     private static final int OPEN_ANIMATION_TICKS = 160;
+    private static final int CLOSE_ANIMATION_TICKS = 65;
     private static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(StellarEngineBlockEntity.class);
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -46,22 +47,41 @@ public class StellarEngineBlockEntity extends NPSynedBlockEntity implements IPow
     private EngineAnimationState engineAnimationState = EngineAnimationState.OPENING;
 
     @Persisted
-    private int openingTicks = 0;
+    private int animationTicks = 0;
 
-    public void setOpen(boolean open) {
-        if (!open || engineAnimationState != EngineAnimationState.CLOSED) return;
-        setEngineAnimationState(EngineAnimationState.OPENING);
-        openingTicks = 0;
+    public void toggleOpen() {
+        switch (engineAnimationState) {
+            case CLOSED, CLOSING -> startAnimation(EngineAnimationState.OPENING);
+            case OPENING, OPENED -> startAnimation(EngineAnimationState.CLOSING);
+        }
+    }
+
+    private void startAnimation(EngineAnimationState state) {
+        setEngineAnimationState(state);
+        animationTicks = 0;
         setChanged();
     }
 
     @Override
     public void tick() {
         if (level == null || level.isClientSide()) return;
-        if (engineAnimationState != EngineAnimationState.OPENING) return;
-        openingTicks++;
-        if (openingTicks >= OPEN_ANIMATION_TICKS) {
-            setEngineAnimationState(EngineAnimationState.OPENED);
+        tickAnimation();
+    }
+
+    private void tickAnimation() {
+        switch (engineAnimationState) {
+            case OPENING -> tickAnimationPhase(OPEN_ANIMATION_TICKS, EngineAnimationState.OPENED);
+            case CLOSING -> tickAnimationPhase(CLOSE_ANIMATION_TICKS, EngineAnimationState.CLOSED);
+            case CLOSED, OPENED -> {
+            }
+        }
+    }
+
+    private void tickAnimationPhase(int durationTicks, EngineAnimationState nextState) {
+        animationTicks++;
+        if (animationTicks >= durationTicks) {
+            setEngineAnimationState(nextState);
+            animationTicks = 0;
             setChanged();
         }
     }
@@ -106,6 +126,7 @@ public class StellarEngineBlockEntity extends NPSynedBlockEntity implements IPow
     public enum EngineAnimationState {
         CLOSED,
         OPENING,
+        CLOSING,
         OPENED
     }
 }

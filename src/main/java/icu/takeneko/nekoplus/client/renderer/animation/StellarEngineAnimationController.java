@@ -12,6 +12,8 @@ public class StellarEngineAnimationController extends AnimationController<Stella
         .thenPlayAndHold("nekoplus:animation.stellar_engine.closed");
     public static final RawAnimation ANIM_OPEN = RawAnimation.begin()
         .thenPlay("nekoplus:animation.stellar_engine.open");
+    public static final RawAnimation ANIM_CLOSE = RawAnimation.begin()
+        .thenPlay("nekoplus:animation.stellar_engine.close");
     public static final RawAnimation ANIM_RING = RawAnimation.begin()
         .thenLoop("nekoplus:animation.stellar_engine.ring");
     public static final RawAnimation ANIM_SUN = RawAnimation.begin()
@@ -47,6 +49,7 @@ public class StellarEngineAnimationController extends AnimationController<Stella
         return switch (state) {
             case CLOSED -> event.setAndContinue(ANIM_CLOSED);
             case OPENING -> event.setAndContinue(ANIM_OPEN);
+            case CLOSING -> event.setAndContinue(ANIM_CLOSE);
             case OPENED -> PlayState.STOP;
         };
     }
@@ -57,8 +60,11 @@ public class StellarEngineAnimationController extends AnimationController<Stella
         StellarEngineBlockEntity.EngineAnimationState state = blockEntity.getEngineAnimationState();
 
         return switch (state) {
-            case CLOSED -> PlayState.STOP;
-            case OPENING, OPENED -> event.setAndContinue(animation);
+            case CLOSED -> {
+                event.controller().reset();
+                yield PlayState.STOP;
+            }
+            case OPENING, CLOSING, OPENED -> event.setAndContinue(animation);
         };
     }
 }
