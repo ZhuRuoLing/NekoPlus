@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "conditions": [
+            {
+              "block": "nekoplus:mineral_fountail_pressurizer",
+              "condition": "minecraft:block_state_property",
+              "properties": {
+                "part": "bottom_center"
+              }
+            }
+          ],
           "name": "nekoplus:mineral_fountail_pressurizer"
         }
       ],

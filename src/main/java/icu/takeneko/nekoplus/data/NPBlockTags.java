@@ -40,6 +40,7 @@ public class NPBlockTags {
         ironPickaxeMineableBlock(NPBlocks.NETHERITE_SCRAP_BLOCK, provider);
         ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
         ironPickaxeMineableBlock(NPBlocks.SHULKER_HATCH, provider);
+        ironPickaxeMineableBlock(NPBlocks.MINERAL_FOUNTAIN_PRESSURIZER, provider);
 
         wrenchableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
         wrenchableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);

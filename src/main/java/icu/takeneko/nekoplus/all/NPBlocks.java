@@ -5,6 +5,7 @@ import dev.dubhe.anvilcraft.init.block.ModBlockTags;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
+import dev.dubhe.anvilcraft.block.state.Cube323PartHalf;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
@@ -276,6 +277,30 @@ public class NPBlocks {
 
     public static final BlockEntry<MineralFountainPressurizerBlock> MINERAL_FOUNTAIN_PRESSURIZER = NekoPlus.REGISTRUM
         .block("mineral_fountail_pressurizer", MineralFountainPressurizerBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .loot((tab, block) -> {
+            tab.add(
+                block,
+                LootTable.lootTable()
+                    .withPool(
+                        tab.applyExplosionCondition(
+                            block,
+                            LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                    LootItem.lootTableItem(block)
+                                        .when(
+                                            LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
+                                                    MineralFountainPressurizerBlock.PART,
+                                                    Cube323PartHalf.BOTTOM_CENTER
+                                                ))
+                                        )
+                                )
+                        )
+                    )
+            );
+        })
         .item()
         .build()
         .register();
