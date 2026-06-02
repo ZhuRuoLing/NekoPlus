@@ -50,7 +50,6 @@ public class NPBlockTags {
         wrenchableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
         wrenchableBlock(NPBlocks.SHULKER_HATCH, provider);
 
-
         provider.rawBuilder(ModBlockTags.OVERSEER_BASE)
             .addElement(NPBlocks.ROYAL_STEEL_CASING.getKey().identifier());
 
@@ -64,6 +63,9 @@ public class NPBlockTags {
             .addElement(ModBlocks.NESTING_SHULKER_BOX.getId())
             .addElement(ModBlocks.OVER_NESTING_SHULKER_BOX.getId())
             .addElement(ModBlocks.SUPERCRITICAL_NESTING_SHULKER_BOX.getId());
+
+        provider.rawBuilder(ModBlockTags.LASER_CAN_PASS_THROUGH)
+            .addElement(ModBlocks.SPECTRAL_ANVIL.getId());
     }
 
     public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrumTagsProvider<Block> provider) {

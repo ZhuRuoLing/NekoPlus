@@ -1,7 +1,0 @@
-{
-  "parent": "nekoplus:block/hatch_template",
-  "textures": {
-    "all": "nekoplus:block/royal_steel_casing",
-    "overlay": "nekoplus:block/laser_confinement_fusion"
-  }
-}
