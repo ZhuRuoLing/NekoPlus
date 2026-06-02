@@ -154,6 +154,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
             .top(6)
             .paddingAll(2)
             .minWidth(140)
+            .minHeight(76)
         );
         // restore cached position/size/display
         WindowPosition cached = WINDOW_POSITION_CACHE.get(direction);
@@ -244,36 +245,19 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
                 if (Objects.equals(current, value)) {
                     return this;
                 }
-                String[] lines;
-                if (value == null || value.isEmpty()) {
-                    lines = new String[]{""};
-                    codeEditor.setValue(lines, false);
-                } else {
-                    lines = value.split("\n", -1);
-                    codeEditor.setValue(lines, false);
+                if (codeEditor.isFocused()) {
+                    return this;
                 }
-                List<Component> validationResult = PinState.validate(lines);
-                codeEditor.style(s -> {
-                    if (validationResult == null) {
-                        s.tooltips();
-                    } else {
-                        s.tooltips(validationResult.toArray(new Component[0]));
-                    }
-                });
+                String[] lines = splitExpression(value);
+                codeEditor.setValue(lines, false);
+                updateExpressionValidation(codeEditor, lines);
                 return this;
             }
         });
         codeEditor.addSyncValue(expressionBinding.getSyncValue());
         codeEditor.registerValueListener(arr -> {
             expressionBinding.getSyncValue().setValue(String.join("\n", arr));
-            List<Component> validationResult = PinState.validate(arr);
-            codeEditor.style(s -> {
-                if (validationResult == null) {
-                    s.tooltips(Tooltips.empty());
-                } else {
-                    s.tooltips(validationResult.toArray(new Component[0]));
-                }
-            });
+            updateExpressionValidation(codeEditor, arr);
         });
         UIElement expression = horizontalLayout(
             new TextElement().setText(Component.translatable("ui.programmable_logic_gate.expression")),
@@ -321,6 +305,24 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         root.addChildren(pinMode);
         root.addChildren(expression);
         return background;
+    }
+
+    private static String[] splitExpression(@Nullable String value) {
+        if (value == null || value.isEmpty()) {
+            return new String[]{""};
+        }
+        return value.split("\n", -1);
+    }
+
+    private static void updateExpressionValidation(TextArea codeEditor, String[] lines) {
+        List<Component> validationResult = PinState.validate(lines);
+        codeEditor.style(s -> {
+            if (validationResult == null) {
+                s.tooltips(Tooltips.empty());
+            } else {
+                s.tooltips(validationResult.toArray(new Component[0]));
+            }
+        });
     }
 
     private static boolean cacheValid(WindowPosition cached) {

@@ -223,7 +223,7 @@ public class NPBlocks {
         .initialProperties(() -> Blocks.NETHERITE_BLOCK)
         .properties(p -> p.sound(SoundType.METAL)
             .noOcclusion()
-            .emissiveRendering((state, level, pos) -> true)
+            .emissiveRendering((_, _, _) -> true)
         )
         .blockstate(DataGenUtil::onlyState)
         .item()
