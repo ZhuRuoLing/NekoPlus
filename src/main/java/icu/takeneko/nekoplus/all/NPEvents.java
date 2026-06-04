@@ -8,7 +8,6 @@ import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.foundation.Tickable;
-import icu.takeneko.nekoplus.foundation.block.tile.BlockCollisionEventReceiver;
 import icu.takeneko.nekoplus.internal.StampingPlatformsInternals;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.client.Minecraft;
@@ -73,20 +72,6 @@ public class NPEvents {
 //            NPBlockEntities.ENERGY_OUTPUT_HATCH.get(),
 //            HatchLogic::getCapability
 //        );
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void on(AnvilEvent.CollisionBlock event) {
-        Level level = event.getLevel();
-        if (level instanceof ClientLevel) return;
-        BlockPos pos = event.getPos();
-        BlockEntity blockEntity = level.getBlockEntity(pos);
-
-        if (blockEntity instanceof BlockCollisionEventReceiver receiver) {
-            if (receiver.acceptCollision(event.getEntity(), event.getSpeed(), event)) {
-                event.setCanceled(true);
-            }
-        }
     }
 
     @SubscribeEvent

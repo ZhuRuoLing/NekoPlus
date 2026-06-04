@@ -6,14 +6,12 @@ import com.lowdragmc.lowdraglib2.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.RequireRerender;
 import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
-import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.nekoplus.all.NPSoundEvents;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.content.tile.logic.stabilizer.ParticleStabilizerLogic;
 import icu.takeneko.nekoplus.content.tile.logic.stabilizer.ParticleStabilizerLogicHost;
 import icu.takeneko.nekoplus.client.sound.LoopingBlockSoundInstance;
-import icu.takeneko.nekoplus.foundation.block.tile.BlockCollisionEventReceiver;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
@@ -32,7 +30,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
-import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -46,7 +43,7 @@ import org.jspecify.annotations.Nullable;
 @SuppressWarnings("DataFlowIssue")
 public class ParticleStabilizerBlockEntity
     extends NPSynedBlockEntity
-    implements NPOverclockablePowerConsumer, NPUIBlock.Provider, Tickable, BlockCollisionEventReceiver, NPItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
+    implements NPOverclockablePowerConsumer, NPUIBlock.Provider, Tickable, NPItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
 
     public static final int MACHINE_COOLDOWN = 30 * 20;
 
@@ -177,11 +174,6 @@ public class ParticleStabilizerBlockEntity
     @Override
     public BlockPos getPos() {
         return getBlockPos();
-    }
-
-    @Override
-    public boolean acceptCollision(FallingBlockEntity entity, double speed, AnvilEvent.CollisionBlock event) {
-        return logic.handleCollision(this, entity, speed, event);
     }
 
     @Override
