@@ -45,9 +45,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
 
     public ProgrammableLogicGateUI(ProgrammableLogicGateBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.programmable_logic_gate"));
-        BlockState state = blockEntity.getBlockState();
-        Direction direction = state.getValue(ProgrammableLogicGateBlock.FACING);
-        int yRot = (((int) direction.toYRot() + 180) % 360) - (direction.getAxis() == Direction.Axis.X ? -180 : 0);
+
         ResizeAwareUIElement redWindow = createPinWindow(
             blockEntity.getPinR(),
             "ui.programmable_logic_gate.red",
@@ -76,6 +74,9 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         windows[1] = greenWindow;
         windows[2] = blueWindow;
         windows[3] = whiteWindow;
+        BlockState state = blockEntity.getBlockState();
+        Direction direction = state.getValue(ProgrammableLogicGateBlock.FACING);
+        int yRot = (((int) direction.toYRot() + 180) % 360) - (direction.getAxis() == Direction.Axis.X ? -180 : 0);
         addChildren(
             new FourDirectionBlockDisplayElement()
                 .block(state, blockEntity)
