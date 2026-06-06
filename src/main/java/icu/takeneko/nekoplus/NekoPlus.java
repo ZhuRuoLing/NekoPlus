@@ -10,7 +10,10 @@ import icu.takeneko.nekoplus.all.NPRecipeTypes;
 import icu.takeneko.nekoplus.all.NPSoundEvents;
 import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.data.NPDataGen;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;

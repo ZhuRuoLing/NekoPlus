@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "nekoplus:titanium_alloy_block",
+  "result": {
+    "count": 4,
+    "id": "nekoplus:cut_titanium_alloy_block"
+  }
+}

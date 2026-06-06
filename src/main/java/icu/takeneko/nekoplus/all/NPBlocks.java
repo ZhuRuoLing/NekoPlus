@@ -1,6 +1,9 @@
 package icu.takeneko.nekoplus.all;
 
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
+import dev.dubhe.anvilcraft.AnvilCraft;
+import dev.dubhe.anvilcraft.data.AnvilCraftDatagen;
+import dev.dubhe.anvilcraft.data.recipe.RegistrumBlockRecipeLoader;
 import dev.dubhe.anvilcraft.init.block.ModBlockTags;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
@@ -21,18 +24,26 @@ import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.data.NPBlockStateDispatches;
 import icu.takeneko.nekoplus.item.ShulkerHatchBlockItem;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.StonecutterRecipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -307,12 +318,119 @@ public class NPBlocks {
 
     public static final BlockEntry<Block> TITANIUM_ALLOY_BLOCK = NekoPlus.REGISTRUM
         .block("titanium_alloy_block", Block::new)
-        .initialProperties(() -> Blocks.NETHERITE_BLOCK)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
         .tag(Tags.Blocks.STORAGE_BLOCKS, NPTags.Blocks.STORAGE_BLOCKS_TITANIUM_ALLOY)
         .item()
         .tag(Tags.Items.STORAGE_BLOCKS, NPTags.Items.STORAGE_BLOCKS_TITANIUM_ALLOY)
         .build()
         .register();
+
+    public static final BlockEntry<Block> CUT_TITANIUM_ALLOY_BLOCK = NekoPlus.REGISTRUM
+        .block("cut_titanium_alloy_block", Block::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .item()
+        .recipe((ctx, prov) -> {
+            SingleItemRecipeBuilder.stonecutting(
+                    Ingredient.of(NPBlocks.TITANIUM_ALLOY_BLOCK),
+                    RecipeCategory.BUILDING_BLOCKS,
+                    ctx.get(),
+                    4
+                )
+                .unlockedBy("hasitem", AnvilCraftDatagen.has(prov.getItems(), NPBlocks.TITANIUM_ALLOY_BLOCK))
+                .save(prov, recipeLocation("stonecutting/cut_titanium_alloy_block"));
+        })
+        .build()
+        .register();
+
+    public static final BlockEntry<SlabBlock> CUT_TITANIUM_ALLOY_SLAB = NekoPlus.REGISTRUM
+        .block("cut_titanium_alloy_slab", SlabBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .blockstate(() -> DataGenUtil.slabBlock(
+            _ -> new Material(NekoPlus.location("block/cut_titanium_alloy_block")),
+            _ -> new Material(NekoPlus.location("block/cut_titanium_alloy_block")),
+            _ -> new Material(NekoPlus.location("block/cut_titanium_alloy_block")),
+            _ -> NekoPlus.location("block/cut_titanium_alloy_block")
+        ))
+        .tag(BlockTags.SLABS)
+        .item()
+        .tag(ItemTags.SLABS)
+        .recipe((ctx, prov) -> {
+            SingleItemRecipeBuilder.stonecutting(
+                Ingredient.of(NPBlocks.TITANIUM_ALLOY_BLOCK),
+                RecipeCategory.BUILDING_BLOCKS,
+                ctx.get(),
+                8
+            ).unlockedBy(
+                AnvilCraftDatagen.hasItem(NPBlocks.TITANIUM_ALLOY_BLOCK),
+                AnvilCraftDatagen.has(prov.getItems(), NPBlocks.TITANIUM_ALLOY_BLOCK)
+            ).save(
+                prov,
+                recipeLocation("stonecutting/cut_titanium_alloy_slab_from_titanium_alloy_block")
+            );
+
+            SingleItemRecipeBuilder.stonecutting(
+                Ingredient.of(NPBlocks.CUT_TITANIUM_ALLOY_BLOCK),
+                RecipeCategory.BUILDING_BLOCKS,
+                ctx.get(),
+                2
+            ).unlockedBy(
+                AnvilCraftDatagen.hasItem(NPBlocks.CUT_TITANIUM_ALLOY_BLOCK),
+                AnvilCraftDatagen.has(prov.getItems(), NPBlocks.CUT_TITANIUM_ALLOY_BLOCK)
+            ).save(
+                prov,
+                recipeLocation("stonecutting/cut_titanium_alloy_slab_from_cut_titanium_alloy_block")
+            );
+        })
+        .build()
+        .register();
+
+
+    public static final BlockEntry<StairBlock> CUT_TITANIUM_ALLOY_STAIR = NekoPlus.REGISTRUM
+        .block(
+            "cut_titanium_alloy_stair",
+            properties -> new StairBlock(NPBlocks.CUT_TITANIUM_ALLOY_BLOCK.getDefaultState(), properties)
+        )
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .blockstate(() -> DataGenUtil.stairsBlock(
+            _ -> new Material(NekoPlus.location("block/cut_titanium_alloy_block")),
+            _ -> new Material(NekoPlus.location("block/cut_titanium_alloy_block")),
+            _ -> new Material(NekoPlus.location("block/cut_titanium_alloy_block"))
+        ))
+        .tag(BlockTags.STAIRS)
+        .item()
+        .tag(ItemTags.STAIRS)
+        .recipe((ctx, prov) -> {
+            SingleItemRecipeBuilder.stonecutting(
+                    Ingredient.of(NPBlocks.TITANIUM_ALLOY_BLOCK),
+                    RecipeCategory.BUILDING_BLOCKS,
+                    ctx.get(),
+                    4
+                ).unlockedBy(
+                    AnvilCraftDatagen.hasItem(NPBlocks.TITANIUM_ALLOY_BLOCK),
+                    AnvilCraftDatagen.has(prov.getItems(), NPBlocks.TITANIUM_ALLOY_BLOCK)
+                )
+                .save(
+                    prov,
+                    recipeLocation("stonecutting/cut_royal_steel_slab_from_royal_steel_block")
+                );
+
+            SingleItemRecipeBuilder.stonecutting(
+                    Ingredient.of(NPBlocks.CUT_TITANIUM_ALLOY_BLOCK),
+                    RecipeCategory.BUILDING_BLOCKS,
+                    ctx.get(),
+                    1
+                ).unlockedBy(
+                    AnvilCraftDatagen.hasItem(NPBlocks.CUT_TITANIUM_ALLOY_BLOCK),
+                    AnvilCraftDatagen.has(prov.getItems(), NPBlocks.CUT_TITANIUM_ALLOY_BLOCK)
+                )
+                .save(
+                    prov,
+                    recipeLocation("stonecutting/cut_royal_steel_slab_from_cut_royal_steel_block")
+                );
+        })
+        .build()
+        .register();
+
 
     public static final BlockEntry<FatAnvilBlock> TITANIUM_ALLOY_ANVIL = NekoPlus.REGISTRUM
         .block("titanium_alloy_anvil", FatAnvilBlock::new)
@@ -348,6 +466,11 @@ public class NPBlocks {
         })
         .build()
         .register();
+
+    public static ResourceKey<Recipe<?>> recipeLocation(String path) {
+        return ResourceKey.create(Registries.RECIPE, NekoPlus.location(path));
+    }
+
 
     public static void setupRegistration() {
     }

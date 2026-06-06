@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "nekoplus:block/cut_titanium_alloy_slab"
+    },
+    "type=double": {
+      "model": "nekoplus:block/cut_titanium_alloy_block"
+    },
+    "type=top": {
+      "model": "nekoplus:block/cut_titanium_alloy_slab_top"
+    }
+  }
+}

@@ -1,5 +1,8 @@
 {
   "block.nekoplus.cat_anvil": "Cat Anvil",
+  "block.nekoplus.cut_titanium_alloy_block": "Cut Titanium Alloy Block",
+  "block.nekoplus.cut_titanium_alloy_slab": "Cut Titanium Alloy Slab",
+  "block.nekoplus.cut_titanium_alloy_stair": "Cut Titanium Alloy Stair",
   "block.nekoplus.high_energy_laser": "High Energy Laser",
   "block.nekoplus.mineral_fountail_pressurizer": "Mineral Fountail Pressurizer",
   "block.nekoplus.netherite_scrap_block": "Netherite Scrap Block",
@@ -30,6 +33,9 @@
   "item.nekoplus.cat_anvil": "Cat Anvil",
   "item.nekoplus.charged_levitation_powder": "Charged Levitation Powder",
   "item.nekoplus.cryocooler": "Cryocooler",
+  "item.nekoplus.cut_titanium_alloy_block": "Cut Titanium Alloy Block",
+  "item.nekoplus.cut_titanium_alloy_slab": "Cut Titanium Alloy Slab",
+  "item.nekoplus.cut_titanium_alloy_stair": "Cut Titanium Alloy Stair",
   "item.nekoplus.dry_ice": "Dry Ice",
   "item.nekoplus.gummy_bear": "Gummy Bear",
   "item.nekoplus.high_energy_laser": "High Energy Laser",
