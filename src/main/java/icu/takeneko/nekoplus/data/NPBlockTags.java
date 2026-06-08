@@ -9,6 +9,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -31,16 +32,22 @@ public class NPBlockTags {
     }
 
     public static void setupBlockTags(RegistrumTagsProvider<Block> provider) {
-        ironPickaxeMineableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
-        ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_BLOCK, provider);
-        ironPickaxeMineableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
-        ironPickaxeMineableBlock(NPBlocks.STELLAR_ENGINE, provider);
-        ironPickaxeMineableBlock(NPBlocks.TARDIS, provider);
-        ironPickaxeMineableBlock(NPBlocks.HIGH_ENERGY_LASER, provider);
-        ironPickaxeMineableBlock(NPBlocks.NETHERITE_SCRAP_BLOCK, provider);
-        ironPickaxeMineableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
-        ironPickaxeMineableBlock(NPBlocks.SHULKER_HATCH, provider);
-        ironPickaxeMineableBlock(NPBlocks.MINERAL_FOUNTAIN_PRESSURIZER, provider);
+        ironPickaxeMineableBlock(
+            provider,
+            NPBlocks.PARTICLE_STABILIZER,
+            NPBlocks.TITANIUM_ALLOY_BLOCK,
+            NPBlocks.ROYAL_STEEL_CASING,
+            NPBlocks.STELLAR_ENGINE,
+            NPBlocks.TARDIS,
+            NPBlocks.HIGH_ENERGY_LASER,
+            NPBlocks.NETHERITE_SCRAP_BLOCK,
+            NPBlocks.TITANIUM_ALLOY_ANVIL,
+            NPBlocks.SHULKER_HATCH,
+            NPBlocks.MINERAL_FOUNTAIN_PRESSURIZER,
+            NPBlocks.CUT_TITANIUM_ALLOY_BLOCK,
+            NPBlocks.CUT_TITANIUM_ALLOY_SLAB,
+            NPBlocks.CUT_TITANIUM_ALLOY_STAIR
+        );
 
         wrenchableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
         wrenchableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
@@ -68,10 +75,12 @@ public class NPBlockTags {
             .addElement(ModBlocks.SPECTRAL_ANVIL.getId());
     }
 
-    public static void ironPickaxeMineableBlock(Holder<Block> holder, RegistrumTagsProvider<Block> provider) {
+    public static void ironPickaxeMineableBlock(RegistrumTagsProvider<Block> provider, Holder<Block>... holder) {
         for (TagKey<Block> tagKey : IRON_PICKAXE_MINEABLE) {
-            provider.rawBuilder(tagKey)
-                .addElement(holder.getKey().identifier());
+            TagBuilder tagBuilder = provider.rawBuilder(tagKey);
+            for (Holder<Block> it : holder) {
+                tagBuilder.addElement(it.getKey().identifier());
+            }
         }
     }
 

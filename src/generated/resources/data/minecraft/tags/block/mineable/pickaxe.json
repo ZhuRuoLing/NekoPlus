@@ -12,6 +12,9 @@
     "nekoplus:netherite_scrap_block",
     "nekoplus:titanium_alloy_anvil",
     "nekoplus:shulker_hatch",
-    "nekoplus:mineral_fountail_pressurizer"
+    "nekoplus:mineral_fountail_pressurizer",
+    "nekoplus:cut_titanium_alloy_block",
+    "nekoplus:cut_titanium_alloy_slab",
+    "nekoplus:cut_titanium_alloy_stair"
   ]
 }
