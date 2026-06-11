@@ -23,6 +23,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.ARGB;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,49 +32,32 @@ import org.jspecify.annotations.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class LaserEtchingRecipeCategory implements IRecipeCategory<RecipeHolder<LaserEtchingRecipe>> {
+public class LaserEtchingRecipeCategory extends NPBaseRecipeCategory<RecipeHolder<LaserEtchingRecipe>> {
     public static final Component TITLE = Component.translatable("category.nekoplus.laser_etching");
 
-    private final IDrawable icon;
-    private final IDrawable slotDefault;
-    private final IDrawable slotProbability;
-    private final IDrawable arrowIn;
-    private final IDrawable arrowOut;
-    private final IDrawable arrowOutputFromBelow;
-    private final ITickTimer timer;
     private final ITickTimer timerLaserIterate;
 
     public LaserEtchingRecipeCategory(IGuiHelper helper) {
-        this.icon = helper.createDrawableItemStack(NPBlocks.PARTICLE_STABILIZER.asStack());
-        this.slotDefault = JeiRenderHelper.getSlotDefault(helper);
-        this.slotProbability = JeiRenderHelper.getSlotProbability(helper);
-        this.arrowIn = JeiRenderHelper.getArrowInput(helper);
-        this.arrowOut = JeiRenderHelper.getArrowOutput(helper);
-        this.arrowOutputFromBelow = JeiRenderHelper.getArrowOutputFromBelow(helper);
-        this.timer = helper.createTickTimer(30, 60, true);
+        super(
+            helper,
+            TITLE,
+            NPJeiPlugin.LASER_ETCHING_TYPE,
+            helper.createDrawableItemStack(NPBlocks.HIGH_ENERGY_LASER.asStack()),
+            162,
+            80
+        );
         this.timerLaserIterate = helper.createTickTimer(40, 80, true);
     }
 
     @Override
-    public void draw(RecipeHolder<LaserEtchingRecipe> recipe, IRecipeSlotsView recipeSlotsView, GuiGraphicsExtractor guiGraphics, double mouseX, double mouseY) {
+    public void draw(
+        RecipeHolder<LaserEtchingRecipe> recipe,
+        IRecipeSlotsView recipeSlotsView,
+        GuiGraphicsExtractor guiGraphics,
+        double mouseX,
+        double mouseY
+    ) {
         float anvilYOffset = JeiRenderHelper.getAnvilAnimationOffset(timer);
-
-        RenderSupport.renderBlock(
-            guiGraphics,
-            ModBlocks.STAMPING_PLATFORM.getDefaultState(),
-            81,
-            40,
-            12
-        );
-
-        RenderSupport.renderBlock(
-            guiGraphics,
-            Blocks.ANVIL.defaultBlockState(),
-            81,
-            22 + anvilYOffset,
-            12
-        );
-
 
         guiGraphics.pose().pushMatrix();
         guiGraphics.pose().translate(1, 1);
@@ -82,7 +66,7 @@ public class LaserEtchingRecipeCategory implements IRecipeCategory<RecipeHolder<
             Minecraft.getInstance().font,
             Component.translatable("category.nekoplus.laser_etching.laser_requirement"),
             0, 0,
-            16777215
+            ARGB.color(255, 16777215)
         );
         guiGraphics.pose().popMatrix();
 
@@ -90,15 +74,34 @@ public class LaserEtchingRecipeCategory implements IRecipeCategory<RecipeHolder<
         if (timerLaserIterate.getValue() >= 40) {
             blockState = ModBlocks.RUBY_LASER.getDefaultState().setValue(RubyLaserBlock.FACING, Direction.UP);
         } else {
-            blockState = NPBlocks.HIGH_ENERGY_LASER.getDefaultState().setValue(HighEnergyLaserBlock.FACING, Direction.UP);
+            blockState = NPBlocks.HIGH_ENERGY_LASER.getDefaultState().setValue(
+                HighEnergyLaserBlock.FACING,
+                Direction.UP
+            );
         }
 
         RenderSupport.renderBlock(
             guiGraphics,
             blockState,
-            81,
+            68,
             57,
-            12
+            24
+        );
+
+        RenderSupport.renderBlock(
+            guiGraphics,
+            ModBlocks.STAMPING_PLATFORM.getDefaultState(),
+            68,
+            40,
+            24
+        );
+
+        RenderSupport.renderBlock(
+            guiGraphics,
+            Blocks.ANVIL.defaultBlockState(),
+            68,
+            20 + anvilYOffset,
+            24
         );
 
         arrowIn.draw(guiGraphics, 54, 30);
@@ -113,34 +116,9 @@ public class LaserEtchingRecipeCategory implements IRecipeCategory<RecipeHolder<
     }
 
     @Override
-    public IRecipeType<RecipeHolder<LaserEtchingRecipe>> getRecipeType() {
-        return NPJeiPlugin.LASER_ETCHING_TYPE;
-    }
-
-    @Override
-    public Component getTitle() {
-        return TITLE;
-    }
-
-    @Override
-    public @Nullable IDrawable getIcon() {
-        return icon;
-    }
-
-    @Override
     public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<LaserEtchingRecipe> recipe, IFocusGroup focuses) {
         LaserEtchingRecipe r = recipe.value();
         NPJeiSlotUtil.addInputSlots(builder, Collections.singletonList(recipe.value().input()));
         JeiSlotUtil.addOutputSlots(builder, List.of(r.output()));
-    }
-
-    @Override
-    public int getWidth() {
-        return 162;
-    }
-
-    @Override
-    public int getHeight() {
-        return 80;
     }
 }
