@@ -1,0 +1,14 @@
+{
+  "type": "anvilcraft:block_smear",
+  "inputs": [
+    {
+      "blocks": "anvilcraft:gunpowder_block"
+    },
+    {
+      "blocks": "anvilcraft:piezoelectric_crystal"
+    }
+  ],
+  "result": {
+    "block": "nekoplus:blast_crystal"
+  }
+}

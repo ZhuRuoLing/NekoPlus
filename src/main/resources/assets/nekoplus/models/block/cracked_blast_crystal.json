@@ -1,0 +1,9 @@
+{
+	"parent": "anvilcraft:block/piezoelectric_crystal",
+	"render_type": "minecraft:translucent",
+	"textures": {
+		"0": "nekoplus:block/cracked_blast_crystal",
+		"1": "nekoplus:block/cracked_blast_crystal_top",
+		"particle": "nekoplus:block/blast_crystal"
+	}
+}

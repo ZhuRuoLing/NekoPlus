@@ -46,16 +46,21 @@ public class NPBlockTags {
             NPBlocks.MINERAL_FOUNTAIN_PRESSURIZER,
             NPBlocks.CUT_TITANIUM_ALLOY_BLOCK,
             NPBlocks.CUT_TITANIUM_ALLOY_SLAB,
-            NPBlocks.CUT_TITANIUM_ALLOY_STAIR
+            NPBlocks.CUT_TITANIUM_ALLOY_STAIR,
+            NPBlocks.BLAST_CRYSTAL
         );
 
-        wrenchableBlock(NPBlocks.PARTICLE_STABILIZER, provider);
-        wrenchableBlock(NPBlocks.ROYAL_STEEL_CASING, provider);
-        wrenchableBlock(NPBlocks.STELLAR_ENGINE, provider);
-        wrenchableBlock(NPBlocks.TARDIS, provider);
-        wrenchableBlock(NPBlocks.HIGH_ENERGY_LASER, provider);
-        wrenchableBlock(NPBlocks.TITANIUM_ALLOY_ANVIL, provider);
-        wrenchableBlock(NPBlocks.SHULKER_HATCH, provider);
+        wrenchableBlock(
+            provider,
+            NPBlocks.PARTICLE_STABILIZER,
+            NPBlocks.ROYAL_STEEL_CASING,
+            NPBlocks.STELLAR_ENGINE,
+            NPBlocks.TARDIS,
+            NPBlocks.HIGH_ENERGY_LASER,
+            NPBlocks.TITANIUM_ALLOY_ANVIL,
+            NPBlocks.SHULKER_HATCH,
+            NPBlocks.BLAST_CRYSTAL
+        );
 
         provider.rawBuilder(ModBlockTags.OVERSEER_BASE)
             .addElement(NPBlocks.ROYAL_STEEL_CASING.getKey().identifier());
@@ -77,15 +82,18 @@ public class NPBlockTags {
 
     public static void ironPickaxeMineableBlock(RegistrumTagsProvider<Block> provider, Holder<Block>... holder) {
         for (TagKey<Block> tagKey : IRON_PICKAXE_MINEABLE) {
-            TagBuilder tagBuilder = provider.rawBuilder(tagKey);
-            for (Holder<Block> it : holder) {
-                tagBuilder.addElement(it.getKey().identifier());
-            }
+            tag(provider, tagKey, holder);
         }
     }
 
-    public static void wrenchableBlock(Holder<Block> holder, RegistrumTagsProvider<Block> provider) {
-        provider.rawBuilder(ModBlockTags.HAMMER_REMOVABLE)
-            .addElement(holder.getKey().identifier());
+    public static void wrenchableBlock(RegistrumTagsProvider<Block> provider, Holder<Block>... holder) {
+        tag(provider, ModBlockTags.HAMMER_REMOVABLE, holder);
+    }
+
+    public static void tag(RegistrumTagsProvider<Block> provider, TagKey<Block> tagKey, Holder<Block>... holder) {
+        TagBuilder tagBuilder = provider.rawBuilder(tagKey);
+        for (Holder<Block> it : holder) {
+            tagBuilder.addElement(it.getKey().identifier());
+        }
     }
 }

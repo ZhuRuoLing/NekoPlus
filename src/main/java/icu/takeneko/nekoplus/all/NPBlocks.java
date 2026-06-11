@@ -11,6 +11,7 @@ import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.block.state.Cube323PartHalf;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.BlastCrystalBlock;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.MineralFountainPressurizerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
@@ -229,90 +230,33 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<StellarEngineBlock> STELLAR_ENGINE = NekoPlus.REGISTRUM
-        .block("stellar_engine", StellarEngineBlock::new)
-        .initialProperties(() -> Blocks.NETHERITE_BLOCK)
-        .properties(p -> p.sound(SoundType.METAL)
-            .noOcclusion()
-            .emissiveRendering((_, _, _) -> true)
-        )
+    public static final BlockEntry<BlastCrystalBlock> BLAST_CRYSTAL = NekoPlus.REGISTRUM
+        .block("blast_crystal", BlastCrystalBlock::new)
+        .initialProperties(() -> Blocks.STONE)
+        .properties(it -> it.noOcclusion().explosionResistance(1200).sound(SoundType.GLASS))
         .blockstate(DataGenUtil::onlyState)
         .item()
-        .properties(p -> p.rarity(Rarity.EPIC))
-        .model(DataGenUtil::onlyInfo)
+        .model(DataGenUtil::blockItem)
         .build()
         .register();
 
-    public static final BlockEntry<TardisBlock> TARDIS = NekoPlus.REGISTRUM
-        .block("tardis", TardisBlock::new)
-        .initialProperties(() -> Blocks.NETHERITE_BLOCK)
-        .properties(p -> p.sound(SoundType.METAL)
-            .noOcclusion()
-            .explosionResistance(114514)
-        )
+    public static final BlockEntry<BlastCrystalBlock> CRACKED_BLAST_CRYSTAL = NekoPlus.REGISTRUM
+        .block("cracked_blast_crystal", it -> new BlastCrystalBlock(it, BlastCrystalBlock.CrackStage.CRACKED))
+        .initialProperties(() -> Blocks.STONE)
+        .properties(it -> it.noOcclusion().explosionResistance(1200).sound(SoundType.GLASS))
         .blockstate(DataGenUtil::onlyState)
-        .loot((tab, block) -> tab.add(
-            block,
-            LootTable.lootTable()
-                .withPool(
-                    tab.applyExplosionCondition(
-                        block,
-                        LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0F))
-                            .add(
-                                LootItem.lootTableItem(block)
-                                    .when(
-                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
-                                                TardisBlock.PART,
-                                                Part3.BOTTOM
-                                            ))
-                                    )
-                            )
-                    )
-                )
-        ))
         .item()
-        .properties(p -> p.rarity(Rarity.EPIC))
-        .model(DataGenUtil::onlyInfo)
+        .model(DataGenUtil::blockItem)
         .build()
         .register();
 
-    public static final BlockEntry<MineralFountainPressurizerBlock> MINERAL_FOUNTAIN_PRESSURIZER = NekoPlus.REGISTRUM
-        .block("mineral_fountail_pressurizer", MineralFountainPressurizerBlock::new)
-        .initialProperties(() -> Blocks.IRON_BLOCK)
-        .loot((tab, block) -> tab.add(
-            block,
-            LootTable.lootTable()
-                .withPool(
-                    tab.applyExplosionCondition(
-                        block,
-                        LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0F))
-                            .add(
-                                LootItem.lootTableItem(block)
-                                    .when(
-                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
-                                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
-                                                MineralFountainPressurizerBlock.PART,
-                                                Cube323PartHalf.BOTTOM_CENTER
-                                            ))
-                                    )
-                            )
-                    )
-                )
-        ))
+    public static final BlockEntry<BlastCrystalBlock> DAMAGED_BLAST_CRYSTAL = NekoPlus.REGISTRUM
+        .block("damaged_blast_crystal", it -> new BlastCrystalBlock(it, BlastCrystalBlock.CrackStage.DAMAGED))
+        .initialProperties(() -> Blocks.STONE)
+        .properties(it -> it.noOcclusion().explosionResistance(1200).sound(SoundType.GLASS))
+        .blockstate(DataGenUtil::onlyState)
         .item()
-        .build()
-        .register();
-
-    public static final BlockEntry<Block> NETHERITE_SCRAP_BLOCK = NekoPlus.REGISTRUM
-        .block("netherite_scrap_block", Block::new)
-        .defaultBlockstate()
-        .item()
-        .recipe((ctx, prov) -> {
-            prov.storage(() -> Items.NETHERITE_SCRAP, RecipeCategory.MISC, ctx);
-        })
+        .model(DataGenUtil::blockItem)
         .build()
         .register();
 
@@ -431,7 +375,6 @@ public class NPBlocks {
         .build()
         .register();
 
-
     public static final BlockEntry<FatAnvilBlock> TITANIUM_ALLOY_ANVIL = NekoPlus.REGISTRUM
         .block("titanium_alloy_anvil", FatAnvilBlock::new)
         .initialProperties(() -> Blocks.ANVIL)
@@ -464,6 +407,93 @@ public class NPBlocks {
                 )
                 .save(ctx);
         })
+        .build()
+        .register();
+
+    public static final BlockEntry<Block> NETHERITE_SCRAP_BLOCK = NekoPlus.REGISTRUM
+        .block("netherite_scrap_block", Block::new)
+        .defaultBlockstate()
+        .item()
+        .recipe((ctx, prov) -> {
+            prov.storage(() -> Items.NETHERITE_SCRAP, RecipeCategory.MISC, ctx);
+        })
+        .build()
+        .register();
+
+    public static final BlockEntry<StellarEngineBlock> STELLAR_ENGINE = NekoPlus.REGISTRUM
+        .block("stellar_engine", StellarEngineBlock::new)
+        .initialProperties(() -> Blocks.NETHERITE_BLOCK)
+        .properties(p -> p.sound(SoundType.METAL)
+            .noOcclusion()
+            .emissiveRendering((_, _, _) -> true)
+        )
+        .blockstate(DataGenUtil::onlyState)
+        .item()
+        .properties(p -> p.rarity(Rarity.EPIC))
+        .model(DataGenUtil::onlyInfo)
+        .build()
+        .register();
+
+    public static final BlockEntry<TardisBlock> TARDIS = NekoPlus.REGISTRUM
+        .block("tardis", TardisBlock::new)
+        .initialProperties(() -> Blocks.NETHERITE_BLOCK)
+        .properties(p -> p.sound(SoundType.METAL)
+            .noOcclusion()
+            .explosionResistance(114514)
+        )
+        .blockstate(DataGenUtil::onlyState)
+        .loot((tab, block) -> tab.add(
+            block,
+            LootTable.lootTable()
+                .withPool(
+                    tab.applyExplosionCondition(
+                        block,
+                        LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(
+                                LootItem.lootTableItem(block)
+                                    .when(
+                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
+                                                TardisBlock.PART,
+                                                Part3.BOTTOM
+                                            ))
+                                    )
+                            )
+                    )
+                )
+        ))
+        .item()
+        .properties(p -> p.rarity(Rarity.EPIC))
+        .model(DataGenUtil::onlyInfo)
+        .build()
+        .register();
+
+    public static final BlockEntry<MineralFountainPressurizerBlock> MINERAL_FOUNTAIN_PRESSURIZER = NekoPlus.REGISTRUM
+        .block("mineral_fountail_pressurizer", MineralFountainPressurizerBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .loot((tab, block) -> tab.add(
+            block,
+            LootTable.lootTable()
+                .withPool(
+                    tab.applyExplosionCondition(
+                        block,
+                        LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(
+                                LootItem.lootTableItem(block)
+                                    .when(
+                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                            .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(
+                                                MineralFountainPressurizerBlock.PART,
+                                                Cube323PartHalf.BOTTOM_CENTER
+                                            ))
+                                    )
+                            )
+                    )
+                )
+        ))
+        .item()
         .build()
         .register();
 

@@ -4,6 +4,7 @@ import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockEntityRenderer;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
@@ -57,6 +58,11 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<StampingPlatformBlockEntity> STAMPING_PLATFORM = NekoPlus.REGISTRUM
         .blockEntity("stamping_platform", StampingPlatformBlockEntity::new)
         .validBlock(ModBlocks.STAMPING_PLATFORM)
+        .register();
+
+    public static final BlockEntityEntry<BlastCrystalBlockEntity> BLAST_CRYSTAL = NekoPlus.REGISTRUM
+        .blockEntity("blast_crystal", BlastCrystalBlockEntity::new)
+        .validBlocks(NPBlocks.BLAST_CRYSTAL, NPBlocks.CRACKED_BLAST_CRYSTAL, NPBlocks.DAMAGED_BLAST_CRYSTAL)
         .register();
 
     public static void setupRegistration() {

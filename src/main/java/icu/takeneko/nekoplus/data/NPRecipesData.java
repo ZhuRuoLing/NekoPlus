@@ -1,7 +1,9 @@
 package icu.takeneko.nekoplus.data;
 
 import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumRecipeProvider;
+import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItems;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockSmearRecipe;
 import dev.dubhe.anvilcraft.recipe.mineral.MineralFountainRecipe;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlocks;
@@ -29,6 +31,12 @@ public class NPRecipesData {
             .ticks(10)
             .build()
             .save(provider, NekoPlus.location("air_condensing/end"));
+
+        BlockSmearRecipe.builder()
+            .input(ModBlocks.GUNPOWER_BLOCK.get())
+            .input(ModBlocks.PIEZOELECTRIC_CRYSTAL.get())
+            .result(NPBlocks.BLAST_CRYSTAL.get())
+            .save(provider, NekoPlus.location("block_smear/blast_crystal"));
 
 //        MultiblockConversionRecipe.builder()
 //            .inputLayer("  AAA  ", " ABBBA ", "CBBBBBD", "CBBBBBD", "CBBBBBD", " ABBBA ", "  EFE  ")
