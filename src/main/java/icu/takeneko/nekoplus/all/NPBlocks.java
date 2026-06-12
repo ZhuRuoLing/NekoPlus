@@ -233,7 +233,7 @@ public class NPBlocks {
     public static final BlockEntry<BlastCrystalBlock> BLAST_CRYSTAL = NekoPlus.REGISTRUM
         .block("blast_crystal", BlastCrystalBlock::new)
         .initialProperties(() -> Blocks.STONE)
-        .properties(it -> it.noOcclusion().explosionResistance(1200).sound(SoundType.GLASS))
+        .properties(it -> it.noOcclusion().sound(SoundType.GLASS))
         .blockstate(DataGenUtil::onlyState)
         .item()
         .model(DataGenUtil::blockItem)
@@ -243,7 +243,7 @@ public class NPBlocks {
     public static final BlockEntry<BlastCrystalBlock> CRACKED_BLAST_CRYSTAL = NekoPlus.REGISTRUM
         .block("cracked_blast_crystal", it -> new BlastCrystalBlock(it, BlastCrystalBlock.CrackStage.CRACKED))
         .initialProperties(() -> Blocks.STONE)
-        .properties(it -> it.noOcclusion().explosionResistance(1200).sound(SoundType.GLASS))
+        .properties(it -> it.noOcclusion().sound(SoundType.GLASS))
         .blockstate(DataGenUtil::onlyState)
         .item()
         .model(DataGenUtil::blockItem)
@@ -253,7 +253,7 @@ public class NPBlocks {
     public static final BlockEntry<BlastCrystalBlock> DAMAGED_BLAST_CRYSTAL = NekoPlus.REGISTRUM
         .block("damaged_blast_crystal", it -> new BlastCrystalBlock(it, BlastCrystalBlock.CrackStage.DAMAGED))
         .initialProperties(() -> Blocks.STONE)
-        .properties(it -> it.noOcclusion().explosionResistance(1200).sound(SoundType.GLASS))
+        .properties(it -> it.noOcclusion().sound(SoundType.GLASS))
         .blockstate(DataGenUtil::onlyState)
         .item()
         .model(DataGenUtil::blockItem)
