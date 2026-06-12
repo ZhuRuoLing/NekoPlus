@@ -56,6 +56,80 @@ public class NPBlockStateDispatches {
         SLOT_OVERLAY
     );
 
+    public static NonNullBiConsumer<DataGenContext<Block, HighEnergyLaserBlock>, RegistrumBlockModelGenerator> highEnergyLaser1() {
+        return (context, generator) -> {
+            Identifier textureOff = NekoPlus.location("block/high_energy_laser_off");
+            Identifier textureOverload = NekoPlus.location("block/high_energy_laser_overload");
+            Identifier texture = NekoPlus.location("block/high_energy_laser");
+
+            Identifier normalModel = generator.withParent(HIGH_ENERGY_LASER_MODEL)
+                .suffix("")
+                .texture(SLOT_3, texture)
+                .build(context.get());
+
+            Identifier offModel = generator.withParent(HIGH_ENERGY_LASER_MODEL)
+                .suffix("_off")
+                .texture(SLOT_3, textureOff)
+                .build(context.get());
+
+            Identifier overloadModel = generator.withParent(HIGH_ENERGY_LASER_MODEL)
+                .suffix("_overload")
+                .texture(SLOT_3, textureOverload)
+                .build(context.get());
+
+            PropertyDispatchWrap.C3<MultiVariant, Boolean, Boolean, Direction> dispatch = PropertyDispatchWrap.initial(
+                HighEnergyLaserBlock.POWERED,
+                HighEnergyLaserBlock.OVERLOAD,
+                HighEnergyLaserBlock.FACING
+            );
+            for (Direction direction : Direction.values()) {
+                int yRot = direction.getAxis() != Direction.Axis.Y ? ((int) direction.toYRot() + 180) % 360 : 0;
+                int xRot = 0;
+                if (direction.getAxis() == Direction.Axis.Y) {
+                    if (direction == Direction.DOWN) {
+                        xRot = 180;
+                    }
+                } else {
+                    xRot = 90;
+                }
+
+                VariantMutator mutator = VariantMutator.X_ROT
+                    .withValue(Quadrant.parseJson(xRot))
+                    .then(
+                        VariantMutator.Y_ROT
+                            .withValue(Quadrant.parseJson(yRot))
+                    );
+
+                dispatch.select(
+                    true,
+                    false,
+                    direction,
+                    BlockModelGenerators.plainVariant(offModel).with(mutator)
+                ).select(
+                    true,
+                    true,
+                    direction,
+                    BlockModelGenerators.plainVariant(offModel).with(mutator)
+                ).select(
+                    false,
+                    true,
+                    direction,
+                    BlockModelGenerators.plainVariant(overloadModel).with(mutator)
+                ).select(
+                    false,
+                    false,
+                    direction,
+                    BlockModelGenerators.plainVariant(normalModel).with(mutator)
+                );
+            }
+
+            generator.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(context.get())
+                    .with(dispatch.dispatch())
+            );
+        };
+    }
+
     public static NonNullBiConsumer<DataGenContext<Block, HighEnergyLaserBlock>, RegistrumBlockModelGenerator> highEnergyLaser() {
         return new NonNullBiConsumer<>() {
             @Override
