@@ -135,7 +135,7 @@ public class NPBlocks {
 
     public static final BlockEntry<HighEnergyLaserBlock> HIGH_ENERGY_LASER = NekoPlus.REGISTRUM
         .block("high_energy_laser", HighEnergyLaserBlock::new)
-        .blockstate(NPBlockStateDispatches::highEnergyLaser1)
+        .blockstate(NPBlockStateDispatches::highEnergyLaser)
         .item()
         .model(DataGenUtil::blockItem)
         .properties(p -> p.rarity(Rarity.RARE))
