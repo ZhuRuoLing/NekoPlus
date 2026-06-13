@@ -18,6 +18,7 @@ import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.ConditionBuilder;
 import net.minecraft.client.data.models.blockstates.MultiPartGenerator;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.renderer.block.dispatch.VariantMutator;
@@ -81,7 +82,8 @@ public class NPBlockStateDispatches {
                 HighEnergyLaserBlock.OVERLOAD,
                 HighEnergyLaserBlock.FACING
             );
-            for (Direction direction : Direction.values()) {
+
+            dispatch.generate((powered, overload, direction) -> {
                 int yRot = direction.getAxis() != Direction.Axis.Y ? ((int) direction.toYRot() + 180) % 360 : 0;
                 int xRot = 0;
                 if (direction.getAxis() == Direction.Axis.Y) {
@@ -91,36 +93,20 @@ public class NPBlockStateDispatches {
                 } else {
                     xRot = 90;
                 }
-
                 VariantMutator mutator = VariantMutator.X_ROT
                     .withValue(Quadrant.parseJson(xRot))
                     .then(
                         VariantMutator.Y_ROT
                             .withValue(Quadrant.parseJson(yRot))
                     );
-
-                dispatch.select(
-                    true,
-                    false,
-                    direction,
-                    BlockModelGenerators.plainVariant(offModel).with(mutator)
-                ).select(
-                    true,
-                    true,
-                    direction,
-                    BlockModelGenerators.plainVariant(offModel).with(mutator)
-                ).select(
-                    false,
-                    true,
-                    direction,
-                    BlockModelGenerators.plainVariant(overloadModel).with(mutator)
-                ).select(
-                    false,
-                    false,
-                    direction,
-                    BlockModelGenerators.plainVariant(normalModel).with(mutator)
-                );
-            }
+                if (powered) {
+                    return BlockModelGenerators.plainVariant(offModel).with(mutator);
+                }
+                if (overload) {
+                    return BlockModelGenerators.plainVariant(overloadModel).with(mutator);
+                }
+                return BlockModelGenerators.plainVariant(normalModel).with(mutator);
+            });
 
             generator.blockStateOutput.accept(
                 MultiVariantGenerator.dispatch(context.get())

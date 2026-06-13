@@ -10,10 +10,12 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.item.EnhancementSmithingTemplate;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -101,6 +103,10 @@ public class NPItems {
                 )
                 .save(p);
         })
+        .register();
+
+    public static final ItemEntry<EnhancementSmithingTemplate> ENHANCEMENT_SMITHING_TEMPLATE = NekoPlus.REGISTRUM
+        .item("enhancement_smithing_template", EnhancementSmithingTemplate::new)
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM

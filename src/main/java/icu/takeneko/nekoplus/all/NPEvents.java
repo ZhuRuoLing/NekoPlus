@@ -57,6 +57,12 @@ public class NPEvents {
             }
         );
 
+        event.registerBlockEntity(
+            NPCapabilities.POWER_COMPONENT,
+            NPBlockEntities.TEST.get(),
+            (blockEntity, context) -> blockEntity
+        );
+
 //        event.registerBlockEntity(
 //            Capabilities.Item.BLOCK,
 //            NPBlockEntities.ITEM_INPUT_HATCH.get(),

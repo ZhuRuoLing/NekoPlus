@@ -21,6 +21,7 @@ import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.block.StellarEngineBlock;
 import icu.takeneko.nekoplus.block.TardisBlock;
 import icu.takeneko.nekoplus.block.FatAnvilBlock;
+import icu.takeneko.nekoplus.block.TestBlock;
 import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.data.NPBlockStateDispatches;
 import icu.takeneko.nekoplus.item.ShulkerHatchBlockItem;
@@ -102,6 +103,14 @@ public class NPBlocks {
                 )
                 .save(prov);
         })
+        .build()
+        .register();
+
+    public static final BlockEntry<TestBlock> TEST = NekoPlus.REGISTRUM
+        .block("test", TestBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .defaultBlockstate()
+        .item()
         .build()
         .register();
 
