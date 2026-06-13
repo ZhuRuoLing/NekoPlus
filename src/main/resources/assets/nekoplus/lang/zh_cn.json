@@ -83,5 +83,9 @@
   "ui.programmable_logic_gate.green": "配置引脚: 绿色",
   "ui.programmable_logic_gate.pin_mode": "引脚模式 ",
   "ui.programmable_logic_gate.red": "配置引脚: 红色",
-  "ui.programmable_logic_gate.white": "配置引脚: 白色"
+  "ui.programmable_logic_gate.white": "配置引脚: 白色",
+  "block.nekoplus.test": "Test",
+  "item.nekoplus.modular_enhancement_template": "增强模块模板",
+  "tooltip.nekoplus.advanced_processor": "灯↑ 等↓灯↑等↓灯↑",
+  "tooltip.nekoplus.cat_anvil": "喵~"
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "nekoplus:item/enhancement_smithing_template"
+    "layer0": "nekoplus:item/modular_enhancement_template"
   }
 }

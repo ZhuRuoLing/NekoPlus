@@ -12,13 +12,14 @@
     "anvilcraft.PowerGridMixin",
     "anvilcraft.RubyPrismBlockEntityMixin",
     "anvilcraft.ServerBlockEntityEventListenerMixin",
-    "anvilcraft.StampingPlatformMixin"
+    "anvilcraft.StampingPlatformMixin",
+    "minecraft.SmithingMenuMixin"
   ],
   "client": [
     "anvilcraft.LaserCompilerMixin",
     "anvilcraft.LaserRenderStateMixin",
-    "minecraft.MinecraftMixin",
-    "minecraft.LevelEventHandlerMixin"
+    "minecraft.LevelEventHandlerMixin",
+    "minecraft.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1

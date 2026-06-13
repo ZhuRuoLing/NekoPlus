@@ -41,8 +41,13 @@ public class NPTranslations {
         provider.add("evaluator.inspection.expect_rparen", "§cerror:§r expected ')'");
         provider.add("evaluator.inspection.not_assignable", "§cerror:§r expression is not assignable: ...%s <-- [HERE]");
 
-        provider.add("tooltip.nekoplus.enhancement_smithing_template.applies_to", "Any Equipments");
-        provider.add("tooltip.nekoplus.enhancement_smithing_template.base_slot_description", "Add any armor, weapon, or tool");
-        provider.add("tooltip.nekoplus.enhancement_smithing_template.additions_slot_description", "Add Advanced Processor");
+        provider.add("tooltip.nekoplus.modular_enhancement_template.applies_to", "Any Equipments");
+        provider.add("tooltip.nekoplus.modular_enhancement_template.base_slot_description", "Add any armor, weapon, or tool");
+        provider.add("tooltip.nekoplus.modular_enhancement_template.additions_slot_description", "Add Advanced Processor");
+
+        provider.add("tooltip.nekoplus.enhancement_module.no_module", "No enhancement module installed");
+
+        provider.add("tooltip.format.indent_list", "  - %s");
+        provider.add("tooltip.format.indent", "    %s");
     }
 }

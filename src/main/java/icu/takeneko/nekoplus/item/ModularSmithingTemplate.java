@@ -7,7 +7,7 @@ import net.minecraft.world.item.SmithingTemplateItem;
 
 import java.util.List;
 
-public class EnhancementSmithingTemplate extends SmithingTemplateItem {
+public class ModularSmithingTemplate extends SmithingTemplateItem {
     private static final Identifier EMPTY_SLOT_HELMET = Identifier.withDefaultNamespace("container/slot/helmet");
     private static final Identifier EMPTY_SLOT_CHESTPLATE = Identifier.withDefaultNamespace("container/slot/chestplate");
     private static final Identifier EMPTY_SLOT_LEGGINGS = Identifier.withDefaultNamespace("container/slot/leggings");
@@ -18,12 +18,14 @@ public class EnhancementSmithingTemplate extends SmithingTemplateItem {
     private static final Identifier EMPTY_SLOT_SHOVEL = Identifier.withDefaultNamespace("container/slot/shovel");
     private static final Identifier EMPTY_SLOT_SPEAR = Identifier.withDefaultNamespace("container/slot/spear");
     private static final Identifier EMPTY_SLOT_PICKAXE = Identifier.withDefaultNamespace("container/slot/pickaxe");
-    public EnhancementSmithingTemplate(Properties properties) {
+    public static final Identifier EMPTY_SLOT_PROCESSOR = NekoPlus.location("container/slot/processor");
+
+    public ModularSmithingTemplate(Properties properties) {
         super(
-            Component.translatable("tooltip.nekoplus.enhancement_smithing_template.applies_to"),
+            Component.translatable("tooltip.nekoplus.modular_enhancement_template.applies_to"),
             Component.translatable("item.nekoplus.advanced_processor"),
-            Component.translatable("tooltip.nekoplus.enhancement_smithing_template.base_slot_description"),
-            Component.translatable("tooltip.nekoplus.enhancement_smithing_template.additions_slot_description"),
+            Component.translatable("tooltip.nekoplus.modular_enhancement_template.base_slot_description"),
+            Component.translatable("tooltip.nekoplus.modular_enhancement_template.additions_slot_description"),
             List.of(
                 EMPTY_SLOT_HELMET,
                 EMPTY_SLOT_CHESTPLATE,
@@ -36,9 +38,7 @@ public class EnhancementSmithingTemplate extends SmithingTemplateItem {
                 EMPTY_SLOT_SPEAR,
                 EMPTY_SLOT_PICKAXE
             ),
-            List.of(
-                NekoPlus.location("container/slot/chip")
-            ),
+            List.of(EMPTY_SLOT_PROCESSOR),
             properties
         );
     }

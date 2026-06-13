@@ -10,15 +10,13 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
-import icu.takeneko.nekoplus.item.EnhancementSmithingTemplate;
+import icu.takeneko.nekoplus.item.ModularSmithingTemplate;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -33,19 +31,6 @@ public class NPItems {
     static {
         NekoPlus.REGISTRUM.defaultCreativeTab(NPCreativeTabs.TAB.getKey());
     }
-
-//    public static final ItemEntry<Item> STRONG_MAGNET = NekoPlus.REGISTRUM
-//        .item("strong_magnet", Item::new)
-//        .recipe((c, p) ->
-//            ChargerChargingRecipe.builder()
-//                .requires(ModItems.EARTH_CORE_SHARD)
-//                .result(c.get())
-//                .power(-64)
-//                .time(20 * 2)
-//                .save(p, p.safeId(NekoPlus.location(c.getName() + "_charging")))
-//        )
-//        .register();
-
 
     public static final ItemEntry<Item> TITANIUM_ALLOY_INGOT = NekoPlus.REGISTRUM
         .item("titanium_alloy_ingot", Item::new)
@@ -105,8 +90,8 @@ public class NPItems {
         })
         .register();
 
-    public static final ItemEntry<EnhancementSmithingTemplate> ENHANCEMENT_SMITHING_TEMPLATE = NekoPlus.REGISTRUM
-        .item("enhancement_smithing_template", EnhancementSmithingTemplate::new)
+    public static final ItemEntry<ModularSmithingTemplate> MODULAR_ENHANCEMENT_TEMPLATE = NekoPlus.REGISTRUM
+        .item("modular_enhancement_template", ModularSmithingTemplate::new)
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM
