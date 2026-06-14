@@ -70,7 +70,7 @@
   "itemGroup.nekoplus.tab": "AnvilCraft: NekoPlus!",
   "subtitles.block.particle_stabilizer.working": "Particle Stabilizer: Working",
   "tooltip.format.indent": "    %s",
-  "tooltip.format.indent_list": "  - %s",
+  "tooltip.format.indent_list": "  %s",
   "tooltip.nekoplus.advanced_processor": "*Intel Jingles*",
   "tooltip.nekoplus.anti_gravity_module": "Grants creative flight and removes air mining penalty.",
   "tooltip.nekoplus.cat_anvil": "*Meow*",

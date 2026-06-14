@@ -50,13 +50,13 @@ public class AntiGravityModule implements NPEnhancementModule {
 
     @Override
     public Component name() {
-        return Component.literal("tooltip.nekoplus.enhancement_module.anti_gravity.name");
+        return Component.translatable("item.nekoplus.anti_gravity_module");
     }
 
     @Override
     public List<Component> tooltip() {
         return List.of(
-            Component.literal("tooltip.nekoplus.enhancement_module.anti_gravity.tooltip1")
+            Component.translatable("tooltip.nekoplus.anti_gravity_module")
         );
     }
 

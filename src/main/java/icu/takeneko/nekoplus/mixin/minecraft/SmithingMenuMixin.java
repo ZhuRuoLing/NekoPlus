@@ -124,9 +124,14 @@ public abstract class SmithingMenuMixin extends ItemCombinerMenu {
         ItemStack template = input.template();
         if (template.is(NPItems.MODULAR_ENHANCEMENT_TEMPLATE) && input.addition().is(NPItems.ADVANCED_PROCESSOR)) {
             this.resultSlots.setRecipeUsed(null);
-            ItemStack copy = input.base().copyWithCount(1);
-            copy.set(NPDataComponents.ENHANCEMENT_MODULE, List.of());
-            this.resultSlots.setItem(0, copy);
+            if (!input.base().has(NPDataComponents.ENHANCEMENT_MODULE)) {
+                ItemStack copy = input.base().copyWithCount(1);
+                copy.set(NPDataComponents.ENHANCEMENT_MODULE, List.of());
+                this.resultSlots.setItem(0, copy);
+                ci.cancel();
+                return;
+            }
+            this.resultSlots.setItem(0, ItemStack.EMPTY);
             ci.cancel();
         }
     }

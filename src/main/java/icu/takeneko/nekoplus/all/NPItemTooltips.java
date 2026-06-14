@@ -67,18 +67,18 @@ public class NPItemTooltips {
                     TooltipUtils.itemAtlasSprite(NPItems.ADVANCED_PROCESSOR, 1)
                         .append(
                             Component.translatable("tooltip.nekoplus.enhancement_module.enhancement_modules")
-                                .withStyle(ChatFormatting.DARK_GREEN)
+                                .withStyle(ChatFormatting.DARK_AQUA)
                         )
                 );
                 for (NPEnhancementModule module : modules) {
                     components.add(
-                        TooltipUtils.indentList(
-                            TooltipUtils.itemAtlasSprite(module.getType().itemHolder())
-                                .append(module.name())
+                        TooltipUtils.indentListHeader(
+                            TooltipUtils.itemAtlasSprite(module.getType().itemHolder(), 1)
+                                .append(module.name().copy().withStyle(ChatFormatting.GOLD))
                         )
                     );
                     for (Component component : module.tooltip()) {
-                        components.add(TooltipUtils.indent(component));
+                        components.add(TooltipUtils.indent(component.copy().withStyle(ChatFormatting.GRAY)));
                     }
                 }
             }
@@ -102,7 +102,7 @@ public class NPItemTooltips {
         tooltip(NPItems.DRY_ICE, "CO₂");
         tooltip(NPItems.ADVANCED_PROCESSOR, "*Intel Jingles*");
 
-        tooltip(NPItems.ANTI_GRAVITY_MODULE, "Grants creative flight and removes air mining penalty.");
+        tooltip(NPItems.ANTI_GRAVITY_MODULE, "Grants creative flight and removes flying mining penalty.");
 
     }
 }

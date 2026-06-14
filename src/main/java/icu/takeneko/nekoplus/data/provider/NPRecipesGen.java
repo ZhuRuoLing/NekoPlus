@@ -8,6 +8,10 @@ import dev.dubhe.anvilcraft.recipe.mineral.MineralFountainRecipe;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
+import icu.takeneko.nekoplus.recipe.ModuleAssembleRecipe;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
@@ -15,7 +19,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.List;
 
-public class NPRecipesData {
+public class NPRecipesGen {
     public static void addRecipes(RegistrumRecipeProvider provider) {
         MineralFountainRecipe.builder()
             .fromBlock(Blocks.NETHERRACK)
@@ -36,5 +40,8 @@ public class NPRecipesData {
             .input(ModBlocks.PIEZOELECTRIC_CRYSTAL.get())
             .result(NPBlocks.BLAST_CRYSTAL.get())
             .save(provider, NekoPlus.location("block_smear/blast_crystal"));
+
+        SpecialRecipeBuilder.special(() -> ModuleAssembleRecipe.INSTANCE)
+            .save(provider, ResourceKey.create(Registries.RECIPE, NekoPlus.location("crafting/module_assemble")));
     }
 }

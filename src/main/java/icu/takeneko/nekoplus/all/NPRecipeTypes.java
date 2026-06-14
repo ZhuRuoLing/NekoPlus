@@ -4,12 +4,14 @@ import com.mojang.serialization.MapCodec;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
+import icu.takeneko.nekoplus.recipe.ModuleAssembleRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class NPRecipeTypes {
@@ -28,6 +30,11 @@ public class NPRecipeTypes {
         "laser_etching",
         LaserEtchingRecipe.MAP_CODEC,
         LaserEtchingRecipe.STREAM_CODEC
+    );
+
+    public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<?>> MODULE_ASSEMBLE_SERIALIZER = RECIPE_SERIALIZER_DR.register(
+        ModuleAssembleRecipe.NAME.getPath(),
+        () -> ModuleAssembleRecipe.SERIALIZER
     );
 
     private static <T extends Recipe<?>> RecipeType<T> registerType(String name) {

@@ -9,27 +9,23 @@ import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.item.module.NPEnhancementModule;
-import icu.takeneko.nekoplus.foundation.item.module.type.NPEnhancementModuleType;
 import icu.takeneko.nekoplus.internal.StampingPlatformsInternals;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -41,6 +37,7 @@ import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 import java.util.List;
@@ -91,11 +88,26 @@ public class NPEvents {
         if (face == null) return;
         BlockState state = level.getBlockState(pos);
         if (state.is(NPBlocks.SHULKER_HATCH) && state.getValue(ShulkerHatchBlock.FACING) == face.getOpposite()) {
-            System.out.println("event.getAction() = " + event.getAction());
+            System.out.println(event.getAction());
             if (event.getAction() == PlayerInteractEvent.LeftClickBlock.Action.START) {
                 state.attack(level, pos, event.getEntity());
             }
             event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void on(PlayerEvent.BreakSpeed event) {
+        Player player = event.getEntity();
+        if (!player.onGround() && event.getOriginalSpeed() < event.getOriginalSpeed() * 5) {
+            ItemStack item = player.getItemBySlot(EquipmentSlot.CHEST);
+            List<NPEnhancementModule> list = item.get(NPDataComponents.ENHANCEMENT_MODULE);
+            if (list == null) return;
+            for (NPEnhancementModule module : list) {
+                if (module.getType() == NPEnhancementModules.ANTI_GRAVITY.get()) {
+                    event.setNewSpeed(event.getNewSpeed() * 5);
+                }
+            }
         }
     }
 

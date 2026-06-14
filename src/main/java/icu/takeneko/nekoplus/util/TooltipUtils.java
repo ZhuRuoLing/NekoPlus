@@ -1,6 +1,5 @@
 package icu.takeneko.nekoplus.util;
 
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.AtlasIds;
@@ -11,7 +10,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 
 public class TooltipUtils {
-    public static Component indentList(Component content) {
+    public static Component indentListHeader(Component content) {
         return Component.translatable("tooltip.format.indent_list", content);
     }
 

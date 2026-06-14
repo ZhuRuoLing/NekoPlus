@@ -5,9 +5,11 @@ import icu.takeneko.nekoplus.foundation.item.module.type.NPEnhancementModuleType
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.neoforged.neoforge.registries.RegistryBuilder;
 
+@EventBusSubscriber
 public class NPRegistries {
     public static final ResourceKey<Registry<NPEnhancementModuleType<?>>> ENHANCEMENT_MODULE_TYPE_KEY = ResourceKey.createRegistryKey(
         NekoPlus.location("enhancement_module_type")

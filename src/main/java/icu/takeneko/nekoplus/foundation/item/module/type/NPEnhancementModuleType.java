@@ -34,6 +34,8 @@ public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
 
     Holder<Item> itemHolder();
 
+    int installationLimit();
+
     static <T1 extends NPEnhancementModule> GenericEnhancementModuleType<T1> generic(
         Identifier name,
         MapCodec<T1> codec,

@@ -4,7 +4,7 @@ import dev.anvilcraft.lib.v2.registrum.Registrum;
 import dev.anvilcraft.lib.v2.registrum.providers.ProviderType;
 import icu.takeneko.nekoplus.data.provider.NPLootTablesProvider;
 import icu.takeneko.nekoplus.data.provider.NPTagsGen;
-import icu.takeneko.nekoplus.data.provider.NPRecipesData;
+import icu.takeneko.nekoplus.data.provider.NPRecipesGen;
 import icu.takeneko.nekoplus.data.provider.NPSounds;
 import icu.takeneko.nekoplus.data.provider.NPTradeSets;
 import icu.takeneko.nekoplus.data.provider.NPTranslations;
@@ -27,7 +27,7 @@ public class NPDataGen {
     public static void setupDataGeneration(Registrum registrum) {
         registrum.addDataGenerator(ProviderType.BLOCK_TAGS, NPTagsGen::setupBlockTags);
         registrum.addDataGenerator(ProviderType.LANG, NPTranslations::addTranslations);
-        registrum.addDataGenerator(ProviderType.RECIPE, NPRecipesData::addRecipes);
+        registrum.addDataGenerator(ProviderType.RECIPE, NPRecipesGen::addRecipes);
     }
 
     @SubscribeEvent

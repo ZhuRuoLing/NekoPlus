@@ -32,4 +32,9 @@ public record GenericEnhancementModuleType<T extends NPEnhancementModule>(
     @Override
     public void postAssemble(ItemStack itemStack) {
     }
+
+    @Override
+    public int installationLimit() {
+        return 1;
+    }
 }
