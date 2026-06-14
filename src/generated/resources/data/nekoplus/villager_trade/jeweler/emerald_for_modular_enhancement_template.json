@@ -1,0 +1,17 @@
+{
+  "additional_wants": {
+    "count": 8.0,
+    "id": "anvilcraft:processor"
+  },
+  "gives": {
+    "count": 4,
+    "id": "nekoplus:modular_enhancement_template"
+  },
+  "max_uses": 16.0,
+  "reputation_discount": 0.5,
+  "wants": {
+    "count": 4.0,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10.0
+}

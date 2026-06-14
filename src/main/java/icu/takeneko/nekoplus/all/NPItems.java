@@ -2,6 +2,7 @@ package icu.takeneko.nekoplus.all;
 
 import dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry;
 import dev.anvilcraft.lib.v2.util.predicate.ChanceItemStack;
+import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
@@ -92,6 +93,36 @@ public class NPItems {
 
     public static final ItemEntry<ModularSmithingTemplate> MODULAR_ENHANCEMENT_TEMPLATE = NekoPlus.REGISTRUM
         .item("modular_enhancement_template", ModularSmithingTemplate::new)
+        .tag(ModItemTags.TEMPLATES)
+        .register();
+
+    public static final ItemEntry<Item> ENHANCEMENT_MODULE_BASE = NekoPlus.REGISTRUM
+        .item("enhancement_module_base", Item::new)
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 16)
+                .pattern("DC ")
+                .pattern("BAB")
+                .define('A', INTEGRATED_CHIP_CIRCUIT_BOARD)
+                .define('B', Items.COPPER_INGOT)
+                .define('C', ModBlocks.POWER_CONVERTER_SMALL)
+                .define('D', ModItems.CAPACITOR_EMPTY)
+                .unlockedBy(
+                    "has_" + INTEGRATED_CHIP_CIRCUIT_BOARD.getRegisteredName(),
+                    prov.has(INTEGRATED_CHIP_CIRCUIT_BOARD)
+                )
+                .unlockedBy(
+                    "has_" + prov.safeName(Items.COPPER_INGOT),
+                    prov.has(Items.COPPER_INGOT)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.POWER_CONVERTER_SMALL.getRegisteredName(),
+                    prov.has(ModBlocks.POWER_CONVERTER_SMALL)
+                )
+                .unlockedBy(
+                    "has_" + ModItems.CAPACITOR_EMPTY.getRegisteredName(),
+                    prov.has(ModItems.CAPACITOR_EMPTY)
+                );
+        })
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM

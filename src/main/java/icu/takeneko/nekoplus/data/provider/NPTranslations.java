@@ -1,4 +1,4 @@
-package icu.takeneko.nekoplus.data;
+package icu.takeneko.nekoplus.data.provider;
 
 import dev.anvilcraft.lib.v2.registrum.providers.RegistrumLangProvider;
 import icu.takeneko.nekoplus.all.NPItemTooltips;
@@ -46,6 +46,7 @@ public class NPTranslations {
         provider.add("tooltip.nekoplus.modular_enhancement_template.additions_slot_description", "Add Advanced Processor");
 
         provider.add("tooltip.nekoplus.enhancement_module.no_module", "No enhancement module installed");
+        provider.add("tooltip.nekoplus.enhancement_module.enhancement_modules", "Enhancement Modules:");
 
         provider.add("tooltip.format.indent_list", "  - %s");
         provider.add("tooltip.format.indent", "    %s");

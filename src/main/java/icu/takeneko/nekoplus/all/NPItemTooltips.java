@@ -56,13 +56,26 @@ public class NPItemTooltips {
             List<NPEnhancementModule> modules = itemStack.get(NPDataComponents.ENHANCEMENT_MODULE);
             if (modules.isEmpty()) {
                 components.add(
-                    Component.translatable("tooltip.nekoplus.enhancement_module.no_module")
-                        .withStyle(ChatFormatting.GRAY)
+                    TooltipUtils.itemAtlasSprite(NPItems.ADVANCED_PROCESSOR, 1)
+                        .append(
+                            Component.translatable("tooltip.nekoplus.enhancement_module.no_module")
+                                .withStyle(ChatFormatting.GRAY)
+                        )
                 );
             } else {
+                components.add(
+                    TooltipUtils.itemAtlasSprite(NPItems.ADVANCED_PROCESSOR, 1)
+                        .append(
+                            Component.translatable("tooltip.nekoplus.enhancement_module.enhancement_modules")
+                                .withStyle(ChatFormatting.DARK_GREEN)
+                        )
+                );
                 for (NPEnhancementModule module : modules) {
                     components.add(
-                        TooltipUtils.indentList(module.name())
+                        TooltipUtils.indentList(
+                            TooltipUtils.itemAtlasSprite(module.getType().itemHolder())
+                                .append(module.name())
+                        )
                     );
                     for (Component component : module.tooltip()) {
                         components.add(TooltipUtils.indent(component));

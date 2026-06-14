@@ -83,5 +83,16 @@
   "ui.programmable_logic_gate.green": "設定引腳: 綠色",
   "ui.programmable_logic_gate.pin_mode": "引腳模式 ",
   "ui.programmable_logic_gate.red": "設定引腳: 紅色",
-  "ui.programmable_logic_gate.white": "設定引腳: 白色"
+  "ui.programmable_logic_gate.white": "設定引腳: 白色",
+  "block.nekoplus.test": "Test",
+  "item.nekoplus.modular_enhancement_template": "增強模組模板",
+  "item.nekoplus.test": "Test",
+  "tooltip.format.indent": "    %s",
+  "tooltip.format.indent_list": "  - %s",
+  "tooltip.nekoplus.advanced_processor": "燈↑ 等↓燈↑等↓燈↑",
+  "tooltip.nekoplus.cat_anvil": "喵~",
+  "tooltip.nekoplus.enhancement_module.no_module": "未安裝增強模組",
+  "tooltip.nekoplus.modular_enhancement_template.additions_slot_description": "放入高級處理器",
+  "tooltip.nekoplus.modular_enhancement_template.applies_to": "任意裝備",
+  "tooltip.nekoplus.modular_enhancement_template.base_slot_description": "放入任何盔甲、武器或工具"
 }

@@ -1,4 +1,4 @@
-package icu.takeneko.nekoplus.data;
+package icu.takeneko.nekoplus.data.provider;
 
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPSoundEvents;

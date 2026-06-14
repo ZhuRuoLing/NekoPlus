@@ -83,5 +83,16 @@
   "ui.programmable_logic_gate.green": "ピンを設定: 緑",
   "ui.programmable_logic_gate.pin_mode": "ピンモード ",
   "ui.programmable_logic_gate.red": "ピンを設定: 赤",
-  "ui.programmable_logic_gate.white": "ピンを設定: 白"
+  "ui.programmable_logic_gate.white": "ピンを設定: 白",
+  "block.nekoplus.test": "テスト",
+  "item.nekoplus.modular_enhancement_template": "モジュール強化テンプレート",
+  "item.nekoplus.test": "テスト",
+  "tooltip.format.indent": "    %s",
+  "tooltip.format.indent_list": "  - %s",
+  "tooltip.nekoplus.advanced_processor": "♪Intelのジングル♪",
+  "tooltip.nekoplus.cat_anvil": "にゃ~",
+  "tooltip.nekoplus.enhancement_module.no_module": "強化モジュールが取り付けられていません",
+  "tooltip.nekoplus.modular_enhancement_template.additions_slot_description": "高度なプロセッサを追加",
+  "tooltip.nekoplus.modular_enhancement_template.applies_to": "任意の装備",
+  "tooltip.nekoplus.modular_enhancement_template.base_slot_description": "任意の防具、武器、道具を追加"
 }

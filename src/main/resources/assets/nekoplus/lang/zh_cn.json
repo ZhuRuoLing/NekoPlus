@@ -87,5 +87,12 @@
   "block.nekoplus.test": "Test",
   "item.nekoplus.modular_enhancement_template": "增强模块模板",
   "tooltip.nekoplus.advanced_processor": "灯↑ 等↓灯↑等↓灯↑",
-  "tooltip.nekoplus.cat_anvil": "喵~"
+  "tooltip.nekoplus.cat_anvil": "喵~",
+  "item.nekoplus.test": "Test",
+  "tooltip.format.indent": "    %s",
+  "tooltip.format.indent_list": "  - %s",
+  "tooltip.nekoplus.enhancement_module.no_module": "未安装增强模块",
+  "tooltip.nekoplus.modular_enhancement_template.additions_slot_description": "放入高级处理器",
+  "tooltip.nekoplus.modular_enhancement_template.applies_to": "任意装备",
+  "tooltip.nekoplus.modular_enhancement_template.base_slot_description": "放入任何盔甲，武器或工具"
 }

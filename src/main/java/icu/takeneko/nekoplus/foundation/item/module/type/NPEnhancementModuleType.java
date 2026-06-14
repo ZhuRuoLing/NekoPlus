@@ -4,10 +4,12 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.nekoplus.all.NPRegistries;
 import icu.takeneko.nekoplus.foundation.item.module.NPEnhancementModule;
+import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
@@ -26,4 +28,6 @@ public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
     NPEnhancementModule.Factory<T> factory();
 
     boolean appliesTo(ItemStack itemStack);
+
+    Holder<Item> itemHolder();
 }
