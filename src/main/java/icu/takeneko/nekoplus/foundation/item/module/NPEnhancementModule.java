@@ -8,6 +8,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 
 import java.util.List;
 
@@ -30,6 +31,8 @@ public interface NPEnhancementModule {
         .apply(NPEnhancementModule.STREAM_CODEC);
 
     void inventoryTick(Player player, ItemStack itemStack);
+
+    void applyAttributeModifier(ItemAttributeModifierEvent event);
 
     Component name();
 

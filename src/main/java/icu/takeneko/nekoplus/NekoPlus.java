@@ -5,9 +5,12 @@ import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPCreativeTabs;
 import icu.takeneko.nekoplus.all.NPDataComponents;
+import icu.takeneko.nekoplus.all.NPEnhancementModules;
 import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.all.NPRecipeTypes;
 import icu.takeneko.nekoplus.all.NPSoundEvents;
+import icu.takeneko.nekoplus.all.NPStructurePieces;
+import icu.takeneko.nekoplus.all.NPStructureTypes;
 import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.data.NPDataGen;
 import net.minecraft.core.registries.Registries;
@@ -46,6 +49,9 @@ public class NekoPlus {
         NPSoundEvents.DR.register(modEventBus);
         NPRecipeTypes.DR.register(modEventBus);
         NPRecipeTypes.RECIPE_SERIALIZER_DR.register(modEventBus);
+        NPEnhancementModules.DR.register(modEventBus);
+        NPStructureTypes.DR.register(modEventBus);
+        NPStructurePieces.DR.register(modEventBus);
     }
 
     public static Identifier location(String path) {

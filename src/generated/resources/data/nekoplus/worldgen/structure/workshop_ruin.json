@@ -1,0 +1,6 @@
+{
+  "type": "nekoplus:workshop_ruin",
+  "biomes": "#nekoplus:has_structure/ruin",
+  "spawn_overrides": {},
+  "step": "surface_structures"
+}

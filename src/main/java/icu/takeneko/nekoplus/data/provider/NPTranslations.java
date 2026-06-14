@@ -48,6 +48,8 @@ public class NPTranslations {
         provider.add("tooltip.nekoplus.enhancement_module.no_module", "No enhancement module installed");
         provider.add("tooltip.nekoplus.enhancement_module.enhancement_modules", "Enhancement Modules:");
 
+        provider.add("tooltip.nekoplus.enhancement_module.anti_gravity.name", "Anti Gravity");
+
         provider.add("tooltip.format.indent_list", "  - %s");
         provider.add("tooltip.format.indent", "    %s");
     }

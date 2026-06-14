@@ -11,6 +11,8 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.foundation.item.module.impl.AntiGravityModule;
+import icu.takeneko.nekoplus.item.EnhancementModuleItem;
 import icu.takeneko.nekoplus.item.ModularSmithingTemplate;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
@@ -123,6 +125,10 @@ public class NPItems {
                     prov.has(ModItems.CAPACITOR_EMPTY)
                 );
         })
+        .register();
+
+    public static final ItemEntry<EnhancementModuleItem<AntiGravityModule>> ANTI_GRAVITY_MODULE = NekoPlus.REGISTRUM
+        .item("anti_gravity_module", p -> new EnhancementModuleItem<>(p, AntiGravityModule.TYPE))
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM

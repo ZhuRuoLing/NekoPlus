@@ -8,6 +8,8 @@ import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.foundation.Tickable;
+import icu.takeneko.nekoplus.foundation.item.module.NPEnhancementModule;
+import icu.takeneko.nekoplus.foundation.item.module.type.NPEnhancementModuleType;
 import icu.takeneko.nekoplus.internal.StampingPlatformsInternals;
 import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import net.minecraft.client.Minecraft;
@@ -37,6 +39,7 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
@@ -62,30 +65,22 @@ public class NPEvents {
             NPBlockEntities.TEST.get(),
             (blockEntity, context) -> blockEntity
         );
-
-//        event.registerBlockEntity(
-//            Capabilities.Item.BLOCK,
-//            NPBlockEntities.ITEM_INPUT_HATCH.get(),
-//            HatchLogic::getCapability
-//        );
-//
-//        event.registerBlockEntity(
-//            Capabilities.Item.BLOCK,
-//            NPBlockEntities.ITEM_OUTPUT_HATCH.get(),
-//            HatchLogic::getCapability
-//        );
-//
-//        event.registerBlockEntity(
-//            Capabilities.Energy.BLOCK,
-//            NPBlockEntities.ENERGY_OUTPUT_HATCH.get(),
-//            HatchLogic::getCapability
-//        );
     }
 
     @SubscribeEvent
     public static void on(OnDatapackSyncEvent event) {
         event.sendRecipes(NPRecipeTypes.LASER_ETCHING);
         event.sendRecipes(NPRecipeTypes.AIR_CONDENSING);
+    }
+
+    @SubscribeEvent
+    public static void on(ItemAttributeModifierEvent event) {
+        ItemStack itemStack = event.getItemStack();
+        List<NPEnhancementModule> list = itemStack.get(NPDataComponents.ENHANCEMENT_MODULE);
+        if (list == null || list.isEmpty()) return;
+        for (NPEnhancementModule module : list) {
+            module.applyAttributeModifier(event);
+        }
     }
 
     @SubscribeEvent

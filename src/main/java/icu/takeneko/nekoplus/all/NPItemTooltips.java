@@ -102,5 +102,7 @@ public class NPItemTooltips {
         tooltip(NPItems.DRY_ICE, "CO₂");
         tooltip(NPItems.ADVANCED_PROCESSOR, "*Intel Jingles*");
 
+        tooltip(NPItems.ANTI_GRAVITY_MODULE, "Grants creative flight and removes air mining penalty.");
+
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -29,5 +30,25 @@ public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
 
     boolean appliesTo(ItemStack itemStack);
 
+    void postAssemble(ItemStack itemStack);
+
     Holder<Item> itemHolder();
+
+    static <T1 extends NPEnhancementModule> GenericEnhancementModuleType<T1> generic(
+        Identifier name,
+        MapCodec<T1> codec,
+        StreamCodec<RegistryFriendlyByteBuf, T1> streamCodec,
+        NPEnhancementModule.Factory<T1> factory,
+        Holder<Item> itemHolder,
+        EquipmentSlotGroup slotGroup
+    ){
+        return new GenericEnhancementModuleType<>(
+            name,
+            codec,
+            streamCodec,
+            factory,
+            itemHolder,
+            slotGroup
+        );
+    }
 }

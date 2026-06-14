@@ -1,6 +1,7 @@
 package icu.takeneko.nekoplus.data.provider;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
@@ -16,17 +17,26 @@ public abstract class NPDataProvider<T> implements DataProvider {
     private final Codec<T> codec;
     private final String prefix;
     private final PackOutput.PathProvider pathProvider;
+    private final CompletableFuture<HolderLookup.Provider> holderFuture;
 
-    public NPDataProvider(PackOutput output, Codec<T> codec, String prefix, String kind, boolean isData) {
+    public NPDataProvider(
+        PackOutput output,
+        Codec<T> codec,
+        String prefix,
+        String kind,
+        boolean isData,
+        CompletableFuture<HolderLookup.Provider> holderLookup
+    ) {
         this.codec = codec;
         this.prefix = prefix;
         this.pathProvider = output.createPathProvider(
             isData ? PackOutput.Target.DATA_PACK : PackOutput.Target.RESOURCE_PACK,
             kind
         );
+        this.holderFuture = holderLookup;
     }
 
-    protected abstract void addEntries();
+    protected abstract void addEntries(HolderLookup.Provider registries);
 
     protected void add(Identifier location, T t) {
         elements.put(location, t);
@@ -34,11 +44,20 @@ public abstract class NPDataProvider<T> implements DataProvider {
 
     @Override
     public @NonNull CompletableFuture<?> run(@NonNull CachedOutput cache) {
-        this.addEntries();
+        return this.holderFuture.thenCompose(registries -> this.run(cache, registries));
+    }
+
+    private CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registries) {
+        this.addEntries(registries);
         CompletableFuture<?>[] futures = new CompletableFuture[elements.size()];
         int i = 0;
         for (Map.Entry<Identifier, T> entry : elements.entrySet()) {
-            futures[i++] = DataProvider.saveStable(cache, codec, entry.getValue(), this.pathProvider.json(entry.getKey().withPrefix(prefix)));
+            futures[i++] = DataProvider.saveStable(
+                cache,
+                codec,
+                entry.getValue(),
+                this.pathProvider.json(entry.getKey().withPrefix(prefix))
+            );
         }
         return CompletableFuture.allOf(futures);
     }
