@@ -18,7 +18,8 @@ public record GenericEnhancementModuleType<T extends NPEnhancementModule>(
     StreamCodec<RegistryFriendlyByteBuf, T> streamCodec,
     NPEnhancementModule.Factory<T> factory,
     Holder<Item> itemHolder,
-    EquipmentSlotGroup slotGroup
+    EquipmentSlotGroup slotGroup,
+    int installationLimit
 ) implements NPEnhancementModuleType<T> {
     @Override
     public boolean appliesTo(ItemStack itemStack) {
@@ -31,10 +32,5 @@ public record GenericEnhancementModuleType<T extends NPEnhancementModule>(
 
     @Override
     public void postAssemble(ItemStack itemStack) {
-    }
-
-    @Override
-    public int installationLimit() {
-        return 1;
     }
 }

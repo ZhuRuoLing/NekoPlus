@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "nekoplus:enhancement_module_base",
+    "B": "nekoplus:titanium_alloy_block"
+  },
+  "pattern": [
+    "BBB",
+    "BAB",
+    "B B"
+  ],
+  "result": {
+    "count": 16,
+    "id": "nekoplus:titanium_crystal_module"
+  }
+}

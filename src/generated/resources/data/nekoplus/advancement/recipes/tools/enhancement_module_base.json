@@ -1,0 +1,65 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anvilcraft:capacitor_empty": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:capacitor_empty"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_anvilcraft:power_converter_small": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:power_converter_small"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_copper_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:copper_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nekoplus:integrated_chip_circuit_board": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:integrated_chip_circuit_board"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekoplus:enhancement_module_base"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nekoplus:integrated_chip_circuit_board",
+      "has_copper_ingot",
+      "has_anvilcraft:power_converter_small",
+      "has_anvilcraft:capacitor_empty"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekoplus:enhancement_module_base"
+    ]
+  }
+}

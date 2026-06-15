@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "nekoplus:integrated_chip_circuit_board",
+    "B": "minecraft:copper_ingot",
+    "C": "anvilcraft:power_converter_small",
+    "D": "anvilcraft:capacitor_empty"
+  },
+  "pattern": [
+    "DC ",
+    "BAB"
+  ],
+  "result": {
+    "count": 16,
+    "id": "nekoplus:enhancement_module_base"
+  }
+}

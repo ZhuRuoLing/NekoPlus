@@ -36,7 +36,22 @@ public class ModuleAssembleRecipe extends CustomRecipe {
         int equipmentCount = 0;
         List<ItemStack> modules = new ArrayList<>();
         ItemStack equipment = null;
-        List<NPEnhancementModuleType<?>> moduleTypes = new ArrayList<>();
+        for (ItemStack item : input.items()) {
+            if (item.is(Tags.Items.TOOLS) || item.is(Tags.Items.ARMORS) || item.is(Items.ELYTRA)) {
+                equipmentCount++;
+                equipment = item;
+            }
+        }
+        if (equipmentCount != 1) return false;
+        if (!equipment.has(NPDataComponents.ENHANCEMENT_MODULE)) return false;
+
+        List<NPEnhancementModuleType<?>> moduleTypes = new ArrayList<>(
+            equipment.get(NPDataComponents.ENHANCEMENT_MODULE)
+                .stream()
+                .map(NPEnhancementModule::getType)
+                .toList()
+        );
+
         for (ItemStack item : input.items()) {
             if (item.getItem() instanceof EnhancementModuleItem<?> moduleItem) {
                 moduleCount++;
@@ -45,20 +60,15 @@ public class ModuleAssembleRecipe extends CustomRecipe {
                 long count = moduleTypes.stream()
                     .filter(it -> it == moduleType)
                     .count();
-                System.out.println("count = " + count);
                 if ((count + 1) > moduleType.installationLimit()) {
                     return false;
                 } else {
                     moduleTypes.add(moduleType);
                 }
             }
-            if (item.is(Tags.Items.TOOLS) || item.is(Tags.Items.ARMORS) || item.is(Items.ELYTRA)) {
-                equipmentCount++;
-                equipment = item;
-            }
         }
 
-        if (equipmentCount != 1 || moduleCount == 0) {
+        if (moduleCount == 0) {
             return false;
         }
         for (ItemStack module : modules) {
@@ -69,12 +79,6 @@ public class ModuleAssembleRecipe extends CustomRecipe {
                 continue;
             }
             return false;
-        }
-        if (!equipment.has(NPDataComponents.ENHANCEMENT_MODULE)) return false;
-        for (NPEnhancementModule module : equipment.get(NPDataComponents.ENHANCEMENT_MODULE)) {
-            if (moduleTypes.contains(module.getType())) {
-                return false;
-            }
         }
         return true;
     }

@@ -96,5 +96,11 @@
   "tooltip.nekoplus.modular_enhancement_template.applies_to": "任意装备",
   "tooltip.nekoplus.modular_enhancement_template.base_slot_description": "放入任何盔甲，武器或工具",
   "item.nekoplus.enhancement_module_base": "增强模块基底",
-  "tooltip.nekoplus.enhancement_module.enhancement_modules": "已安装的增强:"
+  "tooltip.nekoplus.enhancement_module.enhancement_modules": "已安装的增强:",
+  "item.nekoplus.anti_gravity_module": "反重力引擎增强模块",
+  "item.nekoplus.titanium_crystal_module": "钛晶锋刃增强模块",
+  "tooltip.nekoplus.anti_gravity_module": "启用创造飞行并移除飞行挖掘惩罚",
+  "tooltip.nekoplus.enhancement_module.anti_gravity.name": "反重力",
+  "tooltip.nekoplus.titanium_crystal_module": "Ti-Fe 合金通过特定热处理和非晶化工艺，在保持强度的同时克服了脆性问题。",
+  "tooltip.nekoplus.titanium_crystal_module.desc": "增加30%的攻击伤害"
 }

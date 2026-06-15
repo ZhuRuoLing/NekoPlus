@@ -12,6 +12,8 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.foundation.item.module.impl.AntiGravityModule;
+import icu.takeneko.nekoplus.foundation.item.module.impl.MechanicalHeartModule;
+import icu.takeneko.nekoplus.foundation.item.module.impl.TitaniumCrystalModule;
 import icu.takeneko.nekoplus.item.EnhancementModuleItem;
 import icu.takeneko.nekoplus.item.ModularSmithingTemplate;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
@@ -123,12 +125,36 @@ public class NPItems {
                 .unlockedBy(
                     "has_" + ModItems.CAPACITOR_EMPTY.getRegisteredName(),
                     prov.has(ModItems.CAPACITOR_EMPTY)
-                );
+                ).save(prov);
         })
         .register();
 
     public static final ItemEntry<EnhancementModuleItem<AntiGravityModule>> ANTI_GRAVITY_MODULE = NekoPlus.REGISTRUM
         .item("anti_gravity_module", p -> new EnhancementModuleItem<>(p, AntiGravityModule.TYPE))
+        .register();
+
+    public static final ItemEntry<EnhancementModuleItem<TitaniumCrystalModule>> TITANIUM_CRYSTAL_MODULE = NekoPlus.REGISTRUM
+        .item("titanium_crystal_module", p -> new EnhancementModuleItem<>(p, TitaniumCrystalModule.TYPE))
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 16)
+                .pattern("BBB")
+                .pattern("BAB")
+                .pattern("B B")
+                .define('A', ENHANCEMENT_MODULE_BASE)
+                .define('B', NPBlocks.TITANIUM_ALLOY_BLOCK)
+                .unlockedBy(
+                    "has_" + ENHANCEMENT_MODULE_BASE.getRegisteredName(),
+                    prov.has(ENHANCEMENT_MODULE_BASE)
+                )
+                .unlockedBy(
+                    "has_" + NPBlocks.TITANIUM_ALLOY_BLOCK.getRegisteredName(),
+                    prov.has(NPBlocks.TITANIUM_ALLOY_BLOCK)
+                ).save(prov);
+        })
+        .register();
+
+    public static final ItemEntry<EnhancementModuleItem<MechanicalHeartModule>> MECHANICAL_HEART_MODULE = NekoPlus.REGISTRUM
+        .item("mechanical_heart_module", p -> new EnhancementModuleItem<>(p, MechanicalHeartModule.TYPE))
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM

@@ -50,7 +50,28 @@ public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
             streamCodec,
             factory,
             itemHolder,
-            slotGroup
+            slotGroup,
+            1
+        );
+    }
+
+    static <T1 extends NPEnhancementModule> GenericEnhancementModuleType<T1> generic(
+        Identifier name,
+        MapCodec<T1> codec,
+        StreamCodec<RegistryFriendlyByteBuf, T1> streamCodec,
+        NPEnhancementModule.Factory<T1> factory,
+        Holder<Item> itemHolder,
+        EquipmentSlotGroup slotGroup,
+        int installationLimit
+    ){
+        return new GenericEnhancementModuleType<>(
+            name,
+            codec,
+            streamCodec,
+            factory,
+            itemHolder,
+            slotGroup,
+            installationLimit
         );
     }
 }
