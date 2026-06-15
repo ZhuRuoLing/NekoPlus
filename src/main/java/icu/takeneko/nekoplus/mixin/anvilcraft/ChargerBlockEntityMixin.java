@@ -30,9 +30,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPOverclockablePowerConsumer, ChargerBlockEntityInternals.Extension {
 
     @Shadow
-    private boolean isCharger;
-
-    @Shadow
     private int timeLeft;
 
     @Shadow
@@ -103,7 +100,7 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
 
     @Override
     public boolean isOverclockable() {
-        return isCharger && np$ocEnabled && isGridWorking() && timeLeft > 0 && !getBlockState().getValue(ChargerBlock.POWERED);
+        return np$ocEnabled && isGridWorking() && timeLeft > 0 && !getBlockState().getValue(ChargerBlock.POWERED);
     }
 
     @Override
@@ -118,7 +115,7 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
 
     @Override
     public int getBaseInputPower() {
-        return (isCharger && !this.getBlockState().getValue(ChargerBlock.POWERED)) ? -powerValue : 0;
+        return (!this.getBlockState().getValue(ChargerBlock.POWERED)) ? -powerValue : 0;
     }
 
     @Overwrite
