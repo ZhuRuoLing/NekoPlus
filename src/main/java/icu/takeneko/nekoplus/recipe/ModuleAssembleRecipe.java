@@ -17,9 +17,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ModuleAssembleRecipe extends CustomRecipe {
     public static final Identifier NAME = NekoPlus.location("crafting_module_assemble");

@@ -16,7 +16,7 @@ public class NPDataComponents {
     );
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<NPEnhancementModule>>> ENHANCEMENT_MODULE = DR.register(
-        "entangle_anvilon_uuid",
+        "enhancement_module",
         () -> DataComponentType.<List<NPEnhancementModule>>builder()
             .persistent(NPEnhancementModule.LIST_CODEC)
             .networkSynchronized(NPEnhancementModule.LIST_STREAM_CODEC)
