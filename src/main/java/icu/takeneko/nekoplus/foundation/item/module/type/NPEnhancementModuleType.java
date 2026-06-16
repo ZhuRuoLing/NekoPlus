@@ -13,6 +13,8 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.List;
+
 public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
     Codec<NPEnhancementModuleType<?>> CODEC = Codec.lazyInitialized(() -> NPRegistries.getEnhancementModuleTypeRegistry().byNameCodec());
 
@@ -34,6 +36,8 @@ public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
 
     Holder<Item> itemHolder();
 
+    List<EquipmentSlotGroup> applicableItemSlots();
+
     int installationLimit();
 
     static <T1 extends NPEnhancementModule> GenericEnhancementModuleType<T1> generic(
@@ -50,7 +54,7 @@ public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
             streamCodec,
             factory,
             itemHolder,
-            slotGroup,
+            List.of(slotGroup),
             1
         );
     }
@@ -70,7 +74,7 @@ public interface NPEnhancementModuleType<T extends NPEnhancementModule> {
             streamCodec,
             factory,
             itemHolder,
-            slotGroup,
+            List.of(slotGroup),
             installationLimit
         );
     }

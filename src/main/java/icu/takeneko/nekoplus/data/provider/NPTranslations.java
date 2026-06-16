@@ -48,9 +48,23 @@ public class NPTranslations {
         provider.add("tooltip.nekoplus.enhancement_module.no_module", "No enhancement module installed");
         provider.add("tooltip.nekoplus.enhancement_module.enhancement_modules", "Enhancement Modules:");
 
+        provider.add("tooltip.nekoplus.enhancement_module.slot.any", "Any Item");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.mainhand", "Any Item");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.offhand", "Any Item in Offhand");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.hand", "Any Item in Mainhand");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.feet", "Boots");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.legs", "Leggings");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.chest", "Chestplate");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.head", "Helmet");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.armor", "Any Body Armor");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.body", "Any Armor");
+        provider.add("tooltip.nekoplus.enhancement_module.slot.saddle", "Saddle");
+
         provider.add("tooltip.nekoplus.enhancement_module.anti_gravity.name", "Anti Gravity");
         provider.add("tooltip.nekoplus.titanium_crystal_module.desc", "Increases attack damage by 30%");
         provider.add("tooltip.nekoplus.mechanical_heart.desc", "Increases max health by 30%");
+
+
 
         provider.add("tooltip.format.indent_list", "  %s");
         provider.add("tooltip.format.indent", "    %s");

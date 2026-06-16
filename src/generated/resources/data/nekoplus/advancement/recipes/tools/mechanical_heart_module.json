@@ -1,0 +1,76 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anvilcraft:capacitor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:capacitor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_anvilcraft:fluid_tank": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:fluid_tank"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_anvilcraft:magnetic_chute": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:magnetic_chute"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_anvilcraft:magnetoelectric_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:magnetoelectric_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nekoplus:enhancement_module_base": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:enhancement_module_base"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekoplus:mechanical_heart_module"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nekoplus:enhancement_module_base",
+      "has_anvilcraft:magnetoelectric_core",
+      "has_anvilcraft:magnetic_chute",
+      "has_anvilcraft:capacitor",
+      "has_anvilcraft:fluid_tank"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekoplus:mechanical_heart_module"
+    ]
+  }
+}

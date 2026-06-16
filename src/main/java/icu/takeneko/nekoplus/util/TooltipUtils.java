@@ -14,7 +14,7 @@ public class TooltipUtils {
         return Component.translatable("tooltip.format.indent_list", content);
     }
 
-    public static Component indent(Component content) {
+    public static MutableComponent indent(Component content) {
         return Component.translatable("tooltip.format.indent", content);
     }
 

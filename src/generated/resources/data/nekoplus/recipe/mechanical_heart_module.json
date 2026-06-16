@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "nekoplus:enhancement_module_base",
+    "B": "anvilcraft:magnetoelectric_core",
+    "C": "anvilcraft:magnetic_chute",
+    "D": "anvilcraft:capacitor",
+    "E": "anvilcraft:fluid_tank"
+  },
+  "pattern": [
+    "BCB",
+    "DED",
+    "BAB"
+  ],
+  "result": {
+    "count": 16,
+    "id": "nekoplus:mechanical_heart_module"
+  }
+}

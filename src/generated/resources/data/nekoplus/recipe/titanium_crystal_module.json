@@ -7,8 +7,8 @@
   },
   "pattern": [
     "BBB",
-    "BAB",
-    "B B"
+    "B B",
+    "BAB"
   ],
   "result": {
     "count": 16,

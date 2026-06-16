@@ -12,22 +12,26 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.equipment.Equippable;
 
+import java.util.List;
+
 public record GenericEnhancementModuleType<T extends NPEnhancementModule>(
     Identifier name,
     MapCodec<T> codec,
     StreamCodec<RegistryFriendlyByteBuf, T> streamCodec,
     NPEnhancementModule.Factory<T> factory,
     Holder<Item> itemHolder,
-    EquipmentSlotGroup slotGroup,
+    List<EquipmentSlotGroup> applicableItemSlots,
     int installationLimit
 ) implements NPEnhancementModuleType<T> {
     @Override
     public boolean appliesTo(ItemStack itemStack) {
         Equippable equippable = itemStack.get(DataComponents.EQUIPPABLE);
         if (equippable != null) {
-            return slotGroup.test(equippable.slot());
+            return applicableItemSlots.stream().allMatch(it -> it.test(equippable.slot()));
         }
-        return slotGroup == EquipmentSlotGroup.HAND || slotGroup == EquipmentSlotGroup.MAINHAND || slotGroup == EquipmentSlotGroup.OFFHAND;
+        return applicableItemSlots.contains(EquipmentSlotGroup.HAND)
+            || applicableItemSlots.contains(EquipmentSlotGroup.MAINHAND)
+            || applicableItemSlots.contains(EquipmentSlotGroup.OFFHAND);
     }
 
     @Override

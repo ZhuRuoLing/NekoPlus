@@ -138,8 +138,8 @@ public class NPItems {
         .recipe((ctx, prov) -> {
             ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 16)
                 .pattern("BBB")
-                .pattern("BAB")
                 .pattern("B B")
+                .pattern("BAB")
                 .define('A', ENHANCEMENT_MODULE_BASE)
                 .define('B', NPBlocks.TITANIUM_ALLOY_BLOCK)
                 .unlockedBy(
@@ -155,6 +155,38 @@ public class NPItems {
 
     public static final ItemEntry<EnhancementModuleItem<MechanicalHeartModule>> MECHANICAL_HEART_MODULE = NekoPlus.REGISTRUM
         .item("mechanical_heart_module", p -> new EnhancementModuleItem<>(p, MechanicalHeartModule.TYPE))
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 16)
+                .pattern("BCB")
+                .pattern("DED")
+                .pattern("BAB")
+                .define('A', ENHANCEMENT_MODULE_BASE)
+                .define('B', ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK)
+                .define('C', ModBlocks.MAGNETIC_CHUTE)
+                .define('D', ModItems.CAPACITOR)
+                .define('E', ModBlocks.FLUID_TANK)
+                .unlockedBy(
+                    "has_" + ENHANCEMENT_MODULE_BASE.getRegisteredName(),
+                    prov.has(ENHANCEMENT_MODULE_BASE)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK.getRegisteredName(),
+                    prov.has(ModBlocks.MAGNETO_ELECTRIC_CORE_BLOCK)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.MAGNETIC_CHUTE.getRegisteredName(),
+                    prov.has(ModBlocks.MAGNETIC_CHUTE)
+                )
+                .unlockedBy(
+                    "has_" + ModItems.CAPACITOR.getRegisteredName(),
+                    prov.has(ModItems.CAPACITOR)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.FLUID_TANK.getRegisteredName(),
+                    prov.has(ModBlocks.FLUID_TANK)
+                )
+                .save(prov);
+        })
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM
