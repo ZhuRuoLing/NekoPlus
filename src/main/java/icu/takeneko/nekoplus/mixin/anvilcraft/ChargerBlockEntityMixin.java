@@ -48,7 +48,6 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
         super(type, pos, blockState);
     }
 
-
     @ModifyConstant(
         method = "tick",
         constant = @Constant(intValue = 1, log = true)
@@ -64,8 +63,6 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
     private void handleCorrectlyMinus(Level level1, BlockPos blockPos, CallbackInfo ci){
         this.timeLeft = Math.clamp(timeLeft, 0, Integer.MAX_VALUE);
     }
-
-
 
     @Inject(
         method = "saveAdditional",
