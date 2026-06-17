@@ -93,7 +93,7 @@
   "tooltip.nekoplus.enhancement_module.slot.mainhand": "任意物品",
   "tooltip.nekoplus.enhancement_module.slot.offhand": "任意副手物品",
   "tooltip.nekoplus.enhancement_module.slot.saddle": "鞍",
-  "tooltip.nekoplus.exoskeletal_leg_frame_module.desc": "每個模組增加20%的移動速度，增加0.5格步行高度，並提高200%的跳躍高度",
+  "tooltip.nekoplus.exoskeletal_leg_frame_module.desc": "每個模組增加20%的移動速度，增加0.5格步行高度，並提高30%的跳躍高度",
   "tooltip.nekoplus.high_energy_laser": "1節更比64節強",
   "tooltip.nekoplus.mechanical_heart.desc": "增加30%的最大生命值",
   "tooltip.nekoplus.modular_enhancement_template.additions_slot_description": "放入高級處理器",

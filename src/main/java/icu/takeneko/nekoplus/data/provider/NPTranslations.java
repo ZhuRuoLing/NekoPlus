@@ -63,7 +63,7 @@ public class NPTranslations {
         provider.add("tooltip.nekoplus.enhancement_module.anti_gravity.name", "Anti Gravity");
         provider.add("tooltip.nekoplus.titanium_crystal_module.desc", "Increases attack damage by 30%");
         provider.add("tooltip.nekoplus.mechanical_heart.desc", "Increases max health by 30%");
-        provider.add("tooltip.nekoplus.exoskeletal_leg_frame_module.desc", "Increases movement speed by 20% per module, step height by 0.5, jump height by 200%");
+        provider.add("tooltip.nekoplus.exoskeletal_leg_frame_module.desc", "Increases movement speed by 20% per module, step height by 0.5, jump height by 30%");
 
 
 

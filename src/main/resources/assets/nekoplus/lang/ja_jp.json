@@ -93,7 +93,7 @@
   "tooltip.nekoplus.enhancement_module.slot.mainhand": "任意のアイテム",
   "tooltip.nekoplus.enhancement_module.slot.offhand": "任意のオフハンドアイテム",
   "tooltip.nekoplus.enhancement_module.slot.saddle": "鞍",
-  "tooltip.nekoplus.exoskeletal_leg_frame_module.desc": "モジュール1個ごとに移動速度が20%増加し、段差上り高さが0.5、ジャンプ高度が200%増加する",
+  "tooltip.nekoplus.exoskeletal_leg_frame_module.desc": "モジュール1個ごとに移動速度が20%増加し、段差上り高さが0.5、ジャンプ高度が30%増加する",
   "tooltip.nekoplus.high_energy_laser": "1本で64本分の強さ",
   "tooltip.nekoplus.mechanical_heart.desc": "最大体力を30%増加",
   "tooltip.nekoplus.modular_enhancement_template.additions_slot_description": "高度なプロセッサを追加",

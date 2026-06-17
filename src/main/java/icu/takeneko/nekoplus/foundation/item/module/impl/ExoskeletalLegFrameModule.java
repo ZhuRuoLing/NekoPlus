@@ -53,7 +53,7 @@ public class ExoskeletalLegFrameModule implements NPEnhancementModule {
         float speedMultiplier = 1;
         for (NPEnhancementModule module : moduleList) {
             if (module instanceof ExoskeletalLegFrameModule) {
-                speedMultiplier *= 1.2f;
+                speedMultiplier *= 1.1f;
             }
         }
 
@@ -73,7 +73,7 @@ public class ExoskeletalLegFrameModule implements NPEnhancementModule {
         );
         event.addModifier(
             Attributes.JUMP_STRENGTH,
-            new AttributeModifier(JUMP_STRENGTH_MODIFIER, 2, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+            new AttributeModifier(JUMP_STRENGTH_MODIFIER, 0.3, AttributeModifier.Operation.ADD_MULTIPLIED_BASE),
             EquipmentSlotGroup.LEGS
         );
     }
