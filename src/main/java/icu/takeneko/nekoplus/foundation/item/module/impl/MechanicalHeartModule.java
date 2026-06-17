@@ -37,7 +37,7 @@ public class MechanicalHeartModule implements NPEnhancementModule {
         () -> INSTANCE,
         NPItems.MECHANICAL_HEART_MODULE,
         EquipmentSlotGroup.CHEST,
-        4
+        5
     );
 
     @Override

@@ -12,6 +12,7 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.foundation.item.module.impl.AntiGravityModule;
+import icu.takeneko.nekoplus.foundation.item.module.impl.ExoskeletalLegFrameModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.MechanicalHeartModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.TitaniumCrystalModule;
 import icu.takeneko.nekoplus.item.EnhancementModuleItem;
@@ -187,6 +188,10 @@ public class NPItems {
                 )
                 .save(prov);
         })
+        .register();
+
+    public static final ItemEntry<EnhancementModuleItem<ExoskeletalLegFrameModule>> EXOSKELETAL_LEG_FRAME_MODULE = NekoPlus.REGISTRUM
+        .item("exoskeletal_leg_frame_module", p -> new EnhancementModuleItem<>(p, ExoskeletalLegFrameModule.TYPE))
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM
