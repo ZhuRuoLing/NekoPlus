@@ -115,7 +115,9 @@
   "tooltip.nekoplus.enhancement_module.slot.saddle": "鞍",
   "tooltip.nekoplus.titanium_crystal_module": "Ti-Fe 合金通过特定热处理和非晶化工艺，在保持强度的同时克服了脆性问题。",
   "tooltip.nekoplus.titanium_crystal_module.desc": "增加30%的攻击伤害",
-  "tooltip.nekoplus.exoskeletal_leg_frame_module.desc": "每个模块增加20%的移动速度，增加0.5格步行高度，并提高30%的跳跃高度",
   "item.nekoplus.mechanical_heart_module": "机械之心模块",
-  "tooltip.nekoplus.mechanical_heart.desc": "每个模块增加30%的血量"
+  "tooltip.nekoplus.mechanical_heart.desc": "每个模块增加30%的血量",
+  "item.nekoplus.hologram_projector_module": "全息投影模块",
+  "tooltip.nekoplus.exoskeletal_leg_frame_module": "每模块增加20%的移动速度，同时安装任意数量模块增加0.5步过高度，提升30%的跳跃高度",
+  "tooltip.nekoplus.hologram_projector_module": "以全息投影的方式显示额外信息"
 }
