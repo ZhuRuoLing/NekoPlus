@@ -1,0 +1,87 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anvilcraft:cut_heavy_iron_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": "anvilcraft:cut_heavy_iron_slab"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_blue_ice": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:blue_ice"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nekoplus:enhancement_module_base": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:enhancement_module_base"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nekoplus:royal_steel_casing": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:royal_steel_casing"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_nekoplus:stabilize_powder": {
+      "conditions": {
+        "items": [
+          {
+            "items": "nekoplus:stabilize_powder"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_sticky_piston": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:sticky_piston"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekoplus:exoskeletal_leg_frame_module"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_nekoplus:enhancement_module_base",
+      "has_nekoplus:stabilize_powder",
+      "has_nekoplus:royal_steel_casing",
+      "has_sticky_piston",
+      "has_blue_ice",
+      "has_anvilcraft:cut_heavy_iron_slab"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekoplus:exoskeletal_leg_frame_module"
+    ]
+  }
+}

@@ -1,10 +1,13 @@
 package icu.takeneko.nekoplus.mixin.anvilcraft;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.dubhe.anvilcraft.block.entity.ChargerBlockEntity;
 import dev.dubhe.anvilcraft.block.power.generator.ChargerBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.internal.ChargerBlockEntityInternals;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -12,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.objectweb.asm.Opcodes;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,6 +30,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @SuppressWarnings({"AddedMixinMembersNamePattern", "OverwriteAuthorRequired"})
 @Mixin(ChargerBlockEntity.class)
+@Debug(export = true)
 @ParametersAreNonnullByDefault
 public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPOverclockablePowerConsumer, ChargerBlockEntityInternals.Extension {
 
@@ -38,8 +43,10 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
     @Shadow
     private int powerValue;
 
+    @Shadow
+    private int feCooldown;
     @Unique
-    private int he$efficency = 1;
+    private int np$efficency = 1;
 
     @Unique
     private boolean np$ocEnabled = false;
@@ -48,27 +55,37 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
         super(type, pos, blockState);
     }
 
-    @ModifyConstant(
+    @WrapOperation(
         method = "tick",
-        constant = @Constant(intValue = 1, log = true)
+        at = @At(
+            value = "FIELD",
+            target = "Ldev/dubhe/anvilcraft/block/entity/ChargerBlockEntity;feCooldown:I",
+            opcode = Opcodes.PUTFIELD,
+            ordinal = 1
+        )
     )
-    private int handleMinus(int constant) {
-        return he$efficency;
+    private void handleMinusFeCd(ChargerBlockEntity instance, int value, Operation<Void> original) {
+        original.call(instance, Mth.clamp(this.feCooldown - np$efficency, 0, Integer.MAX_VALUE));
     }
 
-    @Inject(
+    @WrapOperation(
         method = "tick",
-        at = @At(value = "FIELD", target = "Ldev/dubhe/anvilcraft/block/entity/ChargerBlockEntity;timeLeft:I", opcode = Opcodes.GETFIELD, ordinal = 3)
+        at = @At(
+            value = "FIELD",
+            target = "Ldev/dubhe/anvilcraft/block/entity/ChargerBlockEntity;timeLeft:I",
+            opcode = Opcodes.PUTFIELD,
+            ordinal = 2
+        )
     )
-    private void handleCorrectlyMinus(Level level1, BlockPos blockPos, CallbackInfo ci){
-        this.timeLeft = Math.clamp(timeLeft, 0, Integer.MAX_VALUE);
+    private void handleMinusTl(ChargerBlockEntity instance, int value, Operation<Void> original) {
+        original.call(instance, Mth.clamp(this.timeLeft - np$efficency, 0, Integer.MAX_VALUE));
     }
 
     @Inject(
         method = "saveAdditional",
         at = @At("HEAD")
     )
-    void saveNP(ValueOutput output, CallbackInfo ci){
+    void saveNP(ValueOutput output, CallbackInfo ci) {
         output.putBoolean("oc_enabled", np$ocEnabled);
     }
 
@@ -76,13 +93,13 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
         method = "loadAdditional",
         at = @At("HEAD")
     )
-    void loadNP(ValueInput input, CallbackInfo ci){
+    void loadNP(ValueInput input, CallbackInfo ci) {
         this.np$ocEnabled = input.getBooleanOr("oc_enabled", false);
     }
 
     @Override
     public void setEfficiency(int value) {
-        he$efficency = value;
+        np$efficency = value;
     }
 
     @Override
@@ -123,7 +140,7 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
 
     @Override
     public int getOverclockedInputPower() {
-        return getBaseInputPower() * he$efficency;
+        return getBaseInputPower() * np$efficency;
     }
 
     @Override
@@ -138,6 +155,6 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
 
     @Override
     public int currentOverclockRatio() {
-        return he$efficency;
+        return np$efficency;
     }
 }

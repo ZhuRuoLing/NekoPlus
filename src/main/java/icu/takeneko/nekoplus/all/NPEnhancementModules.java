@@ -3,6 +3,7 @@ package icu.takeneko.nekoplus.all;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.foundation.item.module.impl.AntiGravityModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.ExoskeletalLegFrameModule;
+import icu.takeneko.nekoplus.foundation.item.module.impl.HologramProjectorModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.MechanicalHeartModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.TitaniumCrystalModule;
 import icu.takeneko.nekoplus.foundation.item.module.type.NPEnhancementModuleType;
@@ -37,5 +38,11 @@ public class NPEnhancementModules {
         DR.register(
             ExoskeletalLegFrameModule.NAME.getPath(),
             () -> ExoskeletalLegFrameModule.TYPE
+        );
+
+    public static final DeferredHolder<NPEnhancementModuleType<?>, NPEnhancementModuleType<?>> HOLOGRAM_PROJECTOR =
+        DR.register(
+            HologramProjectorModule.NAME.getPath(),
+            () -> HologramProjectorModule.TYPE
         );
 }

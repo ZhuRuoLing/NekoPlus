@@ -86,7 +86,7 @@ public class ExoskeletalLegFrameModule implements NPEnhancementModule {
     @Override
     public List<Component> tooltip() {
         return List.of(
-            Component.translatable("tooltip.nekoplus.exoskeletal_leg_frame_module.desc")
+            Component.translatable("tooltip.nekoplus.exoskeletal_leg_frame_module")
         );
     }
 

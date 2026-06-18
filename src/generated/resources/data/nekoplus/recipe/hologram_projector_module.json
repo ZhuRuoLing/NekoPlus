@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "nekoplus:enhancement_module_base",
+    "B": "minecraft:glass",
+    "C": "nekoplus:advanced_processor",
+    "D": "anvilcraft:ruby_prism",
+    "E": "anvilcraft:ruby_laser",
+    "F": "anvilcraft:induction_light"
+  },
+  "pattern": [
+    "BCD",
+    "B E",
+    "BAF"
+  ],
+  "result": {
+    "id": "nekoplus:hologram_projector_module"
+  }
+}

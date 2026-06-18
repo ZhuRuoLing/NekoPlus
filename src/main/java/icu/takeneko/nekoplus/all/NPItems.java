@@ -13,6 +13,7 @@ import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.foundation.item.module.impl.AntiGravityModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.ExoskeletalLegFrameModule;
+import icu.takeneko.nekoplus.foundation.item.module.impl.HologramProjectorModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.MechanicalHeartModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.TitaniumCrystalModule;
 import icu.takeneko.nekoplus.item.EnhancementModuleItem;
@@ -137,7 +138,7 @@ public class NPItems {
     public static final ItemEntry<EnhancementModuleItem<TitaniumCrystalModule>> TITANIUM_CRYSTAL_MODULE = NekoPlus.REGISTRUM
         .item("titanium_crystal_module", p -> new EnhancementModuleItem<>(p, TitaniumCrystalModule.TYPE))
         .recipe((ctx, prov) -> {
-            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 16)
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 1)
                 .pattern("BBB")
                 .pattern("B B")
                 .pattern("BAB")
@@ -154,10 +155,51 @@ public class NPItems {
         })
         .register();
 
+    public static final ItemEntry<EnhancementModuleItem<HologramProjectorModule>> HOLOGRAM_PROJECTOR_MODULE = NekoPlus.REGISTRUM
+        .item("hologram_projector_module", p -> new EnhancementModuleItem<>(p, HologramProjectorModule.TYPE))
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 1)
+                .pattern("BCD")
+                .pattern("B E")
+                .pattern("BAF")
+                .define('A', ENHANCEMENT_MODULE_BASE)
+                .define('B', Items.GLASS)
+                .define('C', NPItems.ADVANCED_PROCESSOR)
+                .define('D', ModBlocks.RUBY_PRISM)
+                .define('E', ModBlocks.RUBY_LASER)
+                .define('F', ModBlocks.INDUCTION_LIGHT)
+                .unlockedBy(
+                    "has_" + ENHANCEMENT_MODULE_BASE.getRegisteredName(),
+                    prov.has(ENHANCEMENT_MODULE_BASE)
+                )
+                .unlockedBy(
+                    "has_" + prov.safeId(Items.GLASS).getPath(),
+                    prov.has(Items.GLASS)
+                )
+                .unlockedBy(
+                    "has_" + NPItems.ADVANCED_PROCESSOR.getRegisteredName(),
+                    prov.has(NPItems.ADVANCED_PROCESSOR)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.RUBY_PRISM.getRegisteredName(),
+                    prov.has(ModBlocks.RUBY_PRISM)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.RUBY_LASER.getRegisteredName(),
+                    prov.has(ModBlocks.RUBY_LASER)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.INDUCTION_LIGHT.getRegisteredName(),
+                    prov.has(ModBlocks.INDUCTION_LIGHT)
+                )
+                .save(prov);
+        })
+        .register();
+
     public static final ItemEntry<EnhancementModuleItem<MechanicalHeartModule>> MECHANICAL_HEART_MODULE = NekoPlus.REGISTRUM
         .item("mechanical_heart_module", p -> new EnhancementModuleItem<>(p, MechanicalHeartModule.TYPE))
         .recipe((ctx, prov) -> {
-            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 16)
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 1)
                 .pattern("BCB")
                 .pattern("DED")
                 .pattern("BAB")
@@ -192,6 +234,43 @@ public class NPItems {
 
     public static final ItemEntry<EnhancementModuleItem<ExoskeletalLegFrameModule>> EXOSKELETAL_LEG_FRAME_MODULE = NekoPlus.REGISTRUM
         .item("exoskeletal_leg_frame_module", p -> new EnhancementModuleItem<>(p, ExoskeletalLegFrameModule.TYPE))
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.TOOLS, ctx.get(), 1)
+                .pattern("DCD")
+                .pattern("EBE")
+                .pattern("FAF")
+                .define('A', ENHANCEMENT_MODULE_BASE)
+                .define('B', NPItems.STABILIZE_POWDER)
+                .define('C', NPBlocks.ROYAL_STEEL_CASING)
+                .define('D', Items.STICKY_PISTON)
+                .define('E', Items.BLUE_ICE)
+                .define('F', ModBlocks.CUT_HEAVY_IRON_SLAB)
+                .unlockedBy(
+                    "has_" + ENHANCEMENT_MODULE_BASE.getRegisteredName(),
+                    prov.has(ENHANCEMENT_MODULE_BASE)
+                )
+                .unlockedBy(
+                    "has_" + NPItems.STABILIZE_POWDER.getRegisteredName(),
+                    prov.has(NPItems.STABILIZE_POWDER)
+                )
+                .unlockedBy(
+                    "has_" + NPBlocks.ROYAL_STEEL_CASING.getRegisteredName(),
+                    prov.has(NPBlocks.ROYAL_STEEL_CASING)
+                )
+                .unlockedBy(
+                    "has_" + prov.safeId(Items.STICKY_PISTON).getPath(),
+                    prov.has(Items.STICKY_PISTON)
+                )
+                .unlockedBy(
+                    "has_" + prov.safeId(Items.BLUE_ICE).getPath(),
+                    prov.has(Items.BLUE_ICE)
+                )
+                .unlockedBy(
+                    "has_" + ModBlocks.CUT_HEAVY_IRON_SLAB.getRegisteredName(),
+                    prov.has(ModBlocks.CUT_HEAVY_IRON_SLAB)
+                )
+                .save(prov);
+        })
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM
