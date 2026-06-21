@@ -234,6 +234,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
             .create(state::getPinExpression, state::setPinExpression)
             .syncType(String.class)
             .build();
+        NPGuiResources.setupScrollerTexture(codeEditor);
         expressionBinding.setRemoteDataSource(new IDataSource<>() {
             @Override
             public String getValue() {
