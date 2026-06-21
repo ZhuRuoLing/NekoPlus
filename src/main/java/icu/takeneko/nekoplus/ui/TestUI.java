@@ -14,7 +14,7 @@ public class TestUI extends NPUI<TestBlockEntity> {
 
     public TestUI(TestBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.test"));
-
+        addTitle();
         var statusBinding = DataBindingBuilder
             .componentS2C(() -> Component.literal(blockEntity.getRecordStatusText()))
             .build();
@@ -27,7 +27,7 @@ public class TestUI extends NPUI<TestBlockEntity> {
 
         addChildren(
             statusText,
-            horizontalLayout(
+            row(
                 new Button()
                     .setText("Start", false)
                     .setOnServerClick(_ -> blockEntity.startRecording())

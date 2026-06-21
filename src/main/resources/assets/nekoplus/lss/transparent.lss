@@ -1,0 +1,30 @@
+.he-ui-container {
+  background: built-in(empty);
+  padding-all: 2;
+}
+
+.__inventory_main__, .__inventory_hotbar__ {
+  background: built-in(empty);
+}
+
+.bordered {
+  background: built-in(empty);
+}
+
+.bordered_slot {
+  background: built-in(empty);
+}
+
+item-slot {
+  background: built-in(empty);
+}
+
+text {
+  adaptive-height: true;
+  adaptive-width: true;
+}
+
+text {
+  text-color: #3e3e3e;
+  text-shadow: false;
+}

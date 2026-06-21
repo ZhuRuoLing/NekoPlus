@@ -45,7 +45,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
 
     public ProgrammableLogicGateUI(ProgrammableLogicGateBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.programmable_logic_gate"));
-
+        addTitle();
         ResizeAwareUIElement redWindow = createPinWindow(
             blockEntity.getPinR(),
             "ui.programmable_logic_gate.red",
@@ -261,7 +261,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
             expressionBinding.getSyncValue().setValue(String.join("\n", arr));
             updateExpressionValidation(codeEditor, arr);
         });
-        UIElement expression = horizontalLayout(
+        UIElement expression = row(
             new TextElement().setText(Component.translatable("ui.programmable_logic_gate.expression")),
             codeEditor
                 .textAreaStyle(ts -> ts.focusOverlay(IGuiTexture.EMPTY))
@@ -285,7 +285,7 @@ public class ProgrammableLogicGateUI extends NPUI<ProgrammableLogicGateBlockEnti
         Selector<PinMode> pinModeSelector = new Selector<>();
         pinModeSelector.buttonIcon.style(s -> s.background(NPGuiResources.DOWN_ARROW));
         pinModeSelector.bind(DataBindingBuilder.enumVal(PinMode.class, state::getMode, state::setMode).build());
-        UIElement pinMode = horizontalLayout(
+        UIElement pinMode = row(
             new TextElement()
                 .setText(Component.translatable("ui.programmable_logic_gate.pin_mode")),
             pinModeSelector

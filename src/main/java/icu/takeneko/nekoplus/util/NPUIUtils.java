@@ -1,15 +1,22 @@
 package icu.takeneko.nekoplus.util;
 
+import com.lowdragmc.lowdraglib2.LDLib2;
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
 import com.lowdragmc.lowdraglib2.gui.ui.ModularUI;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
+import com.lowdragmc.lowdraglib2.gui.ui.elements.ItemSlot;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvent;
 import com.lowdragmc.lowdraglib2.gui.ui.event.UIEvents;
 import com.lowdragmc.lowdraglib2.gui.ui.rendering.GUIContext;
 import com.lowdragmc.lowdraglib2.gui.util.WindowDragHelper;
+import com.lowdragmc.lowdraglib2.integration.xei.jei.LDLibJEIPlugin;
 import dev.anvilcraft.lib.v2.util.DistExecutor;
+import dev.dubhe.anvilcraft.api.itemhandler.FilteredItemStackHandler;
+import dev.dubhe.anvilcraft.api.itemhandler.SlotItemHandlerWithFilter;
+import icu.takeneko.nekoplus.foundation.ui.widgets.AncFilteredItemSlot;
 import icu.takeneko.nekoplus.foundation.ui.widgets.ResizeAwareUIElement;
 import lombok.SneakyThrows;
+import mezz.jei.api.constants.VanillaTypes;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import org.jspecify.annotations.Nullable;
@@ -62,28 +69,42 @@ public class NPUIUtils {
         }
     }
 
-    public static void setDragMove(UIElement element, UIElement target, @Nullable Predicate<UIEvent> movePredicate, @Nullable Consumer<UIEvent> onFinish) {
-        element.addEventListener(UIEvents.MOUSE_DOWN, e -> {
-            if ((movePredicate == null || movePredicate.test(e))) {
-                setCursor(CURSOR_RESIZE_ALL);
-                element.startDrag(new WindowDragHelper.DragMove(target.getLayoutX(), target.getLayoutY()), IGuiTexture.EMPTY);
-                e.stopPropagation();
+    public static void setDragMove(
+        UIElement element,
+        UIElement target,
+        @Nullable Predicate<UIEvent> movePredicate,
+        @Nullable Consumer<UIEvent> onFinish
+    ) {
+        element.addEventListener(
+            UIEvents.MOUSE_DOWN, e -> {
+                if ((movePredicate == null || movePredicate.test(e))) {
+                    setCursor(CURSOR_RESIZE_ALL);
+                    element.startDrag(
+                        new WindowDragHelper.DragMove(target.getLayoutX(), target.getLayoutY()),
+                        IGuiTexture.EMPTY
+                    );
+                    e.stopPropagation();
+                }
             }
-        });
-        element.addEventListener(UIEvents.DRAG_SOURCE_UPDATE, e -> {
-            if (e.dragHandler.draggingObject instanceof WindowDragHelper.DragMove(var sx, var sy)) {
-                var normalPosOffset = element.getLocalMouseNormal(e.x - e.dragStartX, e.y - e.dragStartY);
-                target.getLayout()
-                    .left(sx + normalPosOffset.x)
-                    .top(sy + normalPosOffset.y);
+        );
+        element.addEventListener(
+            UIEvents.DRAG_SOURCE_UPDATE, e -> {
+                if (e.dragHandler.draggingObject instanceof WindowDragHelper.DragMove(var sx, var sy)) {
+                    var normalPosOffset = element.getLocalMouseNormal(e.x - e.dragStartX, e.y - e.dragStartY);
+                    target.getLayout()
+                        .left(sx + normalPosOffset.x)
+                        .top(sy + normalPosOffset.y);
+                }
             }
-        });
-        element.addEventListener(UIEvents.DRAG_END, it -> {
-            setCursor(CURSOR_NORMAL);
-            if (onFinish != null) {
-                onFinish.accept(it);
+        );
+        element.addEventListener(
+            UIEvents.DRAG_END, it -> {
+                setCursor(CURSOR_NORMAL);
+                if (onFinish != null) {
+                    onFinish.accept(it);
+                }
             }
-        });
+        );
     }
 
     public static void setBorderResize(
@@ -96,110 +117,125 @@ public class NPUIUtils {
         @Nullable BiPredicate<UIEvent, WindowDragHelper.DragResize> dragResizePredicate,
         @Nullable Consumer<UIEvent> onFinish
     ) {
-        element.addEventListener(UIEvents.MOUSE_DOWN, e -> {
-            if (resizePredicate != null && !resizePredicate.test(e)) return;
-            var handle = detectResizeHandle(element, e.x, e.y, border);
-            if (handle != null) {
-                setCursor(mapResizeHandle(handle));
-                element.startDrag(new WindowDragHelper.DragResize(
-                    target.getLayoutX(), target.getLayoutY(),
-                    target.getSizeWidth(), target.getSizeHeight(), handle), IGuiTexture.EMPTY);
-                e.stopPropagation();
-            }
-        });
-
-        element.addEventListener(UIEvents.DRAG_SOURCE_UPDATE, e -> {
-            if (!(e.dragHandler.draggingObject instanceof WindowDragHelper.DragResize(
-                float startX, float startY, float startW, float startH, WindowDragHelper.ResizeHandle handle
-            ))) return;
-
-            if (dragResizePredicate != null && !dragResizePredicate.test(e, (WindowDragHelper.DragResize) e.dragHandler.draggingObject))
-                return;
-            var d = element.getLocalMouseNormal(e.x - e.dragStartX, e.y - e.dragStartY);
-            float dx = d.x;
-            float dy = d.y;
-            float x = startX;
-            float y = startY;
-            float w = startW;
-            float h = startH;
-
-            float minW = minSize.x, maxW = maxSize.x;
-            float minH = minSize.y, maxH = maxSize.y;
-
-            switch (handle) {
-                case LEFT -> {
-                    float clampedNewW = Math.min(maxW, Math.max(minW, startW - dx));
-                    float dxApplied = startW - clampedNewW;     // 实际生效的 dx
-                    x = startX + dxApplied;
-                    w = clampedNewW;
-                }
-                case RIGHT -> {
-                    w = Math.min(maxW, Math.max(minW, startW + dx));
-                    x = startX;
-                }
-                case TOP -> {
-                    float clampedNewH = Math.min(maxH, Math.max(minH, startH - dy));
-                    float dyApplied = startH - clampedNewH;
-                    y = startY + dyApplied;
-                    h = clampedNewH;
-                }
-                case BOTTOM -> {
-                    h = Math.min(maxH, Math.max(minH, startH + dy));
-                    y = startY;
-                }
-                case TOP_LEFT -> {
-                    float clampedNewW = Math.min(maxW, Math.max(minW, startW - dx));
-                    float dxApplied = startW - clampedNewW;
-                    x = startX + dxApplied;
-                    w = clampedNewW;
-
-                    float clampedNewH = Math.min(maxH, Math.max(minH, startH - dy));
-                    float dyApplied = startH - clampedNewH;
-                    y = startY + dyApplied;
-                    h = clampedNewH;
-                }
-                case TOP_RIGHT -> {
-                    w = Math.min(maxW, Math.max(minW, startW + dx));
-                    x = startX;
-
-                    float clampedNewH = Math.min(maxH, Math.max(minH, startH - dy));
-                    float dyApplied = startH - clampedNewH;
-                    y = startY + dyApplied;
-                    h = clampedNewH;
-                }
-                case BOTTOM_LEFT -> {
-                    float clampedNewW = Math.min(maxW, Math.max(minW, startW - dx));
-                    float dxApplied = startW - clampedNewW;
-                    x = startX + dxApplied;
-                    w = clampedNewW;
-
-                    h = Math.min(maxH, Math.max(minH, startH + dy));
-                    y = startY;
-                }
-                case BOTTOM_RIGHT -> {
-                    w = Math.min(maxW, Math.max(minW, startW + dx));
-                    h = Math.min(maxH, Math.max(minH, startH + dy));
-                    x = startX;
-                    y = startY;
+        element.addEventListener(
+            UIEvents.MOUSE_DOWN, e -> {
+                if (resizePredicate != null && !resizePredicate.test(e)) return;
+                var handle = detectResizeHandle(element, e.x, e.y, border);
+                if (handle != null) {
+                    setCursor(mapResizeHandle(handle));
+                    element.startDrag(
+                        new WindowDragHelper.DragResize(
+                            target.getLayoutX(), target.getLayoutY(),
+                            target.getSizeWidth(), target.getSizeHeight(), handle
+                        ), IGuiTexture.EMPTY
+                    );
+                    e.stopPropagation();
                 }
             }
+        );
 
-            target.getLayout()
-                .left(x)
-                .top(y)
-                .width(w)
-                .height(h);
-        });
-        element.addEventListener(UIEvents.DRAG_END, e -> {
-            setCursor(CURSOR_NORMAL);
-            if (onFinish != null) {
-                onFinish.accept(e);
+        element.addEventListener(
+            UIEvents.DRAG_SOURCE_UPDATE, e -> {
+                if (!(e.dragHandler.draggingObject instanceof WindowDragHelper.DragResize(
+                    float startX, float startY, float startW, float startH, WindowDragHelper.ResizeHandle handle
+                ))) return;
+
+                if (dragResizePredicate != null && !dragResizePredicate.test(
+                    e,
+                    (WindowDragHelper.DragResize) e.dragHandler.draggingObject
+                ))
+                    return;
+                var d = element.getLocalMouseNormal(e.x - e.dragStartX, e.y - e.dragStartY);
+                float dx = d.x;
+                float dy = d.y;
+                float x = startX;
+                float y = startY;
+                float w = startW;
+                float h = startH;
+
+                float minW = minSize.x, maxW = maxSize.x;
+                float minH = minSize.y, maxH = maxSize.y;
+
+                switch (handle) {
+                    case LEFT -> {
+                        float clampedNewW = Math.min(maxW, Math.max(minW, startW - dx));
+                        float dxApplied = startW - clampedNewW;     // 实际生效的 dx
+                        x = startX + dxApplied;
+                        w = clampedNewW;
+                    }
+                    case RIGHT -> {
+                        w = Math.min(maxW, Math.max(minW, startW + dx));
+                        x = startX;
+                    }
+                    case TOP -> {
+                        float clampedNewH = Math.min(maxH, Math.max(minH, startH - dy));
+                        float dyApplied = startH - clampedNewH;
+                        y = startY + dyApplied;
+                        h = clampedNewH;
+                    }
+                    case BOTTOM -> {
+                        h = Math.min(maxH, Math.max(minH, startH + dy));
+                        y = startY;
+                    }
+                    case TOP_LEFT -> {
+                        float clampedNewW = Math.min(maxW, Math.max(minW, startW - dx));
+                        float dxApplied = startW - clampedNewW;
+                        x = startX + dxApplied;
+                        w = clampedNewW;
+
+                        float clampedNewH = Math.min(maxH, Math.max(minH, startH - dy));
+                        float dyApplied = startH - clampedNewH;
+                        y = startY + dyApplied;
+                        h = clampedNewH;
+                    }
+                    case TOP_RIGHT -> {
+                        w = Math.min(maxW, Math.max(minW, startW + dx));
+                        x = startX;
+
+                        float clampedNewH = Math.min(maxH, Math.max(minH, startH - dy));
+                        float dyApplied = startH - clampedNewH;
+                        y = startY + dyApplied;
+                        h = clampedNewH;
+                    }
+                    case BOTTOM_LEFT -> {
+                        float clampedNewW = Math.min(maxW, Math.max(minW, startW - dx));
+                        float dxApplied = startW - clampedNewW;
+                        x = startX + dxApplied;
+                        w = clampedNewW;
+
+                        h = Math.min(maxH, Math.max(minH, startH + dy));
+                        y = startY;
+                    }
+                    case BOTTOM_RIGHT -> {
+                        w = Math.min(maxW, Math.max(minW, startW + dx));
+                        h = Math.min(maxH, Math.max(minH, startH + dy));
+                        x = startX;
+                        y = startY;
+                    }
+                }
+
+                target.getLayout()
+                    .left(x)
+                    .top(y)
+                    .width(w)
+                    .height(h);
             }
-        });
+        );
+        element.addEventListener(
+            UIEvents.DRAG_END, e -> {
+                setCursor(CURSOR_NORMAL);
+                if (onFinish != null) {
+                    onFinish.accept(e);
+                }
+            }
+        );
     }
 
     private static void setCursor(long cursor) {
-        DistExecutor.run(Dist.CLIENT, () -> () -> GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().handle(), cursor));
+        DistExecutor.run(
+            Dist.CLIENT,
+            () -> () -> GLFW.glfwSetCursor(Minecraft.getInstance().getWindow().handle(), cursor)
+        );
     }
 
     public static long mapResizeHandle(WindowDragHelper.ResizeHandle handle) {
@@ -212,7 +248,12 @@ public class NPUIUtils {
     }
 
 
-    public static WindowDragHelper.ResizeHandle detectResizeHandle(UIElement element, float mouseWorldX, float mouseWorldY, float padding) {
+    public static WindowDragHelper.ResizeHandle detectResizeHandle(
+        UIElement element,
+        float mouseWorldX,
+        float mouseWorldY,
+        float padding
+    ) {
         var local = element.getLocalMouse(mouseWorldX, mouseWorldY).sub(element.getPositionX(), element.getPositionY());
         var mx = local.x;
         var my = local.y;
@@ -238,6 +279,12 @@ public class NPUIUtils {
         return null;
     }
 
+    public static void ghostIngredient(AncFilteredItemSlot slot) {
+        if (LDLib2.isJeiLoaded()) {
+            JeiSupport.ghostIngredient(slot);
+        }
+    }
+
     @SneakyThrows
     public static void forceRelayout(ModularUI ui) {
         MT_MUI_CSAL.invoke(ui);
@@ -261,5 +308,26 @@ public class NPUIUtils {
             return;
         }
         setCursor(mapResizeHandle(handle));
+    }
+
+    private static final class JeiSupport {
+        public static void ghostIngredient(AncFilteredItemSlot slot) {
+            LDLibJEIPlugin.ghostIngredient(
+                slot,
+                VanillaTypes.ITEM_STACK,
+                it -> {
+                    boolean requireFilter = true;
+                    if (slot.getSlot() instanceof SlotItemHandlerWithFilter sihwf && sihwf.getResourceHandler() instanceof FilteredItemStackHandler fish) {
+                        requireFilter = fish.isFilterEnabled();
+                    }
+                    return requireFilter && slot.getSlot().mayPlace(it.getIngredient());
+                },
+                i -> {
+                    if (slot.getSlot() instanceof SlotItemHandlerWithFilter sihwf && sihwf.getResourceHandler() instanceof FilteredItemStackHandler fish) {
+                        fish.setFilter(sihwf.index, i);
+                    }
+                }
+            );
+        }
     }
 }

@@ -16,7 +16,7 @@ public class NPUI<T extends BlockEntity> extends UIElement {
     @Getter
     protected final T blockEntity;
     @Getter
-    private final Component title;
+    protected final Component title;
 
     public static final int SLOT_SIZE = 18;
 
@@ -28,6 +28,9 @@ public class NPUI<T extends BlockEntity> extends UIElement {
         this.blockEntity = blockEntity;
         this.title = title;
         addClass("he-ui-container");
+    }
+
+    protected void addTitle() {
         addChild(
             new TextElement()
                 .setText(title)
@@ -39,6 +42,10 @@ public class NPUI<T extends BlockEntity> extends UIElement {
         return new ModularUI(UI.of(ui, NPGuiResources.STYLESHEET), holder.player);
     }
 
+    public static <T extends BlockEntity> ModularUI ofTransparent(NPUI<T> ui, BlockUIMenuType.BlockUIHolder holder) {
+        return new ModularUI(UI.of(ui, NPGuiResources.TRANSPARENT_STYLESHEET), holder.player);
+    }
+
     public static UIElement div(
         UIElement... children
     ) {
@@ -47,8 +54,13 @@ public class NPUI<T extends BlockEntity> extends UIElement {
         return e;
     }
 
+    public static UIElement column(
+        UIElement... children
+    ) {
+        return div(children);
+    }
 
-    public static UIElement horizontalLayout(
+    public static UIElement row(
         UIElement... children
     ) {
         return div(children).layout(l -> l.flexDirection(FlexDirection.ROW));

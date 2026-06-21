@@ -16,6 +16,7 @@ public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> im
 
     public ParticleStabilizerUI(ParticleStabilizerBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.particle_stabilizer"));
+        addTitle();
         ProgressBar progressBar = new ProgressBar()
             .setValue(0.5f)
             .label(l -> l.setText(""))
@@ -31,19 +32,19 @@ public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> im
         progressBar.layout(it -> it.minWidth(20).minHeight(20));
         progressBar.progressBarStyle(it -> it.interpolate(false));
         addChildren(
-            horizontalLayout(
+            row(
                 new ItemSlot()
                     .bind(blockEntity.getItemHandler(), 0)
                     .addClass("bordered_slot"),
                 progressBar,
                 div(
-                    horizontalLayout(
+                    row(
                         new ItemSlot()
                             .bind(blockEntity.getItemHandler(), 1),
                         new ItemSlot()
                             .bind(blockEntity.getItemHandler(), 2)
                     ),
-                    horizontalLayout(
+                    row(
                         new ItemSlot()
                             .bind(blockEntity.getItemHandler(), 3),
                         new ItemSlot()

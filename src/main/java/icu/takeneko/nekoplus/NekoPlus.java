@@ -24,6 +24,7 @@ import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.ModContainer;
 
 @Mod(NekoPlus.MODID)
@@ -39,6 +40,7 @@ public class NekoPlus {
         NPDataGen.setupDataGeneration(REGISTRUM);
         LOGGER.info("Ciallo～(∠・ω< )⌒★");
     }
+
 
     private void setupRegistration(IEventBus modEventBus) {
         NPBlocks.setupRegistration();

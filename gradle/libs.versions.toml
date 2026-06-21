@@ -6,7 +6,7 @@ curios = "15.0.0-beta.2+26.1.2"
 jei = "29.6.2.31"
 jade = "26.1.1+neoforge"
 geckolib = "5.5.1"
-ldlib2 = "26.1.2.10"
+ldlib2 = "26.1.2.22"
 taffy = "1.1.4"
 
 [libraries]

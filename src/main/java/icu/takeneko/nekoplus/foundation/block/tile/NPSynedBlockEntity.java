@@ -18,7 +18,6 @@ public abstract class NPSynedBlockEntity
         super(type, pos, blockState);
     }
 
-    private final ReentrantLock lock = new ReentrantLock();
     private final FieldManagedStorage syncStorage = new FieldManagedStorage(this);
 
 
