@@ -12,6 +12,31 @@ public class NPTranslations {
         provider.add("tooltip.nekoplus.particle_stabilizer.state", "State: ");
         provider.add("config.jade.plugin_nekoplus.particle_stabilizer", "Particle Stabilizer");
         provider.add("config.jade.plugin_nekoplus.overclockable", "Overclocking");
+        provider.add("nekoplus.configuration.magicNumber", "Magic Number");
+        provider.add("nekoplus.configuration.overclocking", "Overclocking");
+        provider.add("nekoplus.configuration.particleStabilizer", "Particle Stabilizer");
+        provider.add("nekoplus.configuration.overclocking.particleStabilizer.maxOverclockRatio", "Particle Stabilizer Maximum Overclock Ratio");
+        provider.add("nekoplus.configuration.overclocking.particleStabilizer.baseOverclockCost", "Particle Stabilizer Base Overclock Cost");
+        provider.add("nekoplus.configuration.charger", "Charger");
+        provider.add("nekoplus.configuration.overclocking.charger.maxOverclockRatio", "Charger Maximum Overclock Ratio");
+        provider.add("nekoplus.configuration.smartBlockPlacer", "Smart Block Placer");
+        provider.add("nekoplus.configuration.overclocking.smartBlockPlacer.maxOverclockRatio", "Smart Block Placer Maximum Overclock Ratio");
+        provider.add("nekoplus.configuration.overclocking.smartBlockPlacer.baseOverclockCost", "Smart Block Placer Base Overclock Cost");
+        provider.add("nekoplus.configuration.crystal", "Blast Crystal");
+        provider.add("nekoplus.configuration.crystal.minChargeBeforeDecay", "Blast Crystal Minimum Charge Before Decay");
+        provider.add("nekoplus.configuration.crystal.accumulatedChargeDecayMultiplier", "Blast Crystal Accumulated Charge Decay Multiplier");
+        provider.add("nekoplus.configuration.crystal.chargePerRadiusAtFalloffEdge", "Blast Crystal Charge per Radius at Falloff Edge");
+        provider.add("nekoplus.configuration.crystal.distanceFalloffExponentBase", "Blast Crystal Distance Falloff Exponent Base");
+        provider.add("nekoplus.configuration.crystal.detonationDelayTicks", "Blast Crystal Detonation Delay Ticks");
+        provider.add("nekoplus.configuration.crystal.normalDegradeChance", "Normal Blast Crystal Degrade Chance");
+        provider.add("nekoplus.configuration.crystal.damagedDegradeChance", "Damaged Blast Crystal Degrade Chance");
+        provider.add("nekoplus.configuration.crystal.crackedDegradeChance", "Cracked Blast Crystal Degrade Chance");
+        provider.add("nekoplus.configuration.crystal.normalBaseDetonationCharge", "Normal Blast Crystal Base Detonation Charge");
+        provider.add("nekoplus.configuration.crystal.normalAccumulatedChargeSensitivity", "Normal Blast Crystal Accumulated Charge Sensitivity");
+        provider.add("nekoplus.configuration.crystal.damagedBaseDetonationCharge", "Damaged Blast Crystal Base Detonation Charge");
+        provider.add("nekoplus.configuration.crystal.damagedAccumulatedChargeSensitivity", "Damaged Blast Crystal Accumulated Charge Sensitivity");
+        provider.add("nekoplus.configuration.crystal.crackedDetonationCharge", "Cracked Blast Crystal Detonation Charge");
+        provider.add("nekoplus.configuration.crystal.explosionPower", "Blast Crystal Explosion Power");
 
         provider.add("item.nekoplus.magnetic_confinement_vessel.full", "Magnetic Confinement Vessel with %s");
 

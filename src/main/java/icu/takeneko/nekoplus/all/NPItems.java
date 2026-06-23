@@ -384,6 +384,18 @@ public class NPItems {
             .save(p))
         .register();
 
+    public static final ItemEntry<Item> DIRT_BALL = NekoPlus.REGISTRUM
+        .item("dirt_ball", Item::new)
+        .tag(NPTags.Items.CHROME_BALLS)
+        .properties(p -> p.food(
+            new FoodProperties.Builder()
+                .alwaysEdible()
+                .nutrition(5)
+                .saturationModifier(5)
+                .build()
+        ))
+        .register();
+
     public static final ItemEntry<Item> GUMMY_BEAR = NekoPlus.REGISTRUM
         .item("gummy_bear", Item::new)
         .properties(p -> p.food(

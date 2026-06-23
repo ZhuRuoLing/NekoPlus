@@ -12,6 +12,7 @@ import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.content.tile.logic.stabilizer.ParticleStabilizerLogic;
 import icu.takeneko.nekoplus.content.tile.logic.stabilizer.ParticleStabilizerLogicHost;
 import icu.takeneko.nekoplus.client.sound.LoopingBlockSoundInstance;
+import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
@@ -191,12 +192,12 @@ public class ParticleStabilizerBlockEntity
 
     @Override
     public int getBaseOverclockCost() {
-        return 32;
+        return NPConfig.PARTICLE_STABILIZER_BASE_OVERCLOCK_COST.getAsInt();
     }
 
     @Override
     public int maxOverclockRatio() {
-        return 100;
+        return NPConfig.PARTICLE_STABILIZER_MAX_OVERCLOCK_RATIO.getAsInt();
     }
 
     @Override

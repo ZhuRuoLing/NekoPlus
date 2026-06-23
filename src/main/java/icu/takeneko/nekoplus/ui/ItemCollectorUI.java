@@ -17,8 +17,6 @@ import dev.dubhe.anvilcraft.block.entity.ItemCollectorBlockEntity;
 import dev.vfyjxf.taffy.style.AlignItems;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
 import icu.takeneko.nekoplus.foundation.ui.widgets.AncFilteredItemSlot;
-import icu.takeneko.nekoplus.internal.ItemCollectorBlockEntityInternals;
-import icu.takeneko.nekoplus.util.NPUIUtils;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.NonNull;
 

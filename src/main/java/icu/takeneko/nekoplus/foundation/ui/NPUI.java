@@ -49,7 +49,7 @@ public class NPUI<T extends BlockEntity> extends UIElement {
     public static UIElement div(
         UIElement... children
     ) {
-        var e = new UIElement();
+        UIElement e = new UIElement();
         e.addChildren(children);
         return e;
     }

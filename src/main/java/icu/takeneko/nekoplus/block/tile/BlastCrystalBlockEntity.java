@@ -3,6 +3,7 @@ package icu.takeneko.nekoplus.block.tile;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
 import dev.dubhe.anvilcraft.api.chargecollector.ChargeCollectorManager;
 import icu.takeneko.nekoplus.block.BlastCrystalBlock;
+import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.block.tile.NPSynedBlockEntity;
 import net.minecraft.core.BlockPos;
@@ -14,28 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class BlastCrystalBlockEntity extends NPSynedBlockEntity implements Tickable {
-    private static final double MIN_CHARGE_BEFORE_DECAY = 10.0;
-    private static final double ACCUMULATED_CHARGE_DECAY_MULTIPLIER = 0.95;
 
-    private static final double CHARGE_PER_RADIUS_AT_FALLOFF_EDGE = 18.0;
-    private static final double DISTANCE_FALLOFF_EXPONENT_BASE = 4.0;
-    private static final double BLOCK_CENTER_DISTANCE_OFFSET = 1.0;
-    private static final double MIN_EFFECTIVE_RADIUS_AFTER_OFFSET = 1.0;
-    private static final double MAX_NORMALIZED_DISTANCE = 1.0;
-    private static final double MAX_PROXIMITY = 1.0;
-
-    private static final int DETONATION_DELAY_TICKS = 15;
-    private static final int DETONATION_TRIGGER_COUNTDOWN = 1;
-
-    private static final double NORMAL_DEGRADE_CHANCE = 0.5;
-    private static final double DAMAGED_DEGRADE_CHANCE = 0.7;
-    private static final double CRACKED_DEGRADE_CHANCE = 0.9;
-
-    private static final double NORMAL_BASE_DETONATION_CHARGE = 128.0;
-    private static final double NORMAL_ACCUMULATED_CHARGE_DISCOUNT = 0.5;
-    private static final double DAMAGED_BASE_DETONATION_CHARGE = 96.0;
-    private static final double DAMAGED_ACCUMULATED_CHARGE_DISCOUNT = 0.1;
-    private static final double CRACKED_DETONATION_CHARGE = 32.0;
+    private static final ConfigAccess config = new ConfigAccess();
 
     @Persisted
     private double accumulatedCharge = 0.0;
@@ -67,7 +48,7 @@ public class BlastCrystalBlockEntity extends NPSynedBlockEntity implements Ticka
         this.accumulatedCharge += charge;
         setChanged();
         if (this.accumulatedCharge >= this.getDegradeChargeAmount()) {
-            this.detonateTickCountdown = DETONATION_DELAY_TICKS - level.getRandom().nextInt(1, 7);
+            this.detonateTickCountdown = config.detonationDelayTicks - level.getRandom().nextInt(1, 7);
         }
     }
 
@@ -75,17 +56,17 @@ public class BlastCrystalBlockEntity extends NPSynedBlockEntity implements Ticka
         if (radius <= 0.0) {
             return 0.0;
         }
-        double effectiveRadius = Math.max(radius - BLOCK_CENTER_DISTANCE_OFFSET, MIN_EFFECTIVE_RADIUS_AFTER_OFFSET);
-        double effectiveDistance = Math.max(distance - BLOCK_CENTER_DISTANCE_OFFSET, 0.0);
+        double effectiveRadius = Math.max(radius - 1.0, 1.0);
+        double effectiveDistance = Math.max(distance - 1.0, 0.0);
         double normalizedDistance = Math.clamp(
             effectiveDistance / effectiveRadius,
             0.0,
-            MAX_NORMALIZED_DISTANCE
+            1.0
         );
-        double proximity = MAX_PROXIMITY - normalizedDistance;
-        return CHARGE_PER_RADIUS_AT_FALLOFF_EDGE
+        double proximity = 1.0 - normalizedDistance;
+        return config.chargePerRadiusAtFalloffEdge
             * radius
-            * Math.pow(DISTANCE_FALLOFF_EXPONENT_BASE, proximity);
+            * Math.pow(config.distanceFalloffExponentBase, proximity);
     }
 
     private void detonate(ServerLevel level, BlockPos pos) {
@@ -99,7 +80,7 @@ public class BlastCrystalBlockEntity extends NPSynedBlockEntity implements Ticka
             center.x(),
             center.y(),
             center.z(),
-            6,
+            config.explosionPower,
             Level.ExplosionInteraction.TNT
         );
         this.detonating = false;
@@ -115,9 +96,9 @@ public class BlastCrystalBlockEntity extends NPSynedBlockEntity implements Ticka
             return 0.0;
         }
         return switch (block.getStage()) {
-            case NORMAL -> NORMAL_DEGRADE_CHANCE * (1 + (level.getRandom().nextDouble() - 0.5) / 2);
-            case DAMAGED -> DAMAGED_DEGRADE_CHANCE;
-            case CRACKED -> CRACKED_DEGRADE_CHANCE;
+            case NORMAL -> config.normalDegradeChance * (1 + (level.getRandom().nextDouble() - 0.5) / 2);
+            case DAMAGED -> config.damagedDegradeChance;
+            case CRACKED -> config.crackedDegradeChance;
         };
     }
 
@@ -126,9 +107,9 @@ public class BlastCrystalBlockEntity extends NPSynedBlockEntity implements Ticka
             return 0.0;
         }
         return switch (block.getStage()) {
-            case NORMAL -> NORMAL_BASE_DETONATION_CHARGE - accumulatedCharge * NORMAL_ACCUMULATED_CHARGE_DISCOUNT;
-            case DAMAGED -> DAMAGED_BASE_DETONATION_CHARGE - accumulatedCharge * DAMAGED_ACCUMULATED_CHARGE_DISCOUNT;
-            case CRACKED -> CRACKED_DETONATION_CHARGE;
+            case NORMAL -> config.normalBaseDetonationCharge - accumulatedCharge * config.normalAccumulatedChargeSensitivity;
+            case DAMAGED -> config.damagedBaseDetonationCharge - accumulatedCharge * config.damagedAccumulatedChargeSensitivity;
+            case CRACKED -> config.crackedDetonationCharge;
         };
     }
 
@@ -145,22 +126,60 @@ public class BlastCrystalBlockEntity extends NPSynedBlockEntity implements Ticka
             return;
         }
         this.detonateTickCountdown = Math.clamp(
-            detonateTickCountdown - DETONATION_TRIGGER_COUNTDOWN,
+            detonateTickCountdown - 1,
             0,
             Integer.MAX_VALUE
         );
-        if (detonateTickCountdown == DETONATION_TRIGGER_COUNTDOWN) {
+        if (detonateTickCountdown == 1) {
             detonate(getServerLevel(), getBlockPos());
         }
-        if (this.accumulatedCharge < MIN_CHARGE_BEFORE_DECAY) {
+        if (this.accumulatedCharge < config.minChargeBeforeDecay) {
             if (this.accumulatedCharge != 0.0) {
                 this.accumulatedCharge = 0.0;
             }
             return;
         }
-        this.accumulatedCharge *= ACCUMULATED_CHARGE_DECAY_MULTIPLIER;
-        if (this.accumulatedCharge < MIN_CHARGE_BEFORE_DECAY) {
+        this.accumulatedCharge *= config.accumulatedChargeDecayMultiplier;
+        if (this.accumulatedCharge < config.minChargeBeforeDecay) {
             this.accumulatedCharge = 0.0;
         }
+    }
+
+    public static class ConfigAccess {
+        public volatile double minChargeBeforeDecay = 10.0;
+        public volatile double accumulatedChargeDecayMultiplier = 0.95;
+        public volatile double chargePerRadiusAtFalloffEdge = 18.0;
+        public volatile double distanceFalloffExponentBase = 4.0;
+        public volatile int detonationDelayTicks = 15;
+        public volatile double normalDegradeChance = 0.5;
+        public volatile double damagedDegradeChance = 0.7;
+        public volatile double crackedDegradeChance = 0.9;
+        public volatile double normalBaseDetonationCharge = 128.0;
+        public volatile double normalAccumulatedChargeSensitivity = 0.5;
+        public volatile double damagedBaseDetonationCharge = 96.0;
+        public volatile double damagedAccumulatedChargeSensitivity = 0.1;
+        public volatile double crackedDetonationCharge = 32.0;
+        public volatile float explosionPower = 6.0f;
+
+        public void reload() {
+            this.minChargeBeforeDecay = NPConfig.BLAST_CRYSTAL_MIN_CHARGE_BEFORE_DECAY.getAsDouble();
+            this.accumulatedChargeDecayMultiplier = NPConfig.BLAST_CRYSTAL_ACCUMULATED_CHARGE_DECAY_MULTIPLIER.getAsDouble();
+            this.chargePerRadiusAtFalloffEdge = NPConfig.BLAST_CRYSTAL_CHARGE_PER_RADIUS_AT_FALLOFF_EDGE.getAsDouble();
+            this.distanceFalloffExponentBase = NPConfig.BLAST_CRYSTAL_DISTANCE_FALLOFF_EXPONENT_BASE.getAsDouble();
+            this.detonationDelayTicks = NPConfig.BLAST_CRYSTAL_DETONATION_DELAY_TICKS.getAsInt();
+            this.normalDegradeChance = NPConfig.BLAST_CRYSTAL_NORMAL_DEGRADE_CHANCE.getAsDouble();
+            this.damagedDegradeChance = NPConfig.BLAST_CRYSTAL_DAMAGED_DEGRADE_CHANCE.getAsDouble();
+            this.crackedDegradeChance = NPConfig.BLAST_CRYSTAL_CRACKED_DEGRADE_CHANCE.getAsDouble();
+            this.normalBaseDetonationCharge = NPConfig.BLAST_CRYSTAL_NORMAL_BASE_DETONATION_CHARGE.getAsDouble();
+            this.normalAccumulatedChargeSensitivity = NPConfig.BLAST_CRYSTAL_NORMAL_ACCUMULATED_CHARGE_SENSITIVITY.getAsDouble();
+            this.damagedBaseDetonationCharge = NPConfig.BLAST_CRYSTAL_DAMAGED_BASE_DETONATION_CHARGE.getAsDouble();
+            this.damagedAccumulatedChargeSensitivity = NPConfig.BLAST_CRYSTAL_DAMAGED_ACCUMULATED_CHARGE_SENSITIVITY.getAsDouble();
+            this.crackedDetonationCharge = NPConfig.BLAST_CRYSTAL_CRACKED_DETONATION_CHARGE.getAsDouble();
+            this.explosionPower = NPConfig.BLAST_CRYSTAL_EXPLOSION_POWER.get().floatValue();
+        }
+    }
+
+    public static ConfigAccess config() {
+        return config;
     }
 }

@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.dubhe.anvilcraft.block.entity.ChargerBlockEntity;
 import dev.dubhe.anvilcraft.block.power.generator.ChargerBlock;
+import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.internal.ChargerBlockEntityInternals;
 import net.minecraft.core.BlockPos;
@@ -109,7 +110,7 @@ public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPO
 
     @Override
     public int maxOverclockRatio() {
-        return 100;
+        return NPConfig.CHARGER_MAX_OVERCLOCK_RATIO.getAsInt();
     }
 
     @Override

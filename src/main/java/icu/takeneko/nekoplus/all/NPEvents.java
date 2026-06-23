@@ -7,6 +7,8 @@ import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
+import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
+import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.item.module.NPEnhancementModule;
 import icu.takeneko.nekoplus.internal.StampingPlatformsInternals;
@@ -28,6 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
@@ -198,6 +201,22 @@ public class NPEvents {
     @SubscribeEvent
     public static void on(FMLCommonSetupEvent event) {
         event.enqueueWork(NPItemTooltips::setupTooltips);
+    }
+
+    @SubscribeEvent
+    public static void on(ModConfigEvent.Loading event) {
+        reloadConfigAccess(event);
+    }
+
+    @SubscribeEvent
+    public static void on(ModConfigEvent.Reloading event) {
+        reloadConfigAccess(event);
+    }
+
+    private static void reloadConfigAccess(ModConfigEvent event) {
+        if (event.getConfig().getSpec() == NPConfig.SPEC) {
+            BlastCrystalBlockEntity.config().reload();
+        }
     }
 
     @EventBusSubscriber(Dist.CLIENT)

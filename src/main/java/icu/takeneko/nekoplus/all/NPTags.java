@@ -43,6 +43,7 @@ public class NPTags {
         public static final TagKey<Item> SULFUR = c("dusts/sulfur");
         public static final TagKey<Item> DRY_ICES = c("dry_ices");
         public static final TagKey<Item> SILVER_PLATE = c("plates/silver");
+        public static final TagKey<Item> CHROME_BALLS = c("chromeballs");
         
         public static @NotNull TagKey<Item> c(String id) {
             return TagKey.create(

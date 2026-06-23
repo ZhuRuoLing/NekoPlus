@@ -37,6 +37,9 @@ public class ExpLexer {
         if (isAlpha(ch)) {
             return readIdentifier(startPos);
         }
+        if (ch == '@' && hasNext() && isAlpha(peekNext())) {
+            return readAtIdentifier(startPos);
+        }
         advance();
         return switch (ch) {
             case '&' -> new ExpToken(ExpTokenType.AND, "&", startPos);
@@ -82,6 +85,18 @@ public class ExpLexer {
         return new ExpToken(type, text, startPos);
     }
 
+    private ExpToken readAtIdentifier(int startPos) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(advance());
+        sb.append(advance());
+
+        while (!isAtEnd() && isAlphaNumeric(peek())) {
+            sb.append(advance());
+        }
+
+        return new ExpToken(ExpTokenType.VARIABLE, sb.toString(), startPos);
+    }
+
     private void skipWhitespace() {
         while (!isAtEnd() && Character.isWhitespace(peek())) {
             advance();
@@ -91,6 +106,11 @@ public class ExpLexer {
     private char peek() {
         if (isAtEnd()) return '\0';
         return input.charAt(position);
+    }
+
+    private char peekNext() {
+        if (!hasNext()) return '\0';
+        return input.charAt(position + 1);
     }
 
     private char advance() {
@@ -107,6 +127,10 @@ public class ExpLexer {
 
     private boolean isAtEnd() {
         return position >= length;
+    }
+
+    private boolean hasNext() {
+        return position + 1 < length;
     }
 
     private boolean isAlpha(char ch) {
