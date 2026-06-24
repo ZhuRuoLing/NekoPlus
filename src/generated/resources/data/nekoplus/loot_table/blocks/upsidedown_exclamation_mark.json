@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "nekoplus:upsidedown_exclamation_mark"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "nekoplus:blocks/upsidedown_exclamation_mark"
+}

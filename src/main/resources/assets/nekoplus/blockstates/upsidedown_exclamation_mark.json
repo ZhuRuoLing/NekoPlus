@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "anvilcraft:block/exclamation_mark",
+      "y": 90,
+      "x": 180
+    },
+    "facing=north": {
+      "model": "anvilcraft:block/exclamation_mark",
+      "x": 180
+    },
+    "facing=south": {
+      "model": "anvilcraft:block/exclamation_mark",
+      "y": 180,
+      "x": 180
+    },
+    "facing=west": {
+      "model": "anvilcraft:block/exclamation_mark",
+      "y": 270,
+      "x": 180
+    }
+  }
+}
