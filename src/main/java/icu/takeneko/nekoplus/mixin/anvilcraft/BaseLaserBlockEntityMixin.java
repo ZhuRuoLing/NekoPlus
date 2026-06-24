@@ -149,10 +149,10 @@ public abstract class BaseLaserBlockEntityMixin
 
     @WrapOperation(
         method = "syncTo",
-        at = @At(value = "NEW", target = "(ILnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Ldev/dubhe/anvilcraft/network/LaserEmitPacket;")
+        at = @At(value = "NEW", target = "(ILnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;Z)Ldev/dubhe/anvilcraft/network/LaserEmitPacket;")
     )
-    LaserEmitPacket fillCustomValue1(int laserLevel, BlockPos laserBlockPos, BlockPos irradiateBlockPos, Operation<LaserEmitPacket> original) {
-        LaserEmitPacket packet = original.call(laserLevel, laserBlockPos, irradiateBlockPos);
+    LaserEmitPacket fillCustomValue1(int laserLevel, BlockPos laserBlockPos, BlockPos irradiateBlockPos, boolean gamma, Operation<LaserEmitPacket> original) {
+        LaserEmitPacket packet = original.call(laserLevel, laserBlockPos, irradiateBlockPos, gamma);
         LaserRendererInternals.PacketAccess packetAccess = (LaserRendererInternals.PacketAccess)(Object) packet;
         packetAccess.setPureHELaserSource(this.he$isPureHELaser);
         return packet;
@@ -160,10 +160,16 @@ public abstract class BaseLaserBlockEntityMixin
 
     @WrapOperation(
         method = "tick",
-        at = @At(value = "NEW", target = "(ILnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Ldev/dubhe/anvilcraft/network/LaserEmitPacket;")
+        at = @At(value = "NEW", target = "(ILnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;Z)Ldev/dubhe/anvilcraft/network/LaserEmitPacket;")
     )
-    LaserEmitPacket fillCustomValue2(int laserLevel, BlockPos laserBlockPos, BlockPos irradiateBlockPos, Operation<LaserEmitPacket> original) {
-        LaserEmitPacket packet = original.call(laserLevel, laserBlockPos, irradiateBlockPos);
+    LaserEmitPacket fillCustomValue2(
+        int level,
+        BlockPos laserPos,
+        BlockPos irradiatePos,
+        boolean gamma,
+        Operation<LaserEmitPacket> original
+    ) {
+        LaserEmitPacket packet = original.call(level, laserPos, irradiatePos, gamma);
         LaserRendererInternals.PacketAccess packetAccess = (LaserRendererInternals.PacketAccess)(Object) packet;
         packetAccess.setPureHELaserSource(this.he$isPureHELaser);
         return packet;

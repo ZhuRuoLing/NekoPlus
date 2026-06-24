@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Function3;
+import com.mojang.datafixers.util.Function4;
 import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import dev.dubhe.anvilcraft.network.LaserEmitPacket;
 import icu.takeneko.nekoplus.internal.LaserRendererInternals;
@@ -29,17 +30,19 @@ public class LaserEmitPacketMixin implements LaserRendererInternals.PacketAccess
         method = "<clinit>",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/network/codec/StreamCodec;composite(Lnet/minecraft/network/codec/StreamCodec;Ljava/util/function/Function;Lnet/minecraft/network/codec/StreamCodec;Ljava/util/function/Function;Lnet/minecraft/network/codec/StreamCodec;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function3;)Lnet/minecraft/network/codec/StreamCodec;"
+            target = "Lnet/minecraft/network/codec/StreamCodec;composite(Lnet/minecraft/network/codec/StreamCodec;Ljava/util/function/Function;Lnet/minecraft/network/codec/StreamCodec;Ljava/util/function/Function;Lnet/minecraft/network/codec/StreamCodec;Ljava/util/function/Function;Lnet/minecraft/network/codec/StreamCodec;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function4;)Lnet/minecraft/network/codec/StreamCodec;"
         )
     )
-    private static <T1, T2, T3> StreamCodec<? super ByteBuf, LaserEmitPacket> modifyStreamCodec(
+    private static <T1, T2, T3, T4> StreamCodec<? super ByteBuf, LaserEmitPacket> modifyStreamCodec(
         StreamCodec<? super ByteBuf, T1> codec1,
         Function<LaserEmitPacket, T1> getter1,
         StreamCodec<? super ByteBuf, T2> codec2,
         Function<LaserEmitPacket, T2> getter2,
         StreamCodec<? super ByteBuf, T3> codec3,
         Function<LaserEmitPacket, T3> getter3,
-        Function3<T1, T2, T3, LaserEmitPacket> constructor,
+        StreamCodec<? super ByteBuf, T4> codec4,
+        Function<LaserEmitPacket, T4> getter4,
+        Function4<T1, T2, T3, T4, LaserEmitPacket> constructor,
         Operation<StreamCodec<? super ByteBuf, LaserEmitPacket>> original
     ) {
         return StreamCodec.composite(
@@ -49,10 +52,12 @@ public class LaserEmitPacketMixin implements LaserRendererInternals.PacketAccess
             getter2,
             codec3,
             getter3,
+            codec4,
+            getter4,
             ByteBufCodecs.BOOL,
             it -> ((LaserRendererInternals.PacketAccess) (Object) (it)).isPureHELaserSource(),
-            (t1, t2, t3, b) -> {
-                LaserEmitPacket packet = constructor.apply(t1, t2, t3);
+            (t1, t2, t3, t4, b) -> {
+                LaserEmitPacket packet = constructor.apply(t1, t2, t3, t4);
                 ((LaserRendererInternals.PacketAccess) (Object) (packet)).setPureHELaserSource(b);
                 return packet;
             }
