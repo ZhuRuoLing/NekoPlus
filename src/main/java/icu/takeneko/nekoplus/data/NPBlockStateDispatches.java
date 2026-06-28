@@ -6,6 +6,7 @@ import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumBlockModelG
 import dev.anvilcraft.lib.v2.registrum.providers.generators.model.PropertyDispatchWrap;
 import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.BatteryBlock;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
@@ -33,6 +34,7 @@ import java.util.Optional;
 @SuppressWarnings("deprecation")
 public class NPBlockStateDispatches {
     public static final TextureSlot SLOT_1 = TextureSlot.create("1");
+    public static final TextureSlot SLOT_2 = TextureSlot.create("2");
     public static final TextureSlot SLOT_3 = TextureSlot.create("3");
     public static final TextureSlot SLOT_ALL = TextureSlot.create("all");
     public static final TextureSlot SLOT_OVERLAY = TextureSlot.create("overlay");
@@ -54,6 +56,14 @@ public class NPBlockStateDispatches {
         Optional.empty(),
         SLOT_ALL,
         SLOT_OVERLAY
+    );
+
+    public static final ModelTemplate BATTERY_MODEL = new ModelTemplate(
+        Optional.of(NekoPlus.location("block/battery_parent")),
+        Optional.empty(),
+        SLOT_1,
+        SLOT_2,
+        SLOT_3
     );
 
     public static NonNullBiConsumer<DataGenContext<Block, HighEnergyLaserBlock>, RegistrumBlockModelGenerator> highEnergyLaser() {
@@ -284,13 +294,13 @@ public class NPBlockStateDispatches {
 
     public static NonNullBiConsumer<DataGenContext<Block, ShulkerHatchBlock>, RegistrumBlockModelGenerator> shulkerHatch() {
         return (ctx, gen) -> {
-            var modelId = NekoPlus.location("block/shulker_hatch");
+            Identifier modelId = NekoPlus.location("block/shulker_hatch");
 
-            var dispatchWrap = PropertyDispatchWrap.initial(
+            PropertyDispatchWrap.C1<MultiVariant, Direction> dispatchWrap = PropertyDispatchWrap.initial(
                 ShulkerHatchBlock.FACING
             );
 
-            for (var direction : Direction.Plane.HORIZONTAL) {
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
                 int yRot = ((int) direction.toYRot()) % 360;
                 dispatchWrap.select(
                     direction,
@@ -308,5 +318,57 @@ public class NPBlockStateDispatches {
 
     public static ConditionBuilder condition() {
         return new ConditionBuilder();
+    }
+
+    public static NonNullBiConsumer<DataGenContext<Block, BatteryBlock>, RegistrumBlockModelGenerator> battery() {
+        return (ctx, gen) -> {
+            Identifier normalModel = gen.withParent(BATTERY_MODEL)
+                .suffix("")
+                .texture(SLOT_1, NekoPlus.location("block/battery_cells"))
+                .texture(SLOT_2, NekoPlus.location("block/battery"))
+                .texture(SLOT_3, NekoPlus.location("block/battery_lights"))
+                .build(ctx.get());
+
+            Identifier overloadModel = gen.withParent(BATTERY_MODEL)
+                .suffix("_overload")
+                .texture(SLOT_1, NekoPlus.location("block/battery_cells"))
+                .texture(SLOT_2, NekoPlus.location("block/battery"))
+                .texture(SLOT_3, NekoPlus.location("block/battery_lights_overload"))
+                .build(ctx.get());
+
+            Identifier dischargingModel = gen.withParent(BATTERY_MODEL)
+                .suffix("_discharging")
+                .texture(SLOT_1, NekoPlus.location("block/battery_cells"))
+                .texture(SLOT_2, NekoPlus.location("block/battery"))
+                .texture(SLOT_3, NekoPlus.location("block/battery_lights_discharging"))
+                .build(ctx.get());
+
+            MultiVariantGenerator variantGenerator = MultiVariantGenerator.dispatch(ctx.get())
+                .with(
+                    PropertyDispatchWrap.initial(BatteryBlock.OVERLOAD, BatteryBlock.DISCHARGING)
+                        .select(
+                            true,
+                            false,
+                            BlockModelGenerators.plainVariant(overloadModel)
+                        )
+                        .select(
+                            true,
+                            true,
+                            BlockModelGenerators.plainVariant(overloadModel)
+                        )
+                        .select(
+                            false,
+                            true,
+                            BlockModelGenerators.plainVariant(dischargingModel)
+                        )
+                        .select(
+                            false,
+                            false,
+                            BlockModelGenerators.plainVariant(normalModel)
+                        )
+                        .dispatch()
+                );
+            gen.blockStateOutput.accept(variantGenerator);
+        };
     }
 }

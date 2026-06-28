@@ -4,6 +4,7 @@ import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockEntityRenderer;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
@@ -36,6 +37,11 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<TestBlockEntity> TEST = NekoPlus.REGISTRUM
         .blockEntity("test", TestBlockEntity::new)
         .validBlock(NPBlocks.TEST)
+        .register();
+
+    public static final BlockEntityEntry<BatteryBlockEntity> BATTERY = NekoPlus.REGISTRUM
+        .blockEntity("battery", BatteryBlockEntity::new)
+        .validBlock(NPBlocks.BATTERY)
         .register();
 
     public static final BlockEntityEntry<StellarEngineBlockEntity> STELLAR_ENGINE = NekoPlus.REGISTRUM

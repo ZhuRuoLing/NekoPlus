@@ -3,7 +3,6 @@ package icu.takeneko.nekoplus.foundation.block.tile;
 import dev.dubhe.anvilcraft.api.power.IPowerComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -17,7 +16,7 @@ public interface NPPowerComponent extends IPowerComponent {
     }
 
     @Override
-    default void flushState(@NotNull Level level, @NotNull BlockPos pos) {
+    default void flushState(Level level, BlockPos pos) {
         if (this.getGrid() == null) {
             if (!isOverload()) {
                 setOverload(true);

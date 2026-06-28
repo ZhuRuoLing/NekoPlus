@@ -44,6 +44,34 @@ public class NPConfig {
     }
 
     static {
+        BUILDER.push("battery");
+    }
+
+    public static final ModConfigSpec.IntValue BATTERY_CAPACITY = BUILDER
+        .comment("Battery capacity, in watt-seconds.")
+        .translation("nekoplus.configuration.battery.capacity")
+        .defineInRange("capacity", 10800000, 0, Integer.MAX_VALUE);
+
+    public static final ModConfigSpec.IntValue BATTERY_MAX_CHARGING_RATE = BUILDER
+        .comment("Maximum charging rate for the battery.")
+        .translation("nekoplus.configuration.battery.maxChargingRate")
+        .defineInRange("maxChargingRate", 6000, 0, Integer.MAX_VALUE);
+
+    public static final ModConfigSpec.IntValue BATTERY_MAX_DISCHARGING_RATE_DEFAULT = BUILDER
+        .comment("Default maximum discharging rate for the battery.")
+        .translation("nekoplus.configuration.battery.maxDischargingRateDefault")
+        .defineInRange("maxDischargingRateDefault", 1000, 0, Integer.MAX_VALUE);
+
+    public static final ModConfigSpec.IntValue BATTERY_MAX_DISCHARGING_RATE_MAX = BUILDER
+        .comment("Maximum allowed maximum discharging rate for the battery.")
+        .translation("nekoplus.configuration.battery.maxDischargingRateMax")
+        .defineInRange("maxDischargingRateMax", 65536, 0, Integer.MAX_VALUE);
+
+    static {
+        BUILDER.pop();
+    }
+
+    static {
         BUILDER.push("crystal");
     }
 

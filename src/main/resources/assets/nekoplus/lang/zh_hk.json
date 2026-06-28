@@ -1,5 +1,6 @@
 {
   "block.nekoplus.blast_crystal": "爆能水晶",
+  "block.nekoplus.battery": "電池",
   "block.nekoplus.cat_anvil": "貓砧",
   "block.nekoplus.cracked_blast_crystal": "裂紋爆能水晶",
   "block.nekoplus.cut_titanium_alloy_block": "切製鈦合金塊",
@@ -131,6 +132,11 @@
   "nekoplus.configuration.smartBlockPlacer": "智能方塊放置器",
   "nekoplus.configuration.overclocking.smartBlockPlacer.baseOverclockCost": "智能方塊放置器基礎超頻消耗",
   "nekoplus.configuration.overclocking.smartBlockPlacer.maxOverclockRatio": "智能方塊放置器最大超頻倍率",
+  "nekoplus.configuration.battery": "電池",
+  "nekoplus.configuration.battery.capacity": "電池容量",
+  "nekoplus.configuration.battery.maxChargingRate": "電池最大充電速率",
+  "nekoplus.configuration.battery.maxDischargingRateDefault": "電池預設最大放電速率",
+  "nekoplus.configuration.battery.maxDischargingRateMax": "電池最大放電速率上限",
   "nekoplus.configuration.crystal": "爆能水晶",
   "nekoplus.configuration.crystal.accumulatedChargeDecayMultiplier": "爆能水晶累積充能衰減倍率",
   "nekoplus.configuration.crystal.chargePerRadiusAtFalloffEdge": "爆能水晶衰減邊緣每半徑充能量",

@@ -22,6 +22,11 @@ public class NPTranslations {
         provider.add("nekoplus.configuration.smartBlockPlacer", "Smart Block Placer");
         provider.add("nekoplus.configuration.overclocking.smartBlockPlacer.maxOverclockRatio", "Smart Block Placer Maximum Overclock Ratio");
         provider.add("nekoplus.configuration.overclocking.smartBlockPlacer.baseOverclockCost", "Smart Block Placer Base Overclock Cost");
+        provider.add("nekoplus.configuration.battery", "Battery");
+        provider.add("nekoplus.configuration.battery.capacity", "Battery Capacity");
+        provider.add("nekoplus.configuration.battery.maxChargingRate", "Battery Maximum Charging Rate");
+        provider.add("nekoplus.configuration.battery.maxDischargingRateDefault", "Battery Default Maximum Discharging Rate");
+        provider.add("nekoplus.configuration.battery.maxDischargingRateMax", "Battery Maximum Discharging Rate Limit");
         provider.add("nekoplus.configuration.crystal", "Blast Crystal");
         provider.add("nekoplus.configuration.crystal.minChargeBeforeDecay", "Blast Crystal Minimum Charge Before Decay");
         provider.add("nekoplus.configuration.crystal.accumulatedChargeDecayMultiplier", "Blast Crystal Accumulated Charge Decay Multiplier");

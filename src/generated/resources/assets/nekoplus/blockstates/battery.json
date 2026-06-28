@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "discharging=false,overload=false": {
+      "model": "nekoplus:block/battery"
+    },
+    "discharging=false,overload=true": {
+      "model": "nekoplus:block/battery_overload"
+    },
+    "discharging=true,overload=false": {
+      "model": "nekoplus:block/battery_discharging"
+    },
+    "discharging=true,overload=true": {
+      "model": "nekoplus:block/battery_overload"
+    }
+  }
+}

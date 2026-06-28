@@ -10,6 +10,7 @@ import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.block.state.Cube323PartHalf;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.BatteryBlock;
 import icu.takeneko.nekoplus.block.BlastCrystalBlock;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.MineralFountainPressurizerBlock;
@@ -109,6 +110,15 @@ public class NPBlocks {
         .initialProperties(() -> Blocks.IRON_BLOCK)
         .defaultBlockstate()
         .item()
+        .build()
+        .register();
+
+    public static final BlockEntry<BatteryBlock> BATTERY = NekoPlus.REGISTRUM
+        .block("battery", BatteryBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .blockstate(NPBlockStateDispatches::battery)
+        .item()
+        .model(DataGenUtil::blockItem)
         .build()
         .register();
 

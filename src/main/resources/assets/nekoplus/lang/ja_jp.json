@@ -1,5 +1,6 @@
 {
   "block.nekoplus.blast_crystal": "ブラストクリスタル",
+  "block.nekoplus.battery": "電池",
   "block.nekoplus.cat_anvil": "猫金床",
   "block.nekoplus.cracked_blast_crystal": "ひび割れたブラストクリスタル",
   "block.nekoplus.cut_titanium_alloy_block": "カットチタン合金ブロック",
@@ -131,6 +132,11 @@
   "nekoplus.configuration.smartBlockPlacer": "スマートブロック設置機",
   "nekoplus.configuration.overclocking.smartBlockPlacer.baseOverclockCost": "スマートブロック設置機の基礎オーバークロック消費",
   "nekoplus.configuration.overclocking.smartBlockPlacer.maxOverclockRatio": "スマートブロック設置機の最大オーバークロック倍率",
+  "nekoplus.configuration.battery": "電池",
+  "nekoplus.configuration.battery.capacity": "電池容量",
+  "nekoplus.configuration.battery.maxChargingRate": "電池の最大充電レート",
+  "nekoplus.configuration.battery.maxDischargingRateDefault": "電池のデフォルト最大放電レート",
+  "nekoplus.configuration.battery.maxDischargingRateMax": "電池の最大放電レート上限",
   "nekoplus.configuration.crystal": "ブラストクリスタル",
   "nekoplus.configuration.crystal.accumulatedChargeDecayMultiplier": "ブラストクリスタル蓄積チャージ減衰倍率",
   "nekoplus.configuration.crystal.chargePerRadiusAtFalloffEdge": "ブラストクリスタル減衰端の半径あたりチャージ",
@@ -145,5 +151,5 @@
   "nekoplus.configuration.crystal.minChargeBeforeDecay": "ブラストクリスタル減衰前最小チャージ",
   "nekoplus.configuration.crystal.normalAccumulatedChargeSensitivity": "通常ブラストクリスタルの蓄積チャージ感度",
   "nekoplus.configuration.crystal.normalBaseDetonationCharge": "通常ブラストクリスタルの基礎爆発チャージ",
-  "nekoplus.configuration.crystal.normalDegradeChance": "通常ブラストクリスタルの劣化確率",
+  "nekoplus.configuration.crystal.normalDegradeChance": "通常ブラストクリスタルの劣化確率"
 }
