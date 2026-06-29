@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -144,6 +145,7 @@ public class PowerGridMixin {
         updateBatterySummaries(batteries);
     }
 
+    @Unique
     private void updateBatterySummaries(List<BatteryBlockEntity> batteries) {
         long gridStoredPower = 0;
         long gridCapacity = 0;

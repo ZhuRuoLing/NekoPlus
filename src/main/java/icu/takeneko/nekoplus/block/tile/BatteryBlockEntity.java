@@ -102,10 +102,6 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
         return NPConfig.BATTERY_CAPACITY.getAsLong();
     }
 
-    public boolean isCharging() {
-        return charging;
-    }
-
     public String getBatteryRemainingTimeText() {
         int rate = discharging ? dischargingRate : maxChargingRate;
         if (rate <= 0) return "--:--";

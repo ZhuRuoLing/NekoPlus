@@ -119,6 +119,21 @@ public class NPBlocks {
         .blockstate(NPBlockStateDispatches::battery)
         .item()
         .model(DataGenUtil::blockItem)
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.MISC, ctx.get())
+                .pattern("ABA")
+                .pattern("DDD")
+                .pattern("ACA")
+                .define('A', NPItems.TITANIUM_ALLOY_INGOT)
+                .define('B', ModBlocks.CHARGER)
+                .define('C', ModBlocks.DISCHARGER)
+                .define('D', ModItems.SUPER_CAPACITOR_EMPTY)
+                .unlockedBy("has_" + NPItems.TITANIUM_ALLOY_INGOT.getRegisteredName(), prov.has(NPItems.TITANIUM_ALLOY_INGOT))
+                .unlockedBy("has_" + ModBlocks.CHARGER.getRegisteredName(), prov.has(ModBlocks.CHARGER))
+                .unlockedBy("has_" + ModBlocks.DISCHARGER.getRegisteredName(), prov.has(ModBlocks.DISCHARGER))
+                .unlockedBy("has_" + ModItems.SUPER_CAPACITOR_EMPTY.getRegisteredName(), prov.has(ModItems.SUPER_CAPACITOR_EMPTY))
+                .save(prov);
+        })
         .build()
         .register();
 
