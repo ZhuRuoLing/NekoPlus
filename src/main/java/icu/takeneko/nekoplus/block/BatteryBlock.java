@@ -1,12 +1,17 @@
 package icu.takeneko.nekoplus.block;
 
+import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
 import com.mojang.serialization.MapCodec;
 import dev.dubhe.anvilcraft.api.power.IPowerComponent;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
+import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -17,9 +22,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
-public class BatteryBlock extends BaseEntityBlock {
+public class BatteryBlock extends BaseEntityBlock implements NPUIBlock {
     public static final BooleanProperty OVERLOAD = IPowerComponent.OVERLOAD;
     public static final BooleanProperty DISCHARGING = BooleanProperty.create("discharging");
 
@@ -56,6 +62,21 @@ public class BatteryBlock extends BaseEntityBlock {
             return (BlockEntityTicker<T>) BlockEntityUtil.<BatteryBlockEntity>createTicker();
         }
         return null;
+    }
+
+    @Override
+    protected InteractionResult useWithoutItem(
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Player player,
+        BlockHitResult hitResult
+    ) {
+        if (level instanceof ServerLevel && player instanceof ServerPlayer serverPlayer) {
+            BlockUIMenuType.openUI(serverPlayer, pos);
+            return InteractionResult.SUCCESS_SERVER;
+        }
+        return InteractionResult.SUCCESS;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import dev.dubhe.anvilcraft.api.power.IPowerComponent;
 import dev.dubhe.anvilcraft.api.power.IPowerConsumer;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
+import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.foundation.block.tile.NPPowerComponent;
 import icu.takeneko.nekoplus.util.OverclockUtil;
@@ -37,6 +38,10 @@ public class PowerGridMixin {
     @Shadow
     @Final
     Set<IPowerConsumer> consumers;
+
+    @Shadow
+    @Final
+    Set<IPowerComponent> components;
 
     @Inject(
         method = "checkRemove",
@@ -96,5 +101,68 @@ public class PowerGridMixin {
         }
     }
 
+    @Inject(
+        method = "gridTick",
+        at = @At("HEAD")
+    )
+    void tickBatteriesBeforeComponents(CallbackInfo ci) {
+        List<BatteryBlockEntity> batteries = new ArrayList<>();
+        for (IPowerComponent component : components) {
+            if (component instanceof BatteryBlockEntity battery) {
+                batteries.add(battery);
+            }
+        }
+        if (batteries.isEmpty()) return;
+
+        int previousBatteryOutput = 0;
+        for (BatteryBlockEntity battery : batteries) {
+            previousBatteryOutput += battery.getOutputPower();
+        }
+
+        int externalGenerate = this.generate - previousBatteryOutput;
+        int dischargeRequest = this.consume - externalGenerate;
+        if (dischargeRequest > 0) {
+            int remainingRequest = dischargeRequest;
+            for (BatteryBlockEntity battery : batteries) {
+                int used = battery.dischargeFromGridRequest(remainingRequest);
+                remainingRequest = Math.max(remainingRequest - used, 0);
+            }
+            updateBatterySummaries(batteries);
+            return;
+        }
+
+        for (BatteryBlockEntity battery : batteries) {
+            battery.clearDischarge();
+        }
+
+        int availableChargingPower = Math.max(this.generate - this.consume, 0);
+        boolean canCharge = previousBatteryOutput == 0;
+        for (BatteryBlockEntity battery : batteries) {
+            int used = battery.chargeFromGridBudget(availableChargingPower, canCharge);
+            availableChargingPower = Math.max(availableChargingPower - used, 0);
+        }
+        updateBatterySummaries(batteries);
+    }
+
+    private void updateBatterySummaries(List<BatteryBlockEntity> batteries) {
+        long gridStoredPower = 0;
+        long gridCapacity = 0;
+        int gridDischargingRate = 0;
+        int gridMaxChargingRate = 0;
+        for (BatteryBlockEntity battery : batteries) {
+            gridStoredPower += battery.getStoredPower();
+            gridCapacity += battery.getCapacity();
+            gridDischargingRate += battery.getDischargingRate();
+            gridMaxChargingRate += battery.getMaxChargingRate();
+        }
+        for (BatteryBlockEntity battery : batteries) {
+            battery.updateGridBatterySummary(
+                gridStoredPower,
+                gridCapacity,
+                gridDischargingRate,
+                gridMaxChargingRate
+            );
+        }
+    }
 
 }

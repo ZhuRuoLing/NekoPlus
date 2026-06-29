@@ -47,13 +47,13 @@ public class NPConfig {
         BUILDER.push("battery");
     }
 
-    public static final ModConfigSpec.IntValue BATTERY_CAPACITY = BUILDER
-        .comment("Battery capacity, in watt-seconds.")
+    public static final ModConfigSpec.LongValue BATTERY_CAPACITY = BUILDER
+        .comment("Battery capacity, in kilowatt-seconds.")
         .translation("nekoplus.configuration.battery.capacity")
-        .defineInRange("capacity", 10800000, 0, Integer.MAX_VALUE);
+        .defineInRange("capacity", 10800000L, 0, Long.MAX_VALUE);
 
     public static final ModConfigSpec.IntValue BATTERY_MAX_CHARGING_RATE = BUILDER
-        .comment("Maximum charging rate for the battery.")
+        .comment("Maximum charging rate for the battery, in kW.")
         .translation("nekoplus.configuration.battery.maxChargingRate")
         .defineInRange("maxChargingRate", 6000, 0, Integer.MAX_VALUE);
 

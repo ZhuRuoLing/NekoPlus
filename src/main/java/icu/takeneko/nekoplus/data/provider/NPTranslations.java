@@ -62,6 +62,18 @@ public class NPTranslations {
         provider.add("ui.programmable_logic_gate.white", "Configure Pin: White");
         provider.add("ui.programmable_logic_gate.pin_mode", "Pin Mode ");
         provider.add("ui.programmable_logic_gate.expression", "Expression ");
+        provider.add("ui.battery.status", "Status: ");
+        provider.add("ui.battery.status.charging", "Charging");
+        provider.add("ui.battery.status.discharging", "Discharging");
+        provider.add("ui.battery.status.idle", "Idle");
+        provider.add("ui.battery.max_charging_rate", "Maximum Charging Power: ");
+        provider.add("ui.battery.remaining_time", "Charge/Discharge Time Remaining: ");
+        provider.add("ui.battery.capacity", "Capacity: ");
+        provider.add("ui.battery.current_discharging_rate", "Current Generating Power: ");
+        provider.add("ui.battery.max_discharging_rate", "Maximum Generating Power: ");
+        provider.add("ui.battery.grid_capacity", "Total Capacity in Grid: ");
+        provider.add("ui.battery.grid_remaining_time", "All Charge/Discharge Time Remaining in Grid: ");
+        provider.add("tooltip.nekoplus.battery.max_charging_rate", "Scroll to adjust this number. Hold Shift to scroll faster.");
 
         provider.add("evaluator.undefined_symbol", "Tried to use undeclared identifier %s or its value has not been set.");
         provider.add("evaluator.inspection.undefined_symbol", "§cerror:§r use of undeclared identifier '%s' at line %s: %s <--[HERE]");
