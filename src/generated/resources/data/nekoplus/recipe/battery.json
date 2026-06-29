@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "nekoplus:titanium_alloy_ingot",
+    "B": "anvilcraft:charger",
+    "C": "anvilcraft:discharger",
+    "D": "anvilcraft:supercapacitor_empty"
+  },
+  "pattern": [
+    "ABA",
+    "DDD",
+    "ACA"
+  ],
+  "result": {
+    "id": "nekoplus:battery"
+  }
+}
