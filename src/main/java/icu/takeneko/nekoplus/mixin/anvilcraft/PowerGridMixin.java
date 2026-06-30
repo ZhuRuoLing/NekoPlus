@@ -150,19 +150,19 @@ public class PowerGridMixin {
         long gridStoredPower = 0;
         long gridCapacity = 0;
         int gridDischargingRate = 0;
-        int gridMaxChargingRate = 0;
+        int gridChargingRate = 0;
         for (BatteryBlockEntity battery : batteries) {
             gridStoredPower += battery.getStoredPower();
             gridCapacity += battery.getCapacity();
             gridDischargingRate += battery.getDischargingRate();
-            gridMaxChargingRate += battery.getMaxChargingRate();
+            gridChargingRate += battery.getChargingRate();
         }
         for (BatteryBlockEntity battery : batteries) {
             battery.updateGridBatterySummary(
                 gridStoredPower,
                 gridCapacity,
                 gridDischargingRate,
-                gridMaxChargingRate
+                gridChargingRate
             );
         }
     }

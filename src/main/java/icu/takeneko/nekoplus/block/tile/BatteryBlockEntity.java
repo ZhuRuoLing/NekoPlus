@@ -32,6 +32,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     private PowerGrid grid;
     @Persisted
     private int dischargingRate = 0;
+    private int chargingRate = 0;
     @Persisted
     private int maxDischargingRate = NPConfig.BATTERY_MAX_DISCHARGING_RATE_DEFAULT.getAsInt();
     @Persisted
@@ -45,10 +46,11 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     @Persisted
     @DescSynced
     private boolean charging = false;
+
     private long gridStoredPower = 0;
     private long gridCapacity = NPConfig.BATTERY_CAPACITY.getAsLong();
     private int gridDischargingRate = 0;
-    private int gridMaxChargingRate = 0;
+    private int gridChargingRate = 0;
 
     public BatteryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
@@ -58,6 +60,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
         if (requestedPower <= 0 || storedPower <= 0) {
             clearDischarge();
             this.charging = false;
+            this.chargingRate = 0;
             return 0;
         }
 
@@ -66,6 +69,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
         this.dischargingRate = suppliedPower;
         this.discharging = suppliedPower > 0;
         this.charging = false;
+        this.chargingRate = 0;
         this.storedPower -= suppliedPower;
         return suppliedPower;
     }
@@ -73,6 +77,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     public int chargeFromGridBudget(int availableChargingPower, boolean canCharge) {
         if (!canCharge || availableChargingPower <= 0) {
             this.charging = false;
+            this.chargingRate = 0;
             return 0;
         }
 
@@ -83,6 +88,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
             Math.min(availableChargingPower, maxChargingRate)
         );
         this.storedPower += chargedPower;
+        this.chargingRate = chargedPower;
         this.charging = chargedPower > 0;
         return chargedPower;
     }
@@ -107,14 +113,14 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     }
 
     public String getBatteryRemainingTimeText() {
-        int rate = discharging ? dischargingRate : maxChargingRate;
+        int rate = discharging ? dischargingRate : (charging ? chargingRate : 0);
         if (rate <= 0) return "--:--";
         long amount = discharging ? storedPower : Math.max(getCapacity() - storedPower, 0L);
         return formatSeconds(amount / rate);
     }
 
     public String getGridBatteryRemainingTimeText() {
-        int rate = gridDischargingRate > 0 ? gridDischargingRate : gridMaxChargingRate;
+        int rate = gridDischargingRate > 0 ? gridDischargingRate : gridChargingRate;
         if (rate <= 0) return "--:--";
         long amount = gridDischargingRate > 0 ? gridStoredPower : Math.max(gridCapacity - gridStoredPower, 0L);
         return formatSeconds(amount / rate);
@@ -124,12 +130,12 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
         long storedPower,
         long capacity,
         int dischargingRate,
-        int maxChargingRate
+        int chargingRate
     ) {
         this.gridStoredPower = storedPower;
         this.gridCapacity = capacity;
         this.gridDischargingRate = dischargingRate;
-        this.gridMaxChargingRate = maxChargingRate;
+        this.gridChargingRate = chargingRate;
     }
 
     public static String formatEnergyNumber(long value) {
