@@ -5,11 +5,12 @@
     "A": "nekoplus:titanium_alloy_ingot",
     "B": "anvilcraft:charger",
     "C": "anvilcraft:discharger",
-    "D": "anvilcraft:supercapacitor_empty"
+    "D": "anvilcraft:supercapacitor_empty",
+    "E": "anvilcraft:menger_sponge"
   },
   "pattern": [
     "ABA",
-    "DDD",
+    "DED",
     "ACA"
   ],
   "result": {
