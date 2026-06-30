@@ -116,6 +116,7 @@
   "tooltip.nekoplus.anti_gravity_module": "クリエイティブ飛行を有効にし、飛行中の採掘速度低下を取り除く",
   "tooltip.nekoplus.battery": "フィルターコンデンサー",
   "tooltip.nekoplus.battery.max_charging_rate": "スクロールで数値を調整します。Shift を押しながらだと速くスクロールします",
+  "tooltip.nekoplus.battery.max_discharging_rate": "???????????????Shift ??????????????????",
   "tooltip.nekoplus.cat_anvil": "にゃ~",
   "tooltip.nekoplus.charged_levitation_powder": "レベル",
   "tooltip.nekoplus.dry_ice": "CO₂",

@@ -116,6 +116,7 @@
   "tooltip.nekoplus.anti_gravity_module": "Grants creative flight and removes flying mining penalty.",
   "tooltip.nekoplus.battery": "Filter Capacitor",
   "tooltip.nekoplus.battery.max_charging_rate": "Scroll to adjust this number. Hold Shift to scroll faster.",
+  "tooltip.nekoplus.battery.max_discharging_rate": "Scroll to adjust this number. Hold Shift to scroll faster.",
   "tooltip.nekoplus.cat_anvil": "*Meow*",
   "tooltip.nekoplus.charged_levitation_powder": "Lv",
   "tooltip.nekoplus.dry_ice": "CO₂",

@@ -74,6 +74,7 @@ public class NPTranslations {
         provider.add("ui.battery.grid_capacity", "Total Capacity in Grid: ");
         provider.add("ui.battery.grid_remaining_time", "All Charge/Discharge Time Remaining in Grid: ");
         provider.add("tooltip.nekoplus.battery.max_charging_rate", "Scroll to adjust this number. Hold Shift to scroll faster.");
+        provider.add("tooltip.nekoplus.battery.max_discharging_rate", "Scroll to adjust this number. Hold Shift to scroll faster.");
 
         provider.add("evaluator.undefined_symbol", "Tried to use undeclared identifier %s or its value has not been set.");
         provider.add("evaluator.inspection.undefined_symbol", "§cerror:§r use of undeclared identifier '%s' at line %s: %s <--[HERE]");

@@ -116,6 +116,7 @@
   "tooltip.nekoplus.anti_gravity_module": "啟用創造飛行並移除飛行挖掘懲罰",
   "tooltip.nekoplus.battery": "绿波电龙",
   "tooltip.nekoplus.battery.max_charging_rate": "使用滾輪滾動調整數字，按住 Shift 以滾動得更快",
+  "tooltip.nekoplus.battery.max_discharging_rate": "????????????? Shift ??????",
   "tooltip.nekoplus.cat_anvil": "喵~",
   "tooltip.nekoplus.charged_levitation_powder": "等級",
   "tooltip.nekoplus.dry_ice": "CO₂",

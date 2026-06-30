@@ -65,7 +65,7 @@ public class NPConfig {
     public static final ModConfigSpec.IntValue BATTERY_MAX_DISCHARGING_RATE_MAX = BUILDER
         .comment("Maximum allowed maximum discharging rate for the battery.")
         .translation("nekoplus.configuration.battery.maxDischargingRateMax")
-        .defineInRange("maxDischargingRateMax", 65536, 0, Integer.MAX_VALUE);
+        .defineInRange("maxDischargingRateMax", 6000, 0, Integer.MAX_VALUE);
 
     static {
         BUILDER.pop();

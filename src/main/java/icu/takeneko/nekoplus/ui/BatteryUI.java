@@ -14,6 +14,7 @@ import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
 import net.minecraft.network.chat.Component;
 
+import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
@@ -28,8 +29,8 @@ public class BatteryUI extends NPUI<BatteryBlockEntity> {
     private static final int UNIT_LIGHT = 0xFFD7F2EF;
     private static final int TIME_PURPLE = 0xFFD977FF;
 
-    private static final int NORMAL_CHARGING_STEP = 100;
-    private static final int SHIFT_CHARGING_STEP = 1000;
+    private static final int NORMAL_POWER_STEP = 100;
+    private static final int SHIFT_POWER_STEP = 1000;
 
     public BatteryUI(BatteryBlockEntity blockEntity) {
         super(blockEntity, Component.translatable("block.nekoplus.battery"));
@@ -66,7 +67,7 @@ public class BatteryUI extends NPUI<BatteryBlockEntity> {
             ),
             uiRow(
                 text("ui.battery.max_discharging_rate", TEXT),
-                boundText(() -> Component.literal(Integer.toString(blockEntity.getMaxDischargingRate())), STRONG)
+                wheelAdjustedDischargingPowerValue()
             ),
             gridPanel()
         );
@@ -75,22 +76,45 @@ public class BatteryUI extends NPUI<BatteryBlockEntity> {
     }
 
     private Label wheelAdjustedChargingPowerValue() {
+        return wheelAdjustedPowerValue(
+            blockEntity::getMaxChargingRate,
+            blockEntity::setMaxChargingRate,
+            CHARGING_GREEN,
+            "tooltip.nekoplus.battery.max_charging_rate"
+        );
+    }
+
+    private Label wheelAdjustedDischargingPowerValue() {
+        return wheelAdjustedPowerValue(
+            blockEntity::getMaxDischargingRate,
+            blockEntity::setMaxDischargingRate,
+            STRONG,
+            "tooltip.nekoplus.battery.max_discharging_rate"
+        );
+    }
+
+    private Label wheelAdjustedPowerValue(
+        IntSupplier valueSupplier,
+        IntConsumer valueConsumer,
+        int color,
+        String tooltip
+    ) {
         Label label = boundText(
-            () -> Component.literal(Integer.toString(blockEntity.getMaxChargingRate())),
-            CHARGING_GREEN
+            () -> Component.literal(Integer.toString(valueSupplier.getAsInt())),
+            color
         );
         label.layout(layout -> layout.minWidth(34));
         label.addEventListener(
             UIEvents.HOVER_TOOLTIPS,
             event -> event.hoverTooltips = HoverTooltips.create(
-                Component.translatable("tooltip.nekoplus.battery.max_charging_rate")
+                Component.translatable(tooltip)
             )
         );
         label.addServerEventListener(
             UIEvents.MOUSE_WHEEL, event -> {
-                int step = event.isShiftDown() ? SHIFT_CHARGING_STEP : NORMAL_CHARGING_STEP;
+                int step = event.isShiftDown() ? SHIFT_POWER_STEP : NORMAL_POWER_STEP;
                 int direction = event.deltaY > 0 ? 1 : -1;
-                blockEntity.setMaxChargingRate(blockEntity.getMaxChargingRate() + direction * step);
+                valueConsumer.accept(valueSupplier.getAsInt() + direction * step);
                 event.stopPropagation();
             }
         );

@@ -33,7 +33,6 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     @Persisted
     private int dischargingRate = 0;
     @Persisted
-    @Setter
     private int maxDischargingRate = NPConfig.BATTERY_MAX_DISCHARGING_RATE_DEFAULT.getAsInt();
     @Persisted
     private int maxChargingRate = NPConfig.BATTERY_MAX_CHARGING_RATE.getAsInt();
@@ -95,6 +94,11 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
 
     public void setMaxChargingRate(int value) {
         this.maxChargingRate = Math.clamp(value, 0, NPConfig.BATTERY_MAX_CHARGING_RATE.getAsInt());
+        setChanged();
+    }
+
+    public void setMaxDischargingRate(int value) {
+        this.maxDischargingRate = Math.clamp(value, 0, NPConfig.BATTERY_MAX_DISCHARGING_RATE_MAX.getAsInt());
         setChanged();
     }
 
