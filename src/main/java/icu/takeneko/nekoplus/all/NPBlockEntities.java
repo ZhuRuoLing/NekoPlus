@@ -13,7 +13,6 @@ import icu.takeneko.nekoplus.block.tile.ShulkerHatchBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
-import icu.takeneko.nekoplus.block.tile.TestBlockEntity;
 import icu.takeneko.nekoplus.client.renderer.tesr.StellarEngineRenderer;
 import icu.takeneko.nekoplus.client.renderer.tesr.TardisRenderer;
 
@@ -32,11 +31,6 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<ParticleStabilizerBlockEntity> PARTICLE_STABILIZER = NekoPlus.REGISTRUM
         .blockEntity("particle_stabilizer", ParticleStabilizerBlockEntity::new)
         .validBlock(NPBlocks.PARTICLE_STABILIZER)
-        .register();
-
-    public static final BlockEntityEntry<TestBlockEntity> TEST = NekoPlus.REGISTRUM
-        .blockEntity("test", TestBlockEntity::new)
-        .validBlock(NPBlocks.TEST)
         .register();
 
     public static final BlockEntityEntry<BatteryBlockEntity> BATTERY = NekoPlus.REGISTRUM

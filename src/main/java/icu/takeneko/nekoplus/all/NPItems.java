@@ -280,7 +280,7 @@ public class NPItems {
 
     public static final ItemEntry<Item> SULFUR = NekoPlus.REGISTRUM
         .item("sulfur", Item::new)
-        .tag(Tags.Items.DUSTS, NPTags.Items.SULFUR)
+        .tag(Tags.Items.DUSTS, NPTags.Items.SULFUR_DUSTS, NPTags.Items.SULFUR)
         .recipe((ctx, prov) -> {
             AirCondensingRecipe.builder()
                 .dimension(prov.resolve(BuiltinDimensionTypes.NETHER))
@@ -309,7 +309,7 @@ public class NPItems {
         .tag(Tags.Items.DUSTS)
         .recipe((c, p) -> {
             SuperHeatingRecipe.builder()
-                .requires(p.getItems(), NPTags.Items.SULFUR, 8)
+                .requires(p.getItems(), NPTags.Items.SULFUR_DUSTS, 8)
                 .requires(Items.LAPIS_LAZULI, 2)
                 .requires(Items.REDSTONE, 3)
                 .requires(NPItems.CHARGED_LEVITATION_POWDER, 5)

@@ -22,7 +22,6 @@ import icu.takeneko.nekoplus.block.StellarEngineBlock;
 import icu.takeneko.nekoplus.block.SubGridCoreBlock;
 import icu.takeneko.nekoplus.block.TardisBlock;
 import icu.takeneko.nekoplus.block.FatAnvilBlock;
-import icu.takeneko.nekoplus.block.TestBlock;
 import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.data.NPBlockStateDispatches;
 import icu.takeneko.nekoplus.item.ShulkerHatchBlockItem;
@@ -106,21 +105,13 @@ public class NPBlocks {
         .build()
         .register();
 
-    public static final BlockEntry<TestBlock> TEST = NekoPlus.REGISTRUM
-        .block("test", TestBlock::new)
-        .initialProperties(() -> Blocks.IRON_BLOCK)
-        .defaultBlockstate()
-        .item()
-        .build()
-        .register();
-
-    public static final BlockEntry<SubGridCoreBlock> SUB_GRID_CORE = NekoPlus.REGISTRUM
-        .block("sub_grid_core", SubGridCoreBlock::new)
-        .initialProperties(() -> Blocks.IRON_BLOCK)
-        .defaultBlockstate()
-        .item()
-        .build()
-        .register();
+//    public static final BlockEntry<SubGridCoreBlock> SUB_GRID_CORE = NekoPlus.REGISTRUM
+//        .block("sub_grid_core", SubGridCoreBlock::new)
+//        .initialProperties(() -> Blocks.IRON_BLOCK)
+//        .defaultBlockstate()
+//        .item()
+//        .build()
+//        .register();
 
     public static final BlockEntry<BatteryBlock> BATTERY = NekoPlus.REGISTRUM
         .block("battery", BatteryBlock::new)

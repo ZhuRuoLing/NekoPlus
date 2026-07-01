@@ -3,7 +3,6 @@ package icu.takeneko.nekoplus.all;
 import com.lowdragmc.lowdraglib2.gui.holder.ModularUIScreen;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import dev.anvilcraft.lib.v2.recipe.AnvilLibRecipe;
-import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.event.LightningBoltStrikeEvent;
 import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
@@ -28,8 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LightningRodBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.WeatheringLightningRodBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -67,12 +64,6 @@ public class NPEvents {
                 if (v == Direction.DOWN) return a.getItemHandler().slice(1, 5, true);
                 return a.getItemHandler().slice(0, 1);
             }
-        );
-
-        event.registerBlockEntity(
-            NPCapabilities.POWER_COMPONENT,
-            NPBlockEntities.TEST.get(),
-            (blockEntity, context) -> blockEntity
         );
     }
 
