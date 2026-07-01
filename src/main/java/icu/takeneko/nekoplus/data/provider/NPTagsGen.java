@@ -41,6 +41,10 @@ public class NPTagsGen {
         return BuiltInRegistries.BLOCK.getResourceKey(block).orElseThrow().identifier();
     }
 
+    private static Holder<Block> holder(Block block) {
+        return block.builtInRegistryHolder();
+    }
+
     public static void setupBlockTags(RegistrumTagsProvider<Block> provider) {
         ironPickaxeMineableBlock(
             provider,
@@ -57,7 +61,8 @@ public class NPTagsGen {
             NPBlocks.CUT_TITANIUM_ALLOY_BLOCK,
             NPBlocks.CUT_TITANIUM_ALLOY_SLAB,
             NPBlocks.CUT_TITANIUM_ALLOY_STAIR,
-            NPBlocks.BLAST_CRYSTAL
+            NPBlocks.BLAST_CRYSTAL,
+            NPBlocks.BATTERY
         );
 
         wrenchableBlock(
@@ -69,25 +74,35 @@ public class NPTagsGen {
             NPBlocks.HIGH_ENERGY_LASER,
             NPBlocks.TITANIUM_ALLOY_ANVIL,
             NPBlocks.SHULKER_HATCH,
-            NPBlocks.BLAST_CRYSTAL
+            NPBlocks.BLAST_CRYSTAL,
+            NPBlocks.BATTERY
         );
 
-        provider.rawBuilder(ModBlockTags.OVERSEER_BASE)
-            .addElement(NPBlocks.ROYAL_STEEL_CASING.getKey().identifier());
+        tag(
+            provider,
+            ModBlockTags.OVERSEER_BASE,
+            NPBlocks.ROYAL_STEEL_CASING
+        );
+
+        tag(
+            provider,
+            NPTags.Blocks.NESTED_SHULKER_BLOCK,
+            ModBlocks.NESTING_SHULKER_BOX,
+            ModBlocks.OVER_NESTING_SHULKER_BOX,
+            ModBlocks.SUPERCRITICAL_NESTING_SHULKER_BOX
+        );
+
+        tag(
+            provider,
+            ModBlockTags.LASER_CAN_PASS_THROUGH,
+            ModBlocks.SPECTRAL_ANVIL
+        );
 
         provider.rawBuilder(NPTags.Blocks.LIGHTWEIGHT_BLOCK)
             .addElement(key(Blocks.SLIME_BLOCK))
             .addElement(key(Blocks.HONEY_BLOCK))
             .addElement(key(Blocks.SCAFFOLDING))
             .addTag(BlockTags.LEAVES.location());
-
-        provider.rawBuilder(NPTags.Blocks.NESTED_SHULKER_BLOCK)
-            .addElement(ModBlocks.NESTING_SHULKER_BOX.getId())
-            .addElement(ModBlocks.OVER_NESTING_SHULKER_BOX.getId())
-            .addElement(ModBlocks.SUPERCRITICAL_NESTING_SHULKER_BOX.getId());
-
-        provider.rawBuilder(ModBlockTags.LASER_CAN_PASS_THROUGH)
-            .addElement(ModBlocks.SPECTRAL_ANVIL.getId());
     }
 
     public static void ironPickaxeMineableBlock(RegistrumTagsProvider<Block> provider, Holder<Block>... holder) {

@@ -14,6 +14,7 @@
     "nekoplus:cut_titanium_alloy_slab",
     "nekoplus:cut_titanium_alloy_stair",
     "nekoplus:blast_crystal",
+    "nekoplus:battery",
     "nekoplus:particle_stabilizer",
     "nekoplus:royal_steel_casing",
     "nekoplus:stellar_engine",
@@ -21,6 +22,7 @@
     "nekoplus:high_energy_laser",
     "nekoplus:titanium_alloy_anvil",
     "nekoplus:shulker_hatch",
-    "nekoplus:blast_crystal"
+    "nekoplus:blast_crystal",
+    "nekoplus:battery"
   ]
 }

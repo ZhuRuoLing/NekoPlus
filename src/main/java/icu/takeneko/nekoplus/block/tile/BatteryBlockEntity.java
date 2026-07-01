@@ -195,4 +195,12 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     public boolean isOverload() {
         return level.getBlockState(getPos()).getValue(BatteryBlock.OVERLOAD);
     }
+
+    public void chargeDirect(int charged) {
+        this.storedPower = Math.clamp(
+            storedPower + charged,
+            0,
+            NPConfig.BATTERY_CAPACITY.getAsLong()
+        );
+    }
 }

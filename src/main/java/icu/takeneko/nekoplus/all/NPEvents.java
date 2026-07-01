@@ -3,10 +3,13 @@ package icu.takeneko.nekoplus.all;
 import com.lowdragmc.lowdraglib2.gui.holder.ModularUIScreen;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import dev.anvilcraft.lib.v2.recipe.AnvilLibRecipe;
+import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
+import dev.dubhe.anvilcraft.api.event.LightningBoltStrikeEvent;
 import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
+import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
 import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.foundation.Tickable;
@@ -17,6 +20,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -24,6 +28,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LightningRodBlock;
+import net.minecraft.world.level.block.WeatheringCopper;
+import net.minecraft.world.level.block.WeatheringLightningRodBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -111,6 +120,20 @@ public class NPEvents {
                     event.setNewSpeed(event.getNewSpeed() * 5);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void on(LightningBoltStrikeEvent event) {
+        BlockPos pos = event.getPos();
+        Level level = event.getLevel();
+        BlockState blockState = level.getBlockState(pos);
+        BlockEntity be = level.getBlockEntity(pos.below());
+        if (blockState.getBlock() instanceof WeatheringLightningRodBlock block && be instanceof BatteryBlockEntity battery) {
+            WeatheringCopper.WeatherState age = block.getAge();
+            float multiplier = (float) (Math.pow(2, age.ordinal()) * 0.5);
+            int charged = Mth.floor(NPConfig.BATTERY_CAPACITY.getAsLong() * multiplier);
+            battery.chargeDirect(charged);
         }
     }
 

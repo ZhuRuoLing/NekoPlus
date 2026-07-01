@@ -19,6 +19,7 @@ import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.block.StellarEngineBlock;
+import icu.takeneko.nekoplus.block.SubGridCoreBlock;
 import icu.takeneko.nekoplus.block.TardisBlock;
 import icu.takeneko.nekoplus.block.FatAnvilBlock;
 import icu.takeneko.nekoplus.block.TestBlock;
@@ -107,6 +108,14 @@ public class NPBlocks {
 
     public static final BlockEntry<TestBlock> TEST = NekoPlus.REGISTRUM
         .block("test", TestBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .defaultBlockstate()
+        .item()
+        .build()
+        .register();
+
+    public static final BlockEntry<SubGridCoreBlock> SUB_GRID_CORE = NekoPlus.REGISTRUM
+        .block("sub_grid_core", SubGridCoreBlock::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
         .defaultBlockstate()
         .item()
