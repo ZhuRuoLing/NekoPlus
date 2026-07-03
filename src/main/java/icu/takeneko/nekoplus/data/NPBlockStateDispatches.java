@@ -5,11 +5,13 @@ import dev.anvilcraft.lib.v2.registrum.providers.DataGenContext;
 import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumBlockModelGenerator;
 import dev.anvilcraft.lib.v2.registrum.providers.generators.model.PropertyDispatchWrap;
 import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
+import dev.dubhe.anvilcraft.block.state.Cube3x3PartHalf;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.BatteryBlock;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
+import icu.takeneko.nekoplus.block.HugeBatteryBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
@@ -60,6 +62,14 @@ public class NPBlockStateDispatches {
 
     public static final ModelTemplate BATTERY_MODEL = new ModelTemplate(
         Optional.of(NekoPlus.location("block/battery_parent")),
+        Optional.empty(),
+        SLOT_1,
+        SLOT_2,
+        SLOT_3
+    );
+
+    public static final ModelTemplate HUGE_BATTERY_MODEL = new ModelTemplate(
+        Optional.of(NekoPlus.location("block/huge_battery_parent")),
         Optional.empty(),
         SLOT_1,
         SLOT_2,
@@ -318,6 +328,52 @@ public class NPBlockStateDispatches {
 
     public static ConditionBuilder condition() {
         return new ConditionBuilder();
+    }
+
+    public static NonNullBiConsumer<DataGenContext<Block, HugeBatteryBlock>, RegistrumBlockModelGenerator> hugeBattery() {
+        return (ctx, gen) -> {
+            Identifier normalModel = gen.withParent(HUGE_BATTERY_MODEL)
+                .suffix("")
+                .texture(SLOT_1, NekoPlus.location("block/battery_cells"))
+                .texture(SLOT_2, NekoPlus.location("block/battery"))
+                .texture(SLOT_3, NekoPlus.location("block/battery_lights"))
+                .build(ctx.get());
+
+            Identifier overloadModel = gen.withParent(HUGE_BATTERY_MODEL)
+                .suffix("_overload")
+                .texture(SLOT_1, NekoPlus.location("block/battery_cells"))
+                .texture(SLOT_2, NekoPlus.location("block/battery"))
+                .texture(SLOT_3, NekoPlus.location("block/battery_lights_overload"))
+                .build(ctx.get());
+
+            Identifier dischargingModel = gen.withParent(HUGE_BATTERY_MODEL)
+                .suffix("_discharging")
+                .texture(SLOT_1, NekoPlus.location("block/battery_cells"))
+                .texture(SLOT_2, NekoPlus.location("block/battery"))
+                .texture(SLOT_3, NekoPlus.location("block/battery_lights_discharging"))
+                .build(ctx.get());
+
+            MultiVariantGenerator variantGenerator = MultiVariantGenerator.dispatch(ctx.get())
+                .with(
+                    PropertyDispatchWrap.initial(
+                            HugeBatteryBlock.OVERLOAD,
+                            HugeBatteryBlock.DISCHARGING,
+                            HugeBatteryBlock.PART
+                        ).generate((overload, discharging, part) -> {
+                            if (part != Cube3x3PartHalf.MID_CENTER) {
+                                return BlockModelGenerators.plainVariant(NekoPlus.location("block/huge_battery_part"));
+                            }
+                            if (overload) {
+                                return BlockModelGenerators.plainVariant(overloadModel);
+                            }
+                            if (discharging){
+                                return BlockModelGenerators.plainVariant(dischargingModel);
+                            }
+                            return BlockModelGenerators.plainVariant(normalModel);
+                        })
+                );
+            gen.blockStateOutput.accept(variantGenerator);
+        };
     }
 
     public static NonNullBiConsumer<DataGenContext<Block, BatteryBlock>, RegistrumBlockModelGenerator> battery() {

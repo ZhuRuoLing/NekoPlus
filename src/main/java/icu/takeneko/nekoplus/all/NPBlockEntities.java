@@ -7,6 +7,7 @@ import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
+import icu.takeneko.nekoplus.block.tile.HugeBatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ShulkerHatchBlockEntity;
@@ -36,6 +37,11 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<BatteryBlockEntity> BATTERY = NekoPlus.REGISTRUM
         .blockEntity("battery", BatteryBlockEntity::new)
         .validBlock(NPBlocks.BATTERY)
+        .register();
+
+    public static final BlockEntityEntry<HugeBatteryBlockEntity> HUGE_BATTERY = NekoPlus.REGISTRUM
+        .blockEntity("huge_battery", HugeBatteryBlockEntity::new)
+        .validBlock(NPBlocks.HUGE_BATTERY)
         .register();
 
     public static final BlockEntityEntry<StellarEngineBlockEntity> STELLAR_ENGINE = NekoPlus.REGISTRUM

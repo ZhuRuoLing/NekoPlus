@@ -11,8 +11,8 @@ public class NPSounds extends SoundDefinitionsProvider {
         super(output, NekoPlus.MODID);
     }
 
-    private static final int CAT_ANVIL_SOUND_MEOW_WEIGHT = 99*3;
-    private static final int CAT_ANVIL_SOUND_HISS_WEIGHT = 1*4;
+    private static final int CAT_ANVIL_SOUND_MEOW_WEIGHT = 99 * 3;
+    private static final int CAT_ANVIL_SOUND_HISS_WEIGHT = 1 * 4;
     private static final double CAT_ANVIL_SOUND_MEOW_VOLUME = 0.7;
     private static final double CAT_ANVIL_SOUND_HISS_VOLUME = 0.25;
 

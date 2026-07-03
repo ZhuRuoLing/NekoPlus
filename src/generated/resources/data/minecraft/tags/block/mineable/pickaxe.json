@@ -19,6 +19,7 @@
     "nekoplus:cut_titanium_alloy_slab",
     "nekoplus:cut_titanium_alloy_stair",
     "nekoplus:blast_crystal",
-    "nekoplus:battery"
+    "nekoplus:battery",
+    "nekoplus:huge_battery"
   ]
 }

@@ -1,0 +1,19 @@
+{
+    DataVersion: 3955,
+    size: [1, 5, 2],
+    data: [
+        {pos: [0, 0, 0], state: "minecraft:stonecutter{facing:north}"},
+        {pos: [0, 1, 0], state: "nekoplus:silicon_block"},
+        {pos: [0, 3, 0], state: "minecraft:anvil{facing:south}"},
+        {pos: [0, 4, 0], state: "anvilcraft:magnet_block{lit:false}"},
+        {pos: [0, 4, 1], state: "minecraft:stone_button{face:wall,facing:south,powered:false}"}
+    ],
+    entities: [],
+    palette: [
+        "nekoplus:silicon_block",
+        "anvilcraft:magnet_block{lit:false}",
+        "minecraft:stonecutter{facing:north}",
+        "minecraft:anvil{facing:south}",
+        "minecraft:stone_button{face:wall,facing:south,powered:false}"
+    ]
+}

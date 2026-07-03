@@ -2,17 +2,20 @@ package icu.takeneko.nekoplus.all;
 
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntry;
 import dev.dubhe.anvilcraft.block.decoration.InstructBlock;
+import dev.dubhe.anvilcraft.block.state.Cube3x3PartHalf;
 import dev.dubhe.anvilcraft.data.AnvilCraftDatagen;
 import dev.dubhe.anvilcraft.init.block.ModBlockTags;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.block.state.Cube323PartHalf;
+import dev.dubhe.anvilcraft.item.block.SimpleMultiPartBlockItem;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.BatteryBlock;
 import icu.takeneko.nekoplus.block.BlastCrystalBlock;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
+import icu.takeneko.nekoplus.block.HugeBatteryBlock;
 import icu.takeneko.nekoplus.block.MineralFountainPressurizerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
@@ -24,6 +27,8 @@ import icu.takeneko.nekoplus.block.TardisBlock;
 import icu.takeneko.nekoplus.block.FatAnvilBlock;
 import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.data.NPBlockStateDispatches;
+import icu.takeneko.nekoplus.foundation.block.NPSimpleMultiPartBlock;
+import icu.takeneko.nekoplus.item.NPSimpleMultiPartBlockItem;
 import icu.takeneko.nekoplus.item.ShulkerHatchBlockItem;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.client.resources.model.sprite.Material;
@@ -116,6 +121,7 @@ public class NPBlocks {
     public static final BlockEntry<BatteryBlock> BATTERY = NekoPlus.REGISTRUM
         .block("battery", BatteryBlock::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
+        .properties(BlockBehaviour.Properties::noOcclusion)
         .blockstate(NPBlockStateDispatches::battery)
         .item()
         .model(DataGenUtil::blockItem)
@@ -136,6 +142,17 @@ public class NPBlocks {
                 .unlockedBy("has_" + ModBlocks.MENGER_SPONGE.getRegisteredName(), prov.has(ModBlocks.MENGER_SPONGE))
                 .save(prov);
         })
+        .build()
+        .register();
+
+    public static final BlockEntry<HugeBatteryBlock> HUGE_BATTERY = NekoPlus.REGISTRUM
+        .block("huge_battery", HugeBatteryBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .properties(BlockBehaviour.Properties::noOcclusion)
+        .loot(NPSimpleMultiPartBlock::loot)
+        .blockstate(NPBlockStateDispatches::hugeBattery)
+        .item(NPSimpleMultiPartBlockItem<Cube3x3PartHalf>::new)
+        .model(DataGenUtil::oversizedItem)
         .build()
         .register();
 

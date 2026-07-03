@@ -1,0 +1,328 @@
+{
+  "variants": {
+    "discharging=false,overload=false,part=bottom_center": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=bottom_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=bottom_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=bottom_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=bottom_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=bottom_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=bottom_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=bottom_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=bottom_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=mid_center": {
+      "model": "nekoplus:block/huge_battery"
+    },
+    "discharging=false,overload=false,part=mid_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=mid_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=mid_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=mid_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=mid_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=mid_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=mid_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=mid_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_center": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=false,part=top_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_center": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=bottom_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=mid_center": {
+      "model": "nekoplus:block/huge_battery_overload"
+    },
+    "discharging=false,overload=true,part=mid_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=mid_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=mid_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=mid_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=mid_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=mid_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=mid_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=mid_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_center": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=false,overload=true,part=top_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_center": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=bottom_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=mid_center": {
+      "model": "nekoplus:block/huge_battery_discharging"
+    },
+    "discharging=true,overload=false,part=mid_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=mid_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=mid_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=mid_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=mid_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=mid_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=mid_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=mid_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_center": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=false,part=top_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_center": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=bottom_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=mid_center": {
+      "model": "nekoplus:block/huge_battery_overload"
+    },
+    "discharging=true,overload=true,part=mid_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=mid_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=mid_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=mid_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=mid_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=mid_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=mid_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=mid_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_center": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_e": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_en": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_es": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_n": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_s": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_w": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_wn": {
+      "model": "nekoplus:block/huge_battery_part"
+    },
+    "discharging=true,overload=true,part=top_ws": {
+      "model": "nekoplus:block/huge_battery_part"
+    }
+  }
+}

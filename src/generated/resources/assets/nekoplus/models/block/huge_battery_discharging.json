@@ -1,0 +1,8 @@
+{
+  "parent": "nekoplus:block/huge_battery_parent",
+  "textures": {
+    "1": "nekoplus:block/battery_cells",
+    "2": "nekoplus:block/battery",
+    "3": "nekoplus:block/battery_lights_discharging"
+  }
+}

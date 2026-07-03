@@ -113,6 +113,7 @@ public class NPItemTooltips {
         tooltip(NPBlocks.SHULKER_HATCH, "Make a nested shulker box behaves like drawer");
         tooltip(NPBlocks.CAT_ANVIL, "*Meow*");
         tooltip(NPBlocks.BATTERY, "Filter Capacitor");
+        tooltip(NPBlocks.HUGE_BATTERY, "FILTER CAPACITOR");
 
 
         tooltip(

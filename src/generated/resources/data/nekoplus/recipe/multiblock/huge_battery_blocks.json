@@ -1,0 +1,267 @@
+{
+  "type": "anvilcraft:multiblock_conversion",
+  "inputPattern": {
+    "layers": [
+      [
+        "AAA",
+        "A A",
+        "AAA"
+      ],
+      [
+        "A A",
+        " B ",
+        "A A"
+      ],
+      [
+        "AAA",
+        "A A",
+        "AAA"
+      ]
+    ],
+    "symbols": {
+      "A": {
+        "block": "anvilcraft:menger_sponge"
+      },
+      "B": {
+        "block": "nekoplus:battery"
+      }
+    }
+  },
+  "outputPattern": {
+    "layers": [
+      [
+        "ABC",
+        "DEF",
+        "GHI"
+      ],
+      [
+        "JKL",
+        "MNO",
+        "PQR"
+      ],
+      [
+        "STU",
+        "VWX",
+        "YZ["
+      ]
+    ],
+    "symbols": {
+      "A": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_wn"
+        }
+      },
+      "B": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_n"
+        }
+      },
+      "C": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_en"
+        }
+      },
+      "D": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_w"
+        }
+      },
+      "E": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_center"
+        }
+      },
+      "F": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_e"
+        }
+      },
+      "G": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_ws"
+        }
+      },
+      "H": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_s"
+        }
+      },
+      "I": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "bottom_es"
+        }
+      },
+      "J": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_wn"
+        }
+      },
+      "K": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_n"
+        }
+      },
+      "L": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_en"
+        }
+      },
+      "M": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_w"
+        }
+      },
+      "N": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_center"
+        }
+      },
+      "O": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_e"
+        }
+      },
+      "P": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_ws"
+        }
+      },
+      "Q": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_s"
+        }
+      },
+      "R": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "mid_es"
+        }
+      },
+      "S": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_wn"
+        }
+      },
+      "T": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_n"
+        }
+      },
+      "U": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_en"
+        }
+      },
+      "V": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_w"
+        }
+      },
+      "W": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_center"
+        }
+      },
+      "X": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_e"
+        }
+      },
+      "Y": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_ws"
+        }
+      },
+      "Z": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_s"
+        }
+      },
+      "[": {
+        "block": "nekoplus:huge_battery",
+        "properties": {
+          "discharging": "false",
+          "overload": "true",
+          "part": "top_es"
+        }
+      }
+    }
+  }
+}

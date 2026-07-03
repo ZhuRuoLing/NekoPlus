@@ -79,7 +79,7 @@
   "item.nekoplus.upsidedown_exclamation_mark": "倒置感叹号",
   "item.nekoplus.upsidedown_question_mark": "倒置问号",
   "itemGroup.nekoplus.tab": "铁砧工艺: 猫+!",
-  "nekoplus.configuration.battery": "电池",
+  "nekoplus.configuration.battery": "蓄电池",
   "nekoplus.configuration.battery.capacity": "电池容量",
   "nekoplus.configuration.battery.maxChargingRate": "电池最大充电速率",
   "nekoplus.configuration.battery.maxDischargingRateDefault": "电池默认最大放电速率",
@@ -170,5 +170,7 @@
   "ui.programmable_logic_gate.green": "配置引脚: 绿色",
   "ui.programmable_logic_gate.pin_mode": "引脚模式 ",
   "ui.programmable_logic_gate.red": "配置引脚: 红色",
-  "ui.programmable_logic_gate.white": "配置引脚: 白色"
+  "ui.programmable_logic_gate.white": "配置引脚: 白色",
+  "block.nekoplus.huge_battery": "大号蓄电池",
+  "item.nekoplus.huge_battery": "大号蓄电池"
 }

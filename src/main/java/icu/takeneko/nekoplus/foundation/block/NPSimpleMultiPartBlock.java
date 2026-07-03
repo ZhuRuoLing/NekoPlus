@@ -5,6 +5,7 @@ import dev.dubhe.anvilcraft.block.state.ISimpleMultiPartBlockState;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
@@ -50,6 +51,17 @@ public abstract class NPSimpleMultiPartBlock<P extends Enum<P> & ISimpleMultiPar
     @Override
     public BlockPos getMainPartPos(BlockPos pos, BlockState state) {
         return pos.subtract(this.getOffset(state)).offset(this.getMainPartOffset());
+    }
+
+    public static <T extends Enum<T> & ISimpleMultiPartBlockState<T>> void loot(
+        BlockLootSubProvider provider, NPSimpleMultiPartBlock<T> block
+    ) {
+        for (T part : block.getParts()) {
+            if (part.getOffset().distSqr(block.getMainPartOffset()) == 0) {
+                provider.add(block, provider.createSinglePropConditionTable(block, block.getPart(), part));
+                break;
+            }
+        }
     }
 
     @Nullable

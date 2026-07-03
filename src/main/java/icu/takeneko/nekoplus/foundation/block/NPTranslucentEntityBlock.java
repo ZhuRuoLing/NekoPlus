@@ -39,11 +39,6 @@ public abstract class NPTranslucentEntityBlock extends BaseEntityBlock implement
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
-    }
-
-    @Override
     protected boolean isCollisionShapeFullBlock(BlockState state, BlockGetter level, BlockPos pos) {
         return false;
     }

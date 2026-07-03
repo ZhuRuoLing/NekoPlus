@@ -34,9 +34,9 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     private int dischargingRate = 0;
     private int chargingRate = 0;
     @Persisted
-    private int maxDischargingRate = NPConfig.BATTERY_MAX_DISCHARGING_RATE_DEFAULT.getAsInt();
+    private int maxDischargingRate = getDefaultMaxDischargingRate();
     @Persisted
-    private int maxChargingRate = NPConfig.BATTERY_MAX_CHARGING_RATE.getAsInt();
+    private int maxChargingRate = getMaxChargingRateLimit();
     //kW s
     @Persisted
     private long storedPower = 0;
@@ -48,7 +48,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     private boolean charging = false;
 
     private long gridStoredPower = 0;
-    private long gridCapacity = NPConfig.BATTERY_CAPACITY.getAsLong();
+    private long gridCapacity = Long.MIN_VALUE;
     private int gridDischargingRate = 0;
     private int gridChargingRate = 0;
 
@@ -64,7 +64,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
             return 0;
         }
 
-        int suppliedPower = Math.clamp(requestedPower, 0, maxDischargingRate);
+        int suppliedPower = Math.clamp(requestedPower, 0, getMaxDischargingRate());
         suppliedPower = (int) Math.min(suppliedPower, storedPower);
         this.dischargingRate = suppliedPower;
         this.discharging = suppliedPower > 0;
@@ -81,11 +81,11 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
             return 0;
         }
 
-        long capacityLeft = NPConfig.BATTERY_CAPACITY.getAsLong() - storedPower;
+        long capacityLeft = getCapacity() - storedPower;
         int chargedPower = (int) Math.clamp(
             capacityLeft,
             0L,
-            Math.min(availableChargingPower, maxChargingRate)
+            Math.min(availableChargingPower, getMaxChargingRate())
         );
         this.storedPower += chargedPower;
         this.chargingRate = chargedPower;
@@ -99,17 +99,33 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     }
 
     public void setMaxChargingRate(int value) {
-        this.maxChargingRate = Math.clamp(value, 0, NPConfig.BATTERY_MAX_CHARGING_RATE.getAsInt());
+        this.maxChargingRate = Math.clamp(value, 0, getMaxChargingRateLimit());
         setChanged();
     }
 
     public void setMaxDischargingRate(int value) {
-        this.maxDischargingRate = Math.clamp(value, 0, NPConfig.BATTERY_MAX_DISCHARGING_RATE_MAX.getAsInt());
+        this.maxDischargingRate = Math.clamp(value, 0, getMaxDischargingRateLimit());
         setChanged();
     }
 
     public long getCapacity() {
         return NPConfig.BATTERY_CAPACITY.getAsLong();
+    }
+
+    public long getGridCapacity() {
+        return gridCapacity == Long.MIN_VALUE ? getCapacity() : gridCapacity;
+    }
+
+    public int getMaxChargingRateLimit() {
+        return NPConfig.BATTERY_MAX_CHARGING_RATE.getAsInt();
+    }
+
+    public int getDefaultMaxDischargingRate() {
+        return NPConfig.BATTERY_MAX_DISCHARGING_RATE_DEFAULT.getAsInt();
+    }
+
+    public int getMaxDischargingRateLimit() {
+        return NPConfig.BATTERY_MAX_DISCHARGING_RATE_MAX.getAsInt();
     }
 
     public String getBatteryRemainingTimeText() {
@@ -122,7 +138,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
     public String getGridBatteryRemainingTimeText() {
         int rate = gridDischargingRate > 0 ? gridDischargingRate : gridChargingRate;
         if (rate <= 0) return "--:--";
-        long amount = gridDischargingRate > 0 ? gridStoredPower : Math.max(gridCapacity - gridStoredPower, 0L);
+        long amount = gridDischargingRate > 0 ? gridStoredPower : Math.max(getGridCapacity() - gridStoredPower, 0L);
         return formatSeconds(amount / rate);
     }
 
@@ -200,7 +216,7 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
         this.storedPower = Math.clamp(
             storedPower + charged,
             0,
-            NPConfig.BATTERY_CAPACITY.getAsLong()
+            getCapacity()
         );
     }
 }

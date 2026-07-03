@@ -62,7 +62,8 @@ public class NPTagsGen {
             NPBlocks.CUT_TITANIUM_ALLOY_SLAB,
             NPBlocks.CUT_TITANIUM_ALLOY_STAIR,
             NPBlocks.BLAST_CRYSTAL,
-            NPBlocks.BATTERY
+            NPBlocks.BATTERY,
+            NPBlocks.HUGE_BATTERY
         );
 
         wrenchableBlock(
@@ -75,7 +76,8 @@ public class NPTagsGen {
             NPBlocks.TITANIUM_ALLOY_ANVIL,
             NPBlocks.SHULKER_HATCH,
             NPBlocks.BLAST_CRYSTAL,
-            NPBlocks.BATTERY
+            NPBlocks.BATTERY,
+            NPBlocks.HUGE_BATTERY
         );
 
         tag(

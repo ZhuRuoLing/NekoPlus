@@ -1,0 +1,33 @@
+{
+  "type": "anvilcraft:multiblock",
+  "pattern": {
+    "layers": [
+      [
+        "AAA",
+        "A A",
+        "AAA"
+      ],
+      [
+        "A A",
+        " B ",
+        "A A"
+      ],
+      [
+        "AAA",
+        "A A",
+        "AAA"
+      ]
+    ],
+    "symbols": {
+      "A": {
+        "block": "anvilcraft:menger_sponge"
+      },
+      "B": {
+        "block": "nekoplus:battery"
+      }
+    }
+  },
+  "result": {
+    "id": "nekoplus:huge_battery"
+  }
+}

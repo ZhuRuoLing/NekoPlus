@@ -38,7 +38,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
 public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIBlock, IOrientableBlock {
-
     public static final VoxelShape SHAPE = Block.box(0, 0, 0, 16, 4, 16);
     public static final IOrientationStrategy ORIENTATION_STRATEGY = HorizontalFacingStrategy.INSTANCE;
 
@@ -68,7 +67,12 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
     }
 
     @Override
-    public boolean canConnectRedstone(BlockState state, BlockGetter level, BlockPos pos, @Nullable Direction direction) {
+    public boolean canConnectRedstone(
+        BlockState state,
+        BlockGetter level,
+        BlockPos pos,
+        @Nullable Direction direction
+    ) {
         return true;
     }
 
@@ -88,7 +92,15 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
     }
 
     @Override
-    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(
+        ItemStack stack,
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Player player,
+        InteractionHand hand,
+        BlockHitResult hitResult
+    ) {
         if (stack.is(ModItems.DISK.asItem())) {
             if (level.isClientSide()) {
                 return InteractionResult.SUCCESS;
@@ -101,7 +113,13 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
     }
 
     @Override
-    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+    protected InteractionResult useWithoutItem(
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Player player,
+        BlockHitResult hitResult
+    ) {
         if (level instanceof ServerLevel) {
             if (level.getBlockEntity(pos) instanceof ProgrammableLogicGateBlockEntity be) {
                 BlockUIMenuType.openUI((ServerPlayer) player, pos);
@@ -153,7 +171,11 @@ public class ProgrammableLogicGateBlock extends BaseEntityBlock implements NPUIB
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new ProgrammableLogicGateBlockEntity(NPBlockEntities.PROGRAMMABLE_LOGIC_GATE.get(), blockPos, blockState);
+        return new ProgrammableLogicGateBlockEntity(
+            NPBlockEntities.PROGRAMMABLE_LOGIC_GATE.get(),
+            blockPos,
+            blockState
+        );
     }
 
     @Override
