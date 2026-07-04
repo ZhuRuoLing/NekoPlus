@@ -1,6 +1,7 @@
 package icu.takeneko.nekoplus.block;
 
 import com.lowdragmc.lowdraglib2.gui.factory.BlockUIMenuType;
+import dev.anvilcraft.lib.v2.util.ShapeUtil;
 import dev.dubhe.anvilcraft.api.power.IPowerComponent;
 import dev.dubhe.anvilcraft.block.state.Cube3x3PartHalf;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
@@ -9,6 +10,7 @@ import icu.takeneko.nekoplus.foundation.block.NPSimpleMultiPartBlock;
 import icu.takeneko.nekoplus.foundation.block.tile.NPUIBlock;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
@@ -35,6 +38,37 @@ public class HugeBatteryBlock extends NPSimpleMultiPartBlock<Cube3x3PartHalf> im
     public static final EnumProperty<Cube3x3PartHalf> PART = EnumProperty.create("part", Cube3x3PartHalf.class);
     public static final BooleanProperty OVERLOAD = IPowerComponent.OVERLOAD;
     public static final BooleanProperty DISCHARGING = BatteryBlock.DISCHARGING;
+
+
+    private static final VoxelShape SHAPE_MID_N = Block.box(0, 0, 9, 16, 16, 16);
+    private static final VoxelShape SHAPE_MID_W = ShapeUtil.rotate(Direction.Axis.Y, 90, SHAPE_MID_N);
+    private static final VoxelShape SHAPE_MID_S = ShapeUtil.rotate(Direction.Axis.Y, 180, SHAPE_MID_N);
+    private static final VoxelShape SHAPE_MID_E = ShapeUtil.rotate(Direction.Axis.Y, 270, SHAPE_MID_N);
+    private static final VoxelShape SHAPE_MID_NW = Block.box(9, 0, 9, 16, 16, 16);
+    private static final VoxelShape SHAPE_MID_SW = ShapeUtil.rotate(Direction.Axis.Y, 90, SHAPE_MID_NW);
+    private static final VoxelShape SHAPE_MID_SE = ShapeUtil.rotate(Direction.Axis.Y, 180, SHAPE_MID_NW);
+    private static final VoxelShape SHAPE_MID_NE = ShapeUtil.rotate(Direction.Axis.Y, 270, SHAPE_MID_NW);
+
+    private static final VoxelShape SHAPE_BTM_BASE = Block.box(0, 0, 0, 16, 12, 16);
+    private static final VoxelShape SHAPE_BTM_N = Shapes.or(SHAPE_BTM_BASE, SHAPE_MID_N);
+    private static final VoxelShape SHAPE_BTM_W = ShapeUtil.rotate(Direction.Axis.Y, 90, SHAPE_BTM_N);
+    private static final VoxelShape SHAPE_BTM_S = ShapeUtil.rotate(Direction.Axis.Y, 180, SHAPE_BTM_N);
+    private static final VoxelShape SHAPE_BTM_E = ShapeUtil.rotate(Direction.Axis.Y, 270, SHAPE_BTM_N);
+    private static final VoxelShape SHAPE_BTM_NW = Shapes.or(SHAPE_BTM_BASE, SHAPE_MID_NW);
+    private static final VoxelShape SHAPE_BTM_SW = ShapeUtil.rotate(Direction.Axis.Y, 90, SHAPE_BTM_NW);
+    private static final VoxelShape SHAPE_BTM_SE = ShapeUtil.rotate(Direction.Axis.Y, 180, SHAPE_BTM_NW);
+    private static final VoxelShape SHAPE_BTM_NE = ShapeUtil.rotate(Direction.Axis.Y, 270, SHAPE_BTM_NW);
+
+    private static final VoxelShape SHAPE_TOP_BASE = Block.box(0, 4, 0, 16, 16, 16);
+    private static final VoxelShape SHAPE_TOP_N = Shapes.or(SHAPE_TOP_BASE, SHAPE_MID_N);
+    private static final VoxelShape SHAPE_TOP_W = ShapeUtil.rotate(Direction.Axis.Y, 90, SHAPE_TOP_N);
+    private static final VoxelShape SHAPE_TOP_S = ShapeUtil.rotate(Direction.Axis.Y, 180, SHAPE_TOP_N);
+    private static final VoxelShape SHAPE_TOP_E = ShapeUtil.rotate(Direction.Axis.Y, 270, SHAPE_TOP_N);
+    private static final VoxelShape SHAPE_TOP_NW = Shapes.or(SHAPE_TOP_BASE, SHAPE_MID_NW);
+    private static final VoxelShape SHAPE_TOP_SW = ShapeUtil.rotate(Direction.Axis.Y, 90, SHAPE_TOP_NW);
+    private static final VoxelShape SHAPE_TOP_SE = ShapeUtil.rotate(Direction.Axis.Y, 180, SHAPE_TOP_NW);
+    private static final VoxelShape SHAPE_TOP_NE = ShapeUtil.rotate(Direction.Axis.Y, 270, SHAPE_TOP_NW);
+
 
     public HugeBatteryBlock(Properties properties) {
         super(properties);
@@ -45,6 +79,37 @@ public class HugeBatteryBlock extends NPSimpleMultiPartBlock<Cube3x3PartHalf> im
                 .setValue(OVERLOAD, true)
                 .setValue(DISCHARGING, false)
         );
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return switch (state.getValue(PART)) {
+            case BOTTOM_W -> SHAPE_BTM_W;
+            case BOTTOM_E -> SHAPE_BTM_E;
+            case BOTTOM_N -> SHAPE_BTM_N;
+            case BOTTOM_S -> SHAPE_BTM_S;
+            case BOTTOM_WN -> SHAPE_BTM_NW;
+            case BOTTOM_WS -> SHAPE_BTM_SW;
+            case BOTTOM_EN -> SHAPE_BTM_NE;
+            case BOTTOM_ES -> SHAPE_BTM_SE;
+            case MID_W -> SHAPE_MID_W;
+            case MID_E -> SHAPE_MID_E;
+            case MID_N -> SHAPE_MID_N;
+            case MID_S -> SHAPE_MID_S;
+            case MID_WN -> SHAPE_MID_NW;
+            case MID_WS -> SHAPE_MID_SW;
+            case MID_EN -> SHAPE_MID_NE;
+            case MID_ES -> SHAPE_MID_SE;
+            case TOP_W -> SHAPE_TOP_W;
+            case TOP_E -> SHAPE_TOP_E;
+            case TOP_N -> SHAPE_TOP_N;
+            case TOP_S -> SHAPE_TOP_S;
+            case TOP_WN -> SHAPE_TOP_NW;
+            case TOP_WS -> SHAPE_TOP_SW;
+            case TOP_EN -> SHAPE_TOP_NE;
+            case TOP_ES -> SHAPE_TOP_SE;
+            default -> Shapes.block();
+        };
     }
 
     @Override
