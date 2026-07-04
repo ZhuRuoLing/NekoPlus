@@ -24,6 +24,8 @@ The overclocking calculator makes every overclockable machine overclock as much 
   - Overclocks while charging items
   - Maximum overclocking multiplier: 100x
 - <ref item="nekoplus:particle_stabilizer"/>
-  - Overclocks while in the <color=#55ffff>*cooling down*</color> state
+  - Overclocks while in the *cooling down* state
   - Maximum overclocking multiplier: 100x
-
+- <ref item="anvilcraft:smart_block_placer"/>
+  - Supports overclocking while placing blocks. Each overclocking point shortens the placement cooldown by 1 tick
+  - Maximum overclocking multiplier: 20x

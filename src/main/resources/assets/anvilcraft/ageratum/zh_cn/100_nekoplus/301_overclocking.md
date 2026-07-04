@@ -24,6 +24,9 @@ items:
   - 在对物品充电时会超频
   - 超频倍率上限为 100 倍
 - <ref item="nekoplus:particle_stabilizer"/>
-  - 在 <color=#55ffff>*冷却中*</color> 状态下会超频
+  - 在 *冷却中* 状态下会超频
   - 超频倍率上限为 100 倍
+- <ref item="anvilcraft:smart_block_placer"/>
+  - 在放置方块时支持超频，每1超频点数将放置冷却缩短1tick
+  - 超频倍率上限为 20 倍
 

@@ -10,9 +10,8 @@ items:
 
 <item id="nekoplus:stabilize_powder"/>
 
-Stabilize Powder can be used to stabilize unstable anvils.
+Stabilize Powder can be used to craft enhancement modules.
 
 ## Crafting
 
 <recipe id="nekoplus:stabilize_powder"/>
-

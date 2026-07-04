@@ -10,7 +10,7 @@ items:
 
 <item id="nekoplus:stabilize_powder"/>
 
-稳定粉可以用于稳定不稳定砧子。
+稳定粉可用于合成增强模块。
 
 ## 配方
 
