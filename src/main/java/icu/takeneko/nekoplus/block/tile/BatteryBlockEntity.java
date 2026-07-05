@@ -21,7 +21,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
+
+import java.lang.ref.Reference;
 
 @Getter
 public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerProducer, Tickable, NPUIBlock.Provider {
@@ -54,6 +57,11 @@ public class BatteryBlockEntity extends NPSynedBlockEntity implements NPPowerPro
 
     public BatteryBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
+    }
+
+    @Override
+    public AABB getShape() {
+        return AABB.ofSize(this.getPos().getCenter(), 3, 3, 3);
     }
 
     public int dischargeFromGridRequest(int requestedPower) {
