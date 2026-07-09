@@ -7,16 +7,16 @@
 			"bones": {
 				"ring_0": {
 					"rotation": [
-						"-math.mod(q.anim_time * 135 * -variable.rotating_speed, 360)",
+						"-math.mod(variable.anim_time * 135 * -variable.rotating_speed, 360)",
 						0,
-						"math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)"
+						"math.mod(variable.anim_time * 90 * -variable.rotating_speed, 360)"
 					]
 				},
 				"ring_1": {
 					"rotation": [
 						0,
 						0,
-						"math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)"
+						"math.mod(variable.anim_time * 90 * -variable.rotating_speed, 360)"
 					]
 				}
 			}
@@ -28,13 +28,13 @@
 				"sun_0": {
 					"rotation": [
 						0,
-						"-math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)",
+						"-math.mod(variable.anim_time * 90 * -variable.rotating_speed, 360)",
 						0
 					]
 				},
 				"sun_1": {
 					"rotation": [
-						"-math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)",
+						"-math.mod(variable.anim_time * 90 * -variable.rotating_speed, 360)",
 						0,
 						0
 					]
@@ -43,13 +43,13 @@
 					"rotation": [
 						0,
 						0,
-						"math.mod(q.anim_time * 90 * -variable.rotating_speed, 360)"
+						"math.mod(variable.anim_time * 90 * -variable.rotating_speed, 360)"
 					]
 				},
 				"light": {
 					"rotation": [
 						0,
-						"-math.mod(q.anim_time * 90 * variable.rotating_speed, 360)",
+						"-math.mod(variable.anim_time * 90 * variable.rotating_speed, 360)",
 						0
 					]
 				}
@@ -1431,16 +1431,16 @@
 			"bones": {
 				"ring_0": {
 					"rotation": [
-						"-math.mod(q.anim_time * 135 * -prop.rotating.speed, 360)",
+						"-math.mod(variable.anim_time * 135 * -prop.rotating.speed, 360)",
 						0,
-						"math.mod(q.anim_time * 90 * -prop.rotating.speed, 360)"
+						"math.mod(variable.anim_time * 90 * -prop.rotating.speed, 360)"
 					]
 				},
 				"ring_1": {
 					"rotation": [
 						0,
 						0,
-						"math.mod(q.anim_time * 90 * -prop.rotating.speed, 360)"
+						"math.mod(variable.anim_time * 90 * -prop.rotating.speed, 360)"
 					]
 				},
 				"sun": {

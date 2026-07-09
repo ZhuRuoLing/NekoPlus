@@ -7,12 +7,12 @@
 			"bones": {
 				"head": {
 					"rotation": {
-						"vector": [0, 0, "q.anim_time * 360 * 2"]
+						"vector": [0, 0, "variable.anim_time * 360 * 2"]
 					}
 				},
 				"head_center": {
 					"rotation": {
-						"vector": [0, 0, "q.anim_time * 360 * -2"]
+						"vector": [0, 0, "variable.anim_time * 360 * -2"]
 					}
 				}
 			}
