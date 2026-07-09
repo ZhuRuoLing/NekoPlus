@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.LevelEvent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -36,17 +35,7 @@ public class LevelEventHandlerMixin {
                     );
                     ci.cancel();
                 }
-                case LevelEvent.SOUND_ANVIL_LAND -> {
-                    level.playLocalSound(
-                        pos,
-                        NPSoundEvents.CAT_ANVIL_LAND.get(),
-                        SoundSource.BLOCKS,
-                        1f,
-                        1f,
-                        false
-                    );
-                    ci.cancel();
-                }
+                case LevelEvent.SOUND_ANVIL_LAND -> ci.cancel();
                 case LevelEvent.SOUND_ANVIL_USED -> {
                     level.playLocalSound(
                         pos,
