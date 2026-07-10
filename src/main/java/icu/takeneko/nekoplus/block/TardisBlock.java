@@ -61,7 +61,7 @@ public class TardisBlock extends NPSimpleMultiPartBlock<Part3> implements Entity
     public boolean hasEnoughSpace(BlockPos pos, LevelReader level) {
         for (int dx = -1; dx <= 1; dx++) {
             for (int dz = -1; dz <= 1; dz++) {
-                if (!level.getBlockState(pos.offset(dx, 0, dz)).isAir()) {
+                if (!level.getBlockState(pos.offset(dx, 0, dz)).canBeReplaced()) {
                     return false;
                 }
             }
