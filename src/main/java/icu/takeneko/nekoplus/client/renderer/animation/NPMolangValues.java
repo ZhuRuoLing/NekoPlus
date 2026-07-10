@@ -1,12 +1,15 @@
 package icu.takeneko.nekoplus.client.renderer.animation;
 
 import com.geckolib.loading.math.MolangQueries;
+import dev.anvilcraft.lib.v2.rendering.util.Timer;
+import dev.anvilcraft.lib.v2.util.ClientTickRecorder;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
 
 public class NPMolangValues {
-    public static void register(){
-        MolangQueries.<StellarEngineBlockEntity>setActorVariable("variable.rotating_speed", _ -> 1);
+    public static void register() {
+        MolangQueries.<StellarEngineBlockEntity>setActorVariable("stellar_engine.rotating_speed", _ -> 1);
+        MolangQueries.setActorVariable("nekoplus_globals.anim_time", _ -> (ClientTickRecorder.getTicks() + Timer.getPartialTick()) / 20f);
 
         MolangQueries.<TardisBlockEntity>setActorVariable("tardis.rotating_speed", _ -> 1);
         MolangQueries.<TardisBlockEntity>setActorVariable("tardis.floating.delta_height", _ -> 4);
