@@ -7,6 +7,7 @@ import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.event.LightningBoltStrikeEvent;
 import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
+import icu.takeneko.nekoplus.block.HugeBatteryBlock;
 import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
@@ -119,7 +120,16 @@ public class NPEvents {
         BlockPos pos = event.getPos();
         Level level = event.getLevel();
         BlockState blockState = level.getBlockState(pos);
-        BlockEntity be = level.getBlockEntity(pos.below());
+        BlockEntity be = null;
+        BlockPos below = pos.below();
+        BlockState belowState = level.getBlockState(below);
+        if (belowState.is(NPBlocks.BATTERY)) {
+            be = level.getBlockEntity(below);
+        } else {
+            if (belowState.is(NPBlocks.HUGE_BATTERY)) {
+                be = level.getBlockEntity(((HugeBatteryBlock) belowState.getBlock()).getMainPartPos(below, belowState));
+            }
+        }
         if (blockState.getBlock() instanceof WeatheringLightningRodBlock block && be instanceof BatteryBlockEntity battery) {
             WeatheringCopper.WeatherState age = block.getAge();
             float multiplier = (float) (Math.pow(2, age.ordinal()) * 0.5);
