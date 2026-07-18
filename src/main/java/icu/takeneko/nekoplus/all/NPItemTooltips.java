@@ -110,7 +110,6 @@ public class NPItemTooltips {
         tooltip(NPBlocks.PARTICLE_STABILIZER, "That`s cold enough.");
         tooltip(NPBlocks.HIGH_ENERGY_LASER, "One beats sixty-four");
         tooltip(NPBlocks.ROYAL_STEEL_CASING, "§7All you need is §5I§dm§4a§cg§ei§an§ba§3t§7i§1o§5n§7");
-        tooltip(NPBlocks.SHULKER_HATCH, "Make a nested shulker box behaves like drawer");
         tooltip(NPBlocks.CAT_ANVIL, "*Meow*");
         tooltip(NPBlocks.BATTERY, "Filter Capacitor");
         tooltip(NPBlocks.HUGE_BATTERY, "FILTER CAPACITOR");
