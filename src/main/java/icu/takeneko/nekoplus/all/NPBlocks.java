@@ -9,7 +9,6 @@ import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.block.state.Cube323PartHalf;
-import dev.dubhe.anvilcraft.item.block.SimpleMultiPartBlockItem;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.BatteryBlock;
@@ -20,9 +19,7 @@ import icu.takeneko.nekoplus.block.MineralFountainPressurizerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
-import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.block.StellarEngineBlock;
-import icu.takeneko.nekoplus.block.SubGridCoreBlock;
 import icu.takeneko.nekoplus.block.TardisBlock;
 import icu.takeneko.nekoplus.block.FatAnvilBlock;
 import icu.takeneko.nekoplus.block.property.Part3;
@@ -218,30 +215,6 @@ public class NPBlocks {
                 )
                 .save(prov);
         })
-        .build()
-        .register();
-
-    public static final BlockEntry<ShulkerHatchBlock> SHULKER_HATCH = NekoPlus.REGISTRUM
-        .block("shulker_hatch", ShulkerHatchBlock::new)
-        .initialProperties(ROYAL_STEEL_CASING)
-        .blockstate(NPBlockStateDispatches::shulkerHatch)
-        .tag(BlockTags.MINEABLE_WITH_PICKAXE)
-        .item(ShulkerHatchBlockItem::new)
-        .recipe((ctx, prov) ->
-            ShapelessRecipeBuilder.shapeless(prov.getItems(), RecipeCategory.REDSTONE, ctx.get(), 4)
-                .requires(Ingredient.of(NPBlocks.ROYAL_STEEL_CASING))
-                .requires(Ingredient.of(ModBlocks.CHUTE))
-                .unlockedBy(
-                    "has_" + NPBlocks.ROYAL_STEEL_CASING.getRegisteredName(),
-                    prov.has(NPBlocks.ROYAL_STEEL_CASING)
-                )
-                .unlockedBy(
-                    "has_" + ModBlocks.CHUTE.getRegisteredName(),
-                    prov.has(ModBlocks.CHUTE)
-                )
-                .save(prov, prov.safeKey(ctx.getId()))
-        )
-        .model(DataGenUtil::blockItem)
         .build()
         .register();
 

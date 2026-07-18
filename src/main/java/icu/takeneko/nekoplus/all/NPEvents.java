@@ -8,7 +8,6 @@ import dev.dubhe.anvilcraft.api.event.LightningBoltStrikeEvent;
 import dev.dubhe.anvilcraft.block.workstation.StampingPlatformBlock;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.block.HugeBatteryBlock;
-import icu.takeneko.nekoplus.block.ShulkerHatchBlock;
 import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
 import icu.takeneko.nekoplus.config.NPConfig;
@@ -86,18 +85,6 @@ public class NPEvents {
 
     @SubscribeEvent
     public static void on(PlayerInteractEvent.LeftClickBlock event) {
-        Level level = event.getLevel();
-        BlockPos pos = event.getPos();
-        Direction face = event.getFace();
-        if (face == null) return;
-        BlockState state = level.getBlockState(pos);
-        if (state.is(NPBlocks.SHULKER_HATCH) && state.getValue(ShulkerHatchBlock.FACING) == face.getOpposite()) {
-            System.out.println(event.getAction());
-            if (event.getAction() == PlayerInteractEvent.LeftClickBlock.Action.START) {
-                state.attack(level, pos, event.getEntity());
-            }
-            event.setCanceled(true);
-        }
     }
 
     @SubscribeEvent

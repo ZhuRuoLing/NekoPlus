@@ -10,7 +10,6 @@ import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HugeBatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
-import icu.takeneko.nekoplus.block.tile.ShulkerHatchBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
@@ -23,11 +22,6 @@ public class NPBlockEntities {
 //        .validBlock(NPBlocks.ANVILON_EMITTER_BLOCK::get)
 //        .renderer(() -> AnvilonEmitterBlockEntityRenderer::new)
 //        .register();
-
-    public static final BlockEntityEntry<ShulkerHatchBlockEntity> SHULKER_HATCH = NekoPlus.REGISTRUM
-        .blockEntity("shulker_hatch", ShulkerHatchBlockEntity::new)
-        .validBlock(NPBlocks.SHULKER_HATCH)
-        .register();
 
     public static final BlockEntityEntry<ParticleStabilizerBlockEntity> PARTICLE_STABILIZER = NekoPlus.REGISTRUM
         .blockEntity("particle_stabilizer", ParticleStabilizerBlockEntity::new)
