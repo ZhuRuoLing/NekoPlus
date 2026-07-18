@@ -300,30 +300,6 @@ public class NPBlockStateDispatches {
         };
     }
 
-    public static NonNullBiConsumer<DataGenContext<Block, ShulkerHatchBlock>, RegistrumBlockModelGenerator> shulkerHatch() {
-        return (ctx, gen) -> {
-            Identifier modelId = NekoPlus.location("block/shulker_hatch");
-
-            PropertyDispatchWrap.C1<MultiVariant, Direction> dispatchWrap = PropertyDispatchWrap.initial(
-                ShulkerHatchBlock.FACING
-            );
-
-            for (Direction direction : Direction.Plane.HORIZONTAL) {
-                int yRot = ((int) direction.toYRot()) % 360;
-                dispatchWrap.select(
-                    direction,
-                    BlockModelGenerators.plainVariant(modelId)
-                        .with(VariantMutator.Y_ROT.withValue(Quadrant.parseJson(yRot)))
-                );
-            }
-
-            gen.blockStateOutput.accept(
-                MultiVariantGenerator.dispatch(ctx.get())
-                    .with(dispatchWrap.dispatch())
-            );
-        };
-    }
-
     public static ConditionBuilder condition() {
         return new ConditionBuilder();
     }
