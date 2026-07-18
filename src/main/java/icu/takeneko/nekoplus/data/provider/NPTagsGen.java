@@ -56,7 +56,6 @@ public class NPTagsGen {
             NPBlocks.HIGH_ENERGY_LASER,
             NPBlocks.NETHERITE_SCRAP_BLOCK,
             NPBlocks.TITANIUM_ALLOY_ANVIL,
-            NPBlocks.SHULKER_HATCH,
             NPBlocks.MINERAL_FOUNTAIN_PRESSURIZER,
             NPBlocks.CUT_TITANIUM_ALLOY_BLOCK,
             NPBlocks.CUT_TITANIUM_ALLOY_SLAB,
@@ -74,7 +73,6 @@ public class NPTagsGen {
             NPBlocks.TARDIS,
             NPBlocks.HIGH_ENERGY_LASER,
             NPBlocks.TITANIUM_ALLOY_ANVIL,
-            NPBlocks.SHULKER_HATCH,
             NPBlocks.BLAST_CRYSTAL,
             NPBlocks.BATTERY,
             NPBlocks.HUGE_BATTERY
