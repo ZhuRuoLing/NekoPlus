@@ -84,13 +84,10 @@ public class NPTagsGen {
             NPBlocks.ROYAL_STEEL_CASING
         );
 
-        tag(
-            provider,
-            NPTags.Blocks.NESTED_SHULKER_BLOCK,
-            ModBlocks.NESTING_SHULKER_BOX,
-            ModBlocks.OVER_NESTING_SHULKER_BOX,
-            ModBlocks.SUPERCRITICAL_NESTING_SHULKER_BOX
-        );
+        provider.rawBuilder(NPTags.Blocks.NESTED_SHULKER_BLOCK)
+            .addOptionalElement(Identifier.fromNamespaceAndPath("anvilcraft", "nesting_shulker_box"))
+            .addOptionalElement(Identifier.fromNamespaceAndPath("anvilcraft", "over_nesting_shulker_box"))
+            .addOptionalElement(Identifier.fromNamespaceAndPath("anvilcraft", "supercritical_nesting_shulker_box"));
 
         tag(
             provider,

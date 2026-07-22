@@ -6,7 +6,7 @@ import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
-import dev.dubhe.anvilcraft.recipe.anvil.wrap.CookingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.FastCookingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
@@ -407,7 +407,7 @@ public class NPItems {
         ))
         .model(DataGenUtil::onlyInfo)
         .recipe((ctx, prov) -> {
-            CookingRecipe.builder()
+            FastCookingRecipe.builder()
                 .requires(ModItems.RESIN, 2)
                 .requires(Items.SUGAR, 2)
                 .requires(Items.ORANGE_DYE, 1)
