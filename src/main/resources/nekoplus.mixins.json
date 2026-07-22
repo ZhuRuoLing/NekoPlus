@@ -7,7 +7,6 @@
     "anvilcraft.BaseLaserBlockEntityMixin",
     "anvilcraft.ChargerBlockEntityMixin",
     "anvilcraft.ChargerBlockMixin",
-    "anvilcraft.GiantAnvilShockEventListenerMixin",
     "anvilcraft.ItemCollectorBlockEntityMixin",
     "anvilcraft.ItemCollectorBlockMixin",
     "anvilcraft.LaserEmitPacketMixin",
