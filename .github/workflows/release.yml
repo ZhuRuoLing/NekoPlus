@@ -1,4 +1,4 @@
-name: Release AcceleratedRendering-reFabricated
+name: "Release AnvilCraft: NekoPLUS!"
 on:
   release:
     types:
