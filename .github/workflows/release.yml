@@ -1,0 +1,72 @@
+name: Release AcceleratedRendering-reFabricated
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4.2.1
+        with:
+          distribution: zulu
+          java-version: 21
+
+      - name: make gradle wrapper executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        uses: gradle/actions/setup-gradle@v4.3.1
+
+      - name: Build
+        run: ./gradlew build
+
+      - name: Read Properties
+        id: 'properties'
+        uses: christian-draeger/read-properties@1.1.1
+        with:
+          path: gradle.properties
+          properties: 'mod_id mod_name'
+
+      - name: Get Version
+        id: var
+        run: |
+          MESSAGE=$(ls build/libs/* | grep sources.jar -v | grep dev.jar -v | grep slim.jar -v | awk -F '${{ steps.properties.outputs.mod_id }}-|.jar' '{print $2}')
+          echo version=$MESSAGE >> $GITHUB_OUTPUT
+
+      - name: "publish mc mod"
+        uses: Kir-Antipov/mc-publish@v3.3.0
+        with:
+          name: "${{ steps.properties.outputs.mod_name }} v${{ steps.var.outputs.version }}"
+          version: ${{ steps.var.outputs.version }}
+          version-type: release
+
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          modrinth-id: McdmOGjT
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+
+          curseforge-id: 1678719
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+
+          loaders: |
+            neoforge
+
+          java: 25
+
+          dependencies: |
+            anvilcraft@26.1.2-1.6.0+snapshot.2223(required){modrinth:vuISAWPc}{curseforge:986251}#(ignore:github)
+            ldlib@mc26.1.x-26.1.2.38-neoforge(required){modrinth:B1CBVXHX}{curseforge:626676}#(ignore:github)
+            geckolib@5.5.2(required){modrinth:8BmcQJ2H}{curseforge:388172}#(ignore:github)
+
+          files: |
+            build/libs/${{ steps.properties.outputs.mod_id }}-${{ steps.var.outputs.version }}.jar
+            build/libs/${{ steps.properties.outputs.mod_id }}-${{ steps.var.outputs.version }}-dev.jar
+            build/libs/${{ steps.properties.outputs.mod_id }}-${{ steps.var.outputs.version }}-sources.jar
