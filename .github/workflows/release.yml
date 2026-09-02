@@ -38,7 +38,7 @@ jobs:
       - name: Get Version
         id: var
         run: |
-          MESSAGE=$(ls build/libs/* | grep sources.jar -v | grep dev.jar -v | grep slim.jar -v | awk -F '${{ steps.properties.outputs.mod_id }}-|.jar' '{print $2}')
+          MESSAGE=$(ls build/libs/* | grep sources.jar -v | grep dev.jar -v | grep slim.jar -v | awk -F 'anvilcraft-${{ steps.properties.outputs.mod_id }}-|.jar' '{print $2}')
           echo version=$MESSAGE >> $GITHUB_OUTPUT
 
       - name: "publish mc mod"
@@ -67,6 +67,5 @@ jobs:
             geckolib@5.5.2(required){modrinth:8BmcQJ2H}{curseforge:388172}#(ignore:github)
 
           files: |
-            build/libs/${{ steps.properties.outputs.mod_id }}-${{ steps.var.outputs.version }}.jar
-            build/libs/${{ steps.properties.outputs.mod_id }}-${{ steps.var.outputs.version }}-dev.jar
-            build/libs/${{ steps.properties.outputs.mod_id }}-${{ steps.var.outputs.version }}-sources.jar
+            build/libs/anvilcraft-${{ steps.properties.outputs.mod_id }}-${{ steps.var.outputs.version }}.jar
+            build/libs/anvilcraft-${{ steps.properties.outputs.mod_id }}-${{ steps.var.outputs.version }}-sources.jar
