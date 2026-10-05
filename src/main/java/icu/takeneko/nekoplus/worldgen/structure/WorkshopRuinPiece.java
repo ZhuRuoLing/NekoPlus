@@ -138,7 +138,8 @@ public final class WorkshopRuinPiece extends TemplateStructurePiece {
 
     public boolean isTooBigToFitInWorldGenRegion() {
         Vec3i size = this.template.getSize();
-        return size.getX() > 32 || size.getY() > 32;
+        // mojang issue
+        return size.getX() > 32 || size.getZ() > 32;
     }
 
     public void adjustPositionHeight(int newHeight) {
