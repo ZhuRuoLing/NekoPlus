@@ -141,7 +141,7 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
                     rotY,
                     size,
                     new Vector3f(),
-                        graphics
+                    graphics
                 );
             }
         }
@@ -193,20 +193,19 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
         poseStack.mulPose(Axis.YP.rotationDegrees(yRot + 180f));
         // poseStack.translate(0f, (float) -Math.cos(Math.toRadians(xRot)) * blockVisualHeight / 2, 0f);
         poseStack.translate(offset.x, offset.y, offset.z);
-        poseStack.translate(0, 0, 0);
 
         float x0 = x - size / 2;
         float y0 = y - size / 2;
 
-        guiGraphics.fill((int) x0, (int) y0, (int) (x0 + size), (int) (y0 + size), 0xffffffff);
+        // guiGraphics.fill((int) x0, (int) y0, (int) (x0 + size), (int) (y0 + size), 0xffffffff);
 
         GuiRenderExtras.tessellateBlock(
             guiGraphics,
             block,
             null,
             null,
-            x - size / 2,
-            y - size / 2,
+            x0,
+            y0,
             size,
             true,
             poseStack
