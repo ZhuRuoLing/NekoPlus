@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix3x2f;
 import org.joml.Matrix3x2fStack;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 public class FourDirectionBlockDisplayElementRenderer implements UIElementRenderer<FourDirectionBlockDisplayElement> {
 
@@ -77,26 +78,7 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
                 .draw(graphics);
         });
 
-        var gap = 32;
-        var numPerLine = 19;
-        var scale = 24f;
-        for (int iy = 0; iy <= 45 / 5; iy++) {
-            for (int ix = 0; ix <= 90 / 5; ix++) {
-                var rotX = 90 - ix * 5;
-                var rotY = iy * 5;
-                float x1 = gap + ix % numPerLine * gap;
-                float y1 = gap + iy * gap;
-                renderRotatedBlock(
-                    Blocks.GLASS.defaultBlockState(),
-                    x1,
-                    y1,
-                    rotX,
-                    rotY,
-                    6 / 16f,
-                    graphics
-                );
-            }
-        }
+//        testRenderRotatedBlock(graphics);
 
         renderRotatedBlock(
             element.getBlockState(),
@@ -104,7 +86,8 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
             verticalCenter,
             xRot,
             yRot,
-            6 / 16f,
+            48f,
+            new Vector3f(0, 1 - 6 / 16f, 0),
             graphics
         );
 
@@ -137,6 +120,31 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
         }
 
         matrixStack.popMatrix();
+    }
+
+    private void testRenderRotatedBlock(GuiGraphicsExtractor graphics) {
+        var size = 24;
+        var gap = 2;
+        var offset = size + gap;
+        var numPerLine = 90 / 5 + 1;
+        for (int iy = 0; iy <= 90 / 5; iy++) {
+            for (int ix = 0; ix <= 90 / 5; ix++) {
+                var rotX = 90 - ix * 5;
+                var rotY = iy * 5;
+                float y1 = size / 2f + gap + ix % numPerLine * offset;
+                float x1 = size / 2f + gap + iy * offset;
+                renderRotatedBlock(
+                    Blocks.MAGENTA_GLAZED_TERRACOTTA.defaultBlockState(),
+                    x1,
+                    y1,
+                    rotX,
+                    rotY,
+                    size,
+                    new Vector3f(),
+                        graphics
+                );
+            }
+        }
     }
 
     private void renderIOState(
@@ -175,7 +183,8 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
         float y,
         float xRot,
         float yRot,
-        float blockVisualHeight,
+        float size,
+        Vector3f offset,
         GuiGraphicsExtractor guiGraphics
     ) {
         PoseStack poseStack = new PoseStack();
@@ -183,16 +192,22 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
         poseStack.mulPose(Axis.XP.rotationDegrees(xRot));
         poseStack.mulPose(Axis.YP.rotationDegrees(yRot + 180f));
         // poseStack.translate(0f, (float) -Math.cos(Math.toRadians(xRot)) * blockVisualHeight / 2, 0f);
-        poseStack.translate(0f, blockVisualHeight, 0f);
+        poseStack.translate(offset.x, offset.y, offset.z);
+        poseStack.translate(0, 0, 0);
+
+        float x0 = x - size / 2;
+        float y0 = y - size / 2;
+
+        guiGraphics.fill((int) x0, (int) y0, (int) (x0 + size), (int) (y0 + size), 0xffffffff);
 
         GuiRenderExtras.tessellateBlock(
             guiGraphics,
             block,
             null,
             null,
-            x - 24,
-            y - 24,
-            48,
+            x - size / 2,
+            y - size / 2,
+            size,
             true,
             poseStack
         );
