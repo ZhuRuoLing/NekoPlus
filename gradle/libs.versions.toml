@@ -1,12 +1,12 @@
 [versions]
 minecraft = "26.1.2"
-anvillib = "2.0.0+snapshot.504"
-anvilcraft = "1.6.0+snapshot.2223"
+anvillib = "2.0.0+snapshot.548"
+anvilcraft = "1.6.0+snapshot.2443"
 curios = "15.0.0-beta.2+26.1.2"
-jei = "29.6.2.31"
-jade = "26.1.1+neoforge"
+jei = "29.43.0.106"
+jade = "26.1.11+neoforge"
 geckolib = "5.5.1"
-ldlib2 = "26.1.2.22"
+ldlib2 = "26.1.2.41"
 taffy = "1.1.4"
 junit = "5.10.3"
 
