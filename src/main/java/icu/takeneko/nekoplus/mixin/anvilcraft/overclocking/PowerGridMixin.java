@@ -1,4 +1,4 @@
-package icu.takeneko.nekoplus.mixin.anvilcraft;
+package icu.takeneko.nekoplus.mixin.anvilcraft.overclocking;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -11,7 +11,6 @@ import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.foundation.block.tile.NPPowerComponent;
 import icu.takeneko.nekoplus.util.OverclockUtil;
 import org.objectweb.asm.Opcodes;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

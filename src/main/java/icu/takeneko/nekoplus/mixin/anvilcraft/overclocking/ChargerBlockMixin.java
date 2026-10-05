@@ -1,4 +1,4 @@
-package icu.takeneko.nekoplus.mixin.anvilcraft;
+package icu.takeneko.nekoplus.mixin.anvilcraft.overclocking;
 
 import dev.dubhe.anvilcraft.block.power.generator.ChargerBlock;
 import dev.dubhe.anvilcraft.util.Util;

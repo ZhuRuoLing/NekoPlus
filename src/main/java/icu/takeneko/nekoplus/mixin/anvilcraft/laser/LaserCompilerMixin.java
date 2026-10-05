@@ -1,4 +1,4 @@
-package icu.takeneko.nekoplus.mixin.anvilcraft;
+package icu.takeneko.nekoplus.mixin.anvilcraft.laser;
 
 import dev.dubhe.anvilcraft.client.renderer.blockentity.state.LaserRenderState;
 import dev.dubhe.anvilcraft.client.renderer.laser.LaserCompiler;

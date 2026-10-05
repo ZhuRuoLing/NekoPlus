@@ -1,4 +1,4 @@
-package icu.takeneko.nekoplus.mixin.anvilcraft;
+package icu.takeneko.nekoplus.mixin.anvilcraft.overclocking;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -9,7 +9,6 @@ import icu.takeneko.nekoplus.foundation.block.tile.NPOverclockablePowerConsumer;
 import icu.takeneko.nekoplus.internal.ChargerBlockEntityInternals;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,9 +21,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -33,7 +30,10 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @Mixin(ChargerBlockEntity.class)
 @Debug(export = true)
 @ParametersAreNonnullByDefault
-public abstract class ChargerBlockEntityMixin extends BlockEntity implements NPOverclockablePowerConsumer, ChargerBlockEntityInternals.Extension {
+public abstract class ChargerBlockEntityMixin
+    extends BlockEntity
+    implements ChargerBlockEntityInternals.Extension, NPOverclockablePowerConsumer
+{
 
     @Shadow
     private int timeLeft;

@@ -8,7 +8,6 @@ jade = "26.1.11+neoforge"
 geckolib = "5.5.1"
 ldlib2 = "26.1.2.41"
 taffy = "1.1.4"
-junit = "5.10.3"
 
 [libraries]
 curios = { group = "top.theillusivec4.curios", name = "curios-neoforge", version.ref = "curios" }
@@ -26,9 +25,6 @@ anvilcraft = { group = "dev.dubhe", name = "anvilcraft-neoforge-26.1.2", version
 ldlib2 = { group = "com.lowdragmc.ldlib2", name = "ldlib2-neoforge-26.1", version.ref = "ldlib2" }
 
 taffy = { group = "dev.vfyjxf", name = "taffy", version.ref = "taffy" }
-
-junitJupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junit" }
-junitPlatformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher" }
 
 anvillib = { group = "dev.anvilcraft.lib", name = "anvillib-neoforge-26.1", version.ref = "anvillib" }
 anvillibConfig = { group = "dev.anvilcraft.lib", name = "anvillib-config-neoforge-26.1", version.ref = "anvillib" }

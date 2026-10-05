@@ -2,7 +2,6 @@ package icu.takeneko.nekoplus.internal;
 
 public class ChargerBlockEntityInternals {
 
-    public interface Extension {
-        void toggleOverclock();
+    public interface Extension extends OverclockToggleable {
     }
 }

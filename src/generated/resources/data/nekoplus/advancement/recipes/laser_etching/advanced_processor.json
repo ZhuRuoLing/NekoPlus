@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "nekoplus:advanced_processor"
+        "recipe": "nekoplus:laser_etching/advanced_processor"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "nekoplus:advanced_processor"
+      "nekoplus:laser_etching/advanced_processor"
     ]
   }
 }

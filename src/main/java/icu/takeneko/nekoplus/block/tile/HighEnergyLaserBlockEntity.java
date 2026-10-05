@@ -1,11 +1,14 @@
 package icu.takeneko.nekoplus.block.tile;
 
+import dev.dubhe.anvilcraft.api.laser.LaserComponentMap;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.block.tile.NPPowerConsumer;
 import icu.takeneko.nekoplus.internal.LaserRendererInternals;
+import icu.takeneko.nekoplus.all.NPLaserComponents;
+import icu.takeneko.nekoplus.content.tile.laser.PureHighEnergyLaserComponent;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
@@ -30,6 +33,12 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
     }
 
     @Override
+    protected void configureLaserComponents(LaserComponentMap components) {
+        super.configureLaserComponents(components);
+        components.put(NPLaserComponents.PURE_HIGH_ENERGY, PureHighEnergyLaserComponent.PURE);
+    }
+
+    @Override
     public void tick() {
         tick(level);
     }
@@ -42,7 +51,6 @@ public class HighEnergyLaserBlockEntity extends BaseLaserBlockEntity implements 
         if (level.hasNeighborSignal(getBlockPos()) == !getPoweredState()) {
             setPoweredState(this.switchedOn, 2);
         }
-        ((LaserRendererInternals.Extension) this).setPureHELaserSourceDirect(true);
         if (isSwitchedOn()) {
             emitLaser(getFacing());
         } else {

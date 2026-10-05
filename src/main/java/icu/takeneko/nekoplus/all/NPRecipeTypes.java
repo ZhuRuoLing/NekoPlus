@@ -3,7 +3,6 @@ package icu.takeneko.nekoplus.all;
 import com.mojang.serialization.MapCodec;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
-import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import icu.takeneko.nekoplus.recipe.ModuleAssembleRecipe;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -23,13 +22,6 @@ public class NPRecipeTypes {
         "air_condensing",
         AirCondensingRecipe.MAP_CODEC,
         AirCondensingRecipe.STREAM_CODEC
-    );
-
-    public static final RecipeType<LaserEtchingRecipe> LASER_ETCHING = registerType("laser_etching");
-    public static final RecipeSerializer<LaserEtchingRecipe> LASER_ETCHING_SERIALIZER = registerSerializer(
-        "laser_etching",
-        LaserEtchingRecipe.MAP_CODEC,
-        LaserEtchingRecipe.STREAM_CODEC
     );
 
     public static final DeferredHolder<RecipeSerializer<?>, RecipeSerializer<?>> MODULE_ASSEMBLE_SERIALIZER = RECIPE_SERIALIZER_DR.register(

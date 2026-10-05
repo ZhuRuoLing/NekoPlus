@@ -1,4 +1,4 @@
-package icu.takeneko.nekoplus.mixin.anvilcraft;
+package icu.takeneko.nekoplus.mixin.anvilcraft.laser;
 
 import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import dev.dubhe.anvilcraft.block.entity.RubyPrismBlockEntity;

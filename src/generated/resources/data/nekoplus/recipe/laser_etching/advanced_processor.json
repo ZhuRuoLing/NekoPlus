@@ -1,0 +1,55 @@
+{
+  "type": "anvillib_recipe:in_world_recipe",
+  "compatible": true,
+  "conflicting": [
+    {
+      "type": "anvillib_recipe:has_item_ingredient",
+      "item": {
+        "items": "anvilcraft:processor"
+      },
+      "offset": [
+        0.0,
+        -0.125,
+        0.0
+      ],
+      "range": [
+        0.75,
+        0.25,
+        0.75
+      ]
+    },
+    {
+      "type": "anvillib_recipe:has_block",
+      "offset": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "predicate": {
+        "blocks": "anvilcraft:stamping_platform",
+        "properties": [
+          {
+            "laser_targeted": "true"
+          }
+        ]
+      }
+    }
+  ],
+  "icon": {
+    "id": "nekoplus:advanced_processor"
+  },
+  "non_conflicting": [],
+  "outcomes": [
+    {
+      "type": "anvillib_recipe:spawn_item",
+      "item": "nekoplus:advanced_processor",
+      "offset": [
+        0.0,
+        -1.0,
+        0.0
+      ]
+    }
+  ],
+  "priority": 4,
+  "trigger": "anvilcraft:on_anvil_fall_on"
+}

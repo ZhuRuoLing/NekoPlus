@@ -7,7 +7,7 @@ import net.minecraft.world.item.SmithingTemplateItem;
 
 import java.util.List;
 
-public class ModularSmithingTemplate extends SmithingTemplateItem {
+public class ModularSmithingTemplateItem extends SmithingTemplateItem {
     private static final Identifier EMPTY_SLOT_HELMET = Identifier.withDefaultNamespace("container/slot/helmet");
     private static final Identifier EMPTY_SLOT_CHESTPLATE = Identifier.withDefaultNamespace("container/slot/chestplate");
     private static final Identifier EMPTY_SLOT_LEGGINGS = Identifier.withDefaultNamespace("container/slot/leggings");
@@ -20,7 +20,7 @@ public class ModularSmithingTemplate extends SmithingTemplateItem {
     private static final Identifier EMPTY_SLOT_PICKAXE = Identifier.withDefaultNamespace("container/slot/pickaxe");
     public static final Identifier EMPTY_SLOT_PROCESSOR = NekoPlus.location("container/slot/processor");
 
-    public ModularSmithingTemplate(Properties properties) {
+    public ModularSmithingTemplateItem(Properties properties) {
         super(
             Component.translatable("tooltip.nekoplus.modular_enhancement_template.applies_to"),
             Component.translatable("item.nekoplus.advanced_processor"),

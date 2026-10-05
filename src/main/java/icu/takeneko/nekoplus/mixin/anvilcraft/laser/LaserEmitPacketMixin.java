@@ -1,15 +1,15 @@
-package icu.takeneko.nekoplus.mixin.anvilcraft;
+package icu.takeneko.nekoplus.mixin.anvilcraft.laser;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.mojang.datafixers.util.Function3;
 import com.mojang.datafixers.util.Function4;
 import dev.dubhe.anvilcraft.block.entity.BaseLaserBlockEntity;
 import dev.dubhe.anvilcraft.network.LaserEmitPacket;
 import icu.takeneko.nekoplus.internal.LaserRendererInternals;
+import icu.takeneko.nekoplus.all.NPLaserComponents;
+import icu.takeneko.nekoplus.content.tile.laser.PureHighEnergyLaserComponent;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
@@ -45,6 +45,7 @@ public class LaserEmitPacketMixin implements LaserRendererInternals.PacketAccess
         Function4<T1, T2, T3, T4, LaserEmitPacket> constructor,
         Operation<StreamCodec<? super ByteBuf, LaserEmitPacket>> original
     ) {
+        // TODO: Upstream should provide laser-component serialization and a StreamCodec for component updates.
         return StreamCodec.composite(
             codec1,
             getter1,
@@ -73,7 +74,11 @@ public class LaserEmitPacketMixin implements LaserRendererInternals.PacketAccess
         CallbackInfo ci,
         @Local(name = "laser") BaseLaserBlockEntity be
     ) {
-        ((LaserRendererInternals.Extension) be).setPureHELaserSourceDirect(this.isPureHELaserSource());
+        be.setOrCreateComponent(
+            NPLaserComponents.PURE_HIGH_ENERGY,
+            this.isPureHELaserSource() ? PureHighEnergyLaserComponent.PURE : PureHighEnergyLaserComponent.IMPURE,
+            null
+        );
     }
 
     @Override

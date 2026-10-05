@@ -19,6 +19,7 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.joml.Matrix3x2f;
 import org.joml.Matrix3x2fStack;
@@ -75,6 +76,27 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
                 .fill()
                 .draw(graphics);
         });
+
+        var gap = 32;
+        var numPerLine = 19;
+        var scale = 24f;
+        for (int iy = 0; iy <= 45 / 5; iy++) {
+            for (int ix = 0; ix <= 90 / 5; ix++) {
+                var rotX = 90 - ix * 5;
+                var rotY = iy * 5;
+                float x1 = gap + ix % numPerLine * gap;
+                float y1 = gap + iy * gap;
+                renderRotatedBlock(
+                    Blocks.GLASS.defaultBlockState(),
+                    x1,
+                    y1,
+                    rotX,
+                    rotY,
+                    6 / 16f,
+                    graphics
+                );
+            }
+        }
 
         renderRotatedBlock(
             element.getBlockState(),
@@ -160,7 +182,7 @@ public class FourDirectionBlockDisplayElementRenderer implements UIElementRender
         poseStack.pushPose();
         poseStack.mulPose(Axis.XP.rotationDegrees(xRot));
         poseStack.mulPose(Axis.YP.rotationDegrees(yRot + 180f));
-        //poseStack.translate(0f, (float) -Math.cos(Math.toRadians(xRot)) * blockVisualHeight / 2, 0f);
+        // poseStack.translate(0f, (float) -Math.cos(Math.toRadians(xRot)) * blockVisualHeight / 2, 0f);
         poseStack.translate(0f, blockVisualHeight, 0f);
 
         GuiRenderExtras.tessellateBlock(

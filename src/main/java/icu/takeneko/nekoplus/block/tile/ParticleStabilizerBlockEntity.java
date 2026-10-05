@@ -23,6 +23,7 @@ import icu.takeneko.nekoplus.foundation.inventory.NPItemHandler;
 import icu.takeneko.nekoplus.foundation.inventory.NPItemHandlerSlice;
 import icu.takeneko.nekoplus.foundation.inventory.NPItemHandlerOwner;
 import icu.takeneko.nekoplus.foundation.ui.NPUI;
+import icu.takeneko.nekoplus.internal.OverclockToggleable;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.ui.ParticleStabilizerUI;
 import lombok.Getter;
@@ -44,7 +45,7 @@ import org.jspecify.annotations.Nullable;
 @SuppressWarnings("DataFlowIssue")
 public class ParticleStabilizerBlockEntity
     extends NPSynedBlockEntity
-    implements NPOverclockablePowerConsumer, NPUIBlock.Provider, Tickable, NPItemHandlerOwner, Overclockable, ParticleStabilizerLogicHost {
+    implements NPOverclockablePowerConsumer, NPUIBlock.Provider, Tickable, NPItemHandlerOwner, OverclockToggleable, ParticleStabilizerLogicHost {
 
     public static final int MACHINE_COOLDOWN = 30 * 20;
 

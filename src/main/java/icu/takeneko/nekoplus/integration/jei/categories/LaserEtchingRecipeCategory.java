@@ -1,24 +1,22 @@
 package icu.takeneko.nekoplus.integration.jei.categories;
 
+import dev.anvilcraft.lib.v2.recipe.InWorldRecipe;
+import dev.anvilcraft.lib.v2.recipe.outcome.SpawnItem;
+import dev.anvilcraft.lib.v2.recipe.predicate.item.HasItemIngredient;
 import dev.dubhe.anvilcraft.block.laser.RubyLaserBlock;
 import dev.dubhe.anvilcraft.client.support.RenderSupport;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
-import dev.dubhe.anvilcraft.integration.jei.util.JeiRecipeUtil;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiRenderHelper;
 import dev.dubhe.anvilcraft.integration.jei.util.JeiSlotUtil;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.integration.jei.NPJeiPlugin;
-import icu.takeneko.nekoplus.integration.jei.NPJeiSlotUtil;
-import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
 import mezz.jei.api.gui.ITickTimer;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.api.recipe.types.IRecipeType;
+import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.Direction;
@@ -27,12 +25,9 @@ import net.minecraft.util.ARGB;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.Nullable;
+import net.minecraft.world.item.ItemStackTemplate;
 
-import java.util.Collections;
-import java.util.List;
-
-public class LaserEtchingRecipeCategory extends NPBaseRecipeCategory<RecipeHolder<LaserEtchingRecipe>> {
+public class LaserEtchingRecipeCategory extends NPBaseRecipeCategory<RecipeHolder<InWorldRecipe>> {
     public static final Component TITLE = Component.translatable("category.nekoplus.laser_etching");
 
     private final ITickTimer timerLaserIterate;
@@ -51,7 +46,7 @@ public class LaserEtchingRecipeCategory extends NPBaseRecipeCategory<RecipeHolde
 
     @Override
     public void draw(
-        RecipeHolder<LaserEtchingRecipe> recipe,
+        RecipeHolder<InWorldRecipe> recipe,
         IRecipeSlotsView recipeSlotsView,
         GuiGraphicsExtractor guiGraphics,
         double mouseX,
@@ -108,17 +103,23 @@ public class LaserEtchingRecipeCategory extends NPBaseRecipeCategory<RecipeHolde
         arrowOutputFromBelow.draw(guiGraphics, 92, 29);
         JeiSlotUtil.drawInputSlots(guiGraphics, slotDefault, 1);
 
-        if (JeiRecipeUtil.isChance(List.of(recipe.value().output()))) {
-            JeiSlotUtil.drawOutputSlots(guiGraphics, slotProbability, 1);
-        } else {
-            JeiSlotUtil.drawOutputSlots(guiGraphics, slotDefault, 1);
-        }
+        JeiSlotUtil.drawOutputSlots(guiGraphics, slotDefault, 1);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<LaserEtchingRecipe> recipe, IFocusGroup focuses) {
-        LaserEtchingRecipe r = recipe.value();
-        NPJeiSlotUtil.addInputSlots(builder, Collections.singletonList(recipe.value().input()));
-        JeiSlotUtil.addOutputSlots(builder, List.of(r.output()));
+    public void setRecipe(IRecipeLayoutBuilder builder, RecipeHolder<InWorldRecipe> recipe, IFocusGroup focuses) {
+        recipe.value().conflicting().stream()
+            .filter(HasItemIngredient.class::isInstance)
+            .map(HasItemIngredient.class::cast)
+            .findFirst()
+            .ifPresent(input -> {
+                var slot = builder.addSlot(RecipeIngredientRole.INPUT, 21, 24);
+                for (ItemStackTemplate item : input.getItem().getItems()) slot.add(item.create());
+            });
+        recipe.value().outcomes().stream()
+            .filter(SpawnItem.class::isInstance)
+            .map(SpawnItem.class::cast)
+            .findFirst()
+            .ifPresent(output -> builder.addSlot(RecipeIngredientRole.OUTPUT, 125, 24).add(output.item().create()));
     }
 }

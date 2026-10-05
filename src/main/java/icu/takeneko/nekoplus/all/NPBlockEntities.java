@@ -2,7 +2,6 @@ package icu.takeneko.nekoplus.all;
 
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockEntityRenderer;
-import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
@@ -10,7 +9,6 @@ import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HugeBatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
-import icu.takeneko.nekoplus.block.tile.StampingPlatformBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
 import icu.takeneko.nekoplus.client.renderer.tesr.StellarEngineRenderer;
@@ -59,11 +57,6 @@ public class NPBlockEntities {
         .blockEntity("high_energy_laser", HighEnergyLaserBlockEntity::new)
         .validBlock(NPBlocks.HIGH_ENERGY_LASER)
         .renderer(() -> LaserBlockEntityRenderer::new)
-        .register();
-
-    public static final BlockEntityEntry<StampingPlatformBlockEntity> STAMPING_PLATFORM = NekoPlus.REGISTRUM
-        .blockEntity("stamping_platform", StampingPlatformBlockEntity::new)
-        .validBlock(ModBlocks.STAMPING_PLATFORM)
         .register();
 
     public static final BlockEntityEntry<BlastCrystalBlockEntity> BLAST_CRYSTAL = NekoPlus.REGISTRUM

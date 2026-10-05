@@ -1,10 +1,19 @@
 package icu.takeneko.nekoplus.all;
 
+import dev.anvilcraft.lib.v2.recipe.builder.InWorldRecipeBuilder;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementRequirements;
+import net.minecraft.advancements.AdvancementRewards;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.crafting.Recipe;
 import dev.anvilcraft.lib.v2.registrum.util.entry.ItemEntry;
-import dev.anvilcraft.lib.v2.util.predicate.ChanceItemStack;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
+import dev.dubhe.anvilcraft.init.recipe.ModRecipeTriggers;
 import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.FastCookingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
@@ -17,16 +26,15 @@ import icu.takeneko.nekoplus.foundation.item.module.impl.HologramProjectorModule
 import icu.takeneko.nekoplus.foundation.item.module.impl.MechanicalHeartModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.TitaniumCrystalModule;
 import icu.takeneko.nekoplus.item.EnhancementModuleItem;
-import icu.takeneko.nekoplus.item.ModularSmithingTemplate;
+import icu.takeneko.nekoplus.item.ModularSmithingTemplateItem;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
-import icu.takeneko.nekoplus.recipe.LaserEtchingRecipe;
+import icu.takeneko.nekoplus.internal.StampingPlatformsInternals;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -60,13 +68,21 @@ public class NPItems {
 
     public static final ItemEntry<Item> ADVANCED_PROCESSOR = NekoPlus.REGISTRUM
         .item("advanced_processor", Item::new)
-        .recipe((ctx, prov) ->
-            LaserEtchingRecipe.builder()
-                .input(Ingredient.of(ModItems.PROCESSOR))
-                .output(ChanceItemStack.of(new ItemStackTemplate(ctx.get()), 1))
-                .build()
-                .save(prov, ctx.getId())
-        )
+        .recipe((ctx, prov) -> {
+            Identifier recipeId = ctx.getId().withPrefix("laser_etching/");
+            ResourceKey<Recipe<?>> recipeKey = ResourceKey.create(Registries.RECIPE, recipeId);
+            var recipe = InWorldRecipeBuilder.compatible(ModRecipeTriggers.ON_ANVIL_FALL_ON.get())
+                .icon(new ItemStackTemplate(ctx.get()))
+                .hasItemIngredient(input -> input.of(ModItems.PROCESSOR).count(1).offset(0, -0.125, 0).range(0.75, 0.25, 0.75))
+                .hasBlock(block -> block.of(ModBlocks.STAMPING_PLATFORM.get()).below(1).with(StampingPlatformsInternals.LASER_TARGETED, true))
+                .spawnItem(0, -1, 0, new ItemStackTemplate(ctx.get()))
+                .build();
+            Advancement.Builder advancement = prov.advancement()
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(recipeKey))
+                .rewards(AdvancementRewards.Builder.recipe(recipeKey))
+                .requirements(AdvancementRequirements.Strategy.OR);
+            prov.accept(recipeKey, recipe, advancement.build(ctx.getId().withPrefix("recipes/laser_etching/")));
+        })
         .register();
 
     public static final ItemEntry<Item> INTEGRATED_CHIP_CIRCUIT_BOARD = NekoPlus.REGISTRUM
@@ -97,8 +113,8 @@ public class NPItems {
         })
         .register();
 
-    public static final ItemEntry<ModularSmithingTemplate> MODULAR_ENHANCEMENT_TEMPLATE = NekoPlus.REGISTRUM
-        .item("modular_enhancement_template", ModularSmithingTemplate::new)
+    public static final ItemEntry<ModularSmithingTemplateItem> MODULAR_ENHANCEMENT_TEMPLATE = NekoPlus.REGISTRUM
+        .item("modular_enhancement_template", ModularSmithingTemplateItem::new)
         .tag(ModItemTags.TEMPLATES)
         .register();
 
@@ -394,6 +410,16 @@ public class NPItems {
                 .saturationModifier(5)
                 .build()
         ))
+        .recipe((ctx, prov) -> {
+            FastCookingRecipe.builder()
+                .requires(Items.DIRT, 16)
+                .requires(Items.RED_DYE, 1)
+                .requires(Items.ORANGE_DYE, 1)
+                .requires(Items.GREEN_DYE, 1)
+                .requires(Items.BLUE_DYE, 1)
+                .result(ctx.get(), 16)
+                .save(prov, NekoPlus.location(ctx.getName()));
+        })
         .register();
 
     public static final ItemEntry<Item> GUMMY_BEAR = NekoPlus.REGISTRUM

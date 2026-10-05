@@ -4,30 +4,33 @@
   "package": "icu.takeneko.nekoplus.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "anvilcraft.BaseLaserBlockEntityMixin",
-    "anvilcraft.ChargerBlockEntityMixin",
-    "anvilcraft.ChargerBlockMixin",
     "anvilcraft.ItemCollectorBlockEntityMixin",
     "anvilcraft.ItemCollectorBlockMixin",
-    "anvilcraft.LaserEmitPacketMixin",
-    "anvilcraft.PowerGridMixin",
-    "anvilcraft.RubyPrismBlockEntityMixin",
     "anvilcraft.ServerBlockEntityEventListenerMixin",
-    "anvilcraft.SmartBlockPlacerBlockEntityMixin",
-    "anvilcraft.SmartBlockPlacerBlockMixin",
+    "anvilcraft.StampingPlatformBlockEntityMixin",
     "anvilcraft.StampingPlatformMixin",
+    "anvilcraft.laser.BaseLaserBlockEntityMixin",
+    "anvilcraft.laser.LaserDamageBehaviorMixin",
+    "anvilcraft.laser.LaserEmitPacketMixin",
+    "anvilcraft.laser.RubyPrismBlockEntityMixin",
+    "anvilcraft.overclocking.ChargerBlockEntityMixin",
+    "anvilcraft.overclocking.ChargerBlockMixin",
+    "anvilcraft.overclocking.PowerGridMixin",
+    "anvilcraft.overclocking.SmartBlockPlacerBlockEntityMixin",
+    "anvilcraft.overclocking.SmartBlockPlacerBlockMixin",
     "ldlib2.ItemSlotMixin",
     "minecraft.AbstractVillagerMixin",
     "minecraft.SmithingMenuMixin"
   ],
   "client": [
-    "anvilcraft.LaserCompilerMixin",
-    "anvilcraft.LaserRenderStateMixin",
+    "anvilcraft.laser.LaserCompilerMixin",
+    "anvilcraft.laser.client.LaserRenderStateMixin",
     "minecraft.LevelEventHandlerMixin",
     "minecraft.MinecraftMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "mixinextras": {"minVersion": "0.5.4"}
+  "mixinextras": {
+    "minVersion": "0.5.4"}
 }
