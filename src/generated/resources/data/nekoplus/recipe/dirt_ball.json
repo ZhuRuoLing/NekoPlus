@@ -1,0 +1,27 @@
+{
+  "type": "anvilcraft:fast_cooking",
+  "ingredients": [
+    {
+      "count": 16,
+      "items": "minecraft:dirt"
+    },
+    {
+      "items": "minecraft:red_dye"
+    },
+    {
+      "items": "minecraft:orange_dye"
+    },
+    {
+      "items": "minecraft:green_dye"
+    },
+    {
+      "items": "minecraft:blue_dye"
+    }
+  ],
+  "results": [
+    {
+      "count": 16,
+      "id": "nekoplus:dirt_ball"
+    }
+  ]
+}

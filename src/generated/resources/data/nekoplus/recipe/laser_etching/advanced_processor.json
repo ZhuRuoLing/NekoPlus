@@ -17,7 +17,12 @@
         0.25,
         0.75
       ]
-    },
+    }
+  ],
+  "icon": {
+    "id": "nekoplus:advanced_processor"
+  },
+  "non_conflicting": [
     {
       "type": "anvillib_recipe:has_block",
       "offset": [
@@ -35,10 +40,6 @@
       }
     }
   ],
-  "icon": {
-    "id": "nekoplus:advanced_processor"
-  },
-  "non_conflicting": [],
   "outcomes": [
     {
       "type": "anvillib_recipe:spawn_item",

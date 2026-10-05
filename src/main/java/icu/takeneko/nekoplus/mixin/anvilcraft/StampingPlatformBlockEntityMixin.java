@@ -38,7 +38,8 @@ public abstract class StampingPlatformBlockEntityMixin extends BlockEntity imple
         nekoplus$emitters.removeIf(pos -> !(world.getBlockEntity(pos) instanceof BaseLaserBlockEntity laser)
             || laser.getLaserLevel() < 64
             || !(laser instanceof LaserRendererInternals.Extension extension)
-            || !extension.targets(getBlockPos()));
+            || !extension.targets(getBlockPos())
+        );
         BlockState state = getBlockState();
         boolean active = !nekoplus$emitters.isEmpty();
         if (state.hasProperty(StampingPlatformsInternals.LASER_TARGETED)

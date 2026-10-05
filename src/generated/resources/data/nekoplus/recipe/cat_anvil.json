@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:yellow_dye",
+    "B": "minecraft:anvil",
+    "C": "minecraft:white_dye"
+  },
+  "pattern": [
+    "ACC",
+    "ABC",
+    "AAC"
+  ],
+  "result": {
+    "id": "nekoplus:cat_anvil"
+  }
+}

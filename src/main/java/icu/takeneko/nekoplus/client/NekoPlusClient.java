@@ -5,7 +5,9 @@ import com.lowdragmc.lowdraglib2.editor.resource.ResourceInstance;
 import com.lowdragmc.lowdraglib2.editor.resource.TexturesResource;
 import com.lowdragmc.lowdraglib2.gui.texture.IGuiTexture;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElementRendererRegistry;
+import dev.anvilcraft.lib.v2.cube.client.CubeSelection;
 import dev.anvilcraft.lib.v2.rendering.cachedber.renderer.CachedBlockEntityRenderDispatcher;
+import dev.dubhe.anvilcraft.AnvilCraft;
 import dev.dubhe.anvilcraft.client.renderer.laser.CachedLaserBlockEntityRenderer;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
@@ -36,6 +38,8 @@ public class NekoPlusClient {
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
         //container.registerExtensionPoint(IClientItemExtensions.class, new HEClientExtension());
         NPHammerTooltipProviders.setupRegistration();
+
+        CubeSelection.enableNamespace(NekoPlus.MODID);
     }
 
     @SubscribeEvent

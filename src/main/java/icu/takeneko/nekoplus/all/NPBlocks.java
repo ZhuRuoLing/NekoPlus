@@ -84,6 +84,28 @@ public class NPBlocks {
         )
         .blockstate(NPBlockStateDispatches::catAnvil)
         .item()
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.MISC, ctx.get())
+                .pattern("ACC")
+                .pattern("ABC")
+                .pattern("AAC")
+                .define('A', Items.YELLOW_DYE)
+                .define('B', Items.ANVIL)
+                .define('C', Items.WHITE_DYE)
+                .unlockedBy(
+                    "has_" + prov.safeName(Items.YELLOW_DYE),
+                    prov.has(Items.YELLOW_DYE)
+                )
+                .unlockedBy(
+                    "has_" + prov.safeName(Items.ANVIL),
+                    prov.has(Items.ANVIL)
+                )
+                .unlockedBy(
+                    "has_" + prov.safeName(Items.WHITE_DYE),
+                    prov.has(Items.WHITE_DYE)
+                )
+                .save(prov);
+        })
         .build()
         .register();
 

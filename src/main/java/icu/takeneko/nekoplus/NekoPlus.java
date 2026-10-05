@@ -1,6 +1,7 @@
 package icu.takeneko.nekoplus;
 
 import dev.anvilcraft.lib.v2.registrum.Registrum;
+import dev.dubhe.anvilcraft.AnvilCraft;
 import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPCreativeTabs;
@@ -31,7 +32,6 @@ public class NekoPlus {
 
     public NekoPlus(IEventBus modEventBus, ModContainer modContainer) {
         modContainer.registerConfig(ModConfig.Type.COMMON, NPConfig.SPEC);
-
         setupRegistration(modEventBus);
         NPDataGen.setupDataGeneration(REGISTRUM);
         LOGGER.info("Ciallo～(∠・ω< )⌒★");

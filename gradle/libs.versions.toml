@@ -33,3 +33,4 @@ anvillibMoveableEntityBlock = { group = "dev.anvilcraft.lib", name = "anvillib-m
 anvillibIntegration = { group = "dev.anvilcraft.lib", name = "anvillib-integration-neoforge-26.1", version.ref = "anvillib" }
 anvillibRegistrum = { group = "dev.anvilcraft.lib", name = "anvillib-registrum-neoforge-26.1", version.ref = "anvillib" }
 anvillibRendering = { group = "dev.anvilcraft.lib", name = "anvillib-rendering-neoforge-26.1", version.ref = "anvillib" }
+anvillibCube = { group = "dev.anvilcraft.lib", name = "anvillib-cube-neoforge-26.1", version.ref = "anvillib" }
