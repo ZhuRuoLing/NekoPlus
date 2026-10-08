@@ -38,12 +38,14 @@ import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ColoredFallingBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
@@ -62,6 +64,8 @@ public class NPBlocks {
     static {
         NekoPlus.REGISTRUM.defaultCreativeTab(NPCreativeTabs.TAB.getKey());
     }
+
+    // The Cat Anvil
 
     public static final BlockEntry<CatAnvilBlock> CAT_ANVIL = NekoPlus.REGISTRUM
         .block("cat_anvil", CatAnvilBlock::new)
@@ -108,6 +112,8 @@ public class NPBlocks {
         })
         .build()
         .register();
+
+    // Functional Blocks
 
     public static final BlockEntry<Block> ROYAL_STEEL_CASING = NekoPlus.REGISTRUM
         .block("royal_steel_casing", Block::new)
@@ -306,6 +312,8 @@ public class NPBlocks {
         .build()
         .register();
 
+    // Titanium Alloy Blocks
+
     public static final BlockEntry<Block> TITANIUM_ALLOY_BLOCK = NekoPlus.REGISTRUM
         .block("titanium_alloy_block", Block::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
@@ -456,6 +464,8 @@ public class NPBlocks {
         .build()
         .register();
 
+    // Ores And Metal Blocks
+
     public static final BlockEntry<Block> NETHERITE_SCRAP_BLOCK = NekoPlus.REGISTRUM
         .block("netherite_scrap_block", Block::new)
         .defaultBlockstate()
@@ -465,6 +475,50 @@ public class NPBlocks {
         })
         .build()
         .register();
+
+    public static final BlockEntry<Block> DEEPSLATE_NICKEL_ORE = NekoPlus.REGISTRUM
+        .block("deepslate_nickel_ore", Block::new)
+        .initialProperties(() -> Blocks.DEEPSLATE_IRON_ORE)
+        .loot((tables, block) -> tables.add(block, tables.createOreDrop(block, NPItems.RAW_NICKEL.get())))
+        .tag(Tags.Blocks.ORES, Tags.Blocks.ORES_IN_GROUND_DEEPSLATE, NPTags.Blocks.ORES_NICKEL)
+        .item()
+        .tag(Tags.Items.ORES, Tags.Items.ORES_IN_GROUND_DEEPSLATE, NPTags.Items.ORES_NICKEL)
+        .build()
+        .register();
+
+    public static final BlockEntry<Block> RAW_NICKEL_BLOCK = NekoPlus.REGISTRUM
+        .block("raw_nickel_block", Block::new)
+        .initialProperties(() -> Blocks.RAW_IRON_BLOCK)
+        .tag(Tags.Blocks.STORAGE_BLOCKS, NPTags.Blocks.STORAGE_BLOCKS_RAW_NICKEL)
+        .item()
+        .tag(Tags.Items.STORAGE_BLOCKS, NPTags.Items.STORAGE_BLOCKS_RAW_NICKEL)
+        .build()
+        .register();
+
+    public static final BlockEntry<Block> NICKEL_BLOCK = NekoPlus.REGISTRUM
+        .block("nickel_block", Block::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .tag(Tags.Blocks.STORAGE_BLOCKS, NPTags.Blocks.STORAGE_BLOCKS_NICKEL)
+        .item()
+        .tag(Tags.Items.STORAGE_BLOCKS, NPTags.Items.STORAGE_BLOCKS_NICKEL)
+        .build()
+        .register();
+
+    public static final BlockEntry<ColoredFallingBlock> BASALT_SAND = NekoPlus.REGISTRUM
+        .block("basalt_sand", properties -> new ColoredFallingBlock(new ColorRGBA(0x3B3B3B), properties))
+        .initialProperties(() -> Blocks.SAND)
+        .tag(BlockTags.MINEABLE_WITH_SHOVEL)
+        .simpleItem()
+        .register();
+
+    public static final BlockEntry<Block> FOUNDRY_SAND = NekoPlus.REGISTRUM
+        .block("foundry_sand", Block::new)
+        .initialProperties(() -> Blocks.SAND)
+        .tag(BlockTags.MINEABLE_WITH_SHOVEL)
+        .simpleItem()
+        .register();
+
+    // End of Game Blocks
 
     public static final BlockEntry<StellarEngineBlock> STELLAR_ENGINE = NekoPlus.REGISTRUM
         .block("stellar_engine", StellarEngineBlock::new)
@@ -542,6 +596,8 @@ public class NPBlocks {
         .item()
         .build()
         .register();
+
+    // Decoration Blocks
 
     public static final BlockEntry<InstructBlock> UPSIDEDOWN_QUESTION_MARK = NekoPlus.REGISTRUM
         .block("upsidedown_question_mark", InstructBlock::new)

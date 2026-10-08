@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "X": "nekoplus:olivine"
+  },
+  "pattern": [
+    "XX",
+    "XX"
+  ],
+  "result": {
+    "id": "nekoplus:foundry_sand"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "nekoplus:nickel_ingot"
+  ],
+  "result": {
+    "count": 9,
+    "id": "nekoplus:nickel_nugget"
+  }
+}

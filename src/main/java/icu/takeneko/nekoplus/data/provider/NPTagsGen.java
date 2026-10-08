@@ -48,6 +48,9 @@ public class NPTagsGen {
     public static void setupBlockTags(RegistrumTagsProvider<Block> provider) {
         ironPickaxeMineableBlock(
             provider,
+            NPBlocks.DEEPSLATE_NICKEL_ORE,
+            NPBlocks.RAW_NICKEL_BLOCK,
+            NPBlocks.NICKEL_BLOCK,
             NPBlocks.PARTICLE_STABILIZER,
             NPBlocks.TITANIUM_ALLOY_BLOCK,
             NPBlocks.ROYAL_STEEL_CASING,

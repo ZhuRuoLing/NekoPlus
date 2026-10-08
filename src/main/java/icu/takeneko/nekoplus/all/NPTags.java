@@ -13,6 +13,9 @@ public class NPTags {
     public static class Blocks {
         public static final TagKey<Block> STORAGE_BLOCKS_TITANIUM_ALLOY = storageBlocks("titanium_alloy");
         public static final TagKey<Block> STORAGE_BLOCKS_SILICON = storageBlocks("silicon");
+        public static final TagKey<Block> ORES_NICKEL = c("ores/nickel");
+        public static final TagKey<Block> STORAGE_BLOCKS_RAW_NICKEL = storageBlocks("raw_nickel");
+        public static final TagKey<Block> STORAGE_BLOCKS_NICKEL = storageBlocks("nickel");
         public static final TagKey<Block> LIGHTWEIGHT_BLOCK = np("lightweight_block");
         public static final TagKey<Block> NESTED_SHULKER_BLOCK = np("nested_shulker_box");
         
@@ -37,6 +40,13 @@ public class NPTags {
     }
 
     public static class Items {
+        public static final TagKey<Item> GEMS_OLIVINE = c("gems/olivine");
+        public static final TagKey<Item> INGOTS_NICKEL = c("ingots/nickel");
+        public static final TagKey<Item> NUGGETS_NICKEL = c("nuggets/nickel");
+        public static final TagKey<Item> RAW_MATERIALS_NICKEL = c("raw_materials/nickel");
+        public static final TagKey<Item> ORES_NICKEL = c("ores/nickel");
+        public static final TagKey<Item> STORAGE_BLOCKS_RAW_NICKEL = storageBlocks("raw_nickel");
+        public static final TagKey<Item> STORAGE_BLOCKS_NICKEL = storageBlocks("nickel");
         public static final TagKey<Item> SILICON = c("silicon");
         public static final TagKey<Item> STORAGE_BLOCKS_SILICON = storageBlocks("silicon");
         public static final TagKey<Item> STORAGE_BLOCKS_TITANIUM_ALLOY = storageBlocks("titanium_alloy");

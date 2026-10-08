@@ -98,7 +98,7 @@ public class StellarEngineBlockEntity extends NPSynedBlockEntity implements IPow
 
     @Override
     public int getOutputPower() {
-        return 1024 * 1000;
+        return 1024 * 1024 * 1024;
     }
 
     @Override

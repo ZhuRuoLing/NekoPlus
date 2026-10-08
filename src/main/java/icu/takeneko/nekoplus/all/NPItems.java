@@ -47,6 +47,8 @@ public class NPItems {
         NekoPlus.REGISTRUM.defaultCreativeTab(NPCreativeTabs.TAB.getKey());
     }
 
+    // Metals And Ores
+
     public static final ItemEntry<Item> TITANIUM_ALLOY_INGOT = NekoPlus.REGISTRUM
         .item("titanium_alloy_ingot", Item::new)
         .recipe((c, p) -> {
@@ -65,6 +67,28 @@ public class NPItems {
             p.storage(c, RecipeCategory.MISC, TITANIUM_ALLOY_INGOT)
         )
         .register();
+
+    public static final ItemEntry<Item> NICKEL_INGOT = NekoPlus.REGISTRUM
+        .item("nickel_ingot", Item::new)
+        .tag(Tags.Items.INGOTS, NPTags.Items.INGOTS_NICKEL)
+        .register();
+
+    public static final ItemEntry<Item> NICKEL_NUGGET = NekoPlus.REGISTRUM
+        .item("nickel_nugget", Item::new)
+        .tag(Tags.Items.NUGGETS, NPTags.Items.NUGGETS_NICKEL)
+        .register();
+
+    public static final ItemEntry<Item> RAW_NICKEL = NekoPlus.REGISTRUM
+        .item("raw_nickel", Item::new)
+        .tag(Tags.Items.RAW_MATERIALS, NPTags.Items.RAW_MATERIALS_NICKEL)
+        .register();
+
+    public static final ItemEntry<Item> OLIVINE = NekoPlus.REGISTRUM
+        .item("olivine", Item::new)
+        .tag(Tags.Items.GEMS, NPTags.Items.GEMS_OLIVINE)
+        .register();
+
+    // Crafting Materials
 
     public static final ItemEntry<Item> ADVANCED_PROCESSOR = NekoPlus.REGISTRUM
         .item("advanced_processor", Item::new)
@@ -113,6 +137,8 @@ public class NPItems {
         })
         .register();
 
+    // Modular Enhancement Materials
+
     public static final ItemEntry<ModularSmithingTemplateItem> MODULAR_ENHANCEMENT_TEMPLATE = NekoPlus.REGISTRUM
         .item("modular_enhancement_template", ModularSmithingTemplateItem::new)
         .tag(ModItemTags.TEMPLATES)
@@ -146,6 +172,8 @@ public class NPItems {
                 ).save(prov);
         })
         .register();
+
+    // Modular Enhancement Modules
 
     public static final ItemEntry<EnhancementModuleItem<AntiGravityModule>> ANTI_GRAVITY_MODULE = NekoPlus.REGISTRUM
         .item("anti_gravity_module", p -> new EnhancementModuleItem<>(p, AntiGravityModule.TYPE))
@@ -308,6 +336,8 @@ public class NPItems {
         })
         .register();
 
+    // More Crafting Materials
+
     public static final ItemEntry<Item> CHARGED_LEVITATION_POWDER = NekoPlus.REGISTRUM
         .item("charged_levitation_powder", Item::new)
         .recipe((c, p) -> {
@@ -399,6 +429,8 @@ public class NPItems {
             .unlockedBy("has_gem_sapphire", p.has(ModItemTags.GEMS_SAPPHIRE))
             .save(p))
         .register();
+
+    // Foods
 
     public static final ItemEntry<Item> DIRT_BALL = NekoPlus.REGISTRUM
         .item("dirt_ball", Item::new)

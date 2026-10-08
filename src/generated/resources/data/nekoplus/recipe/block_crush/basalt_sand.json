@@ -1,0 +1,9 @@
+{
+  "type": "anvilcraft:block_crush",
+  "input": {
+    "blocks": "minecraft:basalt"
+  },
+  "result": {
+    "block": "nekoplus:basalt_sand"
+  }
+}

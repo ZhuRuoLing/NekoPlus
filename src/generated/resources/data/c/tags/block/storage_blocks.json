@@ -1,5 +1,7 @@
 {
   "values": [
-    "nekoplus:titanium_alloy_block"
+    "nekoplus:titanium_alloy_block",
+    "nekoplus:raw_nickel_block",
+    "nekoplus:nickel_block"
   ]
 }

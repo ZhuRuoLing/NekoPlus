@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anvil": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:anvil"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "nekoplus:cat_anvil"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_white_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:white_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_yellow_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:yellow_dye"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_yellow_dye",
+      "has_anvil",
+      "has_white_dye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "nekoplus:cat_anvil"
+    ]
+  }
+}

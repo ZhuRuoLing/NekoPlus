@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "nekoplus:raw_nickel_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "nekoplus:raw_nickel"
+  }
+}
