@@ -9,7 +9,6 @@ import dev.dubhe.anvilcraft.block.state.Cube3x3PartHalf;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.BatteryBlock;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
-import icu.takeneko.nekoplus.block.FusionReactorControllerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
 import icu.takeneko.nekoplus.block.HugeBatteryBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
@@ -176,39 +175,6 @@ public class NPBlockStateDispatches {
                         .dispatch()
                 );
             generator.blockStateOutput.accept(variantGenerator);
-        };
-    }
-
-    public static NonNullBiConsumer<DataGenContext<Block, FusionReactorControllerBlock>, RegistrumBlockModelGenerator> fusionReactorController() {
-        return (context, generator) -> {
-            Identifier modelId = generator.withParent(HATCH_BASE_MODEL)
-                .texture(SLOT_ALL, NekoPlus.location("block/royal_steel_casing"))
-                .texture(SLOT_OVERLAY, NekoPlus.location("block/laser_confinement_fusion"))
-                .build(context.get());
-
-            PropertyDispatchWrap.C1<MultiVariant, Direction> dispatch = PropertyDispatchWrap.initial(
-                FusionReactorControllerBlock.FACING
-            );
-
-            for (Direction direction : Direction.Plane.HORIZONTAL) {
-                int yRot = ((int) direction.toYRot() + 180) % 360;
-                int xRot = 90;
-
-                VariantMutator mutator = VariantMutator.X_ROT
-                    .withValue(Quadrant.parseJson(xRot))
-                    .then(VariantMutator.Y_ROT.withValue(Quadrant.parseJson(yRot)))
-                    .then(VariantMutator.UV_LOCK.withValue(true));
-
-                dispatch.select(
-                    direction,
-                    BlockModelGenerators.plainVariant(modelId).with(mutator)
-                );
-            }
-
-            generator.blockStateOutput.accept(
-                MultiVariantGenerator.dispatch(context.get())
-                    .with(dispatch.dispatch())
-            );
         };
     }
 

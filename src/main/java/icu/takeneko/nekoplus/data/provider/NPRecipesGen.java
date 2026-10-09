@@ -8,6 +8,8 @@ import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCompressRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCrushRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.MeshRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.TimeWarpRecipe;
 import dev.dubhe.anvilcraft.recipe.mineral.MineralFountainRecipe;
 import dev.dubhe.anvilcraft.recipe.multiblock.BlockPredicateWithState;
 import dev.dubhe.anvilcraft.recipe.multiblock.MultiblockConversionRecipe;
@@ -15,6 +17,7 @@ import dev.dubhe.anvilcraft.recipe.multiblock.MultiblockRecipe;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.all.NPBlocks;
 import icu.takeneko.nekoplus.all.NPItems;
+import icu.takeneko.nekoplus.all.NPTags;
 import icu.takeneko.nekoplus.block.HugeBatteryBlock;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import icu.takeneko.nekoplus.recipe.ModuleAssembleRecipe;
@@ -90,6 +93,22 @@ public class NPRecipesGen {
             DataIngredient.items(NPBlocks.DEEPSLATE_NICKEL_ORE.get()), RecipeCategory.MISC,
             CookingBookCategory.MISC, NPItems.NICKEL_INGOT, 0.7F
         );
+
+        SuperHeatingRecipe.builder()
+            .requires(provider.getItems(), NPTags.Items.STORAGE_BLOCKS_RAW_NICKEL)
+            .result(NPBlocks.NICKEL_BLOCK, 2)
+            .save(provider, NekoPlus.location("super_heating/metal_block/nickel_block_from_raw_nickel_block"));
+
+        TimeWarpRecipe.builder()
+            .requires(provider.getItems(), NPTags.Items.STORAGE_BLOCKS_NICKEL)
+            .result(NPItems.RAW_NICKEL, 3)
+            .save(provider, NekoPlus.location("time_warp/raw_nickel"));
+
+        SuperHeatingRecipe.builder()
+            .requires(provider.getItems(), NPTags.Items.RAW_MATERIALS_NICKEL, 8)
+            .requires(ModItems.EARTH_CORE_SHARD)
+            .result(NPItems.NICKEL_INGOT, 24)
+            .save(provider, NekoPlus.location("super_heating/raw/nickel_ingot"));
     }
 
     public static void addMultiBlockRecipes(RegistrumRecipeProvider provider) {
