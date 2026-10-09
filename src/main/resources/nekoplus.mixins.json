@@ -12,6 +12,7 @@
     "anvilcraft.laser.BaseLaserBlockEntityMixin",
     "anvilcraft.laser.LaserDamageBehaviorMixin",
     "anvilcraft.laser.LaserEmitPacketMixin",
+    "anvilcraft.laser.LaserParticleBehaviorMixin",
     "anvilcraft.laser.RubyPrismBlockEntityMixin",
     "anvilcraft.overclocking.ChargerBlockEntityMixin",
     "anvilcraft.overclocking.ChargerBlockMixin",

@@ -9,6 +9,8 @@ import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.block.state.Cube323PartHalf;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCrushRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.block.BatteryBlock;
@@ -26,14 +28,12 @@ import icu.takeneko.nekoplus.block.property.Part3;
 import icu.takeneko.nekoplus.data.NPBlockStateDispatches;
 import icu.takeneko.nekoplus.foundation.block.NPSimpleMultiPartBlock;
 import icu.takeneko.nekoplus.item.NPSimpleMultiPartBlockItem;
-import icu.takeneko.nekoplus.item.ShulkerHatchBlockItem;
 import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
@@ -121,7 +121,7 @@ public class NPBlocks {
         .properties(p -> p.strength(2f, 6.0F))
         .item()
         .recipe((ctx, prov) -> {
-            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.MISC, ctx.get())
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.MISC, ctx.get(), 4)
                 .pattern(" A ")
                 .pattern("A A")
                 .pattern(" A ")
@@ -499,6 +499,12 @@ public class NPBlocks {
         .block("nickel_block", Block::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
         .tag(Tags.Blocks.STORAGE_BLOCKS, NPTags.Blocks.STORAGE_BLOCKS_NICKEL)
+        .recipe((ctx, prov) ->
+            SuperHeatingRecipe.builder()
+                .requires(prov.getItems(), NPTags.Items.STORAGE_BLOCKS_RAW_NICKEL)
+                .result(ctx.get(), 2)
+                .save(prov, NekoPlus.location("super_heating/metal_block/nickel_block_from_raw_nickel_block"))
+        )
         .item()
         .tag(Tags.Items.STORAGE_BLOCKS, NPTags.Items.STORAGE_BLOCKS_NICKEL)
         .build()
@@ -508,6 +514,12 @@ public class NPBlocks {
         .block("basalt_sand", properties -> new ColoredFallingBlock(new ColorRGBA(0x3B3B3B), properties))
         .initialProperties(() -> Blocks.SAND)
         .tag(BlockTags.MINEABLE_WITH_SHOVEL)
+        .recipe((ctx, prov) ->
+            BlockCrushRecipe.builder()
+                .input(Blocks.BASALT)
+                .result(ctx.get())
+                .save(prov, NekoPlus.location("block_crush/basalt_sand"))
+        )
         .simpleItem()
         .register();
 
@@ -515,6 +527,16 @@ public class NPBlocks {
         .block("foundry_sand", Block::new)
         .initialProperties(() -> Blocks.SAND)
         .tag(BlockTags.MINEABLE_WITH_SHOVEL)
+        .recipe((ctx, prov) ->
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.BUILDING_BLOCKS, ctx.get())
+                .pattern("QO")
+                .pattern("OQ")
+                .define('Q', ModBlocks.QUARTZ_SAND.get())
+                .define('O', NPItems.OLIVINE.get())
+                .unlockedBy("has_" + prov.safeName(NPItems.OLIVINE.get()), prov.has(NPItems.OLIVINE.get()))
+                .unlockedBy("has_" + prov.safeName(ModBlocks.QUARTZ_SAND.get()), prov.has(ModBlocks.QUARTZ_SAND.get()))
+                .save(prov, prov.safeKey(NekoPlus.location("foundry_sand")))
+        )
         .simpleItem()
         .register();
 

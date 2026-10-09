@@ -1,6 +1,7 @@
 package icu.takeneko.nekoplus.all;
 
 import dev.anvilcraft.lib.v2.recipe.builder.InWorldRecipeBuilder;
+import dev.anvilcraft.lib.v2.registrum.util.DataIngredient;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -18,6 +19,7 @@ import dev.dubhe.anvilcraft.recipe.ChargerChargingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.FastCookingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.TimeWarpRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
 import icu.takeneko.nekoplus.foundation.item.module.impl.AntiGravityModule;
@@ -35,6 +37,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -68,19 +71,45 @@ public class NPItems {
         )
         .register();
 
+    public static final ItemEntry<Item> RAW_NICKEL = NekoPlus.REGISTRUM
+        .item("raw_nickel", Item::new)
+        .tag(Tags.Items.RAW_MATERIALS, NPTags.Items.RAW_MATERIALS_NICKEL)
+        .recipe((c, p) -> {
+            p.storage(c, RecipeCategory.BUILDING_BLOCKS, NPBlocks.RAW_NICKEL_BLOCK);
+            TimeWarpRecipe.builder()
+                .requires(p.getItems(), NPTags.Items.STORAGE_BLOCKS_NICKEL)
+                .result(c.get(), 3)
+                .save(p, NekoPlus.location("time_warp/raw_nickel"));
+        })
+        .register();
+
     public static final ItemEntry<Item> NICKEL_INGOT = NekoPlus.REGISTRUM
         .item("nickel_ingot", Item::new)
         .tag(Tags.Items.INGOTS, NPTags.Items.INGOTS_NICKEL)
+        .recipe((c, p) -> {
+            p.storage(c, RecipeCategory.BUILDING_BLOCKS, NPBlocks.NICKEL_BLOCK);
+            p.smeltingAndBlasting(
+                DataIngredient.items(RAW_NICKEL.get()), RecipeCategory.MISC,
+                CookingBookCategory.MISC, c, 0.7F
+            );
+            p.smeltingAndBlasting(
+                DataIngredient.items(NPBlocks.DEEPSLATE_NICKEL_ORE.get()), RecipeCategory.MISC,
+                CookingBookCategory.MISC, c, 0.7F
+            );
+            SuperHeatingRecipe.builder()
+                .requires(p.getItems(), NPTags.Items.RAW_MATERIALS_NICKEL, 8)
+                .requires(ModItems.EARTH_CORE_SHARD)
+                .result(c.get(), 24)
+                .save(p, NekoPlus.location("super_heating/raw/nickel_ingot"));
+        })
         .register();
 
     public static final ItemEntry<Item> NICKEL_NUGGET = NekoPlus.REGISTRUM
         .item("nickel_nugget", Item::new)
         .tag(Tags.Items.NUGGETS, NPTags.Items.NUGGETS_NICKEL)
-        .register();
-
-    public static final ItemEntry<Item> RAW_NICKEL = NekoPlus.REGISTRUM
-        .item("raw_nickel", Item::new)
-        .tag(Tags.Items.RAW_MATERIALS, NPTags.Items.RAW_MATERIALS_NICKEL)
+        .recipe((c, p) ->
+            p.storage(c, RecipeCategory.MISC, NICKEL_INGOT)
+        )
         .register();
 
     public static final ItemEntry<Item> OLIVINE = NekoPlus.REGISTRUM
