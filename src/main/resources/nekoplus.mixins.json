@@ -4,8 +4,6 @@
   "package": "icu.takeneko.nekoplus.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "anvilcraft.ItemCollectorBlockEntityMixin",
-    "anvilcraft.ItemCollectorBlockMixin",
     "anvilcraft.ServerBlockEntityEventListenerMixin",
     "anvilcraft.StampingPlatformBlockEntityMixin",
     "anvilcraft.StampingPlatformMixin",
