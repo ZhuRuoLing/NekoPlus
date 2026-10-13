@@ -64,7 +64,7 @@ public class NPRecipesGen {
             .result(NPBlocks.BASALT_SAND, 0.5F)
             .result(Items.IRON_NUGGET, 0.25F)
             .result(NPItems.OLIVINE, 0.15F)
-            .result(NPItems.NICKEL_NUGGET, 0.1F)
+            .result(NPItems.NICKEL_NUGGET, 0.20F)
             .save(provider, NekoPlus.location("mesh/basalt_sand"));
 
         MineralFountainRecipe.builder()
