@@ -91,7 +91,9 @@ public class NPSimpleMultiPartBlockItem<P extends Enum<P> & ISimpleMultiPartBloc
                     context.getClickLocation().relative(clickedFace, this.getMaxOffsetDistance(clickedFace)),
                     clickedFace,
                     context.getClickedPos().relative(clickedFace, this.getMaxOffsetDistance(clickedFace)),
-                    false)));
+                    false
+                )
+            ));
             if (interactionResult == InteractionResult.FAIL && context.getLevel().isClientSide()) {
                 Level level = context.getLevel();
                 BlockPos pos = context.getClickedPos().relative(clickedFace, this.getMaxOffsetDistance(clickedFace));
