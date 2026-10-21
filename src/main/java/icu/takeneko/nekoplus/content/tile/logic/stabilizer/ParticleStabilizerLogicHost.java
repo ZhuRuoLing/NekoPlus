@@ -11,6 +11,12 @@ public interface ParticleStabilizerLogicHost {
 
     ItemResource getTriggerResource();
 
+    ItemResource getSecondInputResource();
+
+    int getSecondInputCount();
+
+    ItemStack tryConsumeSecondInput(int amount);
+
     ItemStack tryConsumeTriggerItem();
 
     NPItemHandlerSlice getOutputItemHandler();
@@ -20,6 +26,8 @@ public interface ParticleStabilizerLogicHost {
     boolean hasValidWorkingState();
 
     void resetCooldown();
+
+    void setCooldown(int cooldown);
 
     void resetState();
 

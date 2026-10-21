@@ -1,9 +1,14 @@
 package icu.takeneko.nekoplus.content.tile.logic.stabilizer;
 
+import dev.anvilcraft.lib.v2.util.predicate.ChanceItemStack;
 import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.itemhandler.ItemHandlerUtil;
+import dev.dubhe.anvilcraft.init.recipe.ModRecipeTypes;
+import dev.dubhe.anvilcraft.recipe.anvil.collision.AnvilCollisionCraftRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.collision.BlockTransform;
 import icu.takeneko.nekoplus.all.NPItems;
 import icu.takeneko.nekoplus.all.NPRecipeTypes;
+import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.foundation.recipes.SingleRecipeInput;
 import icu.takeneko.nekoplus.recipe.AirCondensingRecipe;
 import net.minecraft.core.Holder;
@@ -12,6 +17,9 @@ import net.minecraft.util.context.ContextKeySet;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -77,7 +85,12 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
         }
 
         @Override
-        public boolean handleCollision(ParticleStabilizerLogicHost host, FallingBlockEntity entity, double speed, AnvilEvent.CollisionBlock event) {
+        public boolean handleCollision(
+            ParticleStabilizerLogicHost host,
+            FallingBlockEntity entity,
+            double speed,
+            AnvilEvent.CollisionBlock event
+        ) {
             return false;
         }
 
@@ -86,5 +99,85 @@ public enum ParticleStabilizerLogics implements ParticleStabilizerLogic {
             host.setProgress(0);
             host.setCurrentRecipe(null);
         }
+    },
+    ANVIL_COLLISION_CRAFT {
+        @Override
+        public boolean isValidTriggerItem(ItemResource stack) {
+            return !stack.isEmpty() && !blockStateOf(stack).isAir();
+        }
+
+        @Override
+        public boolean tryTrigger(ParticleStabilizerLogicHost host) {
+            return true;
+        }
+
+        @Override
+        public void tick(ParticleStabilizerLogicHost host) {
+        }
+
+        @Override
+        public boolean handleCollision(
+            ParticleStabilizerLogicHost host,
+            FallingBlockEntity entity,
+            double speed,
+            AnvilEvent.CollisionBlock event
+        ) {
+            if (!(host.getLevel() instanceof ServerLevel level)) return false;
+            BlockState hitState = blockStateOf(host.getTriggerResource());
+            if (hitState.isAir()) return false;
+            RecipeHolder<AnvilCollisionCraftRecipe> matched = null;
+            for (RecipeHolder<AnvilCollisionCraftRecipe> holder : level.getServer().getRecipeManager()
+                .recipeMap()
+                .byType(ModRecipeTypes.ANVIL_COLLISION_CRAFT.get())) {
+                AnvilCollisionCraftRecipe recipe = holder.value();
+                if (!recipe.anvil().test(level, entity.getBlockState(), null)) continue;
+                if (!recipe.hitBlock().test(level, hitState, null)) continue;
+                if (speed < recipe.speed()) continue;
+                if (matched != null && matched.value().speed() > recipe.speed()) continue;
+                matched = holder;
+            }
+            if (matched == null) return false;
+            AnvilCollisionCraftRecipe recipe = matched.value();
+            if (recipe.consume()) {
+                entity.discard();
+            }
+            processTransforms(host, level, recipe);
+            for (ChanceItemStack outputItem : recipe.outputItems()) {
+                ItemStack itemStack = outputItem.getResult(level).create();
+                if (!itemStack.isEmpty()) {
+                    ItemHandlerUtil.insertItem(host.getOutputItemHandler(), itemStack, false);
+                }
+            }
+            host.setCooldown(ParticleStabilizerBlockEntity.MACHINE_COOLDOWN * recipe.speed() / 32);
+            return true;
+        }
+
+        private void processTransforms(ParticleStabilizerLogicHost host, ServerLevel level, AnvilCollisionCraftRecipe recipe) {
+            ItemResource secondInput = host.getSecondInputResource();
+            if (secondInput.isEmpty()) return;
+            BlockState secondState = blockStateOf(secondInput);
+            for (BlockTransform transform : recipe.transformBlocks()) {
+                if (!transform.inputBlock().test(level, secondState, null)) continue;
+                int limit = Math.min(transform.maxCount(), host.getSecondInputCount());
+                for (int i = 0; i < limit; i++) {
+                    var result = transform.outputBlock().getResult(level);
+                    if (result == null) continue;
+                    ItemStack output = new ItemStack(result.getKey().getBlock().asItem());
+                    if (output.isEmpty()) continue;
+                    if (!ItemHandlerUtil.insertItem(host.getOutputItemHandler(), output.copy(), true).isEmpty()) break;
+                    ItemHandlerUtil.insertItem(host.getOutputItemHandler(), output, false);
+                    host.tryConsumeSecondInput(1);
+                }
+            }
+        }
+
+        @Override
+        public void deactivate(ParticleStabilizerLogicHost host) {
+        }
     };
+
+    private static BlockState blockStateOf(ItemResource resource) {
+        if (resource.isEmpty()) return Blocks.AIR.defaultBlockState();
+        return Block.byItem(resource.toStack(1).getItem()).defaultBlockState();
+    }
 }

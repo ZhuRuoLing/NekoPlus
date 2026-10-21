@@ -33,22 +33,27 @@ public class ParticleStabilizerUI extends NPUI<ParticleStabilizerBlockEntity> im
         progressBar.progressBarStyle(it -> it.interpolate(false));
         addChildren(
             row(
-                new ItemSlot()
-                    .bind(blockEntity.getItemHandler(), 0)
-                    .addClass("bordered_slot"),
+                column(
+                    new ItemSlot()
+                        .bind(blockEntity.getItemHandler(), 0)
+                        .addClass("bordered_slot"),
+                    new ItemSlot()
+                        .bind(blockEntity.getItemHandler(), 1)
+                        .addClass("bordered_slot")
+                ),
                 progressBar,
                 div(
                     row(
                         new ItemSlot()
-                            .bind(blockEntity.getItemHandler(), 1),
+                            .bind(blockEntity.getItemHandler(), 2),
                         new ItemSlot()
-                            .bind(blockEntity.getItemHandler(), 2)
+                            .bind(blockEntity.getItemHandler(), 3)
                     ),
                     row(
                         new ItemSlot()
-                            .bind(blockEntity.getItemHandler(), 3),
+                            .bind(blockEntity.getItemHandler(), 4),
                         new ItemSlot()
-                            .bind(blockEntity.getItemHandler(), 4)
+                            .bind(blockEntity.getItemHandler(), 5)
                     )
                 ).layout(l ->
                     l.minWidth(0)

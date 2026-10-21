@@ -3,16 +3,20 @@ package icu.takeneko.nekoplus.all;
 import com.lowdragmc.lowdraglib2.gui.holder.ModularUIScreen;
 import com.lowdragmc.lowdraglib2.gui.ui.UIElement;
 import dev.anvilcraft.lib.v2.recipe.init.recipe.LibRecipeTypes;
+import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.event.LightningBoltStrikeEvent;
 import icu.takeneko.nekoplus.block.HugeBatteryBlock;
+import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
+import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.config.NPConfig;
 import icu.takeneko.nekoplus.foundation.Tickable;
 import icu.takeneko.nekoplus.foundation.item.module.NPEnhancementModule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -23,6 +27,7 @@ import net.minecraft.world.level.block.WeatheringLightningRodBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -49,8 +54,8 @@ public class NPEvents {
             NPBlockEntities.PARTICLE_STABILIZER.get(),
             (a, v) -> {
                 if (v == null) return a.getItemHandler();
-                if (v == Direction.DOWN) return a.getItemHandler().slice(1, 5, true);
-                return a.getItemHandler().slice(0, 1);
+                if (v == Direction.DOWN) return a.getItemHandler().slice(2, 6, true);
+                return a.getItemHandler().slice(0, 2);
             }
         );
     }
@@ -110,6 +115,17 @@ public class NPEvents {
             float multiplier = (float) (Math.pow(2, age.ordinal()) * 0.5);
             int charged = Mth.floor(NPConfig.BATTERY_CAPACITY.getAsLong() * multiplier);
             battery.chargeDirect(charged);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void on(AnvilEvent.CollisionBlock event) {
+        if (!(event.getLevel() instanceof ServerLevel level)) return;
+        BlockPos pos = event.getPos();
+        if (!(level.getBlockState(pos).getBlock() instanceof ParticleStabilizerBlock)) return;
+        if (!(level.getBlockEntity(pos) instanceof ParticleStabilizerBlockEntity blockEntity)) return;
+        if (blockEntity.handleCollision(event)) {
+            event.setCanceled(true);
         }
     }
 

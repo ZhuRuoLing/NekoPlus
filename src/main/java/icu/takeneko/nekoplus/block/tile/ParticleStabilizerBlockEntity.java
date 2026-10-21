@@ -6,6 +6,7 @@ import com.lowdragmc.lowdraglib2.syncdata.annotation.DescSynced;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.Persisted;
 import com.lowdragmc.lowdraglib2.syncdata.annotation.RequireRerender;
 import com.lowdragmc.lowdraglib2.syncdata.field.ManagedFieldHolder;
+import dev.dubhe.anvilcraft.api.event.AnvilEvent;
 import dev.dubhe.anvilcraft.api.power.PowerGrid;
 import icu.takeneko.nekoplus.all.NPSoundEvents;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
@@ -53,7 +54,7 @@ public class ParticleStabilizerBlockEntity
 
     @Persisted
     @Getter
-    private final NPItemHandler itemHandler = new NPItemHandler(5, this);
+    private final NPItemHandler itemHandler = new NPItemHandler(6, this);
 
     @Getter
     @Setter
@@ -149,6 +150,9 @@ public class ParticleStabilizerBlockEntity
         isWorking = this.currentRecipe != null;
     }
 
+    public boolean handleCollision(AnvilEvent.CollisionBlock event) {
+        return logic.handleCollision(this, event.getEntity(), event.getSpeed(), event);
+    }
 
     @Override
     // @OnlyIn(Dist.CLIENT)
@@ -185,7 +189,7 @@ public class ParticleStabilizerBlockEntity
 
     @Override
     public boolean isItemValid(int slot, ItemResource stack) {
-        if (slot == 0) {
+        if (slot <= 1) {
             return logic.isValidTriggerItem(stack);
         }
         return true;
@@ -239,8 +243,32 @@ public class ParticleStabilizerBlockEntity
     }
 
     @Override
+    public ItemResource getSecondInputResource() {
+        return itemHandler.getResource(1);
+    }
+
+    @Override
+    public int getSecondInputCount() {
+        return itemHandler.getAmountAsInt(1);
+    }
+
+    @Override
+    public ItemStack tryConsumeSecondInput(int amount) {
+        ItemResource resource = getSecondInputResource();
+        if (resource.isEmpty() || amount <= 0) return ItemStack.EMPTY;
+        try (Transaction transaction = Transaction.openRoot()) {
+            int extracted = itemHandler.slice(1, 2).extract(resource, amount, transaction);
+            if (extracted > 0) {
+                transaction.commit();
+                return resource.toStack(extracted);
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+    @Override
     public NPItemHandlerSlice getOutputItemHandler() {
-        return itemHandler.slice(1, 5);
+        return itemHandler.slice(2, 6);
     }
 
     @Override
@@ -251,6 +279,11 @@ public class ParticleStabilizerBlockEntity
     @Override
     public void resetCooldown() {
         this.countdown = ParticleStabilizerBlockEntity.MACHINE_COOLDOWN;
+    }
+
+    @Override
+    public void setCooldown(int cooldown) {
+        this.countdown = cooldown;
     }
 
     @Override
