@@ -4,6 +4,7 @@
   "package": "icu.takeneko.nekoplus.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "anvilcraft.BuildingBlockPlannerMixin",
     "anvilcraft.HeatableBlockEntityMixin",
     "anvilcraft.HeatableBlockMixin",
     "anvilcraft.ServerBlockEntityEventListenerMixin",
@@ -24,6 +25,7 @@
     "minecraft.SmithingMenuMixin"
   ],
   "client": [
+    "anvilcraft.LargeBlockPlacePreviewEventListenerMixin",
     "anvilcraft.laser.LaserCompilerMixin",
     "anvilcraft.laser.client.LaserRenderStateMixin",
     "minecraft.LevelEventHandlerMixin",
