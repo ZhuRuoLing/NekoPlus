@@ -27,10 +27,8 @@
   "block.nekoplus.particle_stabilizer": "粒子稳定器",
   "block.nekoplus.programmable_logic_gate": "可编程逻辑门",
   "block.nekoplus.royal_steel_casing": "皇家钢机械外壳",
-  "block.nekoplus.shulker_hatch": "潜影盒访问口",
   "block.nekoplus.stellar_engine": "恒星引擎",
   "block.nekoplus.tardis": "Tardis",
-  "block.nekoplus.test": "Test",
   "block.nekoplus.titanium_alloy_anvil": "钛合金铁砧",
   "block.nekoplus.titanium_alloy_block": "钛合金块",
   "block.nekoplus.upsidedown_exclamation_mark": "倒置感叹号",
@@ -186,5 +184,8 @@
   "ui.programmable_logic_gate.red": "配置引脚: 红色",
   "ui.programmable_logic_gate.white": "配置引脚: 白色",
   "block.nekoplus.huge_battery": "大号蓄电池",
-  "item.nekoplus.huge_battery": "大号蓄电池"
+  "item.nekoplus.huge_battery": "大号蓄电池",
+  "tooltip.nekoplus.cryocooler": "操纵冷气程度的能力",
+  "tooltip.nekoplus.huge_battery": "绿  波  电  龙",
+  "tooltip.nekoplus.olivine": "Mg₂Fe(SiO₂)₂"
 }

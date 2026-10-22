@@ -116,6 +116,10 @@ public class NPItemTooltips {
 
 
         tooltip(
+            NPItems.CRYOCOOLER,
+            "Ability: Manipulation of cold"
+        );
+        tooltip(
             NPItems.STABILIZE_POWDER,
             "S₈((Al₆Si₆Ca₈Na₈)₁₂(Al₃Si₃Na₄Cl)₂(FeS₂)(CaCO₃))₂(Si(FeS₂)₅(CrAl₂O₃)Hg₃)₃Lv₅"
         );
