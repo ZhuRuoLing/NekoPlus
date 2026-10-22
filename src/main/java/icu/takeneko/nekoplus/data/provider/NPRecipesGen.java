@@ -1,12 +1,15 @@
 package icu.takeneko.nekoplus.data.provider;
 
 import dev.anvilcraft.lib.v2.registrum.providers.generators.RegistrumRecipeProvider;
+import dev.anvilcraft.lib.v2.util.predicate.BlockStatePredicate;
+import dev.anvilcraft.lib.v2.util.predicate.ChanceBlockState;
 import dev.dubhe.anvilcraft.block.state.Cube3x3PartHalf;
 import dev.dubhe.anvilcraft.init.block.ModBlocks;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCompressRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.MeshRecipe;
-import dev.dubhe.anvilcraft.recipe.mineral.MineralFountainRecipe;
+import dev.dubhe.anvilcraft.recipe.mineral.AroundRequirement;
+import dev.dubhe.anvilcraft.recipe.mineral.MineralFountainActiveRecipe;
 import dev.dubhe.anvilcraft.recipe.multiblock.BlockPredicateWithState;
 import dev.dubhe.anvilcraft.recipe.multiblock.MultiblockConversionRecipe;
 import dev.dubhe.anvilcraft.recipe.multiblock.MultiblockRecipe;
@@ -30,10 +33,10 @@ import java.util.List;
 
 public class NPRecipesGen {
     public static void addRecipes(RegistrumRecipeProvider provider) {
-        MineralFountainRecipe.builder()
-            .fromBlock(Blocks.NETHERRACK)
-            .needBlock(NPBlocks.NETHERITE_SCRAP_BLOCK.get())
-            .toBlock(Blocks.ANCIENT_DEBRIS)
+        MineralFountainActiveRecipe.builder()
+            .fromBlock(BlockStatePredicate.builder().of(Blocks.NETHERRACK).build())
+            .require(new AroundRequirement(BlockStatePredicate.builder().of(NPBlocks.NETHERITE_SCRAP_BLOCK.get()).build(), 4))
+            .toBlock(new ChanceBlockState(Blocks.ANCIENT_DEBRIS.defaultBlockState(), 1.0F))
             .save(provider, NekoPlus.location("mineral_fountain/ancient_debris"));
 
         AirCondensingRecipe.builder()
@@ -67,10 +70,17 @@ public class NPRecipesGen {
             .result(NPItems.NICKEL_NUGGET, 0.20F)
             .save(provider, NekoPlus.location("mesh/basalt_sand"));
 
-        MineralFountainRecipe.builder()
-            .needBlock(provider.getRegistries().lookupOrThrow(Registries.BLOCK), NPTags.Blocks.STORAGE_BLOCKS_RAW_NICKEL)
-            .fromBlock(Blocks.DEEPSLATE)
-            .toBlock(NPBlocks.DEEPSLATE_NICKEL_ORE.get())
+        MineralFountainActiveRecipe.builder()
+            .require(
+                new AroundRequirement(
+                    BlockStatePredicate.builder()
+                        .of(provider.getRegistries().lookupOrThrow(Registries.BLOCK), NPTags.Blocks.STORAGE_BLOCKS_RAW_NICKEL)
+                        .build(),
+                    4
+                )
+            )
+            .fromBlock(BlockStatePredicate.builder().of(Blocks.DEEPSLATE).build())
+            .toBlock(new ChanceBlockState(NPBlocks.DEEPSLATE_NICKEL_ORE.get().defaultBlockState(), 1.0F))
             .save(provider, NekoPlus.location("mineral_fountain/deepslate_nickel_ore"));
     }
 
