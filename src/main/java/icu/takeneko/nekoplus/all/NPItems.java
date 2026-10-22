@@ -26,6 +26,7 @@ import icu.takeneko.nekoplus.foundation.item.module.impl.AntiGravityModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.ExoskeletalLegFrameModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.HologramProjectorModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.MechanicalHeartModule;
+import icu.takeneko.nekoplus.foundation.item.module.impl.PortableBatteryModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.TitaniumCrystalModule;
 import icu.takeneko.nekoplus.item.EnhancementModuleItem;
 import icu.takeneko.nekoplus.item.ModularSmithingTemplateItem;
@@ -344,6 +345,10 @@ public class NPItems {
                 )
                 .save(prov);
         })
+        .register();
+
+    public static final ItemEntry<EnhancementModuleItem<PortableBatteryModule>> PORTABLE_BATTERY_MODULE = NekoPlus.REGISTRUM
+        .item("portable_battery_module", p -> new EnhancementModuleItem<>(p, PortableBatteryModule.TYPE))
         .register();
 
     public static final ItemEntry<Item> DRY_ICE = NekoPlus.REGISTRUM

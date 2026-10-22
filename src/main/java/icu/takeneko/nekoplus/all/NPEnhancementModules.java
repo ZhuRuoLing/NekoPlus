@@ -5,6 +5,7 @@ import icu.takeneko.nekoplus.foundation.item.module.impl.AntiGravityModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.ExoskeletalLegFrameModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.HologramProjectorModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.MechanicalHeartModule;
+import icu.takeneko.nekoplus.foundation.item.module.impl.PortableBatteryModule;
 import icu.takeneko.nekoplus.foundation.item.module.impl.TitaniumCrystalModule;
 import icu.takeneko.nekoplus.foundation.item.module.type.NPEnhancementModuleType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -44,5 +45,11 @@ public class NPEnhancementModules {
         DR.register(
             HologramProjectorModule.NAME.getPath(),
             () -> HologramProjectorModule.TYPE
+        );
+
+    public static final DeferredHolder<NPEnhancementModuleType<?>, NPEnhancementModuleType<?>> PORTABLE_BATTERY =
+        DR.register(
+            PortableBatteryModule.NAME.getPath(),
+            () -> PortableBatteryModule.TYPE
         );
 }

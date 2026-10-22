@@ -133,5 +133,6 @@ public class NPItemTooltips {
         tooltip(NPItems.TITANIUM_CRYSTAL_MODULE, "Ti-Fe alloys — treated via controlled heat and amorphization — shed brittleness without sacrificing strength.");
         tooltip(NPItems.EXOSKELETAL_LEG_FRAME_MODULE, "Increases movement speed by 20% per module, step height by 0.5, jump height by 30%");
         tooltip(NPItems.HOLOGRAM_PROJECTOR_MODULE, "Projects additional contextual information as a holographic overlay.");
+        tooltip(NPItems.PORTABLE_BATTERY_MODULE, "Provides portable energy storage for enhanced equipment.");
     }
 }
