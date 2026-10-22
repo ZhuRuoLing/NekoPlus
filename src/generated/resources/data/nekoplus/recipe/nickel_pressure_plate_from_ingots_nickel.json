@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": "#c:ingots/nickel"
+  },
+  "pattern": [
+    "AA"
+  ],
+  "result": {
+    "id": "nekoplus:nickel_pressure_plate"
+  }
+}

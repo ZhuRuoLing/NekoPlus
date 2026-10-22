@@ -1,0 +1,13 @@
+{
+  "type": "anvilcraft:stamping",
+  "ingredients": [
+    {
+      "items": "#c:ingots/nickel"
+    }
+  ],
+  "results": [
+    {
+      "id": "nekoplus:nickel_pressure_plate"
+    }
+  ]
+}

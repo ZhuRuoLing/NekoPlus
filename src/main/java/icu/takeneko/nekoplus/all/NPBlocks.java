@@ -10,6 +10,7 @@ import dev.dubhe.anvilcraft.init.item.ModItemTags;
 import dev.dubhe.anvilcraft.init.item.ModItems;
 import dev.dubhe.anvilcraft.block.state.Cube323PartHalf;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.BlockCrushRecipe;
+import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
@@ -19,6 +20,7 @@ import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.HugeBatteryBlock;
 import icu.takeneko.nekoplus.block.MineralFountainPressurizerBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
+import icu.takeneko.nekoplus.block.NickelPressurePlateBlock;
 import icu.takeneko.nekoplus.block.ParticleStabilizerBlock;
 import icu.takeneko.nekoplus.block.ProgrammableLogicGateBlock;
 import icu.takeneko.nekoplus.block.StellarEngineBlock;
@@ -50,6 +52,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -506,6 +509,34 @@ public class NPBlocks {
         )
         .item()
         .tag(Tags.Items.STORAGE_BLOCKS, NPTags.Items.STORAGE_BLOCKS_NICKEL)
+        .build()
+        .register();
+
+    public static final BlockEntry<NickelPressurePlateBlock> NICKEL_PRESSURE_PLATE = NekoPlus.REGISTRUM
+        .block("nickel_pressure_plate", NickelPressurePlateBlock::new)
+        .initialProperties(() -> NPBlocks.NICKEL_BLOCK.get())
+        .properties(p -> p.forceSolidOn()
+            .instrument(NoteBlockInstrument.BASS)
+            .noCollision()
+            .strength(0.5F)
+            .pushReaction(PushReaction.DESTROY)
+            .sound(SoundType.METAL))
+        .tag(BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.PRESSURE_PLATES)
+        .blockstate(() -> DataGenUtil.pressurePlateBlock(NekoPlus.location("block/nickel_block")))
+        .recipe((ctx, prov) -> {
+            ShapedRecipeBuilder.shaped(prov.getItems(), RecipeCategory.REDSTONE, ctx.get())
+                .pattern("AA")
+                .define('A', NPTags.Items.INGOTS_NICKEL)
+                .unlockedBy("has_nickel_ingot", prov.has(NPTags.Items.INGOTS_NICKEL))
+                .save(prov, prov.safeKey(NekoPlus.location("nickel_pressure_plate_from_ingots_nickel")));
+            StampingRecipe.builder()
+                .requires(prov.getItems(), NPTags.Items.INGOTS_NICKEL)
+                .result(ctx.get())
+                .save(prov, NekoPlus.location("stamping/nickel_pressure_plate"));
+        })
+        .item()
+        .model(DataGenUtil::blockItem)
+        .tag(ModItemTags.PLATES, ModItemTags.bindC("plates/nickel"))
         .build()
         .register();
 

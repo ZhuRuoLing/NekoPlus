@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "nekoplus:block/nickel_pressure_plate"
+    },
+    "powered=true": {
+      "model": "nekoplus:block/nickel_pressure_plate_down"
+    }
+  }
+}
