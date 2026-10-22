@@ -82,7 +82,6 @@ public class NPBlocks {
             ))
         ).tag(
             BlockTags.ANVIL,
-            ModBlockTags.NON_MAGNETIC,
             ModBlockTags.CANT_BROKEN_ANVIL,
             BlockTags.MINEABLE_WITH_PICKAXE
         )
