@@ -2,10 +2,12 @@
 
 ## Source Lookup
 
-- Use the IntelliJ IDEA MCP tools together with the `workspace-agent-bridge` skill as the primary way to search,
-  inspect, and navigate project and library source code.
-- If IDEA source lookup and `workspace-agent-bridge` skill fails for dependency code, search source JARs under `~/.gradle/caches/`.
-- Core Unix utilities are available when command-line inspection is useful.
+Choose your lookup method strictly based on whether the code is local or an external dependency:
+
+- **Project Source Code (Local Files):** You may freely use fast command-line utilities (`rg`, `grep`, `find`, `sed`) or IntelliJ IDEA MCP tools to search and inspect local project files.
+- **Library & Dependency Code (External JARs):**
+  1. **MUST Try First:** ALWAYS use the IntelliJ IDEA MCP tools together with the `workspace-agent-bridge` skill to inspect third-party or library code. Do NOT bypass this step for speed.
+  2. **Last-Resort Fallback:** ONLY if the IDEA MCP tool and `workspace-agent-bridge` explicitly fail or return empty results, you may fall back to searching source JARs under `~/.gradle/caches/`.
 
 ## Scope and Existing Work
 
