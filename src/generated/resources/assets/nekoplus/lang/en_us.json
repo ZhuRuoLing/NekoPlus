@@ -1,4 +1,5 @@
 {
+  "block.nekoplus.animated_item_display_table": "Animated Item Display Table",
   "block.nekoplus.basalt_sand": "Basalt Sand",
   "block.nekoplus.battery": "Battery",
   "block.nekoplus.blast_crystal": "Blast Crystal",
@@ -41,6 +42,7 @@
   "evaluator.undefined_symbol": "Tried to use undeclared identifier %s or its value has not been set.",
   "item.nekoplus.advanced_processor": "Advanced Processor",
   "item.nekoplus.air_filter": "Air Filter",
+  "item.nekoplus.animated_item_display_table": "Animated Item Display Table",
   "item.nekoplus.anti_gravity_module": "Anti Gravity Module",
   "item.nekoplus.basalt_sand": "Basalt Sand",
   "item.nekoplus.battery": "Battery",

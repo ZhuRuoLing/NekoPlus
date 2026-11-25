@@ -7,6 +7,7 @@ import dev.anvilcraft.lib.v2.registrum.providers.generators.model.PropertyDispat
 import dev.anvilcraft.lib.v2.util.nullness.NonNullBiConsumer;
 import dev.dubhe.anvilcraft.block.state.Cube3x3PartHalf;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.AnimatedItemDisplayTableBlock;
 import icu.takeneko.nekoplus.block.BatteryBlock;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
 import icu.takeneko.nekoplus.block.HighEnergyLaserBlock;
@@ -37,6 +38,22 @@ public class NPBlockStateDispatches {
     public static final TextureSlot SLOT_3 = TextureSlot.create("3");
     public static final TextureSlot SLOT_ALL = TextureSlot.create("all");
     public static final TextureSlot SLOT_OVERLAY = TextureSlot.create("overlay");
+
+    public static NonNullBiConsumer<DataGenContext<Block, AnimatedItemDisplayTableBlock>, RegistrumBlockModelGenerator> animatedItemDisplayTable() {
+        return (context, generator) -> {
+            ModelTemplate template = new ModelTemplate(
+                Optional.of(NekoPlus.location("block/animated_item_display_table_template")),
+                Optional.empty(),
+                SLOT_ALL
+            );
+            Identifier model = generator.withParent(template)
+                .texture(SLOT_ALL, NekoPlus.location("block/animated_item_display_table"))
+                .build(context.get());
+            generator.blockStateOutput.accept(
+                MultiVariantGenerator.dispatch(context.get(), BlockModelGenerators.plainVariant(model))
+            );
+        };
+    }
 
     public static final ModelTemplate PARTICLE_STABILIZER_MODEL = new ModelTemplate(
         Optional.of(NekoPlus.location("block/particle_stabilizer_template")),

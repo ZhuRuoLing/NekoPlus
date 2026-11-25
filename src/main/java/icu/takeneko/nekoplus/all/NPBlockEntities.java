@@ -3,6 +3,7 @@ package icu.takeneko.nekoplus.all;
 import dev.anvilcraft.lib.v2.registrum.util.entry.BlockEntityEntry;
 import dev.dubhe.anvilcraft.client.renderer.blockentity.LaserBlockEntityRenderer;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.tile.AnimatedItemDisplayTableBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BatteryBlockEntity;
 import icu.takeneko.nekoplus.block.tile.BlastCrystalBlockEntity;
 import icu.takeneko.nekoplus.block.tile.HighEnergyLaserBlockEntity;
@@ -11,6 +12,7 @@ import icu.takeneko.nekoplus.block.tile.ParticleStabilizerBlockEntity;
 import icu.takeneko.nekoplus.block.tile.ProgrammableLogicGateBlockEntity;
 import icu.takeneko.nekoplus.block.tile.StellarEngineBlockEntity;
 import icu.takeneko.nekoplus.block.tile.TardisBlockEntity;
+import icu.takeneko.nekoplus.client.renderer.tesr.AnimatedItemDisplayTableRenderer;
 import icu.takeneko.nekoplus.client.renderer.tesr.StellarEngineRenderer;
 import icu.takeneko.nekoplus.client.renderer.tesr.TardisRenderer;
 
@@ -24,6 +26,12 @@ public class NPBlockEntities {
     public static final BlockEntityEntry<ParticleStabilizerBlockEntity> PARTICLE_STABILIZER = NekoPlus.REGISTRUM
         .blockEntity("particle_stabilizer", ParticleStabilizerBlockEntity::new)
         .validBlock(NPBlocks.PARTICLE_STABILIZER)
+        .register();
+
+    public static final BlockEntityEntry<AnimatedItemDisplayTableBlockEntity> ANIMATED_ITEM_DISPLAY_TABLE = NekoPlus.REGISTRUM
+        .blockEntity("animated_item_display_table", AnimatedItemDisplayTableBlockEntity::new)
+        .validBlock(NPBlocks.ANIMATED_ITEM_DISPLAY_TABLE)
+        .renderer(() -> AnimatedItemDisplayTableRenderer::new)
         .register();
 
     public static final BlockEntityEntry<BatteryBlockEntity> BATTERY = NekoPlus.REGISTRUM

@@ -14,6 +14,7 @@ import dev.dubhe.anvilcraft.recipe.anvil.wrap.StampingRecipe;
 import dev.dubhe.anvilcraft.recipe.anvil.wrap.SuperHeatingRecipe;
 import dev.dubhe.anvilcraft.util.registrater.DataGenUtil;
 import icu.takeneko.nekoplus.NekoPlus;
+import icu.takeneko.nekoplus.block.AnimatedItemDisplayTableBlock;
 import icu.takeneko.nekoplus.block.BatteryBlock;
 import icu.takeneko.nekoplus.block.BlastCrystalBlock;
 import icu.takeneko.nekoplus.block.CatAnvilBlock;
@@ -144,6 +145,16 @@ public class NPBlocks {
 //        .item()
 //        .build()
 //        .register();
+
+    public static final BlockEntry<AnimatedItemDisplayTableBlock> ANIMATED_ITEM_DISPLAY_TABLE = NekoPlus.REGISTRUM
+        .block("animated_item_display_table", AnimatedItemDisplayTableBlock::new)
+        .initialProperties(() -> Blocks.STONE)
+        .properties(BlockBehaviour.Properties::noOcclusion)
+        .blockstate(NPBlockStateDispatches::animatedItemDisplayTable)
+        .item()
+        .model(DataGenUtil::blockItem)
+        .build()
+        .register();
 
     public static final BlockEntry<BatteryBlock> BATTERY = NekoPlus.REGISTRUM
         .block("battery", BatteryBlock::new)

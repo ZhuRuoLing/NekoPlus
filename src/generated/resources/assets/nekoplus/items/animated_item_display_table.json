@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "nekoplus:block/animated_item_display_table"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "nekoplus:block/animated_item_display_table_template",
+  "textures": {
+    "all": "nekoplus:block/animated_item_display_table"
+  }
+}
