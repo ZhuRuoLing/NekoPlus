@@ -33,14 +33,16 @@ public class ChargerBlockMixin {
         BlockHitResult hit,
         CallbackInfoReturnable<InteractionResult> cir
     ) {
-        if (stack.is(NPItems.CHARGED_LEVITATION_POWDER)) {
+        if (stack.is(NPItems.STABILIZE_POWDER)) {
             if (level.isClientSide()) {
-                level.playSound(player, pos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS);
+                level.playSound(player, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS);
                 cir.setReturnValue(Util.sidedSuccess(level));
                 return;
             }
             if (!(level.getBlockEntity(pos) instanceof ChargerBlockEntityInternals.Extension extension)) return;
             extension.toggleOverclock();
+            stack.shrink(1);
+            player.setItemInHand(hand, stack);
             cir.setReturnValue(InteractionResult.CONSUME);
             cir.cancel();
         }

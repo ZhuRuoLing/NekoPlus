@@ -149,7 +149,7 @@ public class NPItems {
                 .define('A', NPTags.Items.SILVER_PLATE)
                 .define('B', ModItems.CIRCUIT_BOARD)
                 .define('C', ADVANCED_PROCESSOR)
-                .define('D', ModItems.HARDEND_RESIN)
+                .define('D', ModItems.HARDENED_RESIN)
                 .unlockedBy("has_silver_plate", p.has(NPTags.Items.SILVER_PLATE))
                 .unlockedBy(
                     "has_" + p.safeName(ModItems.CIRCUIT_BOARD),
@@ -160,8 +160,8 @@ public class NPItems {
                     p.has(ADVANCED_PROCESSOR)
                 )
                 .unlockedBy(
-                    "has_" + ModItems.HARDEND_RESIN.getRegisteredName(),
-                    p.has(ModItems.HARDEND_RESIN)
+                    "has_" + ModItems.HARDENED_RESIN.getRegisteredName(),
+                    p.has(ModItems.HARDENED_RESIN)
                 )
                 .save(p);
         })
@@ -421,7 +421,7 @@ public class NPItems {
         .item("nanofiltration_membrane", Item::new)
         .recipe((c, p) -> {
             StampingRecipe.builder()
-                .requires(ModItems.HARDEND_RESIN, 4)
+                .requires(ModItems.HARDENED_RESIN, 4)
                 .result(c.get())
                 .save(p, p.safeId(NekoPlus.location(c.getName() + "_stamping")));
         })

@@ -29,27 +29,29 @@ public abstract class SmartBlockPlacerBlockMixin extends BaseEntityBlock {
         super(properties);
     }
 
-//    @Override
-//    protected InteractionResult useItemOn(
-//        ItemStack itemStack,
-//        BlockState state,
-//        Level level,
-//        BlockPos pos,
-//        Player player,
-//        InteractionHand hand,
-//        BlockHitResult hitResult
-//    ) {
-//        if (!itemStack.is(NPItems.CHARGED_LEVITATION_POWDER)) {
-//            return InteractionResult.PASS;
-//        }
-//        if (level.isClientSide()) {
-//            level.playSound(player, pos, SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.BLOCKS);
-//            return Util.sidedSuccess(level);
-//        }
-//        if (level.getBlockEntity(pos) instanceof SmartBlockPlacerBlockEntityInternals.Extension extension) {
-//            extension.toggleOverclock();
-//            return InteractionResult.CONSUME;
-//        }
-//        return InteractionResult.PASS;
-//    }
+    @Override
+    protected InteractionResult useItemOn(
+        ItemStack itemStack,
+        BlockState state,
+        Level level,
+        BlockPos pos,
+        Player player,
+        InteractionHand hand,
+        BlockHitResult hitResult
+    ) {
+        if (!itemStack.is(NPItems.STABILIZE_POWDER)) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
+        if (level.isClientSide()) {
+            level.playSound(player, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS);
+            return Util.sidedSuccess(level);
+        }
+        if (level.getBlockEntity(pos) instanceof SmartBlockPlacerBlockEntityInternals.Extension extension) {
+            extension.toggleOverclock();
+            itemStack.shrink(1);
+            player.setItemInHand(hand, itemStack);
+            return InteractionResult.CONSUME;
+        }
+        return InteractionResult.TRY_WITH_EMPTY_HAND;
+    }
 }

@@ -514,7 +514,7 @@ public class NPBlocks {
 
     public static final BlockEntry<NickelPressurePlateBlock> NICKEL_PRESSURE_PLATE = NekoPlus.REGISTRUM
         .block("nickel_pressure_plate", NickelPressurePlateBlock::new)
-        .initialProperties(() -> NPBlocks.NICKEL_BLOCK.get())
+        .initialProperties(NPBlocks.NICKEL_BLOCK::get)
         .properties(p -> p.forceSolidOn()
             .instrument(NoteBlockInstrument.BASS)
             .noCollision()

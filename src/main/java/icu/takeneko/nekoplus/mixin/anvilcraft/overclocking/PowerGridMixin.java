@@ -74,7 +74,7 @@ public class PowerGridMixin {
             value = "FIELD",
             target = "Ldev/dubhe/anvilcraft/api/power/PowerGrid;consume:I",
             opcode = Opcodes.GETFIELD,
-            ordinal = 3
+            ordinal = 5
         )
     )
     void calculate(

@@ -1,6 +1,7 @@
 package icu.takeneko.nekoplus.mixin.anvilcraft.overclocking;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.dubhe.anvilcraft.block.entity.SmartBlockPlacerBlockEntity;
 import dev.dubhe.anvilcraft.block.power.consumer.SmartBlockPlacerBlock;
 import icu.takeneko.nekoplus.config.NPConfig;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -77,18 +79,17 @@ public abstract class SmartBlockPlacerBlockEntityMixin
         np$ocEnabled = input.getBooleanOr("oc_enabled", false);
     }
 
-    @ModifyExpressionValue(
+    @WrapOperation(
         method = "advancePhaseProgress",
         at = @At(
-            value = "INVOKE",
-            target = "Ldev/dubhe/anvilcraft/block/entity/SmartBlockPlacerBlockEntity$ExecutionPhase;getDurationTicks()I"
+            value = "FIELD",
+            target = "Ldev/dubhe/anvilcraft/block/entity/SmartBlockPlacerBlockEntity;phaseElapsedTicks:I",
+            opcode = Opcodes.PUTFIELD
         )
     )
-    int speedUpPhaseProgress(int duration) {
-        if (!isOverclockEnabled() || np$efficiency <= 0 || duration <= 0) {
-            return duration;
-        }
-        return Math.max(1, (duration + np$efficiency) / (np$efficiency + 1));
+    private void speedUpPhaseProgress(SmartBlockPlacerBlockEntity instance, int value, Operation<Void> original) {
+        int increment = isOverclockEnabled() ? Math.max(1, currentOverclockRatio()) : 1;
+        original.call(instance, value + increment - 1);
     }
 
     @Override

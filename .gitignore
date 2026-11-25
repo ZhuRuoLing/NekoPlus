@@ -29,3 +29,7 @@ repo
 .vscode
 .codebuddy
 runServer
+
+# agents
+.codex
+.kimi-code
