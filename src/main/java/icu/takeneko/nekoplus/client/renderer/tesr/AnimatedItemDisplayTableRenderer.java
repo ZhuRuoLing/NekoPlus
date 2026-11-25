@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.phys.Vec3;
@@ -21,7 +22,7 @@ public class AnimatedItemDisplayTableRenderer implements BlockEntityRenderer<Ani
     private final ItemModelResolver itemModelResolver;
 
     public AnimatedItemDisplayTableRenderer(BlockEntityRendererProvider.Context context) {
-        itemModelResolver = context.itemModelResolver();
+        this.itemModelResolver = context.itemModelResolver();
     }
 
     @Override
@@ -42,13 +43,13 @@ public class AnimatedItemDisplayTableRenderer implements BlockEntityRenderer<Ani
         state.rotation = Mth.lerp(partialTicks, blockEntity.getPreviousRotation(), blockEntity.getRotation());
         state.scale = Mth.lerp(partialTicks, blockEntity.getPreviousScale(), blockEntity.getScale());
         state.stretch = Mth.lerp(partialTicks, blockEntity.getPreviousStretch(), blockEntity.getStretch());
-        itemModelResolver.updateForTopItem(
+        this.itemModelResolver.updateForTopItem(
             state.item,
             blockEntity.getDisplayItem(),
             ItemDisplayContext.GROUND,
             level,
             null,
-            0
+            42
         );
     }
 
@@ -62,7 +63,7 @@ public class AnimatedItemDisplayTableRenderer implements BlockEntityRenderer<Ani
         poseStack.translate(0.5, (14.0 + 2.0) / 16 + heightOffset, 0.5);
         poseStack.mulPose(Axis.YP.rotationDegrees(state.rotation));
         poseStack.scale(horizontalScale, verticalScale, horizontalScale);
-        state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+        state.item.submit(poseStack, collector, 15728880, OverlayTexture.NO_OVERLAY, 0);
         poseStack.popPose();
     }
 

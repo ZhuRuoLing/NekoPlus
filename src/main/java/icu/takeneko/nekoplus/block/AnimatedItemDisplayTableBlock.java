@@ -5,6 +5,8 @@ import icu.takeneko.nekoplus.all.NPBlockEntities;
 import icu.takeneko.nekoplus.block.tile.AnimatedItemDisplayTableBlockEntity;
 import icu.takeneko.nekoplus.util.BlockEntityUtil;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -63,7 +65,7 @@ public class AnimatedItemDisplayTableBlock extends BaseEntityBlock {
     @Override
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
-        updateRedstoneSignal(level, pos);
+        this.updateRedstoneSignal(level, pos);
     }
 
     @Override
@@ -76,7 +78,7 @@ public class AnimatedItemDisplayTableBlock extends BaseEntityBlock {
         boolean movedByPiston
     ) {
         super.neighborChanged(state, level, pos, block, orientation, movedByPiston);
-        updateRedstoneSignal(level, pos);
+        this.updateRedstoneSignal(level, pos);
     }
 
     private void updateRedstoneSignal(Level level, BlockPos pos) {
@@ -98,9 +100,11 @@ public class AnimatedItemDisplayTableBlock extends BaseEntityBlock {
         if (stack.isEmpty()) return InteractionResult.TRY_WITH_EMPTY_HAND;
         if (!level.isClientSide()
             && level.getBlockEntity(pos) instanceof AnimatedItemDisplayTableBlockEntity blockEntity
-            && blockEntity.placeItem(stack)
-            && !player.getAbilities().instabuild) {
-            stack.shrink(1);
+            && blockEntity.placeItem(stack)) {
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
+            level.playSound(null, pos, SoundEvents.ITEM_FRAME_ADD_ITEM, SoundSource.BLOCKS, 1, 1);
         }
         return InteractionResult.SUCCESS;
     }
@@ -111,6 +115,7 @@ public class AnimatedItemDisplayTableBlock extends BaseEntityBlock {
         if (level.getBlockEntity(pos) instanceof AnimatedItemDisplayTableBlockEntity blockEntity && blockEntity.hasDisplayItem()) {
             if (!level.isClientSide()) {
                 ItemStack stack = blockEntity.takeItem();
+                level.playSound(null, pos, SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.BLOCKS, 1, 1);
                 if (!player.getInventory().add(stack)) {
                     player.drop(stack, false);
                 }

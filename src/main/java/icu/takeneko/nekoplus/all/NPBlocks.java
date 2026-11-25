@@ -146,16 +146,6 @@ public class NPBlocks {
 //        .build()
 //        .register();
 
-    public static final BlockEntry<AnimatedItemDisplayTableBlock> ANIMATED_ITEM_DISPLAY_TABLE = NekoPlus.REGISTRUM
-        .block("animated_item_display_table", AnimatedItemDisplayTableBlock::new)
-        .initialProperties(() -> Blocks.STONE)
-        .properties(BlockBehaviour.Properties::noOcclusion)
-        .blockstate(NPBlockStateDispatches::animatedItemDisplayTable)
-        .item()
-        .model(DataGenUtil::blockItem)
-        .build()
-        .register();
-
     public static final BlockEntry<BatteryBlock> BATTERY = NekoPlus.REGISTRUM
         .block("battery", BatteryBlock::new)
         .initialProperties(() -> Blocks.IRON_BLOCK)
@@ -256,6 +246,16 @@ public class NPBlocks {
                 )
                 .save(prov);
         })
+        .build()
+        .register();
+
+    public static final BlockEntry<AnimatedItemDisplayTableBlock> ANIMATED_ITEM_DISPLAY_TABLE = NekoPlus.REGISTRUM
+        .block("animated_item_display_table", AnimatedItemDisplayTableBlock::new)
+        .initialProperties(() -> Blocks.IRON_BLOCK)
+        .properties(BlockBehaviour.Properties::noOcclusion)
+        .blockstate(NPBlockStateDispatches::animatedItemDisplayTable)
+        .item()
+        .model(DataGenUtil::blockItem)
         .build()
         .register();
 

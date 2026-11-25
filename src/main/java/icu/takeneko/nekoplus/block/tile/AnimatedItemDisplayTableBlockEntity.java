@@ -47,31 +47,31 @@ public class AnimatedItemDisplayTableBlockEntity extends NPSynedBlockEntity impl
 
     @Override
     public void tick() {
-        previousScale = scale;
-        previousStretch = stretch;
-        float targetScale = redstoneSignal == 0 ? 1 : redstoneSignal * 2;
-        scale += (targetScale - scale) * 0.25f;
-        if (Math.abs(targetScale - scale) < 0.001f) {
-            scale = targetScale;
+        this.previousScale = this.scale;
+        this.previousStretch = this.stretch;
+        float targetScale = this.redstoneSignal == 0 ? 1 : this.redstoneSignal * 2;
+        this.scale += (targetScale - this.scale) * 0.25f;
+        if (Math.abs(targetScale - this.scale) < 0.001f) {
+            this.scale = targetScale;
         }
-        float targetStrength = redstoneSignal == 0 ? 0 : 1;
-        animationStrength += (targetStrength - animationStrength) * 0.25f;
-        if (Math.abs(targetStrength - animationStrength) < 0.001f) {
-            animationStrength = targetStrength;
+        float targetStrength = this.redstoneSignal == 0 ? 0 : 1;
+        this.animationStrength += (targetStrength - this.animationStrength) * 0.25f;
+        if (Math.abs(targetStrength - this.animationStrength) < 0.001f) {
+            this.animationStrength = targetStrength;
         }
-        rotation %= 360;
-        previousRotation = rotation;
-        rotation += 2 + (360f / 54 - 2) * animationStrength;
-        animationTicks = (animationTicks + 1) % 54;
-        double phase = animationTicks * Math.PI * 2 / 9;
+        this.rotation %= 360;
+        this.previousRotation = this.rotation;
+        this.rotation += 2 + (360f / 54 - 2) * this.animationStrength;
+        this.animationTicks = (this.animationTicks + 1) % 54;
+        double phase = this.animationTicks * Math.PI * 2 / 9;
         float wave = (float) Math.cos(phase);
-        stretch = 1 + animationStrength * 0.22f * wave;
+        this.stretch = 1 + this.animationStrength * 0.22f * wave;
     }
 
     public void setRedstoneSignal(int signal) {
-        if (redstoneSignal == signal) return;
-        redstoneSignal = signal;
-        contentsChanged();
+        if (this.redstoneSignal == signal) return;
+        this.redstoneSignal = signal;
+        this.contentsChanged();
     }
 
     public AnimatedItemDisplayTableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -89,39 +89,39 @@ public class AnimatedItemDisplayTableBlockEntity extends NPSynedBlockEntity impl
     }
 
     public ItemStack getDisplayItem() {
-        return displayItem.copyWithCount(1);
+        return this.displayItem.copyWithCount(1);
     }
 
     public boolean hasDisplayItem() {
-        return !displayItem.isEmpty();
+        return !this.displayItem.isEmpty();
     }
 
     public boolean placeItem(ItemStack stack) {
-        if (hasDisplayItem() || stack.isEmpty()) return false;
-        displayItem = stack.copyWithCount(1);
-        contentsChanged();
+        if (this.hasDisplayItem() || stack.isEmpty()) return false;
+        this.displayItem = stack.copyWithCount(1);
+        this.contentsChanged();
         return true;
     }
 
     public ItemStack takeItem() {
-        ItemStack result = getDisplayItem();
-        displayItem = ItemStack.EMPTY;
-        contentsChanged();
+        ItemStack result = this.getDisplayItem();
+        this.displayItem = ItemStack.EMPTY;
+        this.contentsChanged();
         return result;
     }
 
     private void contentsChanged() {
-        setChanged();
-        if (level != null && !level.isClientSide()) {
-            sync(false);
+        this.setChanged();
+        if (this.level != null && !this.level.isClientSide()) {
+            this.sync(false);
         }
     }
 
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         super.preRemoveSideEffects(pos, state);
-        if (level != null && !level.isClientSide() && hasDisplayItem()) {
-            Block.popResource(level, pos, takeItem());
+        if (this.level != null && !this.level.isClientSide() && this.hasDisplayItem()) {
+            Block.popResource(this.level, pos, this.takeItem());
         }
     }
 }
